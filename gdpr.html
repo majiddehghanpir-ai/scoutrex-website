@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GDPR Compliance | ScoutRex</title>
+<meta content="ScoutRex is fully aligned with the EU General Data Protection Regulation (GDPR). Learn how we protect your personal data and uphold your rights." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<script>try{if(localStorage.getItem('sr_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+:root{
+  --indigo:#1E1256;--indigo-mid:#2D1B8E;--indigo-light:#3D2CAE;
+  --orange:#F97316;--orange-light:#FB923C;--orange-dark:#EA6C0A;
+  --white:#FFFFFF;--off-white:#F8F7FF;
+  --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-400:#9CA3AF;--gray-600:#4B5563;--gray-800:#1F2937;
+  --text:#0F0A2E;--radius:16px;
+  --shadow:0 4px 24px rgba(30,18,86,0.10);--shadow-lg:0 12px 48px rgba(30,18,86,0.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+ul{list-style:none}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;font-weight:600;font-size:15px;cursor:pointer;transition:all 0.2s ease;border:none;outline:none}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 4px 16px rgba(249,115,22,0.35)}
+.btn-primary:hover{background:var(--orange-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(249,115,22,0.45)}
+
+/* ── NAV ── */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all 0.3s}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center}
+.nav-links{display:flex;gap:4px}
+.nav-links a{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:rgba(255,255,255,0.8);transition:all 0.2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.1)}
+.login-btn{padding:9px 20px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid rgba(255,255,255,0.4);background:transparent;color:#fff;transition:all 0.2s;font-family:'Inter',sans-serif}
+.login-btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.7)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.theme-toggle{background:transparent;border:2px solid rgba(255,255,255,0.35);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;flex-shrink:0}
+.theme-toggle:hover{background:rgba(255,255,255,0.12);transform:scale(1.08)}
+#navbar.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(30,18,86,0.08)}
+#navbar.scrolled .nav-links a{color:var(--gray-600)}
+#navbar.scrolled .nav-links a:hover{color:var(--indigo);background:var(--off-white)}
+#navbar.scrolled .login-btn{color:var(--indigo);border-color:var(--gray-200)}
+#navbar.scrolled .login-btn:hover{background:var(--off-white);border-color:var(--indigo)}
+#navbar.scrolled .theme-toggle{border-color:var(--gray-200);color:var(--indigo)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.8);border-radius:2px;transition:all 0.3s}
+#navbar.scrolled .hamburger span{background:var(--text)}
+
+/* ── HERO ── */
+.gdpr-hero{background:linear-gradient(145deg,#07051A 0%,#100B30 50%,#1E1256 100%);padding:72px 0 80px;position:relative;overflow:hidden}
+.gdpr-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(249,115,22,0.12),transparent 50%),radial-gradient(circle at 15% 70%,rgba(93,78,214,0.18),transparent 50%)}
+.gdpr-hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:40px}
+.gdpr-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);border-radius:50px;padding:6px 16px;font-size:13px;font-weight:600;color:var(--orange);margin-bottom:24px}
+.gdpr-hero h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:20px}
+.gdpr-hero h1 span{color:var(--orange)}
+.gdpr-hero p{font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,0.6);max-width:640px;line-height:1.7;margin-bottom:40px}
+.gdpr-certbar{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.cert-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:8px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.8)}
+.cert-pill .dot{width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0}
+
+/* ── CONTENT ── */
+.gdpr-content{padding:80px 0}
+.gdpr-grid{display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:start}
+.gdpr-toc{position:sticky;top:100px;background:var(--off-white);border-radius:var(--radius);padding:24px;border:1px solid var(--gray-200)}
+.gdpr-toc h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:16px}
+.gdpr-toc ul{display:flex;flex-direction:column;gap:4px}
+.gdpr-toc ul li a{display:block;padding:7px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--gray-600);transition:all 0.2s}
+.gdpr-toc ul li a:hover,.gdpr-toc ul li a.active{background:var(--indigo);color:#fff}
+.gdpr-main{display:flex;flex-direction:column;gap:48px}
+.gdpr-section{scroll-margin-top:100px}
+.gdpr-section h2{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.gdpr-section h2 .section-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--indigo),var(--indigo-mid));display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.gdpr-section p{font-size:15px;color:var(--gray-600);line-height:1.8;margin-bottom:14px}
+.gdpr-section p:last-child{margin-bottom:0}
+.gdpr-section ul.disc{list-style:disc;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.gdpr-section ul.disc li{font-size:15px;color:var(--gray-600);line-height:1.7}
+.gdpr-section ul.disc li strong{color:var(--text)}
+.divider{height:1px;background:var(--gray-200);margin:0}
+
+/* Rights grid */
+.rights-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:4px}
+.right-card{background:var(--off-white);border:1px solid var(--gray-200);border-radius:14px;padding:20px;transition:all 0.2s}
+.right-card:hover{border-color:var(--indigo-light);box-shadow:var(--shadow)}
+.right-card-icon{font-size:24px;margin-bottom:10px}
+.right-card h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.right-card p{font-size:13px;color:var(--gray-600);line-height:1.6}
+
+/* Measures grid */
+.measures-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:4px}
+.measure-card{background:linear-gradient(145deg,rgba(30,18,86,0.04),rgba(30,18,86,0.02));border:1px solid var(--gray-200);border-radius:14px;padding:20px}
+.measure-card h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.measure-card h4 .tick{color:#22C55E;font-size:16px}
+.measure-card p{font-size:13px;color:var(--gray-600);line-height:1.6}
+
+/* Highlight box */
+.gdpr-highlight{background:linear-gradient(135deg,rgba(30,18,86,0.06),rgba(249,115,22,0.06));border:1.5px solid rgba(249,115,22,0.2);border-radius:16px;padding:24px 28px;margin:8px 0}
+.gdpr-highlight h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--orange-dark);margin-bottom:8px}
+.gdpr-highlight p{font-size:14px;color:var(--gray-600);line-height:1.7;margin:0}
+.gdpr-highlight a{color:var(--indigo);font-weight:600}
+
+/* Contact CTA */
+.gdpr-cta{background:linear-gradient(145deg,#07051A,#1E1256);border-radius:24px;padding:48px;text-align:center;margin-top:48px}
+.gdpr-cta h2{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px}
+.gdpr-cta p{font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.gdpr-cta a.btn-cta{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:15px;transition:all 0.2s;box-shadow:0 4px 20px rgba(249,115,22,0.4)}
+.gdpr-cta a.btn-cta:hover{background:var(--orange-dark);transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{background:var(--text);color:rgba(255,255,255,0.7);padding:72px 0 0}
+.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.footer-brand p{font-size:14px;line-height:1.75;margin-top:16px;max-width:280px;color:rgba(255,255,255,0.5)}
+.footer-social{display:flex;gap:8px;margin-top:20px}
+.footer-social a{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:all 0.2s;color:rgba(255,255,255,0.6)}
+.footer-social a:hover{background:var(--orange);color:#fff}
+.footer-col-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{font-size:14px;color:rgba(255,255,255,0.45);transition:color 0.2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.footer-bottom-left{font-size:12px;color:rgba(255,255,255,0.3)}
+.footer-bottom-right{display:flex;gap:20px}
+.footer-bottom-right a{font-size:12px;color:rgba(255,255,255,0.3);transition:color 0.2s}
+.footer-bottom-right a:hover{color:#fff}
+
+
+/* ── LIGHT MODE ── */
+html:not(.dark) .gdpr-hero{background:linear-gradient(145deg,#EEE9FF 0%,#F8F7FF 55%,#FFF8F3 100%)}
+html:not(.dark) .gdpr-hero::before{display:none}
+html:not(.dark) .gdpr-hero h1{color:var(--text)}
+html:not(.dark) .gdpr-hero h1 span{color:var(--orange)}
+html:not(.dark) .gdpr-hero p{color:var(--gray-600)}
+html:not(.dark) .gdpr-badge{background:rgba(249,115,22,0.1);border-color:rgba(249,115,22,0.25);color:var(--orange-dark)}
+html:not(.dark) .cert-pill{background:rgba(30,18,86,0.04);border-color:rgba(30,18,86,0.12);color:var(--gray-800)}
+html:not(.dark) #navbar:not(.scrolled) .nav-links a{color:var(--gray-800)}
+html:not(.dark) #navbar:not(.scrolled) .nav-links a:hover{color:var(--indigo);background:rgba(30,18,86,0.05)}
+html:not(.dark) #navbar:not(.scrolled) .login-btn{color:var(--indigo);border-color:rgba(30,18,86,0.3)}
+html:not(.dark) #navbar:not(.scrolled) .login-btn:hover{background:var(--indigo);color:#fff}
+html:not(.dark) #navbar:not(.scrolled) .hamburger span{background:var(--indigo)}
+html:not(.dark) #navbar:not(.scrolled) .theme-toggle{border-color:rgba(30,18,86,0.2);color:var(--indigo)}
+/* ── DARK MODE ── */
+html.dark{--text:#F1F0F9;--gray-600:#A09BBF;--gray-800:#C4BFDA;--gray-400:#6B6485;--gray-200:#2D2850;--gray-100:#231F42;--off-white:#110F26;--white:#0D0B1F;--shadow:0 4px 24px rgba(0,0,0,0.4);--shadow-lg:0 12px 48px rgba(0,0,0,0.5)}
+html.dark body{background:#0D0B1F;color:#F1F0F9}
+html.dark .gdpr-toc{background:#1C1836;border-color:#2D2850}
+html.dark .gdpr-toc h3{color:#F1F0F9}
+html.dark .right-card{background:#1C1836;border-color:#2D2850}
+html.dark .right-card h4{color:#F1F0F9}
+html.dark .measure-card{background:#1C1836;border-color:#2D2850}
+html.dark .measure-card h4{color:#F1F0F9}
+html.dark .gdpr-section h2{color:#F1F0F9}
+html.dark .gdpr-section p,.gdpr-section ul.disc li{color:#A09BBF}
+html.dark .divider{background:#2D2850}
+html.dark .gdpr-highlight{background:linear-gradient(135deg,rgba(249,115,22,0.08),rgba(30,18,86,0.3));border-color:rgba(249,115,22,0.25)}
+html.dark .gdpr-highlight p{color:#A09BBF}
+html.dark #navbar.scrolled{background:rgba(13,11,31,0.97);box-shadow:0 2px 20px rgba(0,0,0,0.4)}
+html.dark #navbar.scrolled .nav-links a{color:#A09BBF}
+html.dark #navbar.scrolled .nav-links a:hover{color:#fff;background:#1E1B3A}
+html.dark #navbar.scrolled .login-btn{color:#F1F0F9;border-color:#3D3560}
+html.dark #navbar.scrolled .theme-toggle{border-color:#3D3560;color:#F1F0F9}
+html.dark footer{background:#09071C}
+html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
+
+@media(max-width:900px){.gdpr-grid{grid-template-columns:1fr}.gdpr-toc{display:none}.footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.footer-top{grid-template-columns:1fr}.rights-grid,.measures-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+      </a>
+      <div class="nav-links">
+        <a href="products.html">Products</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="team.html">Team</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+        <a href="login.html"><button class="login-btn">Log In</button></a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="gdpr-hero">
+  <div class="container">
+    <div class="gdpr-hero-inner">
+      <div class="gdpr-badge">🛡️ GDPR Compliance</div>
+      <h1>Your data.<br><span>Your rights.</span> Our commitment.</h1>
+      <p>ScoutRex is fully aligned with the EU General Data Protection Regulation (GDPR). We built privacy-by-design into every product, every process, and every line of code.</p>
+      <div class="gdpr-certbar">
+        <div class="cert-pill"><span class="dot"></span>GDPR Compliant</div>
+        <div class="cert-pill"><span class="dot"></span>Privacy by Design</div>
+        <div class="cert-pill"><span class="dot"></span>Data Subject Rights Supported</div>
+        <div class="cert-pill"><span class="dot"></span>EU Data Residency Available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="gdpr-content">
+  <div class="container">
+    <div class="gdpr-grid">
+
+      <!-- TABLE OF CONTENTS -->
+      <aside class="gdpr-toc">
+        <h3>On this page</h3>
+        <ul>
+          <li><a href="#what-is-gdpr">What is GDPR?</a></li>
+          <li><a href="#our-commitment">Our Commitment</a></li>
+          <li><a href="#data-we-collect">Data We Collect</a></li>
+          <li><a href="#legal-basis">Legal Basis</a></li>
+          <li><a href="#your-rights">Your Rights</a></li>
+          <li><a href="#data-security">Data Security</a></li>
+          <li><a href="#data-transfers">International Transfers</a></li>
+          <li><a href="#data-retention">Data Retention</a></li>
+          <li><a href="#cookies">Cookies</a></li>
+          <li><a href="#dpo">Data Protection Officer</a></li>
+          <li><a href="#complaints">Complaints</a></li>
+        </ul>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="gdpr-main">
+
+        <!-- WHAT IS GDPR -->
+        <div class="gdpr-section" id="what-is-gdpr">
+          <h2><span class="section-icon">📋</span>What is GDPR?</h2>
+          <p>The General Data Protection Regulation (GDPR) is EU Regulation 2016/679, which came into force on 25 May 2018. It is one of the world's strongest data protection frameworks, giving individuals in the European Economic Area (EEA) extensive rights over their personal data and imposing strict obligations on organisations that process it.</p>
+          <p>GDPR applies to ScoutRex because we process personal data of individuals located in the EEA, including job seekers using JobRex and HR professionals using HireRex: regardless of where ScoutRex itself is based.</p>
+        </div>
+        <div class="divider"></div>
+
+        <!-- OUR COMMITMENT -->
+        <div class="gdpr-section" id="our-commitment">
+          <h2><span class="section-icon">🤝</span>Our Commitment</h2>
+          <p>ScoutRex treats GDPR not as a compliance checkbox, but as a core product value. Privacy by design is embedded in how we build, deploy, and operate our platforms.</p>
+          <div class="measures-grid">
+            <div class="measure-card">
+              <h4><span class="tick">✓</span>Privacy by Design</h4>
+              <p>Data minimisation, purpose limitation and privacy controls are built into every feature from day one, not bolted on after launch.</p>
+            </div>
+            <div class="measure-card">
+              <h4><span class="tick">✓</span>Lawful Basis for All Processing</h4>
+              <p>Every processing activity is mapped to a valid legal basis under Article 6 GDPR before it goes into production.</p>
+            </div>
+            <div class="measure-card">
+              <h4><span class="tick">✓</span>Data Subject Rights Platform</h4>
+              <p>Candidates and company users can exercise all GDPR rights directly from their account dashboard, no email needed.</p>
+            </div>
+            <div class="measure-card">
+              <h4><span class="tick">✓</span>Vendor Due Diligence</h4>
+              <p>All third-party processors are assessed for GDPR compliance before onboarding. Data Processing Agreements are in place with every sub-processor.</p>
+            </div>
+            <div class="measure-card">
+              <h4><span class="tick">✓</span>Breach Response Plan</h4>
+              <p>We maintain a documented incident response plan that ensures regulatory notification within 72 hours where legally required.</p>
+            </div>
+            <div class="measure-card">
+              <h4><span class="tick">✓</span>Regular Audits</h4>
+              <p>Internal privacy audits are conducted quarterly. Our Records of Processing Activities (RoPA) are kept up to date.</p>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <!-- DATA WE COLLECT -->
+        <div class="gdpr-section" id="data-we-collect">
+          <h2><span class="section-icon">📂</span>Data We Collect</h2>
+          <p>We collect only the personal data necessary for the specific purposes described below. We do not sell personal data to third parties.</p>
+          <ul class="disc">
+            <li><strong>JobRex (Candidates):</strong> Name, email address, CV/résumé data, work history, skills, location preferences, and job search activity. Optionally: profile photo, LinkedIn URL, and diversity data if voluntarily provided.</li>
+            <li><strong>HireRex (Companies):</strong> Contact name, business email, company name and size, job vacancy details, and hiring activity logs.</li>
+            <li><strong>Website visitors:</strong> IP address (pseudonymised), browser type, pages visited, and session duration, collected via cookies with consent.</li>
+            <li><strong>Communications:</strong> Email correspondence and support tickets if you contact us.</li>
+          </ul>
+          <div class="gdpr-highlight">
+            <h3>Special category data</h3>
+            <p>ScoutRex does not require you to provide special category data (e.g. race, health, religion) as defined in Article 9 GDPR. If a candidate voluntarily adds such information to their profile, it is processed under explicit consent and can be withdrawn at any time.</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <!-- LEGAL BASIS -->
+        <div class="gdpr-section" id="legal-basis">
+          <h2><span class="section-icon">⚖️</span>Legal Basis for Processing</h2>
+          <p>We rely on the following legal bases under Article 6 GDPR:</p>
+          <ul class="disc">
+            <li><strong>Contract (Art. 6(1)(b)):</strong> Processing necessary to deliver the platform services you signed up for, e.g. matching candidates to roles, storing your account profile.</li>
+            <li><strong>Legitimate interests (Art. 6(1)(f)):</strong> Platform security, fraud prevention, and product improvement analytics, always balanced against your rights via a documented Legitimate Interests Assessment (LIA).</li>
+            <li><strong>Consent (Art. 6(1)(a)):</strong> Marketing emails, non-essential cookies, and optional profile data, freely given, specific, and withdrawable at any time.</li>
+            <li><strong>Legal obligation (Art. 6(1)(c)):</strong> Retaining financial records for statutory periods, and cooperating with lawful regulatory requests.</li>
+          </ul>
+        </div>
+        <div class="divider"></div>
+
+        <!-- YOUR RIGHTS -->
+        <div class="gdpr-section" id="your-rights">
+          <h2><span class="section-icon">🔑</span>Your Rights Under GDPR</h2>
+          <p>If you are located in the EEA, UK, or Switzerland, you have the following rights. All can be exercised via your account settings or by contacting <a href="mailto:privacy@scoutrex.com" style="color:var(--indigo);font-weight:600">privacy@scoutrex.com</a>.</p>
+          <div class="rights-grid">
+            <div class="right-card">
+              <div class="right-card-icon">👁️</div>
+              <h4>Right of Access</h4>
+              <p>Request a copy of all personal data we hold about you, including how it is being used (Art. 15).</p>
+            </div>
+            <div class="right-card">
+              <div class="right-card-icon">✏️</div>
+              <h4>Right to Rectification</h4>
+              <p>Ask us to correct inaccurate or incomplete personal data without undue delay (Art. 16).</p>
+            </div>
+            <div class="right-card">
+              <div class="right-card-icon">🗑️</div>
+              <h4>Right to Erasure</h4>
+              <p>Request deletion of your personal data where we no longer have a lawful basis to retain it ("right to be forgotten") (Art. 17).</p>
+            </div>
+            <div class="right-card">
+              <div class="right-card-icon">⏸️</div>
+              <h4>Right to Restriction</h4>
+              <p>Ask us to pause processing of your data while a dispute about accuracy or lawfulness is resolved (Art. 18).</p>
+            </div>
+            <div class="right-card">
+              <div class="right-card-icon">📤</div>
+              <h4>Right to Portability</h4>
+              <p>Receive your personal data in a structured, machine-readable format and transfer it to another service (Art. 20).</p>
+            </div>
+            <div class="right-card">
+              <div class="right-card-icon">🚫</div>
+              <h4>Right to Object</h4>
+              <p>Object to processing based on legitimate interests or direct marketing, we will stop unless compelling grounds override your interests (Art. 21).</p>
+            </div>
+            <div class="right-card">
+              <div class="right-card-icon">🤖</div>
+              <h4>Automated Decision-Making</h4>
+              <p>Request human review of any significant decision made solely by automated means, including AI-based candidate ranking (Art. 22).</p>
+            </div>
+            <div class="right-card">
+              <div class="right-card-icon">↩️</div>
+              <h4>Withdraw Consent</h4>
+              <p>Withdraw any consent you have given at any time. Withdrawal does not affect the lawfulness of prior processing (Art. 7(3)).</p>
+            </div>
+          </div>
+          <p style="margin-top:16px">We will respond to all rights requests within <strong>30 days</strong>. Complex requests may take up to 3 months with notice. There is no charge for standard requests.</p>
+        </div>
+        <div class="divider"></div>
+
+        <!-- DATA SECURITY -->
+        <div class="gdpr-section" id="data-security">
+          <h2><span class="section-icon">🔒</span>Data Security Measures</h2>
+          <p>ScoutRex implements appropriate technical and organisational measures under Article 32 GDPR to protect personal data against unauthorised access, disclosure, alteration, or destruction.</p>
+          <ul class="disc">
+            <li><strong>Encryption in transit:</strong> All data is transmitted over TLS 1.2+ (HTTPS). API endpoints are certificate-pinned.</li>
+            <li><strong>Encryption at rest:</strong> Database storage is AES-256 encrypted. Backups are encrypted and stored in geographically separate locations.</li>
+            <li><strong>Access control:</strong> Role-based access control (RBAC) with least-privilege principles. Employee access to personal data is logged and audited.</li>
+            <li><strong>Pseudonymisation:</strong> Candidate data used in AI model training is pseudonymised and never linked back to identifiable profiles.</li>
+            <li><strong>Penetration testing:</strong> Annual third-party penetration tests and continuous automated vulnerability scanning.</li>
+            <li><strong>Breach notification:</strong> Documented incident response plan with 72-hour supervisory authority notification commitment where required by Art. 33.</li>
+          </ul>
+        </div>
+        <div class="divider"></div>
+
+        <!-- INTERNATIONAL TRANSFERS -->
+        <div class="gdpr-section" id="data-transfers">
+          <h2><span class="section-icon">🌍</span>International Data Transfers</h2>
+          <p>Where personal data is transferred outside the EEA, we ensure adequate safeguards are in place in accordance with Chapter V GDPR:</p>
+          <ul class="disc">
+            <li><strong>EU Standard Contractual Clauses (SCCs):</strong> We use the European Commission's 2021 SCCs with all non-EEA processors.</li>
+            <li><strong>Adequacy decisions:</strong> Transfers to countries recognised by the European Commission as providing adequate protection (e.g. UK under the UK GDPR adequacy decision) are permitted without additional safeguards.</li>
+            <li><strong>Transfer Impact Assessments (TIAs):</strong> We conduct TIAs before transferring data to high-risk jurisdictions and implement supplementary measures where necessary.</li>
+          </ul>
+          <div class="gdpr-highlight">
+            <h3>EU data residency option</h3>
+            <p>Enterprise customers can request that their data be stored and processed exclusively within the EU. Contact <a href="mailto:privacy@scoutrex.com">privacy@scoutrex.com</a> to activate this option.</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <!-- DATA RETENTION -->
+        <div class="gdpr-section" id="data-retention">
+          <h2><span class="section-icon">🗓️</span>Data Retention</h2>
+          <p>We retain personal data only for as long as necessary for the purpose it was collected, or as required by law (Article 5(1)(e) GDPR, storage limitation).</p>
+          <ul class="disc">
+            <li><strong>Active accounts:</strong> Data is retained for the duration of the account relationship.</li>
+            <li><strong>Deleted accounts:</strong> Personal data is fully anonymised or erased within 30 days of account deletion, except where legal obligations require longer retention.</li>
+            <li><strong>Financial records:</strong> Invoicing and transaction data retained for 7 years as required by applicable accounting law.</li>
+            <li><strong>Support tickets:</strong> Retained for 2 years to support follow-up requests and service improvement.</li>
+            <li><strong>Application logs:</strong> Server logs containing IP addresses are purged after 90 days.</li>
+          </ul>
+        </div>
+        <div class="divider"></div>
+
+        <!-- COOKIES -->
+        <div class="gdpr-section" id="cookies">
+          <h2><span class="section-icon">🍪</span>Cookies &amp; Tracking</h2>
+          <p>We use cookies in accordance with the ePrivacy Directive (Cookie Law) and GDPR. A cookie consent banner is displayed on your first visit.</p>
+          <ul class="disc">
+            <li><strong>Strictly necessary cookies:</strong> Required for the website and platform to function (login sessions, security). No consent needed.</li>
+            <li><strong>Analytics cookies:</strong> Used to understand how visitors interact with our website, only set with your consent.</li>
+            <li><strong>Preference cookies:</strong> Remember your settings such as dark mode and language preferences, only set with your consent.</li>
+            <li><strong>Marketing cookies:</strong> ScoutRex does not use third-party advertising or remarketing cookies.</li>
+          </ul>
+          <p>You can update your cookie preferences at any time via the Cookie Preferences link in our footer.</p>
+        </div>
+        <div class="divider"></div>
+
+        <!-- DPO -->
+        <div class="gdpr-section" id="dpo">
+          <h2><span class="section-icon">👤</span>Data Protection Officer</h2>
+          <p>ScoutRex has appointed a Data Protection Officer (DPO) responsible for overseeing our GDPR compliance programme. You may contact the DPO directly for any privacy-related concerns:</p>
+          <div class="gdpr-highlight">
+            <h3>Contact our DPO</h3>
+            <p>Email: <a href="mailto:privacy@scoutrex.com">privacy@scoutrex.com</a><br>
+            Subject line: <em>"GDPR, [Your Request Type]"</em><br>
+            We aim to acknowledge all DPO contacts within 2 business days.</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <!-- COMPLAINTS -->
+        <div class="gdpr-section" id="complaints">
+          <h2><span class="section-icon">📣</span>Complaints &amp; Supervisory Authority</h2>
+          <p>If you believe we have not handled your personal data in accordance with GDPR, we encourage you to contact us first at <a href="mailto:privacy@scoutrex.com" style="color:var(--indigo);font-weight:600">privacy@scoutrex.com</a> so we can try to resolve the matter directly.</p>
+          <p>You also have the right to lodge a complaint with the supervisory authority in the EU member state where you live, work, or where the alleged infringement occurred. For example:</p>
+          <ul class="disc">
+            <li><strong>Ireland:</strong> Data Protection Commission (DPC), <a href="https://www.dataprotection.ie" target="_blank" style="color:var(--indigo)">dataprotection.ie</a></li>
+            <li><strong>Germany:</strong> Bundesbeauftragter für den Datenschutz (BfDI)</li>
+            <li><strong>France:</strong> Commission Nationale de l'Informatique et des Libertés (CNIL)</li>
+            <li><strong>UK:</strong> Information Commissioner's Office (ICO), <a href="https://ico.org.uk" target="_blank" style="color:var(--indigo)">ico.org.uk</a></li>
+          </ul>
+        </div>
+
+        <!-- CONTACT CTA -->
+        <div class="gdpr-cta">
+          <h2>Privacy questions?</h2>
+          <p>Our privacy team is here to help. Reach out with any GDPR or data protection questions.</p>
+          <a href="mailto:privacy@scoutrex.com" class="btn-cta">📧 Contact Privacy Team</a>
+        </div>
+
+      </div><!-- /.gdpr-main -->
+    </div><!-- /.gdpr-grid -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+        </div>
+        <p>Building intelligent systems that make career transitions and talent discovery faster, fairer, and more human, powered by AI. Privacy by design, data never sold.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/scoutrexhq/" target="_blank" title="LinkedIn">in</a>
+          <a href="https://www.instagram.com/scoutrexhq/" target="_blank" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://x.com/scoutrexHQ" target="_blank" title="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Products</div>
+        <ul>
+          <li><a href="login-candidate.html">JobRex: Candidates</a></li>
+          <li><a href="login-company.html">HireRex: Companies</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="gdpr.html">GDPR Compliant</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Account</div>
+        <ul>
+          <li><a href="login.html">Log In</a></li>
+          <li><a href="login.html?mode=register">Register</a></li>
+          <li><a href="account.html">My ScoutRex</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">© 2026 ScoutRex Inc. All rights reserved.</div>
+      <div class="footer-bottom-right">
+        <a href="gdpr.html">GDPR</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#" onclick="document.getElementById('cookie-banner')?.classList.add('show');return false">Cookie Preferences</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)
+});
+
+// Theme
+function updateThemeIcon(){
+  const dark=document.documentElement.classList.contains('dark');
+  const btn=document.getElementById('theme-toggle');
+  if(btn) btn.textContent=dark?'☀️':'🌙';
+}
+function toggleTheme(){
+  const isDark=document.documentElement.classList.toggle('dark');
+  try{localStorage.setItem('sr_theme',isDark?'dark':'light')}catch(e){}
+  updateThemeIcon();
+}
+window.addEventListener('load',updateThemeIcon);
+
+// TOC active highlight
+const sections=document.querySelectorAll('.gdpr-section');
+const tocLinks=document.querySelectorAll('.gdpr-toc a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-120) cur=s.id;
+  });
+  tocLinks.forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href')==='#'+cur);
+  });
+});
+
+function toggleMenu(){
+  const nav=document.getElementById('navbar');
+  nav.classList.toggle('menu-open');
+}
+</script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>

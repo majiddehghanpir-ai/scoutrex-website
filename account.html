@@ -1,0 +1,811 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My ScoutRex | Account Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<script>try{if(localStorage.getItem('sr_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+:root{--indigo:#1E1256;--indigo-mid:#2D1B8E;--indigo-light:#3D2CAE;--orange:#F97316;--orange-dark:#EA6C0A;--white:#FFFFFF;--off-white:#F8F7FF;--gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;--gray-400:#9CA3AF;--gray-600:#4B5563;--gray-800:#1F2937;--text:#0F0A2E;--green:#059669;--red:#DC2626;--shadow:0 2px 12px rgba(30,18,86,0.08);--shadow-lg:0 8px 32px rgba(30,18,86,0.12)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--gray-50);min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* ── TOP BAR ── */
+.topbar{background:var(--indigo);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100}
+.topbar-logo{display:flex;align-items:center;gap:9px}
+.topbar-logo svg{width:28px;height:28px}
+.topbar-logo span{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;letter-spacing:-0.2px}
+.topbar-logo .rex{color:var(--orange)}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-home{font-size:13px;color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:5px;transition:color 0.2s}
+.topbar-home:hover{color:#fff}
+.topbar-logout{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);padding:6px 14px;border-radius:50px;border:1.5px solid rgba(255,255,255,0.2);transition:all 0.2s;cursor:pointer;background:transparent;font-family:'Inter',sans-serif}
+.topbar-logout:hover{background:rgba(255,255,255,0.1);color:#fff}
+.topbar-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--indigo-light),var(--orange));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+
+/* ── LAYOUT ── */
+.layout{display:flex;min-height:calc(100vh - 56px)}
+
+/* ── SIDEBAR ── */
+.sidebar{width:240px;background:#fff;border-right:1px solid var(--gray-200);flex-shrink:0;display:flex;flex-direction:column;padding:24px 16px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-section{margin-bottom:8px}
+.sidebar-section-label{font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.8px;padding:0 8px;margin-bottom:6px;margin-top:16px}
+.sidebar-section:first-child .sidebar-section-label{margin-top:0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;font-size:14px;font-weight:500;color:var(--gray-600);cursor:pointer;transition:all 0.2s;border:none;background:transparent;width:100%;text-align:left;font-family:'Inter',sans-serif}
+.nav-item:hover{background:var(--off-white);color:var(--text)}
+.nav-item.active{background:rgba(30,18,86,0.07);color:var(--indigo);font-weight:600}
+.nav-item-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--gray-100);transition:background 0.2s}
+.nav-item.active .nav-item-icon{background:rgba(30,18,86,0.1)}
+.nav-item-badge{margin-left:auto;background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:50px}
+
+/* ── MAIN ── */
+.main{flex:1;padding:32px;overflow-x:hidden}
+.page-panel{display:none}
+.page-panel.active{display:block}
+
+/* ── PANEL HEADER ── */
+.panel-header{margin-bottom:28px}
+.panel-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.panel-sub{font-size:14px;color:var(--gray-600)}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:16px;border:1px solid var(--gray-200);padding:24px;box-shadow:var(--shadow)}
+.card+.card{margin-top:20px}
+.card-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}
+
+/* ── OVERVIEW STATS ── */
+.stat-card{background:#fff;border-radius:14px;border:1px solid var(--gray-200);padding:20px;box-shadow:var(--shadow)}
+.stat-card-label{font-size:12px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px}
+.stat-card-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--text);line-height:1}
+.stat-card-sub{font-size:12px;color:var(--gray-400);margin-top:4px}
+.stat-card-val em{font-style:normal;color:var(--green)}
+
+/* ── ACTIVITY LIST ── */
+.activity-list{display:flex;flex-direction:column;gap:12px}
+.activity-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:var(--gray-50);border:1px solid var(--gray-100)}
+.activity-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.activity-icon.match{background:rgba(249,115,22,0.1)}
+.activity-icon.view{background:rgba(30,18,86,0.07)}
+.activity-icon.apply{background:rgba(5,150,105,0.1)}
+.activity-info{flex:1}
+.activity-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.activity-sub{font-size:12px;color:var(--gray-400)}
+.activity-time{font-size:12px;color:var(--gray-400);flex-shrink:0}
+
+/* ── ACTIVE PLAN CARD ── */
+.plan-card{background:linear-gradient(135deg,var(--indigo),var(--indigo-light));border-radius:16px;padding:24px;color:#fff;position:relative;overflow:hidden}
+.plan-card::before{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;background:rgba(255,255,255,0.05);border-radius:50%}
+.plan-name{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.plan-desc{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:16px}
+.plan-renews{font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px}
+.plan-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:50px;background:rgba(249,115,22,0.25);color:#FB923C;font-size:12px;font-weight:700;border:1px solid rgba(249,115,22,0.3)}
+.btn-plan{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:50px;background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.25);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.btn-plan:hover{background:rgba(255,255,255,0.25)}
+
+/* ── FORM ELEMENTS ── */
+.form-section{margin-bottom:28px}
+.form-section-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-100)}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.form-label span{font-weight:400;color:var(--gray-400);margin-left:4px}
+.form-input{width:100%;padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:#fff;transition:border-color 0.2s;outline:none}
+.form-input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(30,18,86,0.06)}
+.form-input::placeholder{color:var(--gray-400)}
+.form-select{width:100%;padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:#fff;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%239CA3AF' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-select:focus{border-color:var(--indigo)}
+.form-textarea{width:100%;padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:#fff;outline:none;resize:vertical;min-height:96px;line-height:1.6}
+.form-textarea:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(30,18,86,0.06)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-hint{font-size:12px;color:var(--gray-400);margin-top:4px}
+.btn-save{padding:10px 24px;background:var(--indigo);color:#fff;border:none;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.btn-save:hover{background:var(--indigo-mid);transform:translateY(-1px)}
+.btn-outline{padding:9px 22px;background:transparent;color:var(--gray-600);border:1.5px solid var(--gray-200);border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.btn-outline:hover{border-color:var(--gray-400);color:var(--text)}
+.btn-danger{padding:9px 22px;background:transparent;color:var(--red);border:1.5px solid rgba(220,38,38,0.25);border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.btn-danger:hover{background:rgba(220,38,38,0.06)}
+.btn-row{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.avatar-section{display:flex;align-items:center;gap:20px;padding:20px;background:var(--gray-50);border-radius:12px;border:1px solid var(--gray-100);margin-bottom:20px}
+.avatar-big{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--orange));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:#fff;flex-shrink:0}
+.avatar-info p{font-size:13px;color:var(--gray-600);line-height:1.6;margin-top:4px}
+.avatar-info h4{font-size:15px;font-weight:700;color:var(--text)}
+
+/* ── TOGGLE SWITCH ── */
+.toggle-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:14px 0;border-bottom:1px solid var(--gray-100)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.toggle-info p{font-size:13px;color:var(--gray-500);line-height:1.5}
+.toggle{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;margin-top:2px}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--gray-200);border-radius:24px;transition:0.3s}
+.toggle-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.toggle input:checked+.toggle-slider{background:var(--indigo)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(20px)}
+
+/* ── BILLING TABLE ── */
+.billing-table{width:100%;border-collapse:collapse}
+.billing-table th{font-size:12px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;text-align:left;padding:10px 12px;background:var(--gray-50);border-bottom:1px solid var(--gray-100)}
+.billing-table td{padding:14px 12px;font-size:14px;color:var(--gray-800);border-bottom:1px solid var(--gray-50)}
+.billing-table tr:last-child td{border-bottom:none}
+.status-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:50px;font-size:12px;font-weight:700}
+.status-badge.paid{background:rgba(5,150,105,0.1);color:var(--green)}
+.status-badge.pending{background:rgba(249,115,22,0.1);color:var(--orange)}
+.download-link{color:var(--indigo);font-weight:600;font-size:13px;display:flex;align-items:center;gap:4px}
+.download-link:hover{text-decoration:underline}
+.payment-method{display:flex;align-items:center;gap:14px;padding:16px;background:var(--gray-50);border:1px solid var(--gray-100);border-radius:12px}
+.pm-icon{width:44px;height:28px;background:#1A1F36;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;letter-spacing:0.5px}
+.pm-info{flex:1}
+.pm-info p{font-size:14px;font-weight:600;color:var(--text)}
+.pm-info span{font-size:12px;color:var(--gray-400)}
+
+/* ── PRODUCT CARD ── */
+.product-item{display:flex;align-items:center;gap:16px;padding:18px;background:var(--gray-50);border:1px solid var(--gray-100);border-radius:14px;transition:all 0.2s}
+.product-item+.product-item{margin-top:12px}
+.product-item:hover{border-color:var(--gray-200);background:#fff}
+.product-item-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.product-item-icon.jr{background:rgba(249,115,22,0.1)}
+.product-item-icon.hr{background:rgba(30,18,86,0.08)}
+.product-item-info{flex:1}
+.product-item-info h4{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px}
+.product-item-info p{font-size:13px;color:var(--gray-500)}
+.product-item-actions{display:flex;align-items:center;gap:10px}
+
+/* ── DANGER ZONE ── */
+.danger-zone{border:1px solid rgba(220,38,38,0.2);border-radius:14px;padding:20px;background:rgba(220,38,38,0.03)}
+.danger-zone h4{font-size:14px;font-weight:700;color:var(--red);margin-bottom:6px}
+.danger-zone p{font-size:13px;color:var(--gray-600);line-height:1.6;margin-bottom:14px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sidebar{display:none}
+  .main{padding:20px}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .grid-3{grid-template-columns:1fr}
+  .grid-2{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .grid-4{grid-template-columns:1fr}
+  .topbar{padding:0 16px}
+  .main{padding:16px}
+}
+
+/* THEME TOGGLE in topbar */
+.topbar-theme{background:transparent;border:1.5px solid rgba(255,255,255,0.25);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;color:#fff}
+.topbar-theme:hover{background:rgba(255,255,255,0.12)}
+
+/* DARK MODE */
+html.dark{--text:#F1F0F9;--gray-600:#A09BBF;--gray-800:#C4BFDA;--gray-400:#6B6485;--gray-200:#2D2850;--gray-100:#231F42;--gray-50:#161328;--off-white:#110F26;--white:#0D0B1F;--shadow:0 2px 12px rgba(0,0,0,0.3);--shadow-lg:0 8px 32px rgba(0,0,0,0.4)}
+html.dark body{background:#0D0B1F;color:#F1F0F9}
+html.dark .sidebar{background:#161328;border-right-color:#2D2850}
+html.dark .sidebar-section-label{color:#6B6485}
+html.dark .nav-item{color:#A09BBF}
+html.dark .nav-item:hover{background:#1E1B3A;color:#F1F0F9}
+html.dark .nav-item.active{background:rgba(93,78,214,0.15);color:#A09BFFF0}
+html.dark .nav-item-icon{background:#1E1B3A}
+html.dark .nav-item.active .nav-item-icon{background:rgba(93,78,214,0.2)}
+html.dark .card{background:#1C1836;border-color:#2D2850}
+html.dark .card-title{color:#F1F0F9}
+html.dark .stat-card{background:#1C1836;border-color:#2D2850}
+html.dark .stat-card-val{color:#F1F0F9}
+html.dark .stat-card-label{color:#A09BBF}
+html.dark .panel-title{color:#F1F0F9}
+html.dark .panel-sub{color:#A09BBF}
+html.dark .activity-item{background:#1E1B3A;border-color:#2D2850}
+html.dark .activity-title{color:#F1F0F9}
+html.dark .activity-meta{color:#6B6485}
+html.dark .form-label{color:#A09BBF}
+html.dark .form-input{background:#110F26;border-color:#2D2850;color:#F1F0F9}
+html.dark .form-input::placeholder{color:#6B6485}
+html.dark .form-input:focus{border-color:var(--indigo-light)}
+html.dark .section-divider{border-color:#2D2850}
+html.dark .setting-row{border-bottom-color:#2D2850}
+html.dark .setting-label{color:#F1F0F9}
+html.dark .setting-sub{color:#A09BBF}
+html.dark .invoice-table th{color:#6B6485;border-bottom-color:#2D2850}
+html.dark .invoice-table td{border-bottom-color:#2D2850;color:#A09BBF}
+html.dark .invoice-table td:first-child{color:#F1F0F9}
+html.dark .plan-option{border-color:#2D2850;background:#1C1836}
+html.dark .plan-option:hover{border-color:#3D3560}
+html.dark .plan-option.active{border-color:var(--orange)}
+html.dark .plan-name{color:#F1F0F9}
+html.dark .plan-price{color:#F1F0F9}
+html.dark .plan-feature{color:#A09BBF}
+html.dark .badge-tag{background:#1E1B3A;color:#A09BBF}
+html.dark .page-panel{background:#0D0B1F}
+
+html.dark footer{background:#09071C}
+html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">
+    <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+    <span>Scout<span class="rex">Rex</span></span>
+  </a>
+  <div class="topbar-right">
+    <a href="index.html" class="topbar-home">← Back to site</a>
+    <button id="topbar-theme" class="topbar-theme" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <div class="topbar-avatar">MD</div>
+    <button class="topbar-logout" onclick="window.location.href='login.html'">Log Out</button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Overview</div>
+      <button class="nav-item active" onclick="showPanel('overview')">
+        <span class="nav-item-icon">🏠</span> Dashboard
+      </button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">My Account</div>
+      <button class="nav-item" onclick="showPanel('profile')">
+        <span class="nav-item-icon">👤</span> Profile
+      </button>
+      <button class="nav-item" onclick="showPanel('settings')">
+        <span class="nav-item-icon">⚙️</span> Settings
+      </button>
+      <button class="nav-item" onclick="showPanel('privacy')">
+        <span class="nav-item-icon">🔒</span> Privacy
+      </button>
+      <button class="nav-item" onclick="showPanel('notifications')">
+        <span class="nav-item-icon">🔔</span> Notifications
+        <span class="nav-item-badge">3</span>
+      </button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Billing</div>
+      <button class="nav-item" onclick="showPanel('subscription')">
+        <span class="nav-item-icon">⭐</span> Subscription
+      </button>
+      <button class="nav-item" onclick="showPanel('billing')">
+        <span class="nav-item-icon">💳</span> Billing & Invoices
+      </button>
+      <button class="nav-item" onclick="showPanel('products')">
+        <span class="nav-item-icon">📦</span> My Products
+      </button>
+    </div>
+    <div class="sidebar-section" style="margin-top:auto;padding-top:16px">
+      <button class="nav-item" onclick="window.location.href='contact.html'">
+        <span class="nav-item-icon">💬</span> Help & Support
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- ──────────── OVERVIEW ──────────── -->
+    <div id="panel-overview" class="page-panel active">
+      <div class="panel-header">
+        <h1 class="panel-title">Welcome back, Majid 👋</h1>
+        <p class="panel-sub">Here's a summary of your ScoutRex account.</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:24px">
+        <div class="stat-card">
+          <div class="stat-card-label">AI Match Score</div>
+          <div class="stat-card-val">87<em>%</em></div>
+          <div class="stat-card-sub">+4% this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">New Matches</div>
+          <div class="stat-card-val">12</div>
+          <div class="stat-card-sub">Since last visit</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Applications</div>
+          <div class="stat-card-val">5</div>
+          <div class="stat-card-sub">3 in review</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Profile Views</div>
+          <div class="stat-card-val">34</div>
+          <div class="stat-card-sub">This month</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Recent Activity
+            <a href="#" style="font-size:13px;font-weight:600;color:var(--indigo)">See all</a>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon match">🎯</div>
+              <div class="activity-info">
+                <div class="activity-title">New top match, Senior AI Engineer, Berlin</div>
+                <div class="activity-sub">JobRex matched you at 94%</div>
+              </div>
+              <div class="activity-time">2h ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon view">👁</div>
+              <div class="activity-info">
+                <div class="activity-title">Your profile was viewed</div>
+                <div class="activity-sub">by a recruiter at Siemens</div>
+              </div>
+              <div class="activity-time">Yesterday</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon apply">✅</div>
+              <div class="activity-info">
+                <div class="activity-title">Application submitted</div>
+                <div class="activity-sub">Product Lead, Remote</div>
+              </div>
+              <div class="activity-time">3d ago</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="plan-card" style="margin-bottom:20px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+              <div>
+                <div class="plan-name">JobRex Pro</div>
+                <div class="plan-desc">Your active subscription</div>
+              </div>
+              <span class="plan-badge">● Active</span>
+            </div>
+            <button class="btn-plan" onclick="showPanel('subscription')">Manage Plan →</button>
+            <div class="plan-renews">Renews on 1 May 2026 · €19/month</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Quick Actions</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('profile')"><span class="nav-item-icon">✏️</span> Edit Profile</button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('privacy')"><span class="nav-item-icon">🔒</span> Privacy Settings</button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('billing')"><span class="nav-item-icon">💳</span> View Invoices</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────── PROFILE ──────────── -->
+    <div id="panel-profile" class="page-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Profile</h1>
+        <p class="panel-sub">Your public-facing information and career details.</p>
+      </div>
+      <div class="card">
+        <div class="avatar-section">
+          <div class="avatar-big">MD</div>
+          <div class="avatar-info">
+            <h4>Profile Photo</h4>
+            <p>Upload a photo to make your profile stand out. JPG or PNG, max 5MB.</p>
+            <div class="btn-row" style="margin-top:10px">
+              <button class="btn-save" style="padding:8px 18px;font-size:13px">Upload Photo</button>
+              <button class="btn-outline" style="padding:7px 16px;font-size:13px">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Personal Information</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First name</label>
+              <input type="text" class="form-input" value="Majid"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last name</label>
+              <input type="text" class="form-input" value="Dehghanpir"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email address</label>
+              <input type="email" class="form-input" value="majid.dehghanpir@gmail.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone <span>(optional)</span></label>
+              <input type="tel" class="form-input" placeholder="+1 (555) 000-0000"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-input" placeholder="City, Country"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Timezone</label>
+              <select class="form-select">
+                <option>UTC+1: Central European Time</option>
+                <option>UTC+0: GMT</option>
+                <option>UTC-5: Eastern Time</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Career Details</div>
+          <div class="form-group">
+            <label class="form-label">Current role / Title</label>
+            <input type="text" class="form-input" value="CEO & Co-Founder"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Industry</label>
+              <select class="form-select">
+                <option selected>Artificial Intelligence</option>
+                <option>Software Engineering</option>
+                <option>Product Management</option>
+                <option>Finance</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Experience level</label>
+              <select class="form-select">
+                <option>Entry Level</option>
+                <option>Mid Level</option>
+                <option selected>Senior</option>
+                <option>Lead / Principal</option>
+                <option>Executive</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bio / Summary</label>
+            <textarea class="form-textarea" placeholder="Tell us about yourself...">Building AI-powered hiring tools at ScoutRex. Passionate about using machine learning to make recruitment fairer and more efficient.</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">LinkedIn URL <span>(optional)</span></label>
+            <input type="url" class="form-input" value="https://www.linkedin.com/in/majid-dehghanpir/"/>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-save" onclick="showSave(this)">Save Changes</button>
+          <button class="btn-outline">Discard</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────── SETTINGS ──────────── -->
+    <div id="panel-settings" class="page-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Settings</h1>
+        <p class="panel-sub">Manage your account preferences and security.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Account Type</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px;padding:16px;border-radius:12px;border:2px solid var(--indigo);background:rgba(30,18,86,0.04)">
+            <div style="font-size:20px;margin-bottom:8px">🎯</div>
+            <div style="font-weight:700;font-size:14px;color:var(--indigo)">Job Seeker (JobRex)</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-top:4px">Currently active</div>
+          </div>
+          <div style="flex:1;min-width:200px;padding:16px;border-radius:12px;border:1.5px solid var(--gray-200);cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--indigo)'" onmouseout="this.style.borderColor='var(--gray-200)'">
+            <div style="font-size:20px;margin-bottom:8px">🏢</div>
+            <div style="font-weight:700;font-size:14px;color:var(--text)">Company (HireRex)</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-top:4px">Switch account type</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Security</div>
+        <div class="form-section" style="margin-bottom:0">
+          <div class="form-section-title">Change Password</div>
+          <div class="form-group">
+            <label class="form-label">Current password</label>
+            <input type="password" class="form-input" placeholder="Enter current password"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">New password</label>
+              <input type="password" class="form-input" placeholder="Min. 8 characters"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm new password</label>
+              <input type="password" class="form-input" placeholder="Repeat new password"/>
+            </div>
+          </div>
+          <button class="btn-save" onclick="showSave(this)">Update Password</button>
+        </div>
+        <hr style="border:none;border-top:1px solid var(--gray-100);margin:24px 0"/>
+        <div class="form-section-title">Two-Factor Authentication</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">
+          <div>
+            <div style="font-size:14px;font-weight:600">Authenticator App</div>
+            <div style="font-size:13px;color:var(--gray-500);margin-top:2px">Add an extra layer of security to your account.</div>
+          </div>
+          <button class="btn-outline" style="font-size:13px;padding:8px 16px">Enable 2FA</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Connected Accounts</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--gray-100)">
+          <div style="display:flex;align-items:center;gap:12px">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            <div><div style="font-size:14px;font-weight:600">Google</div><div style="font-size:12px;color:var(--gray-400)">Connected as majid.dehghanpir@gmail.com</div></div>
+          </div>
+          <button class="btn-outline" style="font-size:12px;padding:6px 14px">Disconnect</button>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0">
+          <div style="display:flex;align-items:center;gap:12px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0077B5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <div><div style="font-size:14px;font-weight:600">LinkedIn</div><div style="font-size:12px;color:var(--gray-400)">Not connected</div></div>
+          </div>
+          <button class="btn-save" style="font-size:12px;padding:6px 14px">Connect</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="color:var(--red)">Danger Zone</div>
+        <div class="danger-zone">
+          <h4>Delete Account</h4>
+          <p>Permanently delete your ScoutRex account and all associated data. This action cannot be undone.</p>
+          <button class="btn-danger">Delete My Account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────── PRIVACY ──────────── -->
+    <div id="panel-privacy" class="page-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Privacy</h1>
+        <p class="panel-sub">Control your data, visibility, and how ScoutRex uses your information.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Profile Visibility</div>
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>Public profile</h4><p>Allow recruiters and companies to find your profile via search.</p></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>Show current employer</h4><p>Display your current company on your public profile.</p></div>
+          <label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>Open to opportunities</h4><p>Signal to recruiters that you're actively looking for roles.</p></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Data Usage</div>
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>AI model improvement</h4><p>Allow ScoutRex to use anonymised data to improve matching accuracy.</p></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>Analytics & personalisation</h4><p>Enable personalised recommendations and usage analytics.</p></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info"><h4>Marketing communications</h4><p>Receive product updates, tips, and promotional emails from ScoutRex.</p></div>
+          <label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Your Data Rights</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--gray-50);border-radius:10px;border:1px solid var(--gray-100)">
+            <div><div style="font-size:14px;font-weight:600">Download my data</div><div style="font-size:12px;color:var(--gray-400)">Get a copy of all data ScoutRex holds about you.</div></div>
+            <button class="btn-outline" style="font-size:13px;padding:8px 16px">Request Export</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--gray-50);border-radius:10px;border:1px solid var(--gray-100)">
+            <div><div style="font-size:14px;font-weight:600">Delete all my data</div><div style="font-size:12px;color:var(--gray-400)">Permanently erase your data from our systems (GDPR Art. 17).</div></div>
+            <button class="btn-danger" style="font-size:13px;padding:8px 16px">Request Deletion</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────── NOTIFICATIONS ──────────── -->
+    <div id="panel-notifications" class="page-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Notifications</h1>
+        <p class="panel-sub">Choose what you hear about and how.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Email Notifications</div>
+        <div class="toggle-row"><div class="toggle-info"><h4>New AI matches</h4><p>Get notified when new high-quality matches are found for you.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Application status updates</h4><p>Hear when your application status changes.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Profile views</h4><p>Know when a recruiter or company views your profile.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Messages</h4><p>Receive email notifications when you get new messages.</p></div><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Weekly digest</h4><p>A weekly summary of your matches, views, and activity.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Push Notifications</div>
+        <div class="toggle-row"><div class="toggle-info"><h4>Urgent alerts</h4><p>Time-sensitive matches or application deadlines.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>All notifications</h4><p>Receive all platform notifications as push alerts.</p></div><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+      </div>
+      <div class="btn-row"><button class="btn-save" onclick="showSave(this)">Save Preferences</button></div>
+    </div>
+
+    <!-- ──────────── SUBSCRIPTION ──────────── -->
+    <div id="panel-subscription" class="page-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Subscription</h1>
+        <p class="panel-sub">Manage your active plan and explore upgrades.</p>
+      </div>
+      <div class="plan-card" style="margin-bottom:24px">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <div class="plan-name">JobRex Pro</div>
+            <div class="plan-desc">Unlimited AI matches · Priority support · Advanced analytics</div>
+            <div style="font-size:1.6rem;font-weight:800;color:#fff;margin:12px 0 4px">€19<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span></div>
+            <div class="plan-renews">Next billing: 1 May 2026</div>
+          </div>
+          <span class="plan-badge">● Active</span>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+          <button class="btn-plan" onclick="showPanel('billing')">View Invoices</button>
+          <button class="btn-plan" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15)">Cancel Plan</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Compare Plans</div>
+        <div class="grid-3">
+          <div style="padding:20px;border-radius:14px;border:1.5px solid var(--gray-200);text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Free</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">€0</div>
+            <div style="font-size:13px;color:var(--gray-500);line-height:1.7">5 matches/month<br>Basic profile<br>Email support</div>
+            <button class="btn-outline" style="width:100%;margin-top:16px;font-size:13px">Current plan</button>
+          </div>
+          <div style="padding:20px;border-radius:14px;border:2px solid var(--indigo);background:rgba(30,18,86,0.03);text-align:center;position:relative">
+            <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:50px">Most Popular</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:6px;color:var(--indigo)">Pro</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">€19<span style="font-size:13px;font-weight:500;color:var(--gray-400)">/mo</span></div>
+            <div style="font-size:13px;color:var(--gray-500);line-height:1.7">Unlimited matches<br>Advanced profile<br>Priority support<br>Full analytics</div>
+            <button class="btn-save" style="width:100%;margin-top:16px;font-size:13px;padding:10px">Active ✓</button>
+          </div>
+          <div style="padding:20px;border-radius:14px;border:1.5px solid var(--gray-200);text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Enterprise</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">Custom</div>
+            <div style="font-size:13px;color:var(--gray-500);line-height:1.7">Unlimited everything<br>Dedicated manager<br>Custom integrations<br>SLA guarantee</div>
+            <a href="contact.html"><button class="btn-outline" style="width:100%;margin-top:16px;font-size:13px">Contact Sales</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────── BILLING ──────────── -->
+    <div id="panel-billing" class="page-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">Billing & Invoices</h1>
+        <p class="panel-sub">Manage your payment method and download invoices.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Payment Method</div>
+        <div class="payment-method" style="margin-bottom:14px">
+          <div class="pm-icon">VISA</div>
+          <div class="pm-info">
+            <p>Visa ending in 4242</p>
+            <span>Expires 08/2028 · Default</span>
+          </div>
+          <button class="btn-outline" style="font-size:13px;padding:8px 14px">Change</button>
+        </div>
+        <button class="btn-save" style="font-size:13px;padding:9px 20px">+ Add Payment Method</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Billing History</div>
+        <table class="billing-table">
+          <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th>Invoice</th></tr></thead>
+          <tbody>
+            <tr><td>1 Apr 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
+            <tr><td>1 Mar 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
+            <tr><td>1 Feb 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
+            <tr><td>1 Jan 2026</td><td>JobRex Starter, Monthly</td><td>€9.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">Billing Address</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" value="Majid Dehghanpir"/></div>
+          <div class="form-group"><label class="form-label">Country</label><select class="form-select"><option selected>Germany</option><option>United Kingdom</option><option>United States</option></select></div>
+        </div>
+        <div class="form-group"><label class="form-label">Address line 1</label><input type="text" class="form-input" placeholder="Street address"/></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input" placeholder="City"/></div>
+          <div class="form-group"><label class="form-label">Postal code</label><input type="text" class="form-input" placeholder="ZIP/Postcode"/></div>
+        </div>
+        <div class="form-group"><label class="form-label">VAT number <span>(optional)</span></label><input type="text" class="form-input" placeholder="DE000000000"/></div>
+        <div class="btn-row"><button class="btn-save" onclick="showSave(this)">Save Address</button></div>
+      </div>
+    </div>
+
+    <!-- ──────────── PRODUCTS ──────────── -->
+    <div id="panel-products" class="page-panel">
+      <div class="panel-header">
+        <h1 class="panel-title">My Products</h1>
+        <p class="panel-sub">The ScoutRex products and services active on your account.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Active Products</div>
+        <div class="product-item">
+          <div class="product-item-icon jr">🎯</div>
+          <div class="product-item-info">
+            <h4>JobRex Pro</h4>
+            <p>AI-powered job matching for candidates · Active since Jan 2026</p>
+          </div>
+          <div class="product-item-actions">
+            <span class="status-badge paid" style="margin-right:4px">● Active</span>
+            <button class="btn-outline" style="font-size:13px;padding:7px 14px" onclick="showPanel('subscription')">Manage</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Explore More</div>
+        <div class="product-item" style="border:1.5px dashed var(--gray-200);background:transparent">
+          <div class="product-item-icon hr">🏢</div>
+          <div class="product-item-info">
+            <h4>HireRex: For Hiring Teams</h4>
+            <p>AI sourcing, smart screening, and talent intelligence for companies.</p>
+          </div>
+          <div class="product-item-actions">
+            <a href="products.html"><button class="btn-save" style="font-size:13px;padding:8px 18px">Learn More →</button></a>
+          </div>
+        </div>
+        <div class="product-item" style="border:1.5px dashed var(--gray-200);background:transparent;margin-top:12px">
+          <div class="product-item-icon" style="background:rgba(124,58,237,0.1)">🧠</div>
+          <div class="product-item-info">
+            <h4>ScoutRex AI Insights</h4>
+            <p>Deep career analytics, salary benchmarking, and market intelligence.</p>
+          </div>
+          <div class="product-item-actions">
+            <button class="btn-outline" style="font-size:13px;padding:7px 14px">Coming Soon</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function showPanel(id){
+  document.querySelectorAll('.page-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  // Find and activate the corresponding nav item
+  document.querySelectorAll('.nav-item').forEach(btn=>{
+    if(btn.getAttribute('onclick')&&btn.getAttribute('onclick').includes("'"+id+"'")){
+      btn.classList.add('active');
+    }
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showSave(btn){
+  const orig = btn.textContent;
+  btn.textContent = '✓ Saved!';
+  btn.style.background = 'var(--green)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);
+}
+// Read URL hash on load
+const hash = location.hash.replace('#','');
+if(hash) showPanel(hash);
+
+// Dark / light mode
+function updateThemeIcon(){
+  const dark = document.documentElement.classList.contains('dark');
+  const btn = document.getElementById('topbar-theme');
+  if(btn) btn.textContent = dark ? '☀️' : '🌙';
+}
+function toggleTheme(){
+  const isDark = document.documentElement.classList.toggle('dark');
+  try{localStorage.setItem('sr_theme', isDark ? 'dark' : 'light')}catch(e){}
+  updateThemeIcon();
+}
+window.addEventListener('load', updateThemeIcon);
+</script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>

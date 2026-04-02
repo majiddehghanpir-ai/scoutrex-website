@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScoutRex Logo Concepts | AI + Handcrafted</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0D0B1F;color:#F8F7FF;font-family:'Inter',sans-serif;min-height:100vh}
+header{padding:48px 40px 32px;border-bottom:1px solid rgba(249,115,22,.18)}
+header h1{font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-.5px}
+header h1 span{color:#F97316}
+header p{color:#8885a8;margin-top:8px;font-size:14px}
+.tabs{display:flex;gap:8px;padding:24px 40px 0;flex-wrap:wrap}
+.tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:transparent;color:#8885a8;transition:all .2s}
+.tab.active,.tab:hover{background:#F97316;border-color:#F97316;color:#fff}
+section{padding:32px 40px;display:none}
+section.active{display:block}
+.section-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F97316;margin-bottom:6px}
+.section-title{font-size:20px;font-weight:600;margin-bottom:4px}
+.section-desc{font-size:13px;color:#8885a8;margin-bottom:24px}
+
+/* Canva grid */
+.canva-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:48px}
+.canva-card{background:#161330;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative}
+.canva-card:hover{border-color:#F97316;transform:translateY(-3px);box-shadow:0 12px 32px rgba(249,115,22,.2)}
+.canva-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.canva-card .badge{position:absolute;top:8px;left:8px;background:rgba(249,115,22,.9);color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;letter-spacing:.5px}
+.canva-card .card-footer{padding:10px 12px;display:flex;align-items:center;justify-content:space-between}
+.canva-card .card-name{font-size:11px;color:#8885a8}
+.canva-card .edit-btn{font-size:10px;color:#F97316;font-weight:600;text-decoration:none}
+.canva-card .edit-btn:hover{text-decoration:underline}
+
+/* SVG grid */
+.svg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:40px}
+.svg-card{background:#161330;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative}
+.svg-card:hover{border-color:#F97316;transform:translateY(-3px);box-shadow:0 12px 32px rgba(249,115,22,.2)}
+.svg-card svg{width:100%;display:block}
+.svg-card .card-footer{padding:8px 12px}
+.svg-card .card-name{font-size:11px;color:#8885a8}
+.svg-card .num{font-size:10px;color:#F97316;font-weight:700}
+
+/* Overlay */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.overlay.open{display:flex}
+.overlay img,.overlay .ov-svg{max-width:min(500px,90vw);max-height:80vh;border-radius:16px}
+.overlay .ov-svg svg{width:min(400px,80vw);height:min(400px,80vw)}
+.overlay .ov-actions{display:flex;gap:12px}
+.overlay .ov-actions a,.overlay .ov-actions button{padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;border:none}
+.ov-edit{background:#F97316;color:#fff}
+.ov-close{background:rgba(255,255,255,.1);color:#F8F7FF}
+.ov-title{color:#fff;font-size:15px;font-weight:600}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ScoutRex <span>Logo Concepts</span></h1>
+  <p>36 Canva AI-generated concepts &nbsp;·&nbsp; 60 handcrafted SVG concepts &nbsp;·&nbsp; Click any to enlarge · Click "Edit in Canva" to customize</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('canva')">🤖 Canva AI (36)</button>
+  <button class="tab" onclick="showTab('svgs')">✏️ Handcrafted SVG (60)</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CANVA AI TAB -->
+<section id="canva" class="active">
+
+  <div class="section-label">Direction 1</div>
+  <div class="section-title">SR Intertwined Monogram</div>
+  <div class="section-desc">Flowing, premium letterform fusions, indigo & orange</div>
+  <div class="canva-grid" id="g1"></div>
+
+  <div class="section-label">Direction 2</div>
+  <div class="section-title">Negative Space Geometric</div>
+  <div class="section-desc">Bold abstract shapes where SR emerge from negative space</div>
+  <div class="canva-grid" id="g2"></div>
+
+  <div class="section-label">Direction 3</div>
+  <div class="section-title">Dynamic Brushstroke</div>
+  <div class="section-desc">Fluid brushstroke energy, motion, speed, startup DNA</div>
+  <div class="canva-grid" id="g3"></div>
+
+  <div class="section-label">Direction 4</div>
+  <div class="section-title">Minimalist Line Art</div>
+  <div class="section-desc">Single-weight strokes, Zen precision, ultra-scalable</div>
+  <div class="canva-grid" id="g4"></div>
+
+  <div class="section-label">Direction 5</div>
+  <div class="section-title">Luxury Editorial</div>
+  <div class="section-desc">Serif elegance, fashion-meets-tech premium treatment</div>
+  <div class="canva-grid" id="g5"></div>
+
+  <div class="section-label">Direction 6</div>
+  <div class="section-title">Tech / Scout / Arrow</div>
+  <div class="section-desc">S curves into a path, R angles forward, speed & discovery</div>
+  <div class="canva-grid" id="g6"></div>
+
+  <div class="section-label">Direction 7</div>
+  <div class="section-title">Glitch / Cyberpunk</div>
+  <div class="section-desc">Digital distortion, chromatic splits, edgy & memorable</div>
+  <div class="canva-grid" id="g7"></div>
+
+  <div class="section-label">Direction 8</div>
+  <div class="section-title">Calligraphic / Ink</div>
+  <div class="section-desc">Continuous gesture writing SR as a single stroke</div>
+  <div class="canva-grid" id="g8"></div>
+
+  <div class="section-label">Direction 9</div>
+  <div class="section-title">Orbital / Badge</div>
+  <div class="section-desc">Cosmic rings, constellation dots surrounding the SR mark</div>
+  <div class="canva-grid" id="g9"></div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ SVG TAB -->
+<section id="svgs">
+  <div class="section-label">Handcrafted</div>
+  <div class="section-title">60 SVG Concepts, Full Creative Range</div>
+  <div class="section-desc">Pure code, pixel-perfect at any size, editable vectors. Click to enlarge.</div>
+  <div class="svg-grid" id="svgGrid"></div>
+</section>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="ov-title" id="ovTitle"></div>
+  <div id="ovContent"></div>
+  <div class="ov-actions">
+    <a id="ovEdit" class="ov-edit" href="#" target="_blank">Edit in Canva ↗</a>
+    <button class="ov-close" onclick="document.getElementById('overlay').classList.remove('open')">✕ Close</button>
+  </div>
+</div>
+
+<script>
+// ── Canva data ──────────────────────────────────────────────────────────────
+const canvaData = {
+  g1:[
+    {thumb:'https://design.canva.ai/QpywL6xl2YQc7mv',url:'https://www.canva.com/d/1SZlXzfT-P_8cmz',name:'Monogram A'},
+    {thumb:'https://design.canva.ai/lS59fYlAa75F4t0',url:'https://www.canva.com/d/pdl9t06gwy8Ieen',name:'Monogram B'},
+    {thumb:'https://design.canva.ai/8tBVTzxmkHLYWNA',url:'https://www.canva.com/d/SdPRoZUbaTF9FH0',name:'Monogram C'},
+    {thumb:'https://design.canva.ai/6NN4xr60uCRcStj',url:'https://www.canva.com/d/vpa_sczZEgcyp-C',name:'Monogram D'},
+  ],
+  g2:[
+    {thumb:'https://design.canva.ai/y8zsUdsnDDa3og_',url:'https://www.canva.com/d/5Zt2ZjjJEc5ouZ2',name:'Negative Space A'},
+    {thumb:'https://design.canva.ai/EDDKefYuOWtFcwN',url:'https://www.canva.com/d/Qgdu2y0C5Cq3ovU',name:'Negative Space B'},
+    {thumb:'https://design.canva.ai/fLqZvsLK0eWvg_i',url:'https://www.canva.com/d/2g3sqKTW6YBvWc7',name:'Negative Space C'},
+    {thumb:'https://design.canva.ai/AxbMfMeQPjfYbXU',url:'https://www.canva.com/d/VZoQXhjNHzDtI8D',name:'Negative Space D'},
+  ],
+  g3:[
+    {thumb:'https://design.canva.ai/f2qB1QmJzFhDGXU',url:'https://www.canva.com/d/PKA7tz4hBmMtH2_',name:'Brushstroke A'},
+    {thumb:'https://design.canva.ai/WBA2UdWBY6-hK69',url:'https://www.canva.com/d/dCv6I9-CA_4PdPA',name:'Brushstroke B'},
+    {thumb:'https://design.canva.ai/QGgcIC2f-45oCF9',url:'https://www.canva.com/d/7Dr5u1JsWBgxAHi',name:'Brushstroke C'},
+    {thumb:'https://design.canva.ai/R9Itk7RMlhHhaRW',url:'https://www.canva.com/d/oN80aENP980rkFM',name:'Brushstroke D'},
+  ],
+  g4:[
+    {thumb:'https://design.canva.ai/3kpEWz-ZateRXa-',url:'https://www.canva.com/d/HyFnb0Ko4INE5rD',name:'Minimal Line A'},
+    {thumb:'https://design.canva.ai/RiXyNx6HWlqKuX6',url:'https://www.canva.com/d/MkD4h1cdmjiSewU',name:'Minimal Line B'},
+    {thumb:'https://design.canva.ai/JYfgIjSrSfQJHaV',url:'https://www.canva.com/d/IuXQogHdkN851o6',name:'Minimal Line C'},
+    {thumb:'https://design.canva.ai/0-TLGzpfJ2Emu3D',url:'https://www.canva.com/d/WzX3RrgDDslpE3v',name:'Minimal Line D'},
+  ],
+  g5:[
+    {thumb:'https://design.canva.ai/2XS7BsDhcOxY3It',url:'https://www.canva.com/d/ziHhr-pAVsLI2Kn',name:'Luxury Editorial A'},
+    {thumb:'https://design.canva.ai/L5r5YZxHyocM3bo',url:'https://www.canva.com/d/niDwWwUOI_-5s-P',name:'Luxury Editorial B'},
+    {thumb:'https://design.canva.ai/yH72Yu0vepWfOB-',url:'https://www.canva.com/d/_fSh5FVxvtL9W6_',name:'Luxury Editorial C'},
+    {thumb:'https://design.canva.ai/HlcWgkvDwFUQfa2',url:'https://www.canva.com/d/dDBRsut6AyegxoR',name:'Luxury Editorial D'},
+  ],
+  g6:[
+    {thumb:'https://design.canva.ai/toqiMwSdDLYmG_m',url:'https://www.canva.com/d/Ssw9f4AwWYZUZrz',name:'Tech Arrow A'},
+    {thumb:'https://design.canva.ai/nlIDLp313F4sX0v',url:'https://www.canva.com/d/OtoNi0e15UTQ0S-',name:'Tech Arrow B'},
+    {thumb:'https://design.canva.ai/Jz4cMO_2MAM8pwi',url:'https://www.canva.com/d/gLIJNzEgPDM8jyo',name:'Tech Arrow C'},
+    {thumb:'https://design.canva.ai/YiI_7BbtrRjpvns',url:'https://www.canva.com/d/ZL4NmlyFC9xd7V2',name:'Tech Arrow D'},
+  ],
+  g7:[
+    {thumb:'https://design.canva.ai/2UlNrulMrA8ShVf',url:'https://www.canva.com/d/FV4bdypentLSGjI',name:'Glitch A'},
+    {thumb:'https://design.canva.ai/EDpxHaMV0vIpSJ9',url:'https://www.canva.com/d/Pk6fsJZpM_85Rnv',name:'Glitch B'},
+    {thumb:'https://design.canva.ai/_c5xGUkTuatQ2Jk',url:'https://www.canva.com/d/szrAwRjVadvgtDO',name:'Glitch C'},
+    {thumb:'https://design.canva.ai/hJzi4m6GNvLiwqP',url:'https://www.canva.com/d/-2EQqmwRvCPij_D',name:'Glitch D'},
+  ],
+  g8:[
+    {thumb:'https://design.canva.ai/KqeBlr6OMhr8mVF',url:'https://www.canva.com/d/MTFj9TAR4Zt04hK',name:'Calligraphy A'},
+    {thumb:'https://design.canva.ai/CoKrU_VIkUN_E2n',url:'https://www.canva.com/d/awlMYauv4yOJzLL',name:'Calligraphy B'},
+    {thumb:'https://design.canva.ai/Y8_V9uTWsbXRLSv',url:'https://www.canva.com/d/PJsw_tuKiEoSMcL',name:'Calligraphy C'},
+    {thumb:'https://design.canva.ai/nqWgnft1rILsCxx',url:'https://www.canva.com/d/sMM7HFYooou2jVF',name:'Calligraphy D'},
+  ],
+  g9:[
+    {thumb:'https://design.canva.ai/Lpc5GKsabppHR5-',url:'https://www.canva.com/d/JRKAKi93WNxeXiO',name:'Orbital A'},
+    {thumb:'https://design.canva.ai/01mNIxdCxbTTBoj',url:'https://www.canva.com/d/RUnyT14WF0dgZPI',name:'Orbital B'},
+    {thumb:'https://design.canva.ai/pwnWbFNybR8qvBk',url:'https://www.canva.com/d/aUNoq9JE9uwfPqC',name:'Orbital C'},
+    {thumb:'https://design.canva.ai/6xZhAidArzt-_IL',url:'https://www.canva.com/d/xbMm94LCfDmOekV',name:'Orbital D'},
+  ]
+};
+
+// Build Canva grids
+Object.entries(canvaData).forEach(([id,items])=>{
+  const grid = document.getElementById(id);
+  items.forEach((d,i)=>{
+    const card = document.createElement('div');
+    card.className='canva-card';
+    card.innerHTML=`<span class="badge">AI</span><img src="${d.thumb}" alt="${d.name}" loading="lazy"><div class="card-footer"><span class="card-name">${d.name}</span><a class="edit-btn" href="${d.url}" target="_blank">Edit ↗</a></div>`;
+    card.addEventListener('click',e=>{if(e.target.classList.contains('edit-btn'))return;openCanvaOverlay(d)});
+    grid.appendChild(card);
+  });
+});
+
+function openCanvaOverlay(d){
+  document.getElementById('ovTitle').textContent=d.name;
+  document.getElementById('ovContent').innerHTML=`<img src="${d.thumb}" alt="${d.name}" style="max-width:min(480px,90vw);border-radius:12px">`;
+  document.getElementById('ovEdit').href=d.url;
+  document.getElementById('ovEdit').style.display='inline-block';
+  document.getElementById('overlay').classList.add('open');
+}
+
+// ── SVG concepts ────────────────────────────────────────────────────────────
+const SVGs=[
+/* 01 */ {name:'Stack Bold',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="100" y="90" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#1E1256" stroke="#1E1256" stroke-width="0" text-anchor="middle" dominant-baseline="middle">S</text><text x="100" y="90" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text><text x="100" y="150" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text></svg>`},
+
+/* 02 */ {name:'Circle Cut',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><circle cx="100" cy="100" r="80" fill="#1E1256"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="68" font-weight="900" fill="none" stroke="#0D0B1F" stroke-width="2" text-anchor="middle" dominant-baseline="middle"><tspan fill="#F8F7FF">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 03 */ {name:'Split Block',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><rect x="10" y="10" width="88" height="180" rx="6" fill="#F97316"/><rect x="102" y="10" width="88" height="180" rx="6" fill="#1E1256"/><text x="54" y="108" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#fff" text-anchor="middle" dominant-baseline="middle">S</text><text x="146" y="108" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text></svg>`},
+
+/* 04 */ {name:'Slash Divide',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="58" y="108" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text><text x="142" y="108" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text><line x1="108" y1="30" x2="92" y2="170" stroke="#F97316" stroke-width="3" stroke-linecap="round"/></svg>`},
+
+/* 05 */ {name:'Outline Ghost',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F8F7FF"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="none" stroke="#1E1256" stroke-width="2.5" text-anchor="middle" dominant-baseline="middle">SR</text><text x="140" y="78" font-family="Arial Black,sans-serif" font-size="12" font-weight="700" fill="#F97316" text-anchor="middle">●</text></svg>`},
+
+/* 06 */ {name:'Hexagon Badge',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><polygon points="100,18 175,59 175,141 100,182 25,141 25,59" fill="#1E1256" stroke="#F97316" stroke-width="3"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="60" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan fill="#fff">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 07 */ {name:'Rounded Square',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><rect x="20" y="20" width="160" height="160" rx="28" fill="#1E1256"/><rect x="20" y="20" width="160" height="160" rx="28" fill="none" stroke="#F97316" stroke-width="2.5"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="68" font-weight="900" text-anchor="middle" dominant-baseline="middle"><tspan fill="#fff">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 08 */ {name:'Ring Orbit',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><circle cx="100" cy="100" r="85" fill="none" stroke="#1E1256" stroke-width="12"/><circle cx="100" cy="100" r="85" fill="none" stroke="#F97316" stroke-width="2" stroke-dasharray="40 20" stroke-dashoffset="15"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="62" font-weight="900" text-anchor="middle" dominant-baseline="middle"><tspan fill="#F8F7FF">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 09 */ {name:'Diagonal Offset',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="78" y="115" font-family="Arial Black,sans-serif" font-size="100" font-weight="900" fill="#1E1256" text-anchor="middle" dominant-baseline="middle">S</text><text x="130" y="100" font-family="Arial Black,sans-serif" font-size="100" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text><text x="76" y="112" font-family="Arial Black,sans-serif" font-size="100" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text></svg>`},
+
+/* 10 */ {name:'Orange Fill Block',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F97316"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="#0D0B1F" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 11 */ {name:'Indigo Fill Block',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#1E1256"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 12 */ {name:'Gradient Bg',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g12" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1E1256"/><stop offset="100%" stop-color="#0D0B1F"/></linearGradient></defs><rect width="200" height="200" rx="20" fill="url(#g12)"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">S</text><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle" opacity="0">R</text><text x="155" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">R</text><text x="45" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">S</text></svg>`},
+
+/* 13 */ {name:'S+R Side',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="55" y="108" font-family="Georgia,serif" font-size="80" font-weight="700" font-style="italic" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text><text x="145" y="108" font-family="Georgia,serif" font-size="80" font-weight="700" font-style="italic" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text><line x1="16" y1="138" x2="184" y2="138" stroke="#F97316" stroke-width="2"/></svg>`},
+
+/* 14 */ {name:'Serif Stacked',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F8F7FF"/><text x="100" y="90" font-family="Georgia,serif" font-size="90" font-weight="700" fill="#1E1256" text-anchor="middle" dominant-baseline="middle">S</text><text x="100" y="168" font-family="Georgia,serif" font-size="90" font-weight="700" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text><line x1="30" y1="126" x2="170" y2="126" stroke="#1E1256" stroke-width="1.5"/></svg>`},
+
+/* 15 */ {name:'Neon Outline',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#050310"/><filter id="glow15"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><text x="100" y="112" filter="url(#glow15)" font-family="Arial Black,sans-serif" font-size="82" font-weight="900" fill="none" stroke="#F97316" stroke-width="2" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="none" stroke="#8B8AFF">R</tspan></text></svg>`},
+
+/* 16 */ {name:'S Halo',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><circle cx="100" cy="100" r="70" fill="none" stroke="#F97316" stroke-width="1.5" opacity="0.4"/><circle cx="100" cy="100" r="55" fill="none" stroke="#F97316" stroke-width="1" opacity="0.25"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan fill="#fff">S</tspan><tspan fill="#F97316" font-size="60" baseline-shift="-6">R</tspan></text></svg>`},
+
+/* 17 */ {name:'Overlap Blend',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="85" y="112" font-family="Arial Black,sans-serif" font-size="100" font-weight="900" fill="#1E1256" text-anchor="middle" dominant-baseline="middle">S</text><text x="118" y="112" font-family="Arial Black,sans-serif" font-size="100" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle" opacity="0.85" style="mix-blend-mode:screen">R</text></svg>`},
+
+/* 18 */ {name:'Arc Connect',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="60" y="112" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text><text x="140" y="112" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text><path d="M60 72 Q100 38 140 72" fill="none" stroke="#F97316" stroke-width="2.5" stroke-linecap="round"/></svg>`},
+
+/* 19 */ {name:'Underline Mark',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F8F7FF"/><text x="100" y="105" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#1E1256" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text><rect x="30" y="148" width="140" height="6" rx="3" fill="#F97316"/></svg>`},
+
+/* 20 */ {name:'Condensed Tall',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#1E1256"/><text x="100" y="108" font-family="Arial Narrow,Arial,sans-serif" font-size="110" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle" letter-spacing="-4">SR</text><text x="100" y="185" font-family="Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(248,247,255,.4)" text-anchor="middle" letter-spacing="5">SCOUTREX</text></svg>`},
+
+/* 21 */ {name:'Diamond SR',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><polygon points="100,20 168,100 100,180 32,100" fill="#1E1256" stroke="#F97316" stroke-width="2.5"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="56" font-weight="900" text-anchor="middle" dominant-baseline="middle"><tspan fill="#fff">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 22 */ {name:'S Spine',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><line x1="100" y1="20" x2="100" y2="180" stroke="#F97316" stroke-width="3"/><text x="90" y="112" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text><text x="130" y="100" font-family="Arial Black,sans-serif" font-size="52" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text></svg>`},
+
+/* 23 */ {name:'Pill Chip',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><rect x="16" y="70" width="168" height="60" rx="30" fill="#1E1256"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="46" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle" letter-spacing="6">SR</text></svg>`},
+
+/* 24 */ {name:'Bracket Frame',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><path d="M50 40 L30 40 L30 160 L50 160" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round"/><path d="M150 40 L170 40 L170 160 L150 160" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="68" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 25 */ {name:'Dot Grid',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><circle cx="60" cy="60" r="3" fill="#F97316" opacity=".4"/><circle cx="80" cy="60" r="3" fill="#F97316" opacity=".4"/><circle cx="100" cy="60" r="3" fill="#F97316" opacity=".4"/><circle cx="120" cy="60" r="3" fill="#F97316" opacity=".4"/><circle cx="140" cy="60" r="3" fill="#F97316" opacity=".4"/><circle cx="60" cy="80" r="3" fill="#F97316" opacity=".4"/><circle cx="140" cy="80" r="3" fill="#F97316" opacity=".4"/><circle cx="60" cy="100" r="3" fill="#F97316" opacity=".4"/><circle cx="140" cy="100" r="3" fill="#F97316" opacity=".4"/><circle cx="60" cy="120" r="3" fill="#F97316" opacity=".4"/><circle cx="140" cy="120" r="3" fill="#F97316" opacity=".4"/><circle cx="60" cy="140" r="3" fill="#F97316" opacity=".4"/><circle cx="80" cy="140" r="3" fill="#F97316" opacity=".4"/><circle cx="100" cy="140" r="3" fill="#F97316" opacity=".4"/><circle cx="120" cy="140" r="3" fill="#F97316" opacity=".4"/><circle cx="140" cy="140" r="3" fill="#F97316" opacity=".4"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="68" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 26 */ {name:'Starburst',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><g opacity="0.25">${[0,30,60,90,120,150].map(a=>`<line x1="100" y1="100" x2="${100+90*Math.cos(a*Math.PI/180)}" y2="${100+90*Math.sin(a*Math.PI/180)}" stroke="#F97316" stroke-width="1.5"/><line x1="100" y1="100" x2="${100-90*Math.cos(a*Math.PI/180)}" y2="${100-90*Math.sin(a*Math.PI/180)}" stroke="#F97316" stroke-width="1.5"/>`).join('')}</g><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="68" font-weight="900" text-anchor="middle" dominant-baseline="middle"><tspan fill="#F8F7FF">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 27 */ {name:'Half + Half',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><clipPath id="cl27L"><rect x="0" y="0" width="100" height="200"/></clipPath><clipPath id="cl27R"><rect x="100" y="0" width="100" height="200"/></clipPath><rect width="200" height="200" fill="#F97316"/><rect x="100" y="0" width="100" height="200" fill="#1E1256"/><text x="100" y="108" clip-path="url(#cl27L)" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="#1E1256" text-anchor="middle" dominant-baseline="middle">SR</text><text x="100" y="108" clip-path="url(#cl27R)" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 28 */ {name:'Gradient Stroke',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g28" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1E1256"/><stop offset="100%" stop-color="#F97316"/></linearGradient></defs><rect width="200" height="200" fill="#0D0B1F"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="none" stroke="url(#g28)" stroke-width="3" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 29 */ {name:'Pixelated',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><g fill="#F97316">${[[40,40,60,8],[40,48,8,20],[48,48,52,8],[40,68,52,8],[84,40,8,36],[92,40,28,8],[92,56,20,8],[92,68,28,8]].map(([x,y,w,h],i)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1"/>`).join('')}</g><g fill="#F8F7FF">${[[110,40,48,8],[110,40,8,36],[126,60,32,8],[126,68,8,20],[134,68,32,8]].map(([x,y,w,h])=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1"/>`).join('')}</g></svg>`},
+
+/* 30 */ {name:'3D Extrude',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="104" y="116" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#0a0720" text-anchor="middle" dominant-baseline="middle">SR</text><text x="102" y="114" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#0f0c30" text-anchor="middle" dominant-baseline="middle">SR</text><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle"><tspan fill="#F8F7FF">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 31 */ {name:'Stamp Circle',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F8F7FF"/><circle cx="100" cy="100" r="85" fill="none" stroke="#1E1256" stroke-width="8" stroke-dasharray="6 4"/><circle cx="100" cy="100" r="68" fill="none" stroke="#1E1256" stroke-width="1.5"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="62" font-weight="900" fill="#1E1256" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 32 */ {name:'Warp Italics',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="82" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle" transform="skewX(-10)"><tspan fill="#F8F7FF">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 33 */ {name:'Shadow Depth',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="107" y="119" font-family="Arial Black,sans-serif" font-size="82" font-weight="900" fill="#F97316" opacity="0.25" text-anchor="middle" dominant-baseline="middle">SR</text><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="82" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 34 */ {name:'Triangle Peek',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><polygon points="100,25 180,170 20,170" fill="#1E1256" stroke="#F97316" stroke-width="2"/><text x="100" y="142" font-family="Arial Black,sans-serif" font-size="52" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle"><tspan fill="#fff">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 35 */ {name:'Thin Weight',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F8F7FF"/><text x="100" y="112" font-family="Arial,Helvetica,sans-serif" font-size="90" font-weight="100" fill="#1E1256" text-anchor="middle" dominant-baseline="middle" letter-spacing="-2">SR</text><rect x="60" y="150" width="80" height="3" rx="1.5" fill="#F97316"/></svg>`},
+
+/* 36 */ {name:'Capsule Tag',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><rect x="30" y="78" width="140" height="44" rx="22" fill="#F97316"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="36" font-weight="900" fill="#0D0B1F" text-anchor="middle" dominant-baseline="middle" letter-spacing="8">SR</text></svg>`},
+
+/* 37 */ {name:'Circular Text',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><path id="circ37" d="M100,25 a75,75 0 1,1 -0.1,0" fill="none"/><text font-family="Arial,sans-serif" font-size="11" font-weight="600" fill="#F97316" letter-spacing="7"><textPath href="#circ37">SCOUTREX · SCOUTREX · SCOUT</textPath></text><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="58" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 38 */ {name:'Flag Stripe',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#1E1256"/><rect x="0" y="148" width="200" height="52" fill="#F97316"/><text x="100" y="105" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 39 */ {name:'Crosshair',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><line x1="100" y1="20" x2="100" y2="180" stroke="#F97316" stroke-width="1" opacity="0.4"/><line x1="20" y1="100" x2="180" y2="100" stroke="#F97316" stroke-width="1" opacity="0.4"/><circle cx="100" cy="100" r="40" fill="none" stroke="#F97316" stroke-width="1" opacity="0.4"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="44" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 40 */ {name:'Vertical Stack Bar',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><rect x="94" y="20" width="6" height="70" rx="3" fill="#F97316"/><rect x="94" y="110" width="6" height="70" rx="3" fill="#F97316"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="58" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 41 */ {name:'R Flipped',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="65" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text><text x="135" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle" transform="scale(-1,1) translate(-270,0)">R</text></svg>`},
+
+/* 42 */ {name:'Bokeh Dots',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><circle cx="40" cy="40" r="20" fill="#1E1256" opacity=".6"/><circle cx="160" cy="50" r="14" fill="#F97316" opacity=".3"/><circle cx="160" cy="160" r="22" fill="#1E1256" opacity=".5"/><circle cx="45" cy="155" r="12" fill="#F97316" opacity=".25"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="70" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 43 */ {name:'Wave Under',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="100" y="104" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text><path d="M30 148 Q65 135 100 148 Q135 161 170 148" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round"/></svg>`},
+
+/* 44 */ {name:'Corner Marks',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><path d="M20 50 L20 20 L50 20" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round"/><path d="M150 20 L180 20 L180 50" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round"/><path d="M20 150 L20 180 L50 180" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round"/><path d="M150 180 L180 180 L180 150" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="70" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 45 */ {name:'Shield',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><path d="M100 18 L172 50 L172 110 Q172 158 100 184 Q28 158 28 110 L28 50 Z" fill="#1E1256" stroke="#F97316" stroke-width="2.5"/><text x="100" y="110" font-family="Arial Black,sans-serif" font-size="60" font-weight="900" text-anchor="middle" dominant-baseline="middle"><tspan fill="#fff">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 46 */ {name:'Dual Ring',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><circle cx="78" cy="100" r="55" fill="none" stroke="#1E1256" stroke-width="18"/><circle cx="122" cy="100" r="55" fill="none" stroke="#F97316" stroke-width="18" opacity="0.7"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="44" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 47 */ {name:'Cutout S+R',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F97316"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="88" font-weight="900" fill="#0D0B1F" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 48 */ {name:'S Bold + thin R',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><text x="65" y="112" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle">S</text><text x="148" y="112" font-family="Arial,sans-serif" font-size="70" font-weight="100" fill="#F97316" text-anchor="middle" dominant-baseline="middle">R</text></svg>`},
+
+/* 49 */ {name:'Glitch Offset',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#050310"/><clipPath id="gt49"><rect x="0" y="85" width="200" height="18"/></clipPath><text x="103" y="112" font-family="Arial Black,sans-serif" font-size="82" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle" opacity="0.6">SR</text><text x="97" y="112" font-family="Arial Black,sans-serif" font-size="82" font-weight="900" fill="#8B8AFF" text-anchor="middle" dominant-baseline="middle" opacity="0.6">SR</text><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="82" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle" clip-path="url(#gt49)">SR</text></svg>`},
+
+/* 50 */ {name:'Tile Pattern',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#1E1256"/><defs><pattern id="tp50" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="10" height="10" fill="rgba(249,115,22,0.08)"/><rect x="10" y="10" width="10" height="10" fill="rgba(249,115,22,0.08)"/></pattern></defs><rect width="200" height="200" fill="url(#tp50)"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 51 */ {name:'Sunrise Lines',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/>${[...Array(8)].map((_,i)=>{const a=(i*22.5-90)*Math.PI/180;const x2=100+120*Math.cos(a);const y2=100+120*Math.sin(a);return`<line x1="100" y1="100" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#F97316" stroke-width="1.5" opacity="${0.08+i*0.03}"/>`}).join('')}<text x="100" y="112" font-family="Arial Black,sans-serif" font-size="68" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 52 */ {name:'Minimal Dot',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#F8F7FF"/><text x="100" y="108" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#1E1256" text-anchor="middle" dominant-baseline="middle">SR</text><circle cx="148" cy="50" r="8" fill="#F97316"/></svg>`},
+
+/* 53 */ {name:'Neon Box',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#050310"/><filter id="glow53"><feGaussianBlur stdDeviation="3"/></filter><rect x="20" y="20" width="160" height="160" rx="8" fill="none" stroke="#F97316" stroke-width="2"/><rect x="20" y="20" width="160" height="160" rx="8" fill="none" stroke="#F97316" stroke-width="4" opacity="0.3" filter="url(#glow53)"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle"><tspan fill="#8B8AFF">S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 54 */ {name:'Monoline Circle',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><circle cx="100" cy="100" r="72" fill="none" stroke="#F8F7FF" stroke-width="1.5"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="60" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text><line x1="100" y1="28" x2="100" y2="172" stroke="#F97316" stroke-width="1" opacity="0.3"/></svg>`},
+
+/* 55 */ {name:'S+R Arch',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><path d="M30,160 Q100,20 170,160" fill="#1E1256" stroke="#F97316" stroke-width="2"/><text x="100" y="138" font-family="Arial Black,sans-serif" font-size="56" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 56 */ {name:'Flare Mark',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><defs><radialGradient id="fl56" cx="60%" cy="30%"><stop offset="0%" stop-color="#F97316" stop-opacity="0.5"/><stop offset="100%" stop-color="#F97316" stop-opacity="0"/></radialGradient></defs><ellipse cx="120" cy="60" rx="80" ry="60" fill="url(#fl56)"/><text x="100" y="116" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 57 */ {name:'Italic Slash',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#1E1256"/><text x="85" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle" transform="skewX(-15)">S</text><text x="128" y="112" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="#F97316" text-anchor="middle" dominant-baseline="middle" transform="skewX(-15)">R</text></svg>`},
+
+/* 58 */ {name:'Cut Corner',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><polygon points="20,20 180,20 180,150 150,180 20,180" fill="#1E1256"/><line x1="150" y1="180" x2="180" y2="150" stroke="#F97316" stroke-width="2"/><text x="96" y="108" font-family="Arial Black,sans-serif" font-size="64" font-weight="900" fill="#F8F7FF" text-anchor="middle" dominant-baseline="middle"><tspan>S</tspan><tspan fill="#F97316">R</tspan></text></svg>`},
+
+/* 59 */ {name:'Atom Rings',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0D0B1F"/><ellipse cx="100" cy="100" rx="80" ry="28" fill="none" stroke="#1E1256" stroke-width="2"/><ellipse cx="100" cy="100" rx="80" ry="28" fill="none" stroke="#1E1256" stroke-width="2" transform="rotate(60,100,100)"/><ellipse cx="100" cy="100" rx="80" ry="28" fill="none" stroke="#1E1256" stroke-width="2" transform="rotate(120,100,100)"/><circle cx="100" cy="100" r="18" fill="#F97316"/><text x="100" y="106" font-family="Arial Black,sans-serif" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+
+/* 60 */ {name:'Gradient Fill',svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gf60" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#1E1256"/></linearGradient></defs><rect width="200" height="200" rx="16" fill="url(#gf60)"/><text x="100" y="112" font-family="Arial Black,sans-serif" font-size="88" font-weight="900" fill="#fff" text-anchor="middle" dominant-baseline="middle">SR</text></svg>`},
+];
+
+const svgGrid = document.getElementById('svgGrid');
+SVGs.forEach((s,i)=>{
+  const card = document.createElement('div');
+  card.className='svg-card';
+  card.innerHTML=`${s.svg}<div class="card-footer"><span class="num">#${String(i+1).padStart(2,'0')}</span> <span class="card-name">${s.name}</span></div>`;
+  card.addEventListener('click',()=>openSVGOverlay(s,i));
+  svgGrid.appendChild(card);
+});
+
+function openSVGOverlay(s,i){
+  document.getElementById('ovTitle').textContent=`#${String(i+1).padStart(2,'0')}, ${s.name}`;
+  document.getElementById('ovContent').innerHTML=`<div class="ov-svg" style="background:#161330;padding:24px;border-radius:16px">${s.svg.replace('viewBox="0 0 200 200"','viewBox="0 0 200 200" width="380" height="380"')}</div>`;
+  document.getElementById('ovEdit').style.display='none';
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeOverlay(e){if(e.target===document.getElementById('overlay'))document.getElementById('overlay').classList.remove('open');}
+
+function showTab(tab){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
