@@ -1,9 +1,9 @@
 /* ==========================================================
-   ScoutRex — Mobile / Phone Mode Stylesheet
-   Breakpoints: 768px (tablet) · 560px (large phone) · 480px (phone) · 380px (small phone)
+   ScoutRex -- Mobile / Phone Mode Stylesheet
+   Breakpoints: 768px (tablet) | 560px (large phone) | 480px (phone) | 380px (small phone)
    ========================================================== */
 
-/* -- GLOBAL ---------------------------------------------- */
+/* -- GLOBAL ------------------------------------------------ */
 @media (max-width: 768px) {
   .container { padding: 0 18px; }
   .section   { padding: 64px 0; }
@@ -13,9 +13,9 @@
   .nav-inner    { height: 64px; }
 
   /* Hero padding-top matches nav height */
-  #hero         { padding-top: 64px; }
+  #hero { padding-top: 64px; }
 
-  /* Footer bottom row ? stack */
+  /* Footer bottom row -- stack */
   .footer-bottom {
     flex-direction: column;
     gap: 10px;
@@ -28,10 +28,7 @@
     gap: 8px 16px;
   }
 
-  /* Footer brand wider */
   .footer-brand p { max-width: 100%; }
-
-  /* Stat item padding */
   .stat-item { padding: 20px 16px; }
 }
 
@@ -43,11 +40,9 @@
   .nav-inner    { height: 56px; }
   #hero         { padding-top: 56px; }
 
-  /* Buttons: slightly smaller on tiny screens */
   .btn    { padding: 11px 20px; font-size: 14px; gap: 6px; }
   .btn-lg { padding: 14px 28px; font-size: 15px; }
 
-  /* Section titles */
   .section-title { font-size: 1.65rem !important; }
   .section-sub   { font-size: 0.97rem; }
 }
@@ -59,19 +54,38 @@
 }
 
 
-/* -- NAVBAR / MOBILE MENU -------------------------------- */
+/* -- NAVBAR / MOBILE MENU ---------------------------------- */
 @media (max-width: 768px) {
-  /* Hamburger already shown; make sure cta hidden */
   .nav-cta   { display: none !important; }
   .nav-links { display: none !important; }
   .hamburger { display: flex !important; }
 
-  /* Mobile menu links bigger tap targets */
-  .mobile-menu a { padding: 12px 20px; font-size: 1.15rem; }
+  /* Mobile menu: scroll-safe layout so Login/theme-toggle always reachable */
+  .mobile-menu {
+    overflow-y: auto !important;
+    justify-content: flex-start !important;
+    padding: 80px 20px 40px !important;
+    gap: 14px !important;
+  }
+  .mobile-menu a {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+  }
+  .mobile-menu button.theme-toggle {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-menu {
+    padding: 70px 16px 32px !important;
+    gap: 10px !important;
+  }
+  .mobile-menu a { font-size: 1.05rem; }
 }
 
 
-/* -- INDEX — HERO ---------------------------------------- */
+/* -- INDEX -- HERO ----------------------------------------- */
 @media (max-width: 768px) {
   .hero-content {
     grid-template-columns: 1fr !important;
@@ -90,7 +104,6 @@
     margin-bottom: 28px;
   }
 
-  /* Stack CTA buttons full-width */
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
@@ -102,7 +115,6 @@
     justify-content: center;
   }
 
-  /* Interface mockup — reduce inner padding */
   .hero-interface-body { padding: 18px; }
   .hi-score-val        { font-size: 1.6rem; }
 }
@@ -112,7 +124,6 @@
   .hero-title    { font-size: 1.9rem !important; }
   .hero-badge    { font-size: 11px; padding: 5px 12px; }
 
-  /* Slim down the hero interface mockup */
   .hero-interface-body   { padding: 14px; }
   .hi-score-card         { padding: 14px; margin-bottom: 10px; }
   .hi-score-val          { font-size: 1.4rem; }
@@ -125,7 +136,7 @@
 }
 
 
-/* -- INDEX — VALUE PILLARS ------------------------------- */
+/* -- INDEX -- VALUE PILLARS -------------------------------- */
 @media (max-width: 768px) {
   .pillars-grid { margin-top: 36px; gap: 16px; }
   .pillar       { padding: 28px 24px; }
@@ -138,7 +149,7 @@
 }
 
 
-/* -- INDEX — PLATFORMS ----------------------------------- */
+/* -- INDEX -- PLATFORMS ------------------------------------ */
 @media (max-width: 768px) {
   .platforms-grid { margin-top: 36px; gap: 16px; }
   .platform-card  { padding: 36px 28px; border-radius: 22px; }
@@ -152,7 +163,7 @@
 }
 
 
-/* -- INDEX — AI SECTION ---------------------------------- */
+/* -- INDEX -- AI SECTION ----------------------------------- */
 @media (max-width: 768px) {
   #ai-section   { padding: 64px 0; }
   .ai-grid      { margin-top: 36px; gap: 32px; }
@@ -172,7 +183,7 @@
 }
 
 
-/* -- INDEX — STATS --------------------------------------- */
+/* -- INDEX -- STATS ---------------------------------------- */
 @media (max-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -193,7 +204,7 @@
 }
 
 
-/* -- INDEX — CTA SECTION --------------------------------- */
+/* -- INDEX -- CTA SECTION ---------------------------------- */
 @media (max-width: 768px) {
   .cta-inner .section-title { font-size: 1.8rem !important; }
 
@@ -210,7 +221,7 @@
 }
 
 
-/* -- ABOUT PAGE ------------------------------------------ */
+/* -- ABOUT PAGE -------------------------------------------- */
 @media (max-width: 768px) {
   .mission-cards { gap: 16px; margin-top: 32px; }
   .values-grid   { gap: 16px; margin-top: 32px; }
@@ -224,7 +235,7 @@
 }
 
 
-/* -- TEAM PAGE ------------------------------------------- */
+/* -- TEAM PAGE --------------------------------------------- */
 @media (max-width: 900px) {
   .team-grid { grid-template-columns: 1fr 1fr !important; }
 }
@@ -242,7 +253,7 @@
 }
 
 
-/* -- CONTACT PAGE ---------------------------------------- */
+/* -- CONTACT PAGE ------------------------------------------ */
 @media (max-width: 768px) {
   .contact-layout     { grid-template-columns: 1fr !important; gap: 32px; margin-top: 32px; }
   .contact-form-wrap  { padding: 28px 20px; border-radius: 14px; }
@@ -254,7 +265,7 @@
 }
 
 
-/* -- PRICING PAGE ---------------------------------------- */
+/* -- PRICING PAGE ------------------------------------------ */
 @media (max-width: 640px) {
   .pricing-preview-grid {
     grid-template-columns: 1fr !important;
@@ -270,14 +281,7 @@
 }
 
 
-/* -- CAREERS PAGE ---------------------------------------- */
-@media (max-width: 768px) {
-  /* Job listing cards already work, just tighten spacing */
-  .section-sub { font-size: 0.97rem; }
-}
-
-
-/* -- LOGIN / AUTH PAGES ---------------------------------- */
+/* -- LOGIN / AUTH PAGES ------------------------------------ */
 @media (max-width: 900px) {
   .login-left { display: none !important; }
   .login-right { flex: 1 !important; padding: 40px 24px !important; }
@@ -287,8 +291,6 @@
   .login-right     { padding: 28px 16px !important; }
   .login-form-wrap { max-width: 100%; }
   .type-toggle     { margin-bottom: 24px; }
-
-  /* Form rows collapse to single col */
   .form-row {
     grid-template-columns: 1fr !important;
     gap: 0 !important;
@@ -296,7 +298,7 @@
 }
 
 
-/* -- ACCOUNT / DASHBOARD PAGE ---------------------------- */
+/* -- ACCOUNT / DASHBOARD PAGE ------------------------------ */
 @media (max-width: 900px) {
   .grid-4 { grid-template-columns: 1fr 1fr !important; }
   .grid-3 { grid-template-columns: 1fr 1fr !important; }
@@ -309,14 +311,7 @@
 }
 
 
-/* -- GDPR PAGE ------------------------------------------- */
-@media (max-width: 480px) {
-  /* Text-heavy page — just ensure good line lengths */
-  .container { padding: 0 14px; }
-}
-
-
-/* -- FOOTER (all pages) ---------------------------------- */
+/* -- FOOTER (all pages) ------------------------------------ */
 @media (max-width: 768px) {
   footer { padding: 56px 0 0; }
   .footer-top { gap: 28px; padding-bottom: 32px; }
@@ -331,7 +326,7 @@
 }
 
 
-/* -- HERO (all inner pages with .hero) ------------------- */
+/* -- HERO (all inner pages with .hero class) --------------- */
 @media (max-width: 768px) {
   .hero          { min-height: 44vh; padding-top: 64px; }
   .hero h1       { font-size: clamp(1.8rem, 7vw, 2.5rem) !important; }
@@ -346,7 +341,7 @@
 }
 
 
-/* -- REXI CHATBOT (all pages) ---------------------------- */
+/* -- REXI CHATBOT (all pages) ------------------------------ */
 @media (max-width: 480px) {
   #rexi-bubble   { bottom: 16px; right: 16px; }
   .rexi-panel    { width: calc(100vw - 32px) !important; max-height: 420px; }
@@ -357,29 +352,15 @@
 }
 
 
-/* -- COOKIE CONSENT BANNER ------------------------------- */
-@media (max-width: 480px) {
-  /* Targets styles injected by cookie-consent.js */
-  #sr-cookie-overlay > div {
-    margin: 0 12px !important;
-    padding: 20px !important;
-    border-radius: 16px !important;
-    width: calc(100% - 24px) !important;
-    max-width: none !important;
-  }
-}
-
-
-/* -- PRODUCTS PAGE --------------------------------------- */
+/* -- PRODUCTS PAGE ----------------------------------------- */
 @media (max-width: 480px) {
   .product-cell  { padding: 24px 16px !important; border-radius: 14px !important; }
   .products-stack { padding: 0 12px !important; }
 }
 
 
-/* -- SMALL PHONE SAFETY NET ------------------------------ */
+/* -- SMALL PHONE SAFETY NET -------------------------------- */
 @media (max-width: 360px) {
-  /* Ensure nothing overflows on very small screens */
   img, video, iframe { max-width: 100%; }
   .hero-title   { font-size: 1.7rem !important; }
   .section-title { font-size: 1.5rem !important; }

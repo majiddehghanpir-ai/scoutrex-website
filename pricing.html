@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -123,7 +123,7 @@ html.dark .btn-secondary:hover{background:#2D2850;color:#fff;border-color:#2D285
 .pricing-preview-card .price-sub{font-size:0.85rem;color:var(--gray-600);margin-bottom:20px;display:block}
 .pricing-preview-card ul{margin:20px 0;padding:0;list-style:none}
 .pricing-preview-card ul li{font-size:0.93rem;color:var(--gray-600);padding:8px 0;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:8px}
-.pricing-preview-card ul li::before{content:'?';color:var(--orange);font-weight:700;flex-shrink:0}
+.pricing-preview-card ul li::before{content:'✓';color:var(--orange);font-weight:700;flex-shrink:0}
 .pricing-preview-card ul li:last-child{border-bottom:none}
 .faq-item.open{border-color:var(--orange);background:var(--off-white)}
 .faq-q{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--text);margin:0}
@@ -155,7 +155,7 @@ html.dark .pricing-preview-card ul li{color:#A09BBF;border-color:#2D2850}
 html.dark footer{background:#09071C}
 html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
 
-/* -- REXI CHATBOT -- */
+/* ── REXI CHATBOT ── */
 
 .rexi-toggle{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),#F97316);border:none;cursor:pointer;box-shadow:0 8px 28px rgba(249,115,22,0.4);display:flex;align-items:center;justify-content:center;transition:all 0.3s;position:relative;flex-shrink:0;overflow:hidden;padding:0}
 .rexi-toggle:hover{transform:scale(1.08)}
@@ -216,7 +216,7 @@ html.dark .rexi-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.
 @media(max-width:420px){.rexi-panel{width:calc(100vw - 32px)}}
 
 
-/* -- LIGHT MODE -- */
+/* ── LIGHT MODE ── */
 html:not(.dark) .hero{background:linear-gradient(145deg,#EEE9FF 0%,#F8F7FF 55%,#FFF8F3 100%)}
 html:not(.dark) .hero::before{background:radial-gradient(circle,rgba(249,115,22,0.07) 0%,transparent 70%)}
 html:not(.dark) .hero::after{background:radial-gradient(circle,rgba(30,18,86,0.05) 0%,transparent 70%)}
@@ -251,7 +251,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
         <a href="contact.html">Contact</a>
       </div>
       <div class="nav-cta">
-        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">??</button>
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
         <a href="login.html"><button class="login-btn">Log In</button></a>
         
       </div>
@@ -260,15 +260,15 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
   </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="products.html" onclick="toggleMenu()">Products</a>
-  <a href="pricing.html" onclick="toggleMenu()">Pricing</a>
-  <a href="about.html" onclick="toggleMenu()">About</a>
-  <a href="team.html" onclick="toggleMenu()">Team</a>
-  <a href="careers.html" onclick="toggleMenu()">Careers</a>
-  <a href="contact.html" onclick="toggleMenu()">Contact</a>
-  <a href="login.html" class="btn btn-ghost" onclick="toggleMenu()">Log In</a>
+  <a href="products.html"  onclick="setTimeout(toggleMenu,100)">Products</a>
+  <a href="pricing.html"  onclick="setTimeout(toggleMenu,100)">Pricing</a>
+  <a href="about.html"  onclick="setTimeout(toggleMenu,100)">About</a>
+  <a href="team.html"  onclick="setTimeout(toggleMenu,100)">Team</a>
+  <a href="careers.html"  onclick="setTimeout(toggleMenu,100)">Careers</a>
+  <a href="contact.html"  onclick="setTimeout(toggleMenu,100)">Contact</a>
+  <a href="login.html" class="btn btn-ghost"  onclick="setTimeout(toggleMenu,100)">Log In</a>
   
-  <button class="theme-toggle" onclick="toggleTheme()" style="margin-top:8px">??</button>
+  <button class="theme-toggle" onclick="toggleTheme()" style="margin-top:8px" id="theme-toggle-mobile">🌙</button>
 </div>
 
 <section class="hero">
@@ -277,7 +277,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
       <h1>Transparent pricing, coming soon</h1>
       <p class="section-sub">We're finalising our pricing plans. In the meantime, get in touch and we'll walk you through what's right for your needs.</p>
       <div class="hero-cta">
-        <a href="contact.html" class="btn btn-primary btn-lg">Contact Us ?</a>
+        <a href="contact.html" class="btn btn-primary btn-lg">Contact Us →</a>
       </div>
 
     </div>
@@ -293,7 +293,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
     </div>
     <div class="pricing-preview-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:800px;margin:0 auto">
       <div class="pricing-preview-card">
-        <div style="font-size:2rem;margin-bottom:16px">??</div>
+        <div style="font-size:2rem;margin-bottom:16px">🎯</div>
         <h3>JobRex</h3>
         <p class="price-sub">For job seekers</p>
         <ul>
@@ -306,7 +306,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
         <a href="contact.html" class="btn btn-secondary" style="margin-top:24px;width:100%;justify-content:center">Get Early Access</a>
       </div>
       <div class="pricing-preview-card">
-        <div style="font-size:2rem;margin-bottom:16px">??</div>
+        <div style="font-size:2rem;margin-bottom:16px">🏢</div>
         <h3>HireRex</h3>
         <p class="price-sub">For hiring teams</p>
         <ul>
@@ -329,7 +329,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
       <h2 class="section-title" style="color:#fff;margin-top:16px">Be among the first to use ScoutRex</h2>
       <p class="section-sub" style="color:rgba(255,255,255,0.6);margin-top:14px">We're onboarding early users now. If you're a job seeker or a hiring team who wants to get ahead, reach out and we'll get you set up.</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px">
-        <a href="contact.html" class="btn btn-primary btn-lg">Get Early Access ?</a>
+        <a href="contact.html" class="btn btn-primary btn-lg">Get Early Access →</a>
         <a href="products.html" class="btn btn-ghost btn-lg">Learn More</a>
       </div>
     </div>
@@ -383,7 +383,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-bottom-left">� 2026 ScoutRex Inc. All rights reserved.</div>
+      <div class="footer-bottom-left">© 2026 ScoutRex Inc. All rights reserved.</div>
       <div class="footer-bottom-right">
         <a href="gdpr.html">GDPR</a>
         <a href="#">Privacy Policy</a>
@@ -402,7 +402,7 @@ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20)
 
 function updateThemeIcons(){
   const dark = document.documentElement.classList.contains('dark');
-  const icon = dark ? '??' : '??';
+  const icon = dark ? '☀️' : '🌙';
   document.querySelectorAll('.theme-toggle').forEach(b => b.textContent = icon);
 }
 function toggleTheme(){
@@ -433,7 +433,7 @@ function toggleFaq(elem){
         <div class="rexi-header-name">Rexi</div>
         <div class="rexi-header-status"><span class="rexi-status-dot"></span>ScoutRex Assistant</div>
       </div>
-      <button class="rexi-close" onclick="toggleRexi()" aria-label="Close chat">?</button>
+      <button class="rexi-close" onclick="toggleRexi()" aria-label="Close chat">✕</button>
     </div>
     <div class="rexi-messages" id="rexiMessages"></div>
     <div class="rexi-suggestions" id="rexiChips">
@@ -444,7 +444,7 @@ function toggleFaq(elem){
       <button class="rexi-chip" onclick="rexiAsk('How can I contact the team?')">Contact</button>
     </div>
     <div class="rexi-input-area">
-      <input class="rexi-input" id="rexiInput" type="text" placeholder="Ask me anything�" onkeydown="if(event.key==='Enter')rexiSend()"/>
+      <input class="rexi-input" id="rexiInput" type="text" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter')rexiSend()"/>
       <button class="rexi-send" onclick="rexiSend()" aria-label="Send">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
@@ -457,43 +457,43 @@ function toggleFaq(elem){
 </div>
 
 <script>
-// -- REXI CHATBOT --
+// ── REXI CHATBOT ──
 (function(){
   var opened = false;
   var greeted = false;
 
   var KB = [
     {re:/hello|hi\b|hey\b|sup\b|good (morning|evening|afternoon)/i,
-     ans:"Hi there! ?? I'm Rexi, ScoutRex's AI assistant. I can help with questions about our platforms, getting started, or connecting you with the team.\n\nWhat can I help you with?"},
+     ans:"Hi there! 👋 I'm Rexi, ScoutRex's AI assistant. I can help with questions about our platforms, getting started, or connecting you with the team.\n\nWhat can I help you with?"},
     {re:/what is scoutrex|what does scoutrex|tell me about scoutrex|what do you do|scoutrex do/i,
-     ans:"ScoutRex builds AI-powered platforms that transform how people find work and how companies find talent. ??\n\nWe have two products:\n� ?? <b>JobRex</b>, for job seekers\n� ?? <b>HireRex</b>, for hiring teams\n\nBoth share the same AI engine that understands <em>people</em>, not just resumes. <a href='about.html'>Learn more ?</a>"},
+     ans:"ScoutRex builds AI-powered platforms that transform how people find work and how companies find talent. 🚀\n\nWe have two products:\n• 🎯 <b>JobRex</b>, for job seekers\n• 🏢 <b>HireRex</b>, for hiring teams\n\nBoth share the same AI engine that understands <em>people</em>, not just resumes. <a href='about.html'>Learn more →</a>"},
     {re:/jobrex|job seeker|find.*job|looking for work|career match|job search|candidate/i,
-     ans:"JobRex is your AI career co-pilot ??\n\nIt builds a living profile beyond your CV, skills, goals, working style, and matches you with roles that actually fit. No more sending applications into the void.\n\n<a href='products.html#jobrex'>Explore JobRex ?</a> or <a href='contact.html'>get early access</a>"},
+     ans:"JobRex is your AI career co-pilot 🎯\n\nIt builds a living profile beyond your CV, skills, goals, working style, and matches you with roles that actually fit. No more sending applications into the void.\n\n<a href='products.html#jobrex'>Explore JobRex →</a> or <a href='contact.html'>get early access</a>"},
     {re:/hirerex|hir(e|ing)|recruiter|find.*candidate|talent|HR team|hiring team/i,
-     ans:"HireRex is AI talent intelligence for hiring teams ??\n\nSurface the candidates your existing tools miss. Our AI understands what a role actually requires, not just keywords.\n\n<a href='products.html#hirerex'>Explore HireRex ?</a> or <a href='contact.html'>request a demo</a>"},
+     ans:"HireRex is AI talent intelligence for hiring teams 🏢\n\nSurface the candidates your existing tools miss. Our AI understands what a role actually requires, not just keywords.\n\n<a href='products.html#hirerex'>Explore HireRex →</a> or <a href='contact.html'>request a demo</a>"},
     {re:/pric|cost|how much|plan|subscription|fee|pay|free|trial/i,
-     ans:"We're finalising our pricing plans right now ??\n\nWe'll be announcing them at launch. In the meantime, <a href='contact.html'>get in touch</a> and we'll walk you through what works for you.\n\n<a href='pricing.html'>See the pricing page ?</a>"},
+     ans:"We're finalising our pricing plans right now 💰\n\nWe'll be announcing them at launch. In the meantime, <a href='contact.html'>get in touch</a> and we'll walk you through what works for you.\n\n<a href='pricing.html'>See the pricing page →</a>"},
     {re:/login|log in|sign in|sign up|register|account|password|portal/i,
-     ans:"You can log in or create a new account here:\n\n?? <a href='login.html'>Log In / Register ?</a>\n\nOnce logged in, you'll land in your <b>My ScoutRex</b> portal where you can manage your profile, settings, and subscriptions."},
+     ans:"You can log in or create a new account here:\n\n🔐 <a href='login.html'>Log In / Register →</a>\n\nOnce logged in, you'll land in your <b>My ScoutRex</b> portal where you can manage your profile, settings, and subscriptions."},
     {re:/contact|reach|email|support|help|talk to|speak to|get in touch/i,
-     ans:"Happy to connect you with the team! ??\n\n? <a href='contact.html'>Contact page</a>\n? <a href='mailto:hello@scoutrex.com'>hello@scoutrex.com</a>\n\nWe usually respond within 1�2 business days."},
+     ans:"Happy to connect you with the team! 📬\n\n→ <a href='contact.html'>Contact page</a>\n→ <a href='mailto:hello@scoutrex.com'>hello@scoutrex.com</a>\n\nWe usually respond within 1–2 business days."},
     {re:/team|founder|who made|who built|who are|people behind|majid|hamed|shadi/i,
-     ans:"ScoutRex was founded by <b>Majid</b>, <b>Hamed</b>, and <b>Shadi</b>, a team with deep roots in AI, engineering, and marketing. ??\n\n<a href='team.html'>Meet the team ?</a>"},
+     ans:"ScoutRex was founded by <b>Majid</b>, <b>Hamed</b>, and <b>Shadi</b>, a team with deep roots in AI, engineering, and marketing. 👥\n\n<a href='team.html'>Meet the team →</a>"},
     {re:/mission|story|about|founded|why|vision|values/i,
-     ans:"Our mission is to make talent discovery faster, fairer, and more human, powered by AI. ??\n\nWe rethought hiring from scratch instead of just automating the old way.\n\n<a href='about.html'>Read our story ?</a>"},
+     ans:"Our mission is to make talent discovery faster, fairer, and more human, powered by AI. 🌍\n\nWe rethought hiring from scratch instead of just automating the old way.\n\n<a href='about.html'>Read our story →</a>"},
     {re:/product|platform|what do you offer|feature|capabilit/i,
-     ans:"ScoutRex offers two platforms:\n\n?? <b>JobRex</b>, AI career co-pilot for job seekers\n?? <b>HireRex</b>, AI talent intelligence for hiring teams\n\n<a href='products.html'>Explore our platforms ?</a>"},
+     ans:"ScoutRex offers two platforms:\n\n🎯 <b>JobRex</b>, AI career co-pilot for job seekers\n🏢 <b>HireRex</b>, AI talent intelligence for hiring teams\n\n<a href='products.html'>Explore our platforms →</a>"},
     {re:/career|job at scoutrex|work at|join.*team/i,
-     ans:"We're not actively hiring right now, but we love hearing from talented people. ??\n\n<a href='careers.html'>Check our careers page ?</a> or <a href='contact.html'>drop us a line directly</a>"},
+     ans:"We're not actively hiring right now, but we love hearing from talented people. 🙌\n\n<a href='careers.html'>Check our careers page →</a> or <a href='contact.html'>drop us a line directly</a>"},
     {re:/ai|artificial intelligence|machine learning|how does.*(work|match)|algorithm/i,
-     ans:"Our AI engine goes well beyond keyword matching ??\n\nIt evaluates skills, culture fit, growth trajectory, salary alignment, and career intent, building match scores you can actually trust.\n\n<a href='products.html'>See how it works ?</a>"},
+     ans:"Our AI engine goes well beyond keyword matching 🧠\n\nIt evaluates skills, culture fit, growth trajectory, salary alignment, and career intent, building match scores you can actually trust.\n\n<a href='products.html'>See how it works →</a>"},
     {re:/privacy|data|gdpr|secure|my information/i,
-     ans:"Privacy and GDPR are first-class features at ScoutRex ??\n\nWe are fully GDPR compliant, privacy by design, lawful data processing, and full support for your data rights. Candidates control exactly what's shared and with whom. We never sell your data.\n\n<a href='gdpr.html'>Read our GDPR commitment ?</a>"},
+     ans:"Privacy and GDPR are first-class features at ScoutRex 🔒\n\nWe are fully GDPR compliant, privacy by design, lawful data processing, and full support for your data rights. Candidates control exactly what's shared and with whom. We never sell your data.\n\n<a href='gdpr.html'>Read our GDPR commitment →</a>"},
     {re:/launch|live|available|when|release|beta/i,
-     ans:"We're onboarding early users now! ??\n\n<a href='contact.html'>Get in touch</a> to be among the first to access ScoutRex. We'd love to have you."},
+     ans:"We're onboarding early users now! 🎉\n\n<a href='contact.html'>Get in touch</a> to be among the first to access ScoutRex. We'd love to have you."},
   ];
 
-  var fallback = "That's a great question, I'm still learning! ??\n\nFor anything I can't answer, the team is always happy to help: <a href='contact.html'>Contact us ?</a>";
+  var fallback = "That's a great question, I'm still learning! 🤔\n\nFor anything I can't answer, the team is always happy to help: <a href='contact.html'>Contact us →</a>";
 
   function addMsg(text, role){
     var msgs = document.getElementById('rexiMessages');
@@ -575,11 +575,11 @@ function toggleFaq(elem){
     panel.classList.toggle('open', opened);
     btn.classList.toggle('open', opened);
     btn.style.display = opened ? 'none' : 'flex';
-    icon.innerHTML = opened ? '?' : '<img src="rexihead.png" style="width:56px;height:56px;object-fit:cover;display:block;border-radius:50%">';
+    icon.innerHTML = opened ? '✕' : '<img src="rexihead.png" style="width:56px;height:56px;object-fit:cover;display:block;border-radius:50%">';
     if(opened && !greeted){
       greeted = true;
       setTimeout(function(){
-        addMsg("?? Hi! I'm <b>Rexi</b>, the ScoutRex AI assistant.\n\nI can help you learn about our platforms, getting started, or connect you with the team. What would you like to know?", 'bot');
+        addMsg("👋 Hi! I'm <b>Rexi</b>, the ScoutRex AI assistant.\n\nI can help you learn about our platforms, getting started, or connect you with the team. What would you like to know?", 'bot');
       }, 300);
     }
     if(opened){

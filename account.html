@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -13,7 +13,7 @@ html{font-size:16px}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--gray-50);min-height:100vh}
 a{text-decoration:none;color:inherit}
 
-/* -- TOP BAR -- */
+/* ── TOP BAR ── */
 .topbar{background:var(--indigo);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100}
 .topbar-logo{display:flex;align-items:center;gap:9px}
 .topbar-logo svg{width:28px;height:28px}
@@ -26,10 +26,10 @@ a{text-decoration:none;color:inherit}
 .topbar-logout:hover{background:rgba(255,255,255,0.1);color:#fff}
 .topbar-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--indigo-light),var(--orange));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
 
-/* -- LAYOUT -- */
+/* ── LAYOUT ── */
 .layout{display:flex;min-height:calc(100vh - 56px)}
 
-/* -- SIDEBAR -- */
+/* ── SIDEBAR ── */
 .sidebar{width:240px;background:#fff;border-right:1px solid var(--gray-200);flex-shrink:0;display:flex;flex-direction:column;padding:24px 16px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
 .sidebar-section{margin-bottom:8px}
 .sidebar-section-label{font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.8px;padding:0 8px;margin-bottom:6px;margin-top:16px}
@@ -41,17 +41,17 @@ a{text-decoration:none;color:inherit}
 .nav-item.active .nav-item-icon{background:rgba(30,18,86,0.1)}
 .nav-item-badge{margin-left:auto;background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:50px}
 
-/* -- MAIN -- */
+/* ── MAIN ── */
 .main{flex:1;padding:32px;overflow-x:hidden}
 .page-panel{display:none}
 .page-panel.active{display:block}
 
-/* -- PANEL HEADER -- */
+/* ── PANEL HEADER ── */
 .panel-header{margin-bottom:28px}
 .panel-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text);margin-bottom:4px}
 .panel-sub{font-size:14px;color:var(--gray-600)}
 
-/* -- CARDS -- */
+/* ── CARDS ── */
 .card{background:#fff;border-radius:16px;border:1px solid var(--gray-200);padding:24px;box-shadow:var(--shadow)}
 .card+.card{margin-top:20px}
 .card-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
@@ -59,14 +59,14 @@ a{text-decoration:none;color:inherit}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}
 
-/* -- OVERVIEW STATS -- */
+/* ── OVERVIEW STATS ── */
 .stat-card{background:#fff;border-radius:14px;border:1px solid var(--gray-200);padding:20px;box-shadow:var(--shadow)}
 .stat-card-label{font-size:12px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px}
 .stat-card-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--text);line-height:1}
 .stat-card-sub{font-size:12px;color:var(--gray-400);margin-top:4px}
 .stat-card-val em{font-style:normal;color:var(--green)}
 
-/* -- ACTIVITY LIST -- */
+/* ── ACTIVITY LIST ── */
 .activity-list{display:flex;flex-direction:column;gap:12px}
 .activity-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:var(--gray-50);border:1px solid var(--gray-100)}
 .activity-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
@@ -78,7 +78,7 @@ a{text-decoration:none;color:inherit}
 .activity-sub{font-size:12px;color:var(--gray-400)}
 .activity-time{font-size:12px;color:var(--gray-400);flex-shrink:0}
 
-/* -- ACTIVE PLAN CARD -- */
+/* ── ACTIVE PLAN CARD ── */
 .plan-card{background:linear-gradient(135deg,var(--indigo),var(--indigo-light));border-radius:16px;padding:24px;color:#fff;position:relative;overflow:hidden}
 .plan-card::before{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;background:rgba(255,255,255,0.05);border-radius:50%}
 .plan-name{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:4px}
@@ -88,7 +88,7 @@ a{text-decoration:none;color:inherit}
 .btn-plan{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:50px;background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.25);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
 .btn-plan:hover{background:rgba(255,255,255,0.25)}
 
-/* -- FORM ELEMENTS -- */
+/* ── FORM ELEMENTS ── */
 .form-section{margin-bottom:28px}
 .form-section-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-100)}
 .form-group{margin-bottom:18px}
@@ -115,7 +115,7 @@ a{text-decoration:none;color:inherit}
 .avatar-info p{font-size:13px;color:var(--gray-600);line-height:1.6;margin-top:4px}
 .avatar-info h4{font-size:15px;font-weight:700;color:var(--text)}
 
-/* -- TOGGLE SWITCH -- */
+/* ── TOGGLE SWITCH ── */
 .toggle-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:14px 0;border-bottom:1px solid var(--gray-100)}
 .toggle-row:last-child{border-bottom:none}
 .toggle-info h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
@@ -127,7 +127,7 @@ a{text-decoration:none;color:inherit}
 .toggle input:checked+.toggle-slider{background:var(--indigo)}
 .toggle input:checked+.toggle-slider::before{transform:translateX(20px)}
 
-/* -- BILLING TABLE -- */
+/* ── BILLING TABLE ── */
 .billing-table{width:100%;border-collapse:collapse}
 .billing-table th{font-size:12px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;text-align:left;padding:10px 12px;background:var(--gray-50);border-bottom:1px solid var(--gray-100)}
 .billing-table td{padding:14px 12px;font-size:14px;color:var(--gray-800);border-bottom:1px solid var(--gray-50)}
@@ -143,7 +143,7 @@ a{text-decoration:none;color:inherit}
 .pm-info p{font-size:14px;font-weight:600;color:var(--text)}
 .pm-info span{font-size:12px;color:var(--gray-400)}
 
-/* -- PRODUCT CARD -- */
+/* ── PRODUCT CARD ── */
 .product-item{display:flex;align-items:center;gap:16px;padding:18px;background:var(--gray-50);border:1px solid var(--gray-100);border-radius:14px;transition:all 0.2s}
 .product-item+.product-item{margin-top:12px}
 .product-item:hover{border-color:var(--gray-200);background:#fff}
@@ -155,12 +155,12 @@ a{text-decoration:none;color:inherit}
 .product-item-info p{font-size:13px;color:var(--gray-500)}
 .product-item-actions{display:flex;align-items:center;gap:10px}
 
-/* -- DANGER ZONE -- */
+/* ── DANGER ZONE ── */
 .danger-zone{border:1px solid rgba(220,38,38,0.2);border-radius:14px;padding:20px;background:rgba(220,38,38,0.03)}
 .danger-zone h4{font-size:14px;font-weight:700;color:var(--red);margin-bottom:6px}
 .danger-zone p{font-size:13px;color:var(--gray-600);line-height:1.6;margin-bottom:14px}
 
-/* -- RESPONSIVE -- */
+/* ── RESPONSIVE ── */
 @media(max-width:900px){
   .sidebar{display:none}
   .main{padding:20px}
@@ -233,8 +233,8 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
     <span>Scout<span class="rex">Rex</span></span>
   </a>
   <div class="topbar-right">
-    <a href="index.html" class="topbar-home">? Back to site</a>
-    <button id="topbar-theme" class="topbar-theme" onclick="toggleTheme()" title="Toggle dark/light mode">??</button>
+    <a href="index.html" class="topbar-home">← Back to site</a>
+    <button id="topbar-theme" class="topbar-theme" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
     <div class="topbar-avatar">MD</div>
     <button class="topbar-logout" onclick="window.location.href='login.html'">Log Out</button>
   </div>
@@ -246,40 +246,40 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
     <div class="sidebar-section">
       <div class="sidebar-section-label">Overview</div>
       <button class="nav-item active" onclick="showPanel('overview')">
-        <span class="nav-item-icon">??</span> Dashboard
+        <span class="nav-item-icon">🏠</span> Dashboard
       </button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-section-label">My Account</div>
       <button class="nav-item" onclick="showPanel('profile')">
-        <span class="nav-item-icon">??</span> Profile
+        <span class="nav-item-icon">👤</span> Profile
       </button>
       <button class="nav-item" onclick="showPanel('settings')">
-        <span class="nav-item-icon">??</span> Settings
+        <span class="nav-item-icon">⚙️</span> Settings
       </button>
       <button class="nav-item" onclick="showPanel('privacy')">
-        <span class="nav-item-icon">??</span> Privacy
+        <span class="nav-item-icon">🔒</span> Privacy
       </button>
       <button class="nav-item" onclick="showPanel('notifications')">
-        <span class="nav-item-icon">??</span> Notifications
+        <span class="nav-item-icon">🔔</span> Notifications
         <span class="nav-item-badge">3</span>
       </button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-section-label">Billing</div>
       <button class="nav-item" onclick="showPanel('subscription')">
-        <span class="nav-item-icon">?</span> Subscription
+        <span class="nav-item-icon">⭐</span> Subscription
       </button>
       <button class="nav-item" onclick="showPanel('billing')">
-        <span class="nav-item-icon">??</span> Billing & Invoices
+        <span class="nav-item-icon">💳</span> Billing & Invoices
       </button>
       <button class="nav-item" onclick="showPanel('products')">
-        <span class="nav-item-icon">??</span> My Products
+        <span class="nav-item-icon">📦</span> My Products
       </button>
     </div>
     <div class="sidebar-section" style="margin-top:auto;padding-top:16px">
       <button class="nav-item" onclick="window.location.href='contact.html'">
-        <span class="nav-item-icon">??</span> Help & Support
+        <span class="nav-item-icon">💬</span> Help & Support
       </button>
     </div>
   </aside>
@@ -287,10 +287,10 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
   <!-- MAIN CONTENT -->
   <main class="main">
 
-    <!-- ------------ OVERVIEW ------------ -->
+    <!-- ──────────── OVERVIEW ──────────── -->
     <div id="panel-overview" class="page-panel active">
       <div class="panel-header">
-        <h1 class="panel-title">Welcome back, Majid ??</h1>
+        <h1 class="panel-title">Welcome back, Majid 👋</h1>
         <p class="panel-sub">Here's a summary of your ScoutRex account.</p>
       </div>
 
@@ -324,7 +324,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
           </div>
           <div class="activity-list">
             <div class="activity-item">
-              <div class="activity-icon match">??</div>
+              <div class="activity-icon match">🎯</div>
               <div class="activity-info">
                 <div class="activity-title">New top match, Senior AI Engineer, Berlin</div>
                 <div class="activity-sub">JobRex matched you at 94%</div>
@@ -332,7 +332,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
               <div class="activity-time">2h ago</div>
             </div>
             <div class="activity-item">
-              <div class="activity-icon view">??</div>
+              <div class="activity-icon view">👁</div>
               <div class="activity-info">
                 <div class="activity-title">Your profile was viewed</div>
                 <div class="activity-sub">by a recruiter at Siemens</div>
@@ -340,7 +340,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
               <div class="activity-time">Yesterday</div>
             </div>
             <div class="activity-item">
-              <div class="activity-icon apply">?</div>
+              <div class="activity-icon apply">✅</div>
               <div class="activity-info">
                 <div class="activity-title">Application submitted</div>
                 <div class="activity-sub">Product Lead, Remote</div>
@@ -357,24 +357,24 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
                 <div class="plan-name">JobRex Pro</div>
                 <div class="plan-desc">Your active subscription</div>
               </div>
-              <span class="plan-badge">? Active</span>
+              <span class="plan-badge">● Active</span>
             </div>
-            <button class="btn-plan" onclick="showPanel('subscription')">Manage Plan ?</button>
-            <div class="plan-renews">Renews on 1 May 2026 � �19/month</div>
+            <button class="btn-plan" onclick="showPanel('subscription')">Manage Plan →</button>
+            <div class="plan-renews">Renews on 1 May 2026 · €19/month</div>
           </div>
           <div class="card">
             <div class="card-title">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('profile')"><span class="nav-item-icon">??</span> Edit Profile</button>
-              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('privacy')"><span class="nav-item-icon">??</span> Privacy Settings</button>
-              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('billing')"><span class="nav-item-icon">??</span> View Invoices</button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('profile')"><span class="nav-item-icon">✏️</span> Edit Profile</button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('privacy')"><span class="nav-item-icon">🔒</span> Privacy Settings</button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('billing')"><span class="nav-item-icon">💳</span> View Invoices</button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ------------ PROFILE ------------ -->
+    <!-- ──────────── PROFILE ──────────── -->
     <div id="panel-profile" class="page-panel">
       <div class="panel-header">
         <h1 class="panel-title">Profile</h1>
@@ -475,7 +475,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       </div>
     </div>
 
-    <!-- ------------ SETTINGS ------------ -->
+    <!-- ──────────── SETTINGS ──────────── -->
     <div id="panel-settings" class="page-panel">
       <div class="panel-header">
         <h1 class="panel-title">Settings</h1>
@@ -486,12 +486,12 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <div class="card-title">Account Type</div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
           <div style="flex:1;min-width:200px;padding:16px;border-radius:12px;border:2px solid var(--indigo);background:rgba(30,18,86,0.04)">
-            <div style="font-size:20px;margin-bottom:8px">??</div>
+            <div style="font-size:20px;margin-bottom:8px">🎯</div>
             <div style="font-weight:700;font-size:14px;color:var(--indigo)">Job Seeker (JobRex)</div>
             <div style="font-size:12px;color:var(--gray-500);margin-top:4px">Currently active</div>
           </div>
           <div style="flex:1;min-width:200px;padding:16px;border-radius:12px;border:1.5px solid var(--gray-200);cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--indigo)'" onmouseout="this.style.borderColor='var(--gray-200)'">
-            <div style="font-size:20px;margin-bottom:8px">??</div>
+            <div style="font-size:20px;margin-bottom:8px">🏢</div>
             <div style="font-weight:700;font-size:14px;color:var(--text)">Company (HireRex)</div>
             <div style="font-size:12px;color:var(--gray-500);margin-top:4px">Switch account type</div>
           </div>
@@ -557,7 +557,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       </div>
     </div>
 
-    <!-- ------------ PRIVACY ------------ -->
+    <!-- ──────────── PRIVACY ──────────── -->
     <div id="panel-privacy" class="page-panel">
       <div class="panel-header">
         <h1 class="panel-title">Privacy</h1>
@@ -608,7 +608,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       </div>
     </div>
 
-    <!-- ------------ NOTIFICATIONS ------------ -->
+    <!-- ──────────── NOTIFICATIONS ──────────── -->
     <div id="panel-notifications" class="page-panel">
       <div class="panel-header">
         <h1 class="panel-title">Notifications</h1>
@@ -630,7 +630,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       <div class="btn-row"><button class="btn-save" onclick="showSave(this)">Save Preferences</button></div>
     </div>
 
-    <!-- ------------ SUBSCRIPTION ------------ -->
+    <!-- ──────────── SUBSCRIPTION ──────────── -->
     <div id="panel-subscription" class="page-panel">
       <div class="panel-header">
         <h1 class="panel-title">Subscription</h1>
@@ -640,11 +640,11 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
           <div>
             <div class="plan-name">JobRex Pro</div>
-            <div class="plan-desc">Unlimited AI matches � Priority support � Advanced analytics</div>
-            <div style="font-size:1.6rem;font-weight:800;color:#fff;margin:12px 0 4px">�19<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span></div>
+            <div class="plan-desc">Unlimited AI matches · Priority support · Advanced analytics</div>
+            <div style="font-size:1.6rem;font-weight:800;color:#fff;margin:12px 0 4px">€19<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span></div>
             <div class="plan-renews">Next billing: 1 May 2026</div>
           </div>
-          <span class="plan-badge">? Active</span>
+          <span class="plan-badge">● Active</span>
         </div>
         <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
           <button class="btn-plan" onclick="showPanel('billing')">View Invoices</button>
@@ -656,16 +656,16 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <div class="grid-3">
           <div style="padding:20px;border-radius:14px;border:1.5px solid var(--gray-200);text-align:center">
             <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Free</div>
-            <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">�0</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">€0</div>
             <div style="font-size:13px;color:var(--gray-500);line-height:1.7">5 matches/month<br>Basic profile<br>Email support</div>
             <button class="btn-outline" style="width:100%;margin-top:16px;font-size:13px">Current plan</button>
           </div>
           <div style="padding:20px;border-radius:14px;border:2px solid var(--indigo);background:rgba(30,18,86,0.03);text-align:center;position:relative">
             <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:50px">Most Popular</div>
             <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:6px;color:var(--indigo)">Pro</div>
-            <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">�19<span style="font-size:13px;font-weight:500;color:var(--gray-400)">/mo</span></div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">€19<span style="font-size:13px;font-weight:500;color:var(--gray-400)">/mo</span></div>
             <div style="font-size:13px;color:var(--gray-500);line-height:1.7">Unlimited matches<br>Advanced profile<br>Priority support<br>Full analytics</div>
-            <button class="btn-save" style="width:100%;margin-top:16px;font-size:13px;padding:10px">Active ?</button>
+            <button class="btn-save" style="width:100%;margin-top:16px;font-size:13px;padding:10px">Active ✓</button>
           </div>
           <div style="padding:20px;border-radius:14px;border:1.5px solid var(--gray-200);text-align:center">
             <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Enterprise</div>
@@ -677,7 +677,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       </div>
     </div>
 
-    <!-- ------------ BILLING ------------ -->
+    <!-- ──────────── BILLING ──────────── -->
     <div id="panel-billing" class="page-panel">
       <div class="panel-header">
         <h1 class="panel-title">Billing & Invoices</h1>
@@ -689,7 +689,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
           <div class="pm-icon">VISA</div>
           <div class="pm-info">
             <p>Visa ending in 4242</p>
-            <span>Expires 08/2028 � Default</span>
+            <span>Expires 08/2028 · Default</span>
           </div>
           <button class="btn-outline" style="font-size:13px;padding:8px 14px">Change</button>
         </div>
@@ -700,10 +700,10 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <table class="billing-table">
           <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th>Invoice</th></tr></thead>
           <tbody>
-            <tr><td>1 Apr 2026</td><td>JobRex Pro, Monthly</td><td>�19.00</td><td><span class="status-badge paid">? Paid</span></td><td><a href="#" class="download-link">? PDF</a></td></tr>
-            <tr><td>1 Mar 2026</td><td>JobRex Pro, Monthly</td><td>�19.00</td><td><span class="status-badge paid">? Paid</span></td><td><a href="#" class="download-link">? PDF</a></td></tr>
-            <tr><td>1 Feb 2026</td><td>JobRex Pro, Monthly</td><td>�19.00</td><td><span class="status-badge paid">? Paid</span></td><td><a href="#" class="download-link">? PDF</a></td></tr>
-            <tr><td>1 Jan 2026</td><td>JobRex Starter, Monthly</td><td>�9.00</td><td><span class="status-badge paid">? Paid</span></td><td><a href="#" class="download-link">? PDF</a></td></tr>
+            <tr><td>1 Apr 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
+            <tr><td>1 Mar 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
+            <tr><td>1 Feb 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
+            <tr><td>1 Jan 2026</td><td>JobRex Starter, Monthly</td><td>€9.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -723,7 +723,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       </div>
     </div>
 
-    <!-- ------------ PRODUCTS ------------ -->
+    <!-- ──────────── PRODUCTS ──────────── -->
     <div id="panel-products" class="page-panel">
       <div class="panel-header">
         <h1 class="panel-title">My Products</h1>
@@ -732,13 +732,13 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       <div class="card">
         <div class="card-title">Active Products</div>
         <div class="product-item">
-          <div class="product-item-icon jr">??</div>
+          <div class="product-item-icon jr">🎯</div>
           <div class="product-item-info">
             <h4>JobRex Pro</h4>
-            <p>AI-powered job matching for candidates � Active since Jan 2026</p>
+            <p>AI-powered job matching for candidates · Active since Jan 2026</p>
           </div>
           <div class="product-item-actions">
-            <span class="status-badge paid" style="margin-right:4px">? Active</span>
+            <span class="status-badge paid" style="margin-right:4px">● Active</span>
             <button class="btn-outline" style="font-size:13px;padding:7px 14px" onclick="showPanel('subscription')">Manage</button>
           </div>
         </div>
@@ -746,17 +746,17 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       <div class="card">
         <div class="card-title">Explore More</div>
         <div class="product-item" style="border:1.5px dashed var(--gray-200);background:transparent">
-          <div class="product-item-icon hr">??</div>
+          <div class="product-item-icon hr">🏢</div>
           <div class="product-item-info">
             <h4>HireRex: For Hiring Teams</h4>
             <p>AI sourcing, smart screening, and talent intelligence for companies.</p>
           </div>
           <div class="product-item-actions">
-            <a href="products.html"><button class="btn-save" style="font-size:13px;padding:8px 18px">Learn More ?</button></a>
+            <a href="products.html"><button class="btn-save" style="font-size:13px;padding:8px 18px">Learn More →</button></a>
           </div>
         </div>
         <div class="product-item" style="border:1.5px dashed var(--gray-200);background:transparent;margin-top:12px">
-          <div class="product-item-icon" style="background:rgba(124,58,237,0.1)">??</div>
+          <div class="product-item-icon" style="background:rgba(124,58,237,0.1)">🧠</div>
           <div class="product-item-info">
             <h4>ScoutRex AI Insights</h4>
             <p>Deep career analytics, salary benchmarking, and market intelligence.</p>
@@ -786,7 +786,7 @@ function showPanel(id){
 }
 function showSave(btn){
   const orig = btn.textContent;
-  btn.textContent = '? Saved!';
+  btn.textContent = '✓ Saved!';
   btn.style.background = 'var(--green)';
   setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);
 }
@@ -798,7 +798,7 @@ if(hash) showPanel(hash);
 function updateThemeIcon(){
   const dark = document.documentElement.classList.contains('dark');
   const btn = document.getElementById('topbar-theme');
-  if(btn) btn.textContent = dark ? '??' : '??';
+  if(btn) btn.textContent = dark ? '☀️' : '🌙';
 }
 function toggleTheme(){
   const isDark = document.documentElement.classList.toggle('dark');
