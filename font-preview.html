@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ScoutRex — Font Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@700&family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@700&family=Manrope:wght@700;800&family=Outfit:wght@700;800&family=Raleway:wght@700;800&family=Bebas+Neue&family=Playfair+Display:wght@700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0F0A2E; color: #fff; font-family: sans-serif; }
+
+  .page-title {
+    text-align: center;
+    padding: 40px 20px 20px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    padding: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: linear-gradient(110deg, rgba(15,10,46,0.97) 40%, rgba(15,10,46,0.80) 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 48px 44px;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(249,115,22,0.5); }
+
+  .font-label {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    font-family: sans-serif;
+  }
+  .font-number {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(249,115,22,0.7);
+    font-family: sans-serif;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    border-radius: 50px;
+    background: rgba(249,115,22,0.15);
+    border: 1px solid rgba(249,115,22,0.35);
+    color: #FB923C;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-family: sans-serif;
+  }
+
+  .headline {
+    font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+    line-height: 1.13;
+    color: #fff;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+  .headline .orange { color: #F97316; }
+
+  .body-copy {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 22px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 10px 22px;
+    border-radius: 8px;
+    background: #F97316;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    font-family: sans-serif;
+  }
+  .btn-ghost {
+    padding: 10px 22px;
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    cursor: pointer;
+    font-family: sans-serif;
+  }
+
+  /* ── FONT DEFINITIONS ── */
+  .f1 { font-family: 'Syne', sans-serif; font-weight: 800; }
+  .f2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+  .f3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; }
+  .f4 { font-family: 'DM Sans', sans-serif; font-weight: 700; }
+  .f5 { font-family: 'Manrope', sans-serif; font-weight: 800; }
+  .f6 { font-family: 'Outfit', sans-serif; font-weight: 700; }
+  .f7 { font-family: 'Raleway', sans-serif; font-weight: 800; }
+  .f8 { font-family: 'Bebas Neue', sans-serif; font-weight: 400; letter-spacing: 1px; }
+  .f9 { font-family: 'Playfair Display', serif; font-weight: 800; }
+  .f10 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+
+  .selected-banner {
+    display: none;
+    text-align: center;
+    padding: 16px;
+    background: rgba(249,115,22,0.15);
+    border-top: 1px solid rgba(249,115,22,0.3);
+    font-size: 13px;
+    color: #FB923C;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">Click a card to select — ScoutRex Hero Font Preview</div>
+
+<div class="grid">
+
+  <!-- 1. Syne (current) -->
+  <div class="card" onclick="pick(this, 'Syne — current font')">
+    <span class="font-number">01</span>
+    <span class="font-label">Syne · current</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f1">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 2. Space Grotesk -->
+  <div class="card" onclick="pick(this, 'Space Grotesk')">
+    <span class="font-number">02</span>
+    <span class="font-label">Space Grotesk</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f2">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 3. Plus Jakarta Sans -->
+  <div class="card" onclick="pick(this, 'Plus Jakarta Sans')">
+    <span class="font-number">03</span>
+    <span class="font-label">Plus Jakarta Sans</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f3">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 4. DM Sans -->
+  <div class="card" onclick="pick(this, 'DM Sans')">
+    <span class="font-number">04</span>
+    <span class="font-label">DM Sans</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f4">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 5. Manrope -->
+  <div class="card" onclick="pick(this, 'Manrope')">
+    <span class="font-number">05</span>
+    <span class="font-label">Manrope</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f5">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 6. Outfit -->
+  <div class="card" onclick="pick(this, 'Outfit')">
+    <span class="font-number">06</span>
+    <span class="font-label">Outfit</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f6">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 7. Raleway -->
+  <div class="card" onclick="pick(this, 'Raleway')">
+    <span class="font-number">07</span>
+    <span class="font-label">Raleway</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f7">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 8. Bebas Neue -->
+  <div class="card" onclick="pick(this, 'Bebas Neue')">
+    <span class="font-number">08</span>
+    <span class="font-label">Bebas Neue</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f8" style="font-size:clamp(2rem,3.5vw,3.4rem);line-height:1.05;">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 9. Playfair Display -->
+  <div class="card" onclick="pick(this, 'Playfair Display')">
+    <span class="font-number">09</span>
+    <span class="font-label">Playfair Display · serif</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f9">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+  <!-- 10. Montserrat -->
+  <div class="card" onclick="pick(this, 'Montserrat')">
+    <span class="font-number">10</span>
+    <span class="font-label">Montserrat</span>
+    <div class="badge">From the First Click to the Age of Intelligence</div>
+    <h1 class="headline f10">
+      The road we've been on all along.<br>
+      <span class="orange">The destination? A better world.</span>
+    </h1>
+    <p class="body-copy">Every era has its turning point. Now, we're here — the AI era, where technology doesn't just process, but <strong style="color:#FB923C">understands. Transforms.</strong></p>
+    <div class="ctas"><button class="btn-primary">Explore the Platform →</button><button class="btn-ghost">Our Mission</button></div>
+  </div>
+
+</div>
+
+<div class="selected-banner" id="banner">✔ Selected: <strong id="banner-text"></strong> — tell me the number and I'll apply it to the homepage.</div>
+
+<script>
+function pick(card, name) {
+  document.querySelectorAll('.card').forEach(c => c.style.borderColor = '');
+  card.style.borderColor = 'rgba(249,115,22,0.8)';
+  card.style.boxShadow = '0 0 0 2px rgba(249,115,22,0.3)';
+  document.getElementById('banner-text').textContent = name;
+  const banner = document.getElementById('banner');
+  banner.style.display = 'block';
+  banner.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

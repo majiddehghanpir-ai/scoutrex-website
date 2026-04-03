@@ -353,8 +353,76 @@
 
 
 /* -- PRODUCTS PAGE ----------------------------------------- */
+
+@media (max-width: 768px) {
+  /* Reduce section wrapper padding */
+  .products-wrapper { padding: 56px 0 !important; }
+  .products-stack   { gap: 40px !important; }
+
+  /* Fix cell collapsing: flex-basis:0 in column flex collapses height to 0 */
+  .product-cell {
+    flex: none !important;
+    height: auto !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  /* Features also full-width */
+  .product-features-outside { width: 100% !important; }
+
+  /* Mockup margin reduction */
+  .sr-mockup-wrap { margin-top: 28px !important; }
+
+  /* Fix stats: 5 columns too tight -- use 3 */
+  .sr-stats { grid-template-columns: repeat(3, 1fr) !important; gap: 5px !important; }
+  /* Hide last 2 stats to avoid overflow */
+  .sr-stats .sr-stat:nth-child(4),
+  .sr-stats .sr-stat:nth-child(5) { display: none !important; }
+
+  /* Pipeline: 3 cols too tight -- show only jobs + candidates */
+  .sr-pipeline { grid-template-columns: 1fr 1fr !important; gap: 7px !important; }
+  .sr-pipeline > div:nth-child(3) { display: none !important; }
+
+  /* Reduce feature list padding-top */
+  .product-features-outside { padding-top: 4px !important; gap: 18px !important; }
+}
+
+@media (max-width: 560px) {
+  /* Hide the full mockup on small phones -- too complex to read */
+  .sr-mockup-wrap { display: none !important; }
+
+  .products-wrapper { padding: 44px 0 !important; }
+  .products-stack   { gap: 28px !important; padding: 0 14px !important; }
+
+  /* Product cell: tighten it up without mockup */
+  .product-cell { padding: 28px 20px !important; border-radius: 16px !important; }
+  .product-cell .text-center .section-title { font-size: 1.5rem !important; }
+
+  /* Features list tighter */
+  .product-features-outside { gap: 14px !important; }
+  .pf-icon  { font-size: 1.1rem !important; }
+  .pf-body h4 { font-size: 0.85rem !important; }
+  .pf-body p  { font-size: 0.8rem !important; }
+
+  /* CTA button full width */
+  .btn-outside {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /* Compare section steps -- stack vertically, hide arrows */
+  .compare-steps { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .compare-step[style*="padding:20px 0"] { display: none !important; }
+  .compare-step { padding: 16px 0 !important; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .compare-step:last-child { border-bottom: none !important; }
+  .compare-step-num { font-size: 1.8rem !important; margin-bottom: 6px !important; }
+  .compare-step p   { font-size: 0.9rem !important; }
+}
+
 @media (max-width: 480px) {
-  .product-cell  { padding: 24px 16px !important; border-radius: 14px !important; }
+  .product-cell   { padding: 24px 16px !important; border-radius: 14px !important; }
   .products-stack { padding: 0 12px !important; }
 }
 

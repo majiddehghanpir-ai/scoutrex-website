@@ -6,7 +6,7 @@
 <title>ScoutRex | The AI Hiring Intelligence Platform</title>
 <meta content="ScoutRex builds AI-powered platforms that transform how people find work and how companies find talent." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lora:wght@600;700&display=swap" rel="stylesheet"/>
 <script>try{if(localStorage.getItem('sr_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
 <style>
 :root{
@@ -35,7 +35,7 @@ ul{list-style:none}
 .btn-lg{padding:16px 36px;font-size:16px}
 .section{padding:100px 0}
 .section-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;background:rgba(249,115,22,0.1);color:var(--orange);margin-bottom:16px}
-.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--text);line-height:1.15}
+.section-title{font-family:'Lora',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--text);line-height:1.15}
 .section-sub{font-size:1.125rem;color:var(--gray-600);line-height:1.7;margin-top:14px}
 .text-center{text-align:center}
 .text-center .section-sub{max-width:580px;margin-left:auto;margin-right:auto;margin-top:14px}
@@ -53,7 +53,7 @@ ul{list-style:none}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
 .nav-logo{display:flex;align-items:center;gap:10px}
 .nav-logo svg{width:38px;height:38px;flex-shrink:0}
-.logo-wordmark{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--indigo);letter-spacing:-0.3px;white-space:nowrap}
+.logo-wordmark{font-family:'Lora',serif;font-weight:700;font-size:20px;color:var(--indigo);letter-spacing:-0.3px;white-space:nowrap}
 .logo-rex{color:var(--orange)}
 .nav-links{display:flex;align-items:center;gap:4px}
 .nav-links a{padding:8px 14px;border-radius:50px;font-size:14px;font-weight:500;color:var(--gray-600);transition:all 0.2s}
@@ -69,8 +69,19 @@ ul{list-style:none}
 .mobile-menu a{font-size:1.2rem;font-weight:700;color:#fff;padding:10px;transition:color 0.2s}
 .mobile-menu a:hover{color:var(--orange)}
 
+
+/* Hero video section animations */
+@keyframes scrollBob {
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(6px)}
+}
+@keyframes pulse {
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(1.3)}
+}
+
 /* ── HERO ── */
-#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(140deg,#07051A 0%,#100B30 35%,#1E1256 65%,#2A1B8E 100%);padding-top:72px}
+#hero{padding-top:0!important;min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(140deg,#07051A 0%,#100B30 35%,#1E1256 65%,#2A1B8E 100%);padding-top:72px}
 .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.25}
 .hero-orb-1{width:700px;height:700px;background:var(--orange);top:-250px;right:-150px;animation:float 9s ease-in-out infinite}
@@ -84,7 +95,7 @@ ul{list-style:none}
 .hero-left{animation:fadeUp 0.7s ease both}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:50px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:#FB923C;font-size:12px;font-weight:700;margin-bottom:28px;letter-spacing:0.4px;text-transform:uppercase}
 .hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite}
-.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,5.5vw,4.4rem);font-weight:800;color:#fff;line-height:1.08;margin-bottom:24px;letter-spacing:-0.5px}
+.hero-title{font-family:'Lora',serif;font-size:clamp(2.8rem,5.5vw,4.4rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:24px;letter-spacing:-0.5px}
 .hero-title em{font-style:normal;background:linear-gradient(90deg,#F97316,#FB923C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-sub{font-size:1.15rem;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:44px;max-width:480px}
 .hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -98,7 +109,7 @@ ul{list-style:none}
 .hi-score-card{background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.2);border-radius:14px;padding:18px;margin-bottom:14px}
 .hi-score-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .hi-score-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.6px}
-.hi-score-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:#FB923C}
+.hi-score-val{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:#FB923C}
 .hi-score-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
 .hi-score-fill{height:100%;background:linear-gradient(90deg,var(--orange),#FB923C);border-radius:3px;width:87%;transition:width 1s ease}
 .hi-matches{display:flex;flex-direction:column;gap:8px}
@@ -110,7 +121,7 @@ ul{list-style:none}
 .hi-match-info{flex:1;min-width:0}
 .hi-match-name{font-size:13px;font-weight:600;color:rgba(255,255,255,0.9);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hi-match-role{font-size:11px;color:rgba(255,255,255,0.45)}
-.hi-match-pct{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#4ADE80;flex-shrink:0}
+.hi-match-pct{font-family:'Lora',serif;font-size:13px;font-weight:700;color:#4ADE80;flex-shrink:0}
 .hi-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:50px;font-size:10px;font-weight:700;background:rgba(74,222,128,0.15);color:#4ADE80;border:1px solid rgba(74,222,128,0.2);margin-top:4px}
 
 
@@ -127,7 +138,7 @@ ul{list-style:none}
 .pillar.p1 .pillar-icon{background:rgba(249,115,22,0.1)}
 .pillar.p2 .pillar-icon{background:rgba(30,18,86,0.08)}
 .pillar.p3 .pillar-icon{background:rgba(5,150,105,0.1)}
-.pillar-title{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:10px}
+.pillar-title{font-family:'Lora',serif;font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:10px}
 .pillar-desc{font-size:14px;color:var(--gray-600);line-height:1.7}
 
 /* ── PLATFORM SNAPSHOT ── */
@@ -138,7 +149,7 @@ ul{list-style:none}
 .platform-card.jr{background:linear-gradient(145deg,#FFF7ED 0%,#FEF3C7 100%)}
 .platform-card.hr{background:linear-gradient(145deg,#EEF2FF 0%,#E0E7FF 100%)}
 .pc-icon{font-size:2.8rem;margin-bottom:20px;display:block}
-.pc-name{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;margin-bottom:6px}
+.pc-name{font-family:'Lora',serif;font-size:2rem;font-weight:700;margin-bottom:6px}
 .pc-name.jr{color:var(--orange-dark)}
 .pc-name.hr{color:var(--indigo)}
 .pc-for{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:18px;opacity:0.6}
@@ -160,8 +171,8 @@ ul{list-style:none}
 .ai-steps{display:flex;flex-direction:column;gap:24px}
 .ai-step{display:flex;gap:20px;padding:24px;border-radius:16px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);transition:all 0.3s}
 .ai-step:hover{background:rgba(255,255,255,0.06);border-color:rgba(249,115,22,0.2)}
-.ai-step-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange-dark));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;margin-top:2px}
-.ai-step-content h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#fff;margin-bottom:6px}
+.ai-step-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange-dark));display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-weight:700;font-size:13px;color:#fff;flex-shrink:0;margin-top:2px}
+.ai-step-content h4{font-family:'Lora',serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:6px}
 .ai-step-content p{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.65}
 .ai-visual{position:relative}
 .ai-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:28px;backdrop-filter:blur(16px)}
@@ -181,7 +192,7 @@ ul{list-style:none}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center}
 .stat-item{padding:0 32px;border-right:1px solid rgba(255,255,255,0.1)}
 .stat-item:last-child{border-right:none}
-.stat-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:#fff;line-height:1}
+.stat-num{font-family:'Lora',serif;font-size:3rem;font-weight:700;color:#fff;line-height:1}
 .stat-num em{font-style:normal;color:var(--orange-light)}
 .stat-label{font-size:14px;color:rgba(255,255,255,0.55);margin-top:8px}
 
@@ -200,7 +211,7 @@ footer{background:var(--text);color:rgba(255,255,255,0.7);padding:72px 0 0}
 .footer-social{display:flex;gap:8px;margin-top:20px}
 .footer-social a{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:all 0.2s;color:rgba(255,255,255,0.6)}
 .footer-social a:hover{background:var(--orange);color:#fff}
-.footer-col-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px}
+.footer-col-title{font-family:'Lora',serif;font-size:12px;font-weight:700;color:#fff;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px}
 .footer-col ul li{margin-bottom:10px}
 .footer-col ul li a{font-size:14px;color:rgba(255,255,255,0.45);transition:color 0.2s}
 .footer-col ul li a:hover{color:#fff}
@@ -220,7 +231,7 @@ footer{background:var(--text);color:rgba(255,255,255,0.7);padding:72px 0 0}
 /* ── COOKIE BANNER ── */
 #cookie-banner{position:fixed;bottom:24px;left:24px;z-index:9999;max-width:420px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 40px rgba(0,0,0,0.14);border:1px solid var(--gray-100);transform:translateY(120px);opacity:0;transition:all 0.5s ease;pointer-events:none}
 #cookie-banner.show{transform:translateY(0);opacity:1;pointer-events:auto}
-.cookie-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.cookie-title{font-family:'Lora',serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .cookie-text{font-size:13px;color:var(--gray-600);line-height:1.6;margin-bottom:20px}
 .cookie-text a{color:var(--indigo);font-weight:600;text-decoration:underline}
 .cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
@@ -318,7 +329,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
 .rexi-header{background:linear-gradient(135deg,var(--indigo),#2D1B8E);padding:16px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
 .rexi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F97316,#EA6C0A);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:0}
 .rexi-header-info{flex:1}
-.rexi-header-name{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:#fff}
+.rexi-header-name{font-family:'Lora',serif;font-weight:700;font-size:15px;color:#fff}
 .rexi-header-status{font-size:11px;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:4px;margin-top:1px}
 .rexi-status-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;flex-shrink:0}
 .rexi-close{background:rgba(255,255,255,0.12);border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;transition:background 0.2s;flex-shrink:0}
@@ -435,73 +446,58 @@ html:not(.dark) #navbar:not(.scrolled) .theme-toggle{border-color:rgba(30,18,86,
 </div>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-bg">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-orb hero-orb-3"></div>
-    <div class="hero-grid"></div>
-  </div>
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-left">
-        <div class="hero-badge"><span class="hero-badge-dot"></span> Powered by Generative AI</div>
-        <h1 class="hero-title">Intelligence that<br>connects <em>talent</em><br>with <em>opportunity</em></h1>
-        <p class="hero-sub">ScoutRex builds AI systems that understand people, not just resumes, and companies, not just job descriptions. The result is matching that actually works.</p>
-        <div class="hero-actions">
-          <a href="products.html" class="btn btn-primary btn-lg">Explore the Platform →</a>
-          <a href="about.html" class="btn btn-ghost btn-lg">Our Mission</a>
-        </div>
+<section id="hero" style="position:relative;height:100vh;min-height:600px;max-height:900px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0;">
 
+  <!-- Video Background -->
+  <video autoplay muted loop playsinline
+    style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+    <source src="video/Scoutrex.mp4" type="video/mp4">
+  </video>
+
+  <!-- Dark gradient overlay -->
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(110deg,rgba(15,10,46,0.94) 40%,rgba(15,10,46,0.65) 100%);z-index:1;"></div>
+
+  <!-- Content -->
+  <div class="container" style="position:relative;z-index:2;padding-top:80px;">
+    <div style="max-width:680px;">
+
+      <!-- Eye-brow badge -->
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;background:rgba(249,115,22,0.18);border:1px solid rgba(249,115,22,0.40);color:#FB923C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#F97316;flex-shrink:0;animation:pulse 2s infinite;"></span>
+        From the First Click to the Age of Intelligence
       </div>
-      <div class="hero-right">
-        <div class="hero-interface">
-          <div class="hero-interface-bar">
-            <span class="hi-dot hi-dot-r"></span>
-            <span class="hi-dot hi-dot-y"></span>
-            <span class="hi-dot hi-dot-g"></span>
-            <span class="hi-url">app.scoutrex.com, AI Match Engine</span>
-          </div>
-          <div class="hero-interface-body">
-            <div class="hi-score-card">
-              <div class="hi-score-header">
-                <span class="hi-score-label">Overall AI Match Score</span>
-                <span class="hi-score-val">87%</span>
-              </div>
-              <div class="hi-score-bar"><div class="hi-score-fill"></div></div>
-            </div>
-            <div class="hi-matches">
-              <div class="hi-match">
-                <div class="hi-match-icon a">🧠</div>
-                <div class="hi-match-info">
-                  <div class="hi-match-name">Senior AI Engineer, Berlin</div>
-                  <div class="hi-match-role">Skills match · Culture fit · Growth trajectory</div>
-                  <div class="hi-tag">✓ Top Match</div>
-                </div>
-                <div class="hi-match-pct">94%</div>
-              </div>
-              <div class="hi-match">
-                <div class="hi-match-icon b">💼</div>
-                <div class="hi-match-info">
-                  <div class="hi-match-name">Product Lead, Remote</div>
-                  <div class="hi-match-role">Skills match · Salary aligned</div>
-                </div>
-                <div class="hi-match-pct">81%</div>
-              </div>
-              <div class="hi-match">
-                <div class="hi-match-icon c">🚀</div>
-                <div class="hi-match-info">
-                  <div class="hi-match-name">ML Research Scientist</div>
-                  <div class="hi-match-role">High growth · Strong culture fit</div>
-                </div>
-                <div class="hi-match-pct">78%</div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+      <!-- Headline -->
+      <h1 style="font-family:'Lora',serif;font-weight:700;font-size:clamp(2rem,4vw,3.2rem);line-height:1.12;color:#fff;margin-bottom:20px;letter-spacing:-0.5px;">
+        The road we’ve been on all along.<br>
+        <span style="color:var(--orange);">The destination? A better world.</span>
+      </h1>
+
+      <!-- Body copy — condensed to 2 lines per paragraph -->
+      <div style="font-size:0.97rem;line-height:1.75;color:rgba(255,255,255,0.75);max-width:580px;margin-bottom:28px;display:flex;flex-direction:column;gap:10px;">
+        <p>Every era has its turning point. The first computer. The internet. Each leap was powered by <strong style="color:#FB923C;font-weight:600;">human determination.</strong></p>
+        <p>For decades, brilliant minds laid the groundwork for something bigger than any of them could imagine alone. Now, we’re here — the AI era, where technology doesn’t just process, but <strong style="color:#FB923C;font-weight:600;">understands. Transforms.</strong></p>
+        <p style="color:rgba(255,255,255,0.90);font-weight:600;">This is the road we’ve been on all along — for all of us.</p>
       </div>
+
+      <!-- CTAs -->
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="products.html" class="btn btn-primary btn-lg">Explore the Platform →</a>
+        <a href="about.html" class="btn btn-lg"
+          style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.35);">
+          Our Mission
+        </a>
+      </div>
+
     </div>
   </div>
+
+  <!-- Scroll cue -->
+  <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;text-align:center;animation:scrollBob 2s ease-in-out infinite;">
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;">Scroll</div>
+    <svg width="16" height="26" viewBox="0 0 18 28" fill="none"><rect x="1" y="1" width="16" height="26" rx="8" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/><rect x="7.5" y="5" width="3" height="6" rx="1.5" fill="rgba(255,255,255,0.5)"/></svg>
+  </div>
+
 </section>
 
 
