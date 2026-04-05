@@ -1,0 +1,928 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Products | ScoutRex</title>
+<meta content="ScoutRex builds two AI-powered platforms, JobRex for job seekers and HireRex for hiring teams." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lora:wght@600;700&display=swap" rel="stylesheet"/>
+<script>try{if(localStorage.getItem('sr_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+:root{
+  --indigo:#1E1256;--indigo-mid:#2D1B8E;--indigo-light:#3D2CAE;
+  --orange:#F97316;--orange-light:#FB923C;--orange-dark:#EA6C0A;
+  --white:#FFFFFF;--off-white:#F8F7FF;
+  --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-400:#9CA3AF;--gray-600:#4B5563;--gray-800:#1F2937;
+  --text:#0F0A2E;--radius:16px;
+  --shadow:0 4px 24px rgba(30,18,86,0.10);--shadow-lg:0 12px 48px rgba(30,18,86,0.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+ul{list-style:none}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;font-weight:600;font-size:15px;cursor:pointer;transition:all 0.2s ease;border:none;outline:none}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 4px 16px rgba(249,115,22,0.35)}
+.btn-primary:hover{background:var(--orange-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(249,115,22,0.45)}
+.btn-secondary{background:transparent;color:var(--indigo);border:2px solid var(--indigo)}
+.btn-secondary:hover{background:var(--indigo);color:#fff}
+.btn-ghost{background:rgba(255,255,255,0.12);color:#fff;border:1.5px solid rgba(255,255,255,0.25)}
+.btn-ghost:hover{background:rgba(255,255,255,0.22)}
+.btn-lg{padding:16px 36px;font-size:16px}
+.section{padding:100px 0}
+.section-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;background:rgba(249,115,22,0.1);color:var(--orange);margin-bottom:16px}
+.section-title{font-family:'Lora',serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--text);line-height:1.15}
+.section-sub{font-size:1.125rem;color:var(--gray-600);line-height:1.7;margin-top:14px}
+.text-center{text-align:center}
+.text-center .section-sub{max-width:580px;margin-left:auto;margin-right:auto;margin-top:14px}
+
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all 0.3s ease}
+#navbar.scrolled{background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(30,18,86,0.08)}
+#navbar:not(.scrolled) .logo-wordmark{color:#fff}
+#navbar:not(.scrolled) .logo-rex{color:var(--orange)!important}
+#navbar:not(.scrolled) .nav-links a{color:#fff;font-weight:700}
+#navbar:not(.scrolled) .nav-links a:hover{color:#fff;background:rgba(255,255,255,0.1)}
+#navbar:not(.scrolled) .login-btn{color:#fff;border-color:rgba(255,255,255,0.5)}
+#navbar:not(.scrolled) .login-btn:hover{background:rgba(255,255,255,0.12)}
+#navbar:not(.scrolled) .hamburger span{background:#fff}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo svg{width:38px;height:38px;flex-shrink:0}
+.logo-wordmark{font-family:'Lora',serif;font-weight:800;font-size:20px;color:var(--indigo);letter-spacing:-0.3px;white-space:nowrap}
+.logo-rex{color:var(--orange)}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:8px 14px;border-radius:50px;font-size:14px;font-weight:600;color:var(--indigo);transition:all 0.2s}
+.nav-links a:hover{color:var(--indigo);background:var(--off-white)}
+.nav-links a.active{color:var(--indigo);font-weight:700}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.login-btn{background:transparent;color:var(--indigo);border:2px solid var(--indigo);padding:9px 20px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;border-radius:50px;font-weight:600;transition:all 0.2s}
+.login-btn:hover{background:var(--indigo);color:#fff}
+.nav-cta .btn-primary{padding:9px 20px;font-size:14px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:var(--indigo);border-radius:2px;transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(15,10,46,0.97);z-index:999;overflow-y:auto;flex-direction:column;align-items:center;justify-content:flex-start;gap:18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1.2rem;font-weight:700;color:#fff;padding:10px;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--orange)}
+
+.theme-toggle{background:transparent;border:2px solid rgba(255,255,255,0.35);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;flex-shrink:0}
+.theme-toggle:hover{background:rgba(255,255,255,0.12);transform:scale(1.08)}
+#navbar.scrolled .theme-toggle{border-color:#E5E7EB;color:#1E1256}
+#navbar.scrolled .theme-toggle:hover{background:#F8F7FF}
+
+footer{background:var(--text);color:rgba(255,255,255,0.7);padding:72px 0 0}
+.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.footer-brand p{font-size:14px;line-height:1.75;margin-top:16px;max-width:280px;color:rgba(255,255,255,0.5)}
+.footer-social{display:flex;gap:8px;margin-top:20px}
+.footer-social a{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:all 0.2s;color:rgba(255,255,255,0.6)}
+.footer-social a:hover{background:var(--orange);color:#fff}
+.footer-col-title{font-family:'Lora',serif;font-size:12px;font-weight:800;color:#fff;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{font-size:14px;color:rgba(255,255,255,0.45);transition:color 0.2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.footer-bottom-left{font-size:12px;color:rgba(255,255,255,0.3)}
+.footer-bottom-right{display:flex;gap:20px}
+.footer-bottom-right a{font-size:12px;color:rgba(255,255,255,0.3);transition:color 0.2s}
+.footer-bottom-right a:hover{color:#fff}
+
+html.dark{--text:#F1F0F9;--gray-600:#A09BBF;--gray-800:#C4BFDA;--gray-400:#6B6485;--gray-200:#2D2850;--gray-100:#231F42;--off-white:#110F26;--white:#0D0B1F;--shadow:0 4px 24px rgba(0,0,0,0.4);--shadow-lg:0 12px 48px rgba(0,0,0,0.5)}
+html.dark body{background:#0D0B1F;color:#F1F0F9}
+html.dark .section-title{color:#F1F0F9}
+html.dark .section-sub{color:#A09BBF}
+html.dark #navbar.scrolled{background:rgba(13,11,31,0.97);box-shadow:0 2px 20px rgba(0,0,0,0.4)}
+html.dark #navbar.scrolled .logo-wordmark{color:#F1F0F9}
+html.dark #navbar.scrolled .nav-links a{color:#A09BBF}
+html.dark #navbar.scrolled .nav-links a:hover{color:#fff;background:#1E1B3A}
+html.dark #navbar.scrolled .login-btn{color:#F1F0F9;border-color:#3D3560}
+html.dark #navbar.scrolled .login-btn:hover{background:#2D2850;color:#fff}
+html.dark #navbar.scrolled .btn-secondary{color:#C4BFDA;border-color:#3D3560}
+html.dark #navbar.scrolled .btn-secondary:hover{background:#2D2850;color:#fff;border-color:#2D2850}
+html.dark #navbar.scrolled .theme-toggle{border-color:#3D3560;color:#F1F0F9}
+html.dark #navbar.scrolled .theme-toggle:hover{background:#1E1B3A}
+html.dark .mobile-menu{background:rgba(9,7,28,0.98)}
+html.dark .btn-secondary{color:#C4BFDA;border-color:#3D3560}
+html.dark .btn-secondary:hover{background:#2D2850;color:#fff;border-color:#2D2850}
+
+.hero{min-height:50vh;padding-top:72px;background:linear-gradient(140deg,#07051A 0%,#100B30 35%,#1E1256 65%,#2A1B8E 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-content{text-align:center;position:relative;z-index:2}
+.hero h1{font-family:'Lora',serif;font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;color:#fff;line-height:1.15;margin-top:16px}
+.hero .section-sub{color:rgba(255,255,255,0.75);max-width:700px;margin-left:auto;margin-right:auto}
+.hero-cta{display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+
+.feature-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;margin-top:48px}
+.feature-card{padding:32px;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);transition:all 0.3s ease}
+.feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.feature-card h3{font-family:'Lora',serif;font-size:1.05rem;font-weight:800;color:var(--text);margin-top:12px}
+.feature-card p{font-size:0.95rem;color:var(--gray-600);line-height:1.6;margin-top:8px}
+
+.compare-section{background:linear-gradient(145deg,#1E1256 0%,#2D1B8E 50%,#3D2CAE 100%);color:#fff;position:relative;overflow:hidden}
+.compare-section::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(249,115,22,0.15) 0%,transparent 70%);border-radius:50%;bottom:-100px;left:-100px}
+.compare-content{position:relative;z-index:2}
+.compare-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-top:48px;align-items:center}
+.compare-step{text-align:center;padding:20px}
+.compare-step-num{font-size:2.5rem;font-weight:800;color:var(--orange);margin-bottom:12px}
+.compare-step p{font-size:1rem;line-height:1.6;color:rgba(255,255,255,0.9)}
+
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .section{padding:72px 0}
+  .hero{min-height:45vh}
+  .hero-cta{flex-direction:column;align-items:center}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .footer-top{grid-template-columns:1fr}
+  .hero h1{font-size:2rem}
+}
+
+html.dark .feature-card{background:#1C1836;border-color:#2D2850}
+html.dark .feature-card h3{color:#F1F0F9}
+html.dark .feature-card p{color:#A09BBF}
+
+html.dark footer{background:#09071C}
+html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
+
+/* ── REXI CHATBOT ── */
+
+.rexi-toggle{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),#F97316);border:none;cursor:pointer;box-shadow:0 8px 28px rgba(249,115,22,0.4);display:flex;align-items:center;justify-content:center;transition:all 0.3s;position:relative;flex-shrink:0;overflow:hidden;padding:0}
+.rexi-toggle:hover{transform:scale(1.08)}
+.rexi-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(249,115,22,0.3);animation:rexi-p 2s infinite;pointer-events:none}
+@keyframes rexi-p{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.45)}}
+.rexi-toggle-icon{font-size:26px;transition:transform 0.3s}
+#rexi-bubble{position:fixed;bottom:24px;right:24px;z-index:9998;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.rexi-toggle.open .rexi-pulse{display:none}
+.rexi-toggle.open{background:linear-gradient(135deg,#EA6C0A,#D4620A)}
+
+/* CHAT PANEL */
+.rexi-panel{width:360px;background:#fff;border-radius:20px;box-shadow:0 16px 60px rgba(15,10,46,0.18);overflow:hidden;display:flex;flex-direction:column;max-height:500px;opacity:0;transform:translateY(16px) scale(0.97);pointer-events:none;transition:all 0.28s cubic-bezier(0.34,1.56,0.64,1);transform-origin:bottom right}
+.rexi-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.rexi-header{background:linear-gradient(135deg,#F97316,#EA6C0A);padding:16px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.rexi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F97316,#EA6C0A);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:0}
+.rexi-header-info{flex:1}
+.rexi-header-name{font-family:'Lora',serif;font-weight:800;font-size:15px;color:#fff}
+.rexi-header-status{font-size:11px;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:4px;margin-top:1px}
+.rexi-status-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;flex-shrink:0}
+.rexi-close{background:rgba(255,255,255,0.12);border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;transition:background 0.2s;flex-shrink:0}
+.rexi-close:hover{background:rgba(255,255,255,0.22)}
+.rexi-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.rexi-messages::-webkit-scrollbar{width:4px}
+.rexi-messages::-webkit-scrollbar-track{background:transparent}
+.rexi-messages::-webkit-scrollbar-thumb{background:rgba(30,18,86,0.12);border-radius:4px}
+.rexi-msg{display:flex;gap:8px;align-items:flex-end;max-width:88%}
+.rexi-msg.user{flex-direction:row-reverse;align-self:flex-end}
+.rexi-msg.bot{align-self:flex-start}
+.rexi-msg-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#F97316,#EA6C0A);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:2px;overflow:hidden;padding:0}
+.rexi-bubble-text{padding:10px 14px;border-radius:18px;font-size:13.5px;line-height:1.55;word-break:break-word}
+.rexi-msg.bot .rexi-bubble-text{background:var(--gray-50,#F9FAFB);color:var(--text,#0F0A2E);border-radius:18px 18px 18px 4px;border:1px solid var(--gray-100,#F3F4F6)}
+.rexi-msg.user .rexi-bubble-text{background:linear-gradient(135deg,#F97316,#EA6C0A);color:#fff;border-radius:18px 18px 4px 18px}
+.rexi-bubble-text a{color:var(--orange,#F97316);font-weight:600;text-decoration:underline}
+.rexi-typing{display:flex;gap:4px;align-items:center;padding:12px 14px}
+.rexi-typing span{width:7px;height:7px;border-radius:50%;background:var(--gray-400,#9CA3AF);animation:rexi-dot 1.2s infinite}
+.rexi-typing span:nth-child(2){animation-delay:0.2s}
+.rexi-typing span:nth-child(3){animation-delay:0.4s}
+@keyframes rexi-dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.rexi-suggestions{padding:0 12px 12px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.rexi-chip{padding:6px 12px;border-radius:50px;background:rgba(30,18,86,0.06);border:1px solid rgba(30,18,86,0.1);font-size:12px;font-weight:600;color:var(--indigo,#1E1256);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.rexi-chip:hover{background:#F97316;color:#fff}
+.rexi-input-area{padding:12px 14px;border-top:1px solid var(--gray-100,#F3F4F6);display:flex;gap:8px;flex-shrink:0;background:#fff}
+.rexi-input{flex:1;border:1.5px solid var(--gray-200,#E5E7EB);border-radius:50px;padding:9px 16px;font-size:13.5px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;color:var(--text,#0F0A2E);background:transparent}
+.rexi-input:focus{border-color:#F97316}
+.rexi-send{width:36px;height:36px;border-radius:50%;background:#F97316;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
+.rexi-send:hover{background:#EA6C0A;transform:scale(1.08)}
+.rexi-send svg{width:15px;height:15px;fill:#fff}
+/* Dark mode */
+html.dark .rexi-panel{background:#1C1836;box-shadow:0 16px 60px rgba(0,0,0,0.5)}
+html.dark .rexi-msg.bot .rexi-bubble-text{background:#161328;border-color:#2D2850;color:#F1F0F9}
+html.dark .rexi-chip{background:rgba(255,255,255,0.06);border-color:#3D3560;color:#C4BFDA}
+html.dark .rexi-chip:hover{background:#2D2850;color:#fff}
+html.dark .rexi-input-area{background:#1C1836;border-top-color:#2D2850}
+html.dark .rexi-input{border-color:#2D2850;color:#F1F0F9}
+html.dark .rexi-input:focus{border-color:var(--indigo-light)}
+html.dark .rexi-send{background:#D4620A}
+html.dark .rexi-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1)}
+@media(max-width:420px){.rexi-panel{width:calc(100vw - 32px)}}
+
+/* ── APP MOCKUP ── */
+.sr-mockup-wrap{width:100%;max-width:960px;margin:56px auto 0;position:relative}
+.sr-mockup-glow{position:absolute;inset:-30px;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(249,115,22,0.12),transparent);pointer-events:none;border-radius:20px}
+.sr-mockup{background:#0D0B1F;border:1px solid rgba(249,115,22,0.15);border-radius:14px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.04)}
+.sr-mockup-bar{background:#090720;border-bottom:1px solid rgba(255,255,255,0.06);height:42px;display:flex;align-items:center;padding:0 16px;gap:7px}
+.sr-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.sr-dot-r{background:#FF5F57}.sr-dot-y{background:#FEBC2E}.sr-dot-g{background:#28C840}
+.sr-mockup-url{margin-left:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px;height:25px;padding:0 12px;display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.35);font-family:'Inter',monospace}
+.sr-mockup-body{display:flex;height:400px}
+.sr-mockup-sidebar{width:175px;background:#07061A;border-right:1px solid rgba(255,255,255,0.05);padding:14px 0;flex-shrink:0;overflow:hidden}
+.sr-muser{padding:0 12px 12px;border-bottom:1px solid rgba(255,255,255,0.05);margin-bottom:8px}
+.sr-muser-name{font-size:12px;font-weight:700;color:#F1F0F9;font-family:'Lora',serif}
+.sr-muser-role{font-size:10px;color:#F97316;text-transform:uppercase;letter-spacing:0.05em}
+.sr-mlabel{font-size:9px;color:rgba(255,255,255,0.22);letter-spacing:0.1em;text-transform:uppercase;padding:7px 12px 3px}
+.sr-mnav{display:flex;align-items:center;gap:7px;padding:7px 12px;font-size:11px;color:rgba(255,255,255,0.42);border-left:2px solid transparent;cursor:pointer}
+.sr-mnav.active{color:#F97316;background:rgba(249,115,22,0.07);border-left-color:#F97316}
+.sr-mockup-main{flex:1;padding:18px 20px;overflow:hidden}
+.sr-mheader{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.sr-mtitle{font-family:'Lora',serif;font-size:18px;font-weight:800;color:#F1F0F9}
+.sr-mbtn{background:#F97316;color:#fff;border-radius:5px;padding:5px 12px;font-size:10px;font-weight:700;cursor:pointer;border:none}
+.sr-mbtn-ghost{background:transparent;border:1px solid rgba(249,115,22,0.3);color:#F97316;border-radius:5px;padding:5px 10px;font-size:10px;font-weight:600;cursor:pointer}
+.sr-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:13px}
+.sr-stat{background:#131129;border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:9px;text-align:center}
+.sr-stat-n{font-family:'Lora',serif;font-weight:800;font-size:16px}
+.sr-stat-l{font-size:8px;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:0.07em;margin-top:2px}
+.sr-pipeline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.sr-pcol-hdr{font-size:9px;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.sr-job-card{background:#131129;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:8px;margin-bottom:5px;cursor:pointer}
+.sr-job-card.sel{border-color:rgba(249,115,22,0.4);background:rgba(249,115,22,0.05)}
+.sr-job-title{font-size:11px;font-weight:600;color:#F1F0F9;margin-bottom:2px}
+.sr-job-meta{font-size:9px;color:rgba(255,255,255,0.28)}
+.sr-badge{display:inline-flex;align-items:center;border-radius:3px;padding:2px 5px;font-size:8px;font-weight:600;margin-left:3px}
+.sr-badge-green{background:rgba(74,222,128,0.12);color:#4ADE80}
+.sr-badge-amber{background:rgba(251,191,36,0.12);color:#FBB024}
+.sr-badge-orange{background:rgba(249,115,22,0.15);color:#F97316}
+.sr-cand-card{background:#131129;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:8px;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.sr-avatar{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.sr-cand-name{font-size:11px;font-weight:600;color:#F1F0F9}
+.sr-cand-score{font-size:10px;color:#F97316;font-family:monospace;flex-shrink:0}
+.sr-score-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:3px}
+.sr-score-fill{height:100%;background:linear-gradient(90deg,#F97316,#4E42CC);border-radius:2px}
+.sr-detail-box{background:#131129;border:1px solid rgba(249,115,22,0.2);border-radius:8px;padding:11px}
+.sr-detail-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:10px}
+.sr-detail-lbl{color:rgba(255,255,255,0.3)}
+.sr-detail-val{color:#F1F0F9;font-weight:600}
+.sr-app-list{display:flex;flex-direction:column;gap:8px}
+.sr-app-card{background:#131129;border:1px solid rgba(255,255,255,0.06);border-radius:9px;padding:11px 13px}
+.sr-app-card.expanded{border-color:rgba(249,115,22,0.3);background:rgba(249,115,22,0.03)}
+.sr-app-hdr{display:flex;align-items:center;gap:8px}
+.sr-app-company{font-size:9px;color:rgba(255,255,255,0.32);text-transform:uppercase;letter-spacing:0.07em}
+.sr-app-role{font-size:12px;font-weight:700;color:#F1F0F9}
+.sr-app-tests{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.sr-test-pill{padding:3px 8px;border-radius:4px;font-size:9px;font-weight:600}
+.sr-test-pending{background:rgba(251,191,36,0.12);color:#FBB024}
+.sr-test-done{background:rgba(74,222,128,0.1);color:#4ADE80}
+@media(max-width:768px){.sr-mockup-sidebar{display:none}.sr-mockup-body{height:300px}}
+
+/* ── PRODUCT CELLS ── */
+.products-wrapper{padding:80px 0;background:var(--off-white)}
+html.dark .products-wrapper{background:#07061A}
+.products-stack{display:flex;flex-direction:column;gap:56px;width:100%;padding:0 100px}
+.product-row{display:flex;align-items:flex-start;gap:48px;width:100%}
+.jobrex-row{margin-right:auto;margin-left:0}
+.hirerex-row{margin-left:auto;margin-right:0}
+.product-cell{background:#fff;border:1px solid var(--gray-200);border-radius:24px;padding:44px 48px;position:relative;overflow:hidden;transition:box-shadow 0.3s;flex:1 1 0;min-width:0}
+.product-cell:hover{box-shadow:0 16px 48px rgba(30,18,86,0.1)}
+.product-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.jobrex-cell::before{background:linear-gradient(90deg,#3D2CAE,#4E42CC,#7C6FE0)}
+.hirerex-cell::before{background:linear-gradient(90deg,#EA6C0A,#F97316,#FB923C)}
+.product-cell .text-center{margin-bottom:0}
+.product-cell .sr-mockup-wrap{margin-top:40px}
+html.dark .product-cell{background:#1C1836;border-color:#2D2850}
+html.dark .product-cell:hover{box-shadow:0 16px 48px rgba(0,0,0,0.35)}
+/* Features outside the cell */
+.product-features-outside{flex:0 0 240px;display:flex;flex-direction:column;gap:24px;padding-top:20px}
+.product-feature-item{display:flex;gap:12px;align-items:flex-start}
+.pf-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;line-height:1}
+.pf-body h4{font-family:'Lora',serif;font-size:0.875rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.pf-body p{font-size:0.825rem;color:var(--gray-600);line-height:1.6}
+html.dark .pf-body h4{color:#F1F0F9}
+html.dark .pf-body p{color:#A09BBF}
+/* Animated CTA buttons */
+.btn-outside{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;font-weight:700;font-size:14px;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform 0.25s ease,box-shadow 0.25s ease;margin-top:12px;text-decoration:none;white-space:nowrap}
+.btn-outside::before{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.28),transparent);transform:skewX(-20deg);animation:btn-shine 3s infinite}
+@keyframes btn-shine{0%{left:-120%}45%{left:130%}100%{left:130%}}
+.btn-outside:hover{transform:translateY(-3px)}
+.btn-jobrex-cta{background:linear-gradient(135deg,#3D2CAE,#4E42CC);color:#fff;box-shadow:0 6px 24px rgba(78,66,204,0.35)}
+.btn-jobrex-cta:hover{box-shadow:0 12px 36px rgba(78,66,204,0.5)}
+.btn-hirerex-cta{background:linear-gradient(135deg,#EA6C0A,#F97316);color:#fff;box-shadow:0 6px 24px rgba(249,115,22,0.35)}
+.btn-hirerex-cta:hover{box-shadow:0 12px 36px rgba(249,115,22,0.5)}
+/* Light mockup variant (HireRex) */
+.sr-mockup.light{background:#F5F4FF;border-color:rgba(30,18,86,0.1);box-shadow:0 40px 100px rgba(30,18,86,0.1),0 0 0 1px rgba(30,18,86,0.05)}
+.sr-mockup.light .sr-mockup-bar{background:#ECEAF6;border-bottom-color:rgba(30,18,86,0.08)}
+.sr-mockup.light .sr-mockup-url{background:rgba(255,255,255,0.85);border-color:rgba(30,18,86,0.1);color:rgba(30,18,86,0.38)}
+.sr-mockup.light .sr-mockup-sidebar{background:#fff;border-right-color:rgba(30,18,86,0.07)}
+.sr-mockup.light .sr-muser{border-bottom-color:rgba(30,18,86,0.07)}
+.sr-mockup.light .sr-muser-name{color:#0F0A2E}
+.sr-mockup.light .sr-mlabel{color:rgba(30,18,86,0.28)}
+.sr-mockup.light .sr-mnav{color:rgba(30,18,86,0.48)}
+.sr-mockup.light .sr-mnav.active{color:#F97316;background:rgba(249,115,22,0.07);border-left-color:#F97316}
+.sr-mockup.light .sr-mockup-main{background:#F8F7FF}
+.sr-mockup.light .sr-mtitle{color:#0F0A2E}
+.sr-mockup.light .sr-mbtn-ghost{border-color:rgba(249,115,22,0.35);color:#EA6C0A}
+.sr-mockup.light .sr-stat{background:#fff;border-color:rgba(30,18,86,0.08)}
+.sr-mockup.light .sr-stat-l{color:rgba(30,18,86,0.35)}
+.sr-mockup.light .sr-pcol-hdr{color:rgba(30,18,86,0.38);border-bottom-color:rgba(30,18,86,0.07)}
+.sr-mockup.light .sr-job-card{background:#fff;border-color:rgba(30,18,86,0.09)}
+.sr-mockup.light .sr-job-card.sel{background:rgba(249,115,22,0.05);border-color:rgba(249,115,22,0.3)}
+.sr-mockup.light .sr-job-title{color:#0F0A2E}
+.sr-mockup.light .sr-job-meta{color:rgba(30,18,86,0.38)}
+.sr-mockup.light .sr-cand-card{background:#fff;border-color:rgba(30,18,86,0.08)}
+.sr-mockup.light .sr-cand-name{color:#0F0A2E}
+.sr-mockup.light .sr-score-bar{background:rgba(30,18,86,0.08)}
+.sr-mockup.light .sr-detail-box{background:#fff;border-color:rgba(249,115,22,0.22)}
+.sr-mockup.light .sr-detail-lbl{color:rgba(30,18,86,0.38)}
+.sr-mockup.light .sr-detail-val{color:#0F0A2E}
+@media(max-width:1024px){.product-features-outside{flex:0 0 200px}.products-stack{padding:0 60px}}
+@media(max-width:768px){.products-stack{padding:0 32px}}
+@media(max-width:768px){.product-row{flex-direction:column;max-width:100%}.jobrex-row,.hirerex-row{margin:0}.product-features-outside{flex:none;width:100%}.product-cell{padding:32px 28px;border-radius:20px}}
+@media(max-width:480px){.products-stack{padding:0 16px}.product-cell{padding:26px 18px;border-radius:16px}}
+
+
+/* ── LIGHT MODE ── */
+html:not(.dark) .hero{background:linear-gradient(145deg,#EEE9FF 0%,#F8F7FF 55%,#FFF8F3 100%)}
+html:not(.dark) .hero::before{background:radial-gradient(circle,rgba(249,115,22,0.07) 0%,transparent 70%)}
+html:not(.dark) .hero::after{background:radial-gradient(circle,rgba(30,18,86,0.05) 0%,transparent 70%)}
+html:not(.dark) .hero h1{color:var(--text)}
+html:not(.dark) .hero .section-sub{color:var(--gray-600)}
+html:not(.dark) .btn-ghost{background:transparent;color:var(--indigo);border:1.5px solid rgba(30,18,86,0.25)}
+html:not(.dark) .btn-ghost:hover{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+
+
+
+
+
+
+html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!important}
+</style>
+<link rel="stylesheet" href="mobile.css"/>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+      </a>
+      <div class="nav-links">
+        <a href="products.html" class="active">Products</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="team.html">Team</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+        <a href="login.html"><button class="login-btn">Log In</button></a>
+        
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="products.html"  onclick="setTimeout(toggleMenu,100)">Products</a>
+  <a href="pricing.html"  onclick="setTimeout(toggleMenu,100)">Pricing</a>
+  <a href="about.html"  onclick="setTimeout(toggleMenu,100)">About</a>
+  <a href="team.html"  onclick="setTimeout(toggleMenu,100)">Team</a>
+  <a href="careers.html"  onclick="setTimeout(toggleMenu,100)">Careers</a>
+  <a href="contact.html"  onclick="setTimeout(toggleMenu,100)">Contact</a>
+  <hr class="mobile-divider">
+  <div class="mobile-section-label">Account</div>
+  <a href="login.html" onclick="setTimeout(toggleMenu,100)">Log In</a>
+  <a href="login.html?mode=register" onclick="setTimeout(toggleMenu,100)">Register</a>
+  <a href="account.html" onclick="setTimeout(toggleMenu,100)">My ScoutRex</a>
+  <a href="contact.html" onclick="setTimeout(toggleMenu,100)">Support</a>
+  
+  <button class="theme-toggle" onclick="toggleTheme()" style="margin-top:8px" id="theme-toggle-mobile">🌙</button>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Two platforms. One AI intelligence layer.</h1>
+      <p class="section-sub">JobRex and HireRex share the same underlying match engine, meaning every interaction on one platform makes the other smarter.</p>
+      <div class="hero-cta">
+        <a href="#jobrex" class="btn btn-primary btn-lg">Explore JobRex →</a>
+        <a href="#hirerex" class="btn btn-ghost btn-lg">Explore HireRex →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products-wrapper">
+  <div class="products-stack">
+
+    <!-- JobRex Row -->
+    <div class="product-row">
+      <div class="product-cell jobrex-cell" id="jobrex">
+      <div class="text-center">
+        <div class="section-tag">JobRex: For Job Seekers</div>
+        <h2 class="section-title">Your AI career co-pilot</h2>
+        <p class="section-sub">Stop sending applications into the void. JobRex builds a living profile of who you are, not just what's on your CV, and matches you with roles that actually fit.</p>
+      </div>
+      <div class="sr-mockup-wrap">
+      <div class="sr-mockup-glow"></div>
+      <div class="sr-mockup">
+        <div class="sr-mockup-bar">
+          <div class="sr-dot sr-dot-r"></div>
+          <div class="sr-dot sr-dot-y"></div>
+          <div class="sr-dot sr-dot-g"></div>
+          <div class="sr-mockup-url">🔒 app.scoutrex.com/dashboard</div>
+        </div>
+        <div class="sr-mockup-body">
+          <div class="sr-mockup-sidebar">
+            <div class="sr-muser">
+              <div class="sr-muser-name">Stefan</div>
+              <div class="sr-muser-role">Candidate</div>
+            </div>
+            <div class="sr-mlabel">My Portal</div>
+            <div class="sr-mnav active">⬛ Dashboard</div>
+            <div class="sr-mlabel">Other</div>
+            <div class="sr-mnav">📈 My Journey</div>
+            <div class="sr-mnav">📅 Calendar</div>
+            <div class="sr-mlabel">Explore</div>
+            <div class="sr-mnav">🔍 Find Jobs</div>
+            <div class="sr-mnav">📄 CV Builder</div>
+            <div class="sr-mlabel">Account</div>
+            <div class="sr-mnav">💬 Messages</div>
+            <div class="sr-mnav">🔔 Notifications</div>
+          </div>
+          <div class="sr-mockup-main">
+            <div class="sr-mheader">
+              <div class="sr-mtitle">My Applications (4)</div>
+              <div class="sr-mbtn-ghost">🔍 Find Jobs →</div>
+            </div>
+            <div class="sr-app-list">
+              <div class="sr-app-card expanded">
+                <div class="sr-app-hdr">
+                  <div class="sr-avatar" style="background:linear-gradient(135deg,#1E40AF,#3B82F6);width:30px;height:30px;font-size:11px">BM</div>
+                  <div>
+                    <div class="sr-app-company">BMW Group</div>
+                    <div class="sr-app-role">Compliance Officer</div>
+                  </div>
+                  <div style="margin-left:auto"><span class="sr-badge sr-badge-amber" style="font-size:9px;padding:3px 7px">In Progress</span></div>
+                </div>
+                <div class="sr-app-tests">
+                  <span class="sr-test-pill sr-test-pending">⏳ Legal Basics</span>
+                  <span class="sr-test-pill sr-test-pending">⏳ Risk Assessment</span>
+                  <span class="sr-test-pill sr-test-done">✓ English</span>
+                  <span class="sr-test-pill sr-test-pending">⏳ Case Study</span>
+                  <span class="sr-test-pill sr-test-pending">⏳ Ethics</span>
+                </div>
+              </div>
+              <div class="sr-app-card">
+                <div class="sr-app-hdr">
+                  <div class="sr-avatar" style="background:linear-gradient(135deg,#047857,#10B981);width:30px;height:30px;font-size:11px">SA</div>
+                  <div>
+                    <div class="sr-app-company">SAP SE</div>
+                    <div class="sr-app-role">Software Engineer</div>
+                  </div>
+                  <div style="margin-left:auto"><span class="sr-badge sr-badge-green" style="font-size:9px;padding:3px 7px">Shortlisted</span></div>
+                </div>
+              </div>
+              <div class="sr-app-card">
+                <div class="sr-app-hdr">
+                  <div class="sr-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA);width:30px;height:30px;font-size:11px">DB</div>
+                  <div>
+                    <div class="sr-app-company">Deutsche Bank</div>
+                    <div class="sr-app-role">Data Analyst</div>
+                  </div>
+                  <div style="margin-left:auto"><span class="sr-badge sr-badge-amber" style="font-size:9px;padding:3px 7px">Screening</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div><!-- /jobrex-cell -->
+      <div class="product-features-outside">
+        <div class="product-feature-item">
+          <div class="pf-icon">🧠</div>
+          <div class="pf-body"><h4>Living Profile</h4><p>Beyond the CV: your skills, interests, working style, and career goals build a multi-dimensional picture of who you are.</p></div>
+        </div>
+        <div class="product-feature-item">
+          <div class="pf-icon">🎯</div>
+          <div class="pf-body"><h4>Intelligent Matching</h4><p>AI that reads between the lines. We match you on trajectory, culture fit, and growth potential, not just job titles.</p></div>
+        </div>
+        <div class="product-feature-item">
+          <div class="pf-icon">📊</div>
+          <div class="pf-body"><h4>Career Intelligence</h4><p>See where you stand in the market, which skills are worth developing, and what your next role should look like.</p></div>
+        </div>
+        <div class="product-feature-item">
+          <div class="pf-icon">💬</div>
+          <div class="pf-body"><h4>Interview Prep</h4><p>Role-specific preparation powered by the same AI that matched you. Walk in ready.</p></div>
+        </div>
+        <a href="login.html?mode=register&type=candidate" class="btn-outside btn-jobrex-cta">Get Started with JobRex →</a>
+      </div>
+    </div><!-- /jobrex-row -->
+
+    <!-- HireRex Row -->
+    <div class="product-row">
+      <div class="product-features-outside">
+        <div class="product-feature-item">
+          <div class="pf-icon">🔍</div>
+          <div class="pf-body"><h4>Smart Sourcing</h4><p>Surface passive candidates who match your role before they even start looking. AI-driven outbound that doesn't feel like spam.</p></div>
+        </div>
+        <div class="product-feature-item">
+          <div class="pf-icon">⚡</div>
+          <div class="pf-body"><h4>AI Screening</h4><p>Go from applicant pool to shortlist in hours, not days. Our AI pre-screens with the depth of a skilled recruiter.</p></div>
+        </div>
+        <div class="product-feature-item">
+          <div class="pf-icon">📈</div>
+          <div class="pf-body"><h4>Analytics</h4><p>Pipeline health, source quality, time-to-hire, diversity metrics, all in one dashboard built for data-driven hiring teams.</p></div>
+        </div>
+        <div class="product-feature-item">
+          <div class="pf-icon">🤝</div>
+          <div class="pf-body"><h4>Team Collaboration</h4><p>Shared scorecards, structured feedback, and role-based access keep your hiring team aligned from first look to offer.</p></div>
+        </div>
+        <a href="login.html?mode=register&type=company" class="btn-outside btn-hirerex-cta">Get Started with HireRex →</a>
+      </div>
+      <div class="product-cell hirerex-cell" id="hirerex">
+      <div class="text-center">
+        <div class="section-tag">HireRex: For Hiring Teams</div>
+        <h2 class="section-title">Talent intelligence for modern teams</h2>
+        <p class="section-sub">Find the candidates your existing tools miss. HireRex surfaces talent based on what actually predicts performance, not just who applied last week.</p>
+      </div>
+      <div class="sr-mockup-wrap">
+      <div class="sr-mockup-glow"></div>
+      <div class="sr-mockup light">
+        <div class="sr-mockup-bar">
+          <div class="sr-dot sr-dot-r"></div>
+          <div class="sr-dot sr-dot-y"></div>
+          <div class="sr-dot sr-dot-g"></div>
+          <div class="sr-mockup-url">🔒 app.scoutrex.com/pipeline</div>
+        </div>
+        <div class="sr-mockup-body">
+          <div class="sr-mockup-sidebar">
+            <div class="sr-muser">
+              <div class="sr-muser-name">BMW Group</div>
+              <div class="sr-muser-role">HR Manager</div>
+            </div>
+            <div class="sr-mlabel">Overview</div>
+            <div class="sr-mnav active">◈ Pipeline</div>
+            <div class="sr-mlabel">Jobs</div>
+            <div class="sr-mnav">📋 Job Positions</div>
+            <div class="sr-mnav">⚡ Test Cases</div>
+            <div class="sr-mlabel">Team</div>
+            <div class="sr-mnav">👥 Team Members</div>
+            <div class="sr-mnav">📊 Analytics</div>
+            <div class="sr-mnav">📚 Question Library</div>
+          </div>
+          <div class="sr-mockup-main">
+            <div class="sr-mheader">
+              <div class="sr-mtitle">Pipeline</div>
+              <div style="display:flex;gap:6px">
+                <div class="sr-mbtn-ghost">⬆ Import</div>
+                <div class="sr-mbtn">+ Assign</div>
+              </div>
+            </div>
+            <div class="sr-stats">
+              <div class="sr-stat"><div class="sr-stat-n" style="color:#F1F0F9">47</div><div class="sr-stat-l">Total</div></div>
+              <div class="sr-stat"><div class="sr-stat-n" style="color:#4ADE80">19</div><div class="sr-stat-l">Passed</div></div>
+              <div class="sr-stat"><div class="sr-stat-n" style="color:#FBB024">8</div><div class="sr-stat-l">Review</div></div>
+              <div class="sr-stat"><div class="sr-stat-n" style="color:#A78BFA">6</div><div class="sr-stat-l">Waitlist</div></div>
+              <div class="sr-stat"><div class="sr-stat-n" style="color:#F97316">82%</div><div class="sr-stat-l">Avg Score</div></div>
+            </div>
+            <div class="sr-pipeline">
+              <div>
+                <div class="sr-pcol-hdr">⬛ Job Positions (4)</div>
+                <div class="sr-job-card sel">
+                  <div class="sr-job-title" style="color:#F97316">Compliance Officer</div>
+                  <div class="sr-job-meta">19 candidates · <span class="sr-badge sr-badge-amber">1 reviewing</span></div>
+                </div>
+                <div class="sr-job-card">
+                  <div class="sr-job-title">Software Engineer</div>
+                  <div class="sr-job-meta">14 candidates · <span class="sr-badge sr-badge-green">✓ 2 hired</span></div>
+                </div>
+                <div class="sr-job-card">
+                  <div class="sr-job-title">Data Analyst</div>
+                  <div class="sr-job-meta">11 candidates · <span class="sr-badge sr-badge-green">✓ 1 hired</span></div>
+                </div>
+              </div>
+              <div>
+                <div class="sr-pcol-hdr">👥 Applicants</div>
+                <div class="sr-cand-card">
+                  <div class="sr-avatar" style="background:linear-gradient(135deg,#4E42CC,#F97316)">SW</div>
+                  <div style="flex:1;min-width:0">
+                    <div class="sr-cand-name">Stefan Weis</div>
+                    <div class="sr-score-bar"><div class="sr-score-fill" style="width:87%"></div></div>
+                  </div>
+                  <div class="sr-cand-score">87%</div>
+                </div>
+                <div class="sr-cand-card">
+                  <div class="sr-avatar" style="background:linear-gradient(135deg,#7C3AED,#06B6D4)">AM</div>
+                  <div style="flex:1;min-width:0">
+                    <div class="sr-cand-name">Anna Mueller</div>
+                    <div class="sr-score-bar"><div class="sr-score-fill" style="width:82%"></div></div>
+                  </div>
+                  <div class="sr-cand-score">82%</div>
+                </div>
+                <div class="sr-cand-card">
+                  <div class="sr-avatar" style="background:linear-gradient(135deg,#EC4899,#7C3AED)">TB</div>
+                  <div style="flex:1;min-width:0">
+                    <div class="sr-cand-name">Tom Braun</div>
+                    <div class="sr-score-bar"><div class="sr-score-fill" style="width:71%"></div></div>
+                  </div>
+                  <div class="sr-cand-score">71%</div>
+                </div>
+              </div>
+              <div>
+                <div class="sr-pcol-hdr">📋 Candidate Detail</div>
+                <div class="sr-detail-box">
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+                    <div class="sr-avatar" style="background:linear-gradient(135deg,#4E42CC,#F97316);width:34px;height:34px;font-size:12px">SW</div>
+                    <div>
+                      <div style="font-size:12px;font-weight:700;color:#F1F0F9">Stefan Weis</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.32)">Compliance Officer</div>
+                    </div>
+                  </div>
+                  <div class="sr-detail-row"><span class="sr-detail-lbl">AI Score</span><span style="color:#F97316;font-weight:700;font-family:monospace">87 / 100</span></div>
+                  <div class="sr-detail-row"><span class="sr-detail-lbl">Experience</span><span class="sr-detail-val">5 yrs</span></div>
+                  <div class="sr-detail-row"><span class="sr-detail-lbl">Tests</span><span style="color:#4ADE80;font-weight:600">4 / 5 passed</span></div>
+                  <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px">
+                    <span class="sr-badge sr-badge-orange" style="font-size:9px;padding:3px 7px">✦ AI Evaluated</span>
+                    <span class="sr-badge sr-badge-green" style="font-size:9px;padding:3px 7px">Consider</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div><!-- /hirerex-cell -->
+    </div><!-- /hirerex-row -->
+
+  </div><!-- /products-stack -->
+</section>
+
+<section class="section compare-section">
+  <div class="container">
+    <div class="compare-content text-center">
+      <div class="section-tag">How it works together</div>
+      <h2 class="section-title" style="color:#fff">Smarter together</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.8)">JobRex and HireRex share a single intelligence layer. A better match on one side improves outcomes on the other, creating a marketplace that gets smarter with every hire.</p>
+      
+      <div class="compare-steps">
+        <div class="compare-step">
+          <div class="compare-step-num">1</div>
+          <p>Candidates build rich profiles on JobRex</p>
+        </div>
+        <div class="compare-step" style="padding:20px 0">
+          <div style="font-size:2rem;color:var(--orange)">→</div>
+        </div>
+        <div class="compare-step">
+          <div class="compare-step-num">2</div>
+          <p>AI engine finds the best mutual matches</p>
+        </div>
+        <div class="compare-step" style="padding:20px 0">
+          <div style="font-size:2rem;color:var(--orange)">→</div>
+        </div>
+        <div class="compare-step">
+          <div class="compare-step-num">3</div>
+          <p>HireRex surfaces them to the right hiring teams</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+        </div>
+        <p>Building intelligent systems that make career transitions and talent discovery faster, fairer, and more human, powered by AI. Privacy by design, data never sold.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/scoutrexhq/" target="_blank" title="LinkedIn">in</a>
+          <a href="https://www.instagram.com/scoutrexhq/" target="_blank" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://x.com/scoutrexHQ" target="_blank" title="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Products</div>
+        <ul>
+          <li><a href="login-candidate.html">JobRex: Candidates</a></li>
+          <li><a href="login-company.html">HireRex: Companies</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="gdpr.html">GDPR Compliant</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Account</div>
+        <ul>
+          <li><a href="login.html">Log In</a></li>
+          <li><a href="login.html?mode=register">Register</a></li>
+          <li><a href="account.html">My ScoutRex</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">© 2026 ScoutRex Inc. All rights reserved.</div>
+      <div class="footer-bottom-right">
+        <a href="gdpr.html">GDPR</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20)
+});
+document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);
+
+function updateThemeIcons(){
+  const dark = document.documentElement.classList.contains('dark');
+  const icon = dark ? '☀️' : '🌙';
+  document.querySelectorAll('.theme-toggle').forEach(b => b.textContent = icon);
+}
+function toggleTheme(){
+  const isDark = document.documentElement.classList.toggle('dark');
+  try{localStorage.setItem('sr_theme', isDark ? 'dark' : 'light')}catch(e){}
+  updateThemeIcons();
+}
+window.addEventListener('load', updateThemeIcons);
+</script>
+
+<!-- REXI CHATBOT -->
+<div id="rexi-bubble">
+  <div class="rexi-panel" id="rexiPanel">
+    <div class="rexi-header">
+      <div class="rexi-avatar"><img src="rexihead.png" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <div class="rexi-header-info">
+        <div class="rexi-header-name">Rexi</div>
+        <div class="rexi-header-status"><span class="rexi-status-dot"></span>ScoutRex Assistant</div>
+      </div>
+      <button class="rexi-close" onclick="toggleRexi()" aria-label="Close chat">✕</button>
+    </div>
+    <div class="rexi-messages" id="rexiMessages"></div>
+    <div class="rexi-suggestions" id="rexiChips">
+      <button class="rexi-chip" onclick="rexiAsk('What is ScoutRex?')">What is ScoutRex?</button>
+      <button class="rexi-chip" onclick="rexiAsk('Tell me about JobRex')">JobRex</button>
+      <button class="rexi-chip" onclick="rexiAsk('Tell me about HireRex')">HireRex</button>
+      <button class="rexi-chip" onclick="rexiAsk('How do I get started?')">Get started</button>
+      <button class="rexi-chip" onclick="rexiAsk('How can I contact the team?')">Contact</button>
+    </div>
+    <div class="rexi-input-area">
+      <input class="rexi-input" id="rexiInput" type="text" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter')rexiSend()"/>
+      <button class="rexi-send" onclick="rexiSend()" aria-label="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="rexi-toggle" id="rexiToggle" onclick="toggleRexi()" aria-label="Chat with Rexi">
+    <div class="rexi-pulse"></div>
+    <span class="rexi-toggle-icon" id="rexiIcon"><img src="rexihead.png" style="width:56px;height:56px;object-fit:cover;display:block;border-radius:50%"></span>
+  </button>
+</div>
+
+<script>
+// ── REXI CHATBOT ──
+(function(){
+  var opened = false;
+  var greeted = false;
+
+  var KB = [
+    {re:/hello|hi\b|hey\b|sup\b|good (morning|evening|afternoon)/i,
+     ans:"Hi there! 👋 I'm Rexi, ScoutRex's AI assistant. I can help with questions about our platforms, getting started, or connecting you with the team.\n\nWhat can I help you with?"},
+    {re:/what is scoutrex|what does scoutrex|tell me about scoutrex|what do you do|scoutrex do/i,
+     ans:"ScoutRex builds AI-powered platforms that transform how people find work and how companies find talent. 🚀\n\nWe have two products:\n• 🎯 <b>JobRex</b>, for job seekers\n• 🏢 <b>HireRex</b>, for hiring teams\n\nBoth share the same AI engine that understands <em>people</em>, not just resumes. <a href='about.html'>Learn more →</a>"},
+    {re:/jobrex|job seeker|find.*job|looking for work|career match|job search|candidate/i,
+     ans:"JobRex is your AI career co-pilot 🎯\n\nIt builds a living profile beyond your CV, skills, goals, working style, and matches you with roles that actually fit. No more sending applications into the void.\n\n<a href='products.html#jobrex'>Explore JobRex →</a> or <a href='contact.html'>get early access</a>"},
+    {re:/hirerex|hir(e|ing)|recruiter|find.*candidate|talent|HR team|hiring team/i,
+     ans:"HireRex is AI talent intelligence for hiring teams 🏢\n\nSurface the candidates your existing tools miss. Our AI understands what a role actually requires, not just keywords.\n\n<a href='products.html#hirerex'>Explore HireRex →</a> or <a href='contact.html'>request a demo</a>"},
+    {re:/pric|cost|how much|plan|subscription|fee|pay|free|trial/i,
+     ans:"We're finalising our pricing plans right now 💰\n\nWe'll be announcing them at launch. In the meantime, <a href='contact.html'>get in touch</a> and we'll walk you through what works for you.\n\n<a href='pricing.html'>See the pricing page →</a>"},
+    {re:/login|log in|sign in|sign up|register|account|password|portal/i,
+     ans:"You can log in or create a new account here:\n\n🔐 <a href='login.html'>Log In / Register →</a>\n\nOnce logged in, you'll land in your <b>My ScoutRex</b> portal where you can manage your profile, settings, and subscriptions."},
+    {re:/contact|reach|email|support|help|talk to|speak to|get in touch/i,
+     ans:"Happy to connect you with the team! 📬\n\n→ <a href='contact.html'>Contact page</a>\n→ <a href='mailto:hello@scoutrex.com'>hello@scoutrex.com</a>\n\nWe usually respond within 1–2 business days."},
+    {re:/team|founder|who made|who built|who are|people behind|majid|hamed|shadi/i,
+     ans:"ScoutRex was founded by <b>Majid</b>, <b>Hamed</b>, and <b>Shadi</b>, a team with deep roots in AI, engineering, and marketing. 👥\n\n<a href='team.html'>Meet the team →</a>"},
+    {re:/mission|story|about|founded|why|vision|values/i,
+     ans:"Our mission is to make talent discovery faster, fairer, and more human, powered by AI. 🌍\n\nWe rethought hiring from scratch instead of just automating the old way.\n\n<a href='about.html'>Read our story →</a>"},
+    {re:/product|platform|what do you offer|feature|capabilit/i,
+     ans:"ScoutRex offers two platforms:\n\n🎯 <b>JobRex</b>, AI career co-pilot for job seekers\n🏢 <b>HireRex</b>, AI talent intelligence for hiring teams\n\n<a href='products.html'>Explore our platforms →</a>"},
+    {re:/career|job at scoutrex|work at|join.*team/i,
+     ans:"We're not actively hiring right now, but we love hearing from talented people. 🙌\n\n<a href='careers.html'>Check our careers page →</a> or <a href='contact.html'>drop us a line directly</a>"},
+    {re:/ai|artificial intelligence|machine learning|how does.*(work|match)|algorithm/i,
+     ans:"Our AI engine goes well beyond keyword matching 🧠\n\nIt evaluates skills, culture fit, growth trajectory, salary alignment, and career intent, building match scores you can actually trust.\n\n<a href='products.html'>See how it works →</a>"},
+    {re:/privacy|data|gdpr|secure|my information/i,
+     ans:"Privacy is a first-class feature at ScoutRex 🔒\n\nCandidates control exactly what's shared and with whom. We never sell your data or share it without consent. <a href='about.html'>Read more about our values →</a>"},
+    {re:/launch|live|available|when|release|beta/i,
+     ans:"We're onboarding early users now! 🎉\n\n<a href='contact.html'>Get in touch</a> to be among the first to access ScoutRex. We'd love to have you."},
+  ];
+
+  var fallback = "That's a great question, I'm still learning! 🤔\n\nFor anything I can't answer, the team is always happy to help: <a href='contact.html'>Contact us →</a>";
+
+  function addMsg(text, role){
+    var msgs = document.getElementById('rexiMessages');
+    var wrap = document.createElement('div');
+    wrap.className = 'rexi-msg ' + role;
+    if(role === 'bot'){
+      var av = document.createElement('div');
+      av.className = 'rexi-msg-avatar'; av.innerHTML = '<img src="rexihead.png" style="width:100%;height:100%;object-fit:cover;display:block">';
+      wrap.appendChild(av);
+    }
+    var bub = document.createElement('div');
+    bub.className = 'rexi-bubble-text';
+    bub.innerHTML = text.replace(/\n/g,'<br>');
+    wrap.appendChild(bub);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    return wrap;
+  }
+
+  function addTyping(){
+    var msgs = document.getElementById('rexiMessages');
+    var wrap = document.createElement('div');
+    wrap.className = 'rexi-msg bot'; wrap.id = 'rexiTyping';
+    var av = document.createElement('div');
+    av.className = 'rexi-msg-avatar'; av.innerHTML = '<img src="rexihead.png" style="width:100%;height:100%;object-fit:cover;display:block">';
+    wrap.appendChild(av);
+    var bub = document.createElement('div');
+    bub.className = 'rexi-bubble-text rexi-typing';
+    bub.innerHTML = '<span></span><span></span><span></span>';
+    wrap.appendChild(bub);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping(){
+    var t = document.getElementById('rexiTyping');
+    if(t) t.remove();
+  }
+
+  function botReply(text){
+    addTyping();
+    setTimeout(function(){
+      removeTyping();
+      addMsg(text, 'bot');
+    }, 650 + Math.random()*300);
+  }
+
+  function respond(input){
+    var q = input.trim();
+    for(var i=0;i<KB.length;i++){
+      if(KB[i].re.test(q)) return KB[i].ans;
+    }
+    return fallback;
+  }
+
+  window.rexiSend = function(){
+    var inp = document.getElementById('rexiInput');
+    var q = inp.value.trim();
+    if(!q) return;
+    addMsg(q, 'user');
+    inp.value = '';
+    // hide chips after first user message
+    var chips = document.getElementById('rexiChips');
+    if(chips) chips.style.display = 'none';
+    botReply(respond(q));
+  };
+
+  window.rexiAsk = function(q){
+    var inp = document.getElementById('rexiInput');
+    inp.value = q;
+    rexiSend();
+  };
+
+  window.toggleRexi = function(){
+    var panel = document.getElementById('rexiPanel');
+    var btn = document.getElementById('rexiToggle');
+    var icon = document.getElementById('rexiIcon');
+    opened = !opened;
+    panel.classList.toggle('open', opened);
+    btn.classList.toggle('open', opened);
+    btn.style.display = opened ? 'none' : 'flex';
+    icon.innerHTML = opened ? '✕' : '<img src="rexihead.png" style="width:56px;height:56px;object-fit:cover;display:block;border-radius:50%">';
+    if(opened && !greeted){
+      greeted = true;
+      setTimeout(function(){
+        addMsg("👋 Hi! I'm <b>Rexi</b>, the ScoutRex AI assistant.\n\nI can help you learn about our platforms, getting started, or connect you with the team. What would you like to know?", 'bot');
+      }, 300);
+    }
+    if(opened){
+      setTimeout(function(){document.getElementById('rexiInput').focus();},350);
+    }
+  };
+})();
+</script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>

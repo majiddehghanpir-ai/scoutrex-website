@@ -14,7 +14,7 @@ routes = [
 [[d1_databases]]
 binding      = "DB"
 database_name = "scoutrex-messages"
-database_id  = "PASTE_DATABASE_ID_HERE"
+database_id  = "1cca1039-f669-4371-846c-c6f845935b44"
 
 # ── Secrets (do NOT put values here) ─────────────────────────────────────────
 # Set via:  npx wrangler secret put ADMIN_API_KEY

@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobRex | Sign In or Create Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:'Inter',sans-serif;overflow:hidden}
+    body{display:flex;min-height:100vh}
+
+    .auth-left{width:45%;background:linear-gradient(145deg,#0F0A2E 0%,#1E1256 50%,#2D1B8E 100%);padding:48px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+    .auth-left::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(249,115,22,0.2),transparent 50%),radial-gradient(circle at 20% 80%,rgba(93,78,214,0.3),transparent 50%)}
+    .auth-left-content{position:relative;z-index:1;display:flex;flex-direction:column;height:100%}
+
+    .auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:auto;text-decoration:none;transition:transform 0.2s}
+    .auth-logo:hover{transform:scale(1.05)}
+    .auth-logo-text{font-family:'Lora',serif;font-weight:800;font-size:20px;color:#fff}
+    .auth-logo-rex{color:#F97316}
+
+    .auth-product-name{font-family:'Lora',serif;font-size:3.5rem;font-weight:800;color:#fff;line-height:1;margin:40px 0 8px}
+    .auth-product-emoji{font-size:3rem;margin-right:8px}
+    .auth-tagline{font-size:1.125rem;color:rgba(255,255,255,0.7);margin-bottom:40px;line-height:1.5}
+    .auth-props{display:flex;flex-direction:column;gap:12px;margin-bottom:auto}
+    .auth-prop{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.85);font-size:15px;font-weight:500}
+    .auth-prop-check{width:24px;height:24px;border-radius:50%;background:rgba(249,115,22,0.2);display:flex;align-items:center;justify-content:center;color:#F97316;font-size:13px;font-weight:700;flex-shrink:0}
+
+    .auth-testimonial{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;margin-top:32px}
+    .auth-testimonial-text{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:12px;font-style:italic}
+    .auth-testimonial-author{font-size:13px;font-weight:700;color:rgba(255,255,255,0.6)}
+    .auth-stars{color:#F97316;font-size:14px;letter-spacing:2px;margin-bottom:6px}
+
+    .auth-right{flex:1;display:flex;align-items:center;justify-content:center;padding:48px;background:#fff;overflow-y:auto}
+    .auth-right-inner{width:100%;max-width:440px}
+    .auth-right-back{display:block;font-size:14px;color:#4B5563;margin-bottom:32px;display:flex;align-items:center;gap:6px;transition:color 0.2s;text-decoration:none}
+    .auth-right-back:hover{color:#1E1256}
+
+    .auth-tabs{display:flex;border-bottom:2px solid #E5E7EB;margin-bottom:32px}
+    .auth-tab{padding:12px 20px;font-weight:700;font-size:15px;color:#9CA3AF;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;font-family:'Inter',sans-serif}
+    .auth-tab.active{color:#F97316;border-bottom-color:#F97316}
+
+    .auth-form{display:none}
+    .auth-form.active{display:block}
+    .auth-heading{font-family:'Lora',serif;font-size:1.75rem;font-weight:800;color:#0F0A2E;margin-bottom:8px}
+    .auth-subheading{font-size:14px;color:#4B5563;line-height:1.6;margin-bottom:28px}
+
+    .form-group{margin-bottom:20px}
+    .form-label{display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;letter-spacing:0.3px}
+    .form-input{width:100%;padding:12px 16px;border:1.5px solid #E5E7EB;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:#0F0A2E;outline:none;transition:all 0.2s;background:#fff}
+    .form-input:focus{border-color:#F97316;box-shadow:0 0 0 3px rgba(249,115,22,0.1)}
+    .form-input-wrap{position:relative}
+    .form-input-wrap .form-input{padding-right:48px}
+    .password-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#9CA3AF;font-size:16px;padding:4px;transition:color 0.2s}
+    .password-toggle:hover{color:#4B5563}
+
+    .forgot-link{display:block;text-align:right;font-size:13px;color:#F97316;font-weight:600;margin-top:-12px;margin-bottom:20px;text-decoration:none}
+    .forgot-link:hover{text-decoration:underline}
+
+    .submit-btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif}
+    .submit-btn.orange{background:#F97316;color:#fff;box-shadow:0 4px 16px rgba(249,115,22,0.35)}
+    .submit-btn.orange:hover{background:#EA6C0A;transform:translateY(-1px);box-shadow:0 8px 24px rgba(249,115,22,0.45)}
+    .submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none!important}
+
+    .auth-divider{display:flex;align-items:center;gap:12px;margin:24px 0;color:#9CA3AF;font-size:13px}
+    .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:#E5E7EB}
+
+    .auth-switch{text-align:center;font-size:14px;color:#4B5563;margin-top:20px}
+    .auth-switch a,.auth-switch button{color:#F97316;font-weight:700;cursor:pointer;background:none;border:none;font-size:14px;font-family:'Inter',sans-serif;text-decoration:none}
+    .auth-switch a:hover,.auth-switch button:hover{text-decoration:underline}
+
+    .auth-error{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:12px 16px;font-size:14px;color:#DC2626;margin-bottom:16px;display:none}
+    .auth-error.show{display:block}
+
+    .auth-checkbox-group{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px}
+    .auth-checkbox{width:18px;height:18px;margin-top:1px;flex-shrink:0;cursor:pointer;accent-color:#F97316}
+    .auth-checkbox-label{font-size:13px;color:#4B5563;line-height:1.5;cursor:pointer}
+    .auth-checkbox-label a{color:#F97316;font-weight:600;text-decoration:none}
+    .auth-checkbox-label a:hover{text-decoration:underline}
+
+    .auth-bottom-link{text-align:center;font-size:13px;color:#9CA3AF;margin-top:24px;padding-top:20px;border-top:1px solid #F3F4F6}
+    .auth-bottom-link a{color:#1E1256;font-weight:600;text-decoration:none}
+    .auth-bottom-link a:hover{text-decoration:underline}
+
+    @media(max-width:768px){
+      body{overflow:auto}
+      .auth-left{display:none}
+      .auth-right{padding:32px 24px;min-height:100vh;align-items:flex-start;padding-top:48px}
+      .auth-product-name{font-size:2.25rem}
+    }
+  </style>
+<link rel="stylesheet" href="mobile.css"/>
+</head>
+<body>
+  <!-- LEFT PANEL -->
+  <div class="auth-left">
+    <div class="auth-left-content">
+      <a href="/" class="auth-logo">
+        <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+        <span class="auth-logo-text">Scout<span class="auth-logo-rex">Rex</span></span>
+      </a>
+
+      <div>
+        <h1 class="auth-product-name"><span class="auth-product-emoji">🎯</span>JobRex</h1>
+        <p class="auth-tagline">Your AI-Powered Career Co-Pilot</p>
+        <div class="auth-props">
+          <div class="auth-prop">
+            <div class="auth-prop-check">✓</div>
+            <span>AI-matched job opportunities</span>
+          </div>
+          <div class="auth-prop">
+            <div class="auth-prop-check">✓</div>
+            <span>Smart career profile builder</span>
+          </div>
+          <div class="auth-prop">
+            <div class="auth-prop-check">✓</div>
+            <span>Interview prep & skills assessment</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="auth-right">
+    <div class="auth-right-inner">
+      <a href="/" class="auth-right-back">← Back to ScoutRex</a>
+
+      <!-- TABS -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" data-tab="register" onclick="switchTab('register')">Create Account</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="form-login" class="auth-form active" onsubmit="submitLogin(event)">
+        <h2 class="auth-heading">Welcome back</h2>
+        <p class="auth-subheading">Sign in to access your JobRex dashboard</p>
+
+        <div id="login-error" class="auth-error"></div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="form-input-wrap">
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" onclick="togglePassword('login-password')">👁</button>
+          </div>
+        </div>
+
+        <a href="#" class="forgot-link">Forgot password?</a>
+
+        <button type="submit" class="submit-btn orange">Sign In to JobRex →</button>
+
+        <div class="auth-divider">or</div>
+
+        <div class="auth-switch">
+          Don't have an account? <button type="button" onclick="switchTab('register')">Create one</button>
+        </div>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="form-register" class="auth-form" onsubmit="submitRegister(event)">
+        <h2 class="auth-heading">Get started free</h2>
+        <p class="auth-subheading">Create your account in under 2 minutes</p>
+
+        <div id="register-error" class="auth-error"></div>
+
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="reg-name" class="form-input" placeholder="Sarah Johnson" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="form-input-wrap">
+            <input type="password" id="reg-password" class="form-input" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" onclick="togglePassword('reg-password')">👁</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="form-input-wrap">
+            <input type="password" id="reg-confirm" class="form-input" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" onclick="togglePassword('reg-confirm')">👁</button>
+          </div>
+        </div>
+
+        <div class="auth-checkbox-group">
+          <input type="checkbox" id="reg-terms" class="auth-checkbox" required>
+          <label for="reg-terms" class="auth-checkbox-label">I agree to the <a href="#">Terms of Service</a> and <a href="gdpr.html">GDPR</a>
+        <a href="#">Privacy Policy</a></label>
+        </div>
+
+        <button type="submit" class="submit-btn orange">Create Free Account →</button>
+
+        <div class="auth-divider">or</div>
+
+        <div class="auth-switch">
+          Already have an account? <button type="button" onclick="switchTab('login')">Sign in</button>
+        </div>
+      </form>
+
+      <!-- BOTTOM LINK -->
+      <div class="auth-bottom-link">
+        Are you a company? <a href="/login-company.html">Sign in to HireRex</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
+      document.getElementById('form-' + tab).classList.add('active');
+      document.querySelectorAll('.auth-error').forEach(e => e.classList.remove('show'));
+    }
+
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      const btn = input.nextElementSibling;
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+      }
+    }
+
+    async function submitLogin(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.submit-btn');
+      const error = document.getElementById('login-error');
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      if (!email || !password) {
+        showError(error, 'Please fill in all fields.');
+        return;
+      }
+      
+      btn.disabled = true;
+      const originalText = btn.textContent;
+      btn.textContent = 'Signing in...';
+      
+      try {
+        // API endpoint placeholder - replace with actual ScoutRex backend
+        const API_URL = 'https://api.scoutrex.com';
+        const res = await fetch(API_URL + '/api/auth/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({email, password, role: 'candidate'})
+        });
+        const data = await res.json();
+        
+        if (res.ok && data.token) {
+          localStorage.setItem('token', data.token);
+          window.location.href = 'https://app.scoutrex.com';
+        } else {
+          showError(error, data.detail || 'Invalid email or password.');
+        }
+      } catch(err) {
+        showError(error, 'Connection error. Please try again.');
+      }
+      
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+
+    async function submitRegister(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.submit-btn');
+      const error = document.getElementById('register-error');
+      const name = document.getElementById('reg-name').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+      const confirm = document.getElementById('reg-confirm').value;
+      const agreed = document.getElementById('reg-terms').checked;
+      
+      if (!name || !email || !password) {
+        showError(error, 'Please fill in all fields.');
+        return;
+      }
+      if (password !== confirm) {
+        showError(error, 'Passwords do not match.');
+        return;
+      }
+      if (!agreed) {
+        showError(error, 'Please agree to the Terms of Service.');
+        return;
+      }
+      
+      btn.disabled = true;
+      const originalText = btn.textContent;
+      btn.textContent = 'Creating account...';
+      
+      try {
+        const API_URL = 'https://api.scoutrex.com';
+        const res = await fetch(API_URL + '/api/auth/register', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({name, email, password, role: 'candidate'})
+        });
+        const data = await res.json();
+        
+        if (res.ok && data.token) {
+          localStorage.setItem('token', data.token);
+          window.location.href = 'https://app.scoutrex.com';
+        } else {
+          showError(error, data.detail || 'Registration failed. Please try again.');
+        }
+      } catch(err) {
+        showError(error, 'Connection error. Please try again.');
+      }
+      
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+
+    function showError(el, msg) {
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 5000);
+    }
+  </script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>
