@@ -788,57 +788,28 @@ a{text-decoration:none;color:inherit}
       <div class="panel-header">
         <div>
           <div class="panel-title">Team Members</div>
-          <div class="panel-sub">Manage who appears on the Team page of your website</div>
+          <div class="panel-sub" id="team-panel-sub">Members shown on the Team page of your website</div>
         </div>
-        <button class="btn btn-orange" onclick="openAddTeamMember()">+ Add Member</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="loadTeam()" title="Refresh">↻ Refresh</button>
+          <button class="btn btn-orange" onclick="openAddTeamMember()">+ Add Member</button>
+        </div>
       </div>
 
-      <div class="team-grid">
-        <!-- Majid -->
-        <div class="team-card">
-          <div class="team-card-actions">
-            <button class="icon-btn" onclick="openEditTeamMember('Majid Dehghanpir','CEO & Co-Founder · Head of AI Research','Leadership','https://www.linkedin.com/in/majid-dehghanpir/')">✏️</button>
-            <button class="icon-btn danger">🗑</button>
-          </div>
-          <img src="majid.jpg" alt="Majid Dehghanpir" class="team-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="team-photo-placeholder" style="display:none">MD</div>
-          <div class="team-member-name">Majid Dehghanpir</div>
-          <div class="team-member-role">CEO & Co-Founder</div>
-          <div class="team-member-dept">Leadership · AI Research</div>
-          <div style="margin-top:8px;font-size:11.5px;color:var(--gray-400)">majid.dehghanpir@scoutrex.com</div>
-        </div>
-        <!-- Hamed -->
-        <div class="team-card">
-          <div class="team-card-actions">
-            <button class="icon-btn" onclick="openEditTeamMember('Hamed Markazi','CTO & Co-Founder · Head of Product','Leadership','https://www.linkedin.com/in/hamed-markazi-62214410/')">✏️</button>
-            <button class="icon-btn danger">🗑</button>
-          </div>
-          <img src="hamed.jpg" alt="Hamed Markazi" class="team-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="team-photo-placeholder" style="display:none;background:linear-gradient(135deg,var(--orange-dark),var(--orange))">HM</div>
-          <div class="team-member-name">Hamed Markazi</div>
-          <div class="team-member-role">CTO & Co-Founder</div>
-          <div class="team-member-dept">Engineering · Product</div>
-          <div style="margin-top:8px;font-size:11.5px;color:var(--gray-400)">hamed.markazi@scoutrex.com</div>
-        </div>
-        <!-- Shadi -->
-        <div class="team-card">
-          <div class="team-card-actions">
-            <button class="icon-btn" onclick="openEditTeamMember('Shadi Moghaddam','Marketing','Marketing','https://www.linkedin.com/in/shadi-moghaddam-1a9325258/')">✏️</button>
-            <button class="icon-btn danger">🗑</button>
-          </div>
-          <img src="Shadi.jpg" alt="Shadi Moghaddam" class="team-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="team-photo-placeholder" style="display:none;background:linear-gradient(135deg,#7C3AED,#A78BFA)">SM</div>
-          <div class="team-member-name">Shadi Moghaddam</div>
-          <div class="team-member-role">Marketing</div>
-          <div class="team-member-dept">Marketing</div>
-          <div style="margin-top:8px;font-size:11.5px;color:var(--gray-400)">shadi.moghaddam@scoutrex.com</div>
-        </div>
-        <!-- Add new member card -->
-        <div class="team-card" style="border:2px dashed var(--gray-200);background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;gap:10px;color:var(--gray-400)" onclick="openAddTeamMember()">
-          <div style="font-size:30px">+</div>
-          <div style="font-size:13px;font-weight:600">Add Member</div>
+      <!-- Loading -->
+      <div id="team-loading" style="text-align:center;padding:48px;color:var(--gray-400)">
+        <div style="font-size:28px;margin-bottom:10px">⏳</div><div>Loading team…</div>
+      </div>
+      <!-- Error -->
+      <div id="team-error" style="display:none" class="card">
+        <div style="text-align:center;padding:32px 24px">
+          <div style="font-size:32px;margin-bottom:10px">⚠️</div>
+          <div id="team-error-text" style="font-size:14px;font-weight:600;color:#991B1B;margin-bottom:12px"></div>
+          <button class="btn btn-orange btn-sm" onclick="loadTeam()">Retry</button>
         </div>
       </div>
+      <!-- Grid -->
+      <div class="team-grid" id="team-grid" style="display:none"></div>
     </div>
 
     <!-- ═══════════════ CONTACT MESSAGES ═══════════════ -->
@@ -1349,63 +1320,197 @@ function jobForm(title, company, location, dept, type, status) {
 }
 
 /* ──────────────────────────────────
-   TEAM MEMBER MODAL
+   TEAM MEMBERS  — live data from Worker API
 ────────────────────────────────── */
-function openAddTeamMember() {
-  openModal('Add Team Member', teamForm('', '', '', '', ''));
+let _teamMembers = [];
+
+async function loadTeam() {
+  const key = getApiKey();
+  document.getElementById('team-loading').style.display = 'block';
+  document.getElementById('team-error').style.display   = 'none';
+  document.getElementById('team-grid').style.display    = 'none';
+  try {
+    const res = await fetch(`${WORKER_BASE}/team`, {
+      headers: key ? { 'Authorization': `Bearer ${key}` } : {}
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+    _teamMembers = data.team || [];
+    document.getElementById('team-loading').style.display = 'none';
+    document.getElementById('team-grid').style.display    = '';
+    document.getElementById('team-panel-sub').textContent =
+      `${_teamMembers.length} member${_teamMembers.length !== 1 ? 's' : ''} · ${_teamMembers.filter(m=>m.visible).length} visible on team page`;
+    renderTeamGrid();
+  } catch (err) {
+    document.getElementById('team-loading').style.display = 'none';
+    document.getElementById('team-error').style.display   = '';
+    document.getElementById('team-error-text').textContent = err.message;
+  }
 }
-function openEditTeamMember(name, role, dept, linkedin) {
-  openModal('Edit Team Member', teamForm(name||'', role||'', dept||'', linkedin||'', ''));
+
+function initials(name) {
+  return name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
 }
-function teamForm(name, role, dept, linkedin, bio) {
+
+function renderTeamGrid() {
+  const grid = document.getElementById('team-grid');
+  const avatarColors = [
+    'linear-gradient(135deg,var(--indigo),#4F46E5)',
+    'linear-gradient(135deg,var(--orange-dark),var(--orange))',
+    'linear-gradient(135deg,#7C3AED,#A78BFA)',
+    'linear-gradient(135deg,#0891B2,#22D3EE)',
+    'linear-gradient(135deg,#059669,#34D399)',
+  ];
+  const cards = _teamMembers.map((m, i) => {
+    const bg    = avatarColors[i % avatarColors.length];
+    const photo = m.photo
+      ? `<img src="${escHtml(m.photo)}" alt="${escHtml(m.name)}" class="team-photo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+         <div class="team-photo-placeholder" style="display:none;background:${bg}">${initials(m.name)}</div>`
+      : `<div class="team-photo-placeholder" style="background:${bg}">${initials(m.name)}</div>`;
+    const hiddenBadge = !m.visible
+      ? `<span class="badge closed" style="font-size:10px;padding:2px 8px;position:absolute;top:8px;left:8px">Hidden</span>` : '';
+    return `<div class="team-card" style="position:relative;${!m.visible ? 'opacity:0.6' : ''}">
+      ${hiddenBadge}
+      <div class="team-card-actions">
+        <button class="icon-btn" onclick="openEditTeamMember(${m.id})">✏️</button>
+        <button class="icon-btn danger" onclick="deleteTeamMember(${m.id},'${escHtml(m.name)}')">🗑</button>
+      </div>
+      ${photo}
+      <div class="team-member-name">${escHtml(m.name)}</div>
+      <div class="team-member-role">${escHtml(m.role)}</div>
+      ${m.department ? `<div class="team-member-dept">${escHtml(m.department)}</div>` : ''}
+      ${m.email ? `<div style="margin-top:6px;font-size:11.5px;color:var(--gray-400)">${escHtml(m.email)}</div>` : ''}
+    </div>`;
+  });
+  // Add-new card at the end
+  cards.push(`<div class="team-card" style="border:2px dashed var(--gray-200);background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;gap:10px;color:var(--gray-400)" onclick="openAddTeamMember()">
+    <div style="font-size:30px">+</div>
+    <div style="font-size:13px;font-weight:600">Add Member</div>
+  </div>`);
+  grid.innerHTML = cards.join('');
+}
+
+function teamForm(m) {
+  m = m || {};
   return `
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Full Name *</label>
-        <input class="form-input" type="text" value="${name}" placeholder="e.g. Anna Weber">
+        <input class="form-input" id="tf-name" type="text" value="${escHtml(m.name||'')}" placeholder="e.g. Jane Smith">
       </div>
       <div class="form-group">
         <label class="form-label">Job Title / Role *</label>
-        <input class="form-input" type="text" value="${role}" placeholder="e.g. Head of Product">
+        <input class="form-input" id="tf-role" type="text" value="${escHtml(m.role||'')}" placeholder="e.g. Head of Product">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Department</label>
-        <input class="form-input" type="text" value="${dept}" placeholder="e.g. Engineering, Design">
+        <input class="form-input" id="tf-dept" type="text" value="${escHtml(m.department||'')}" placeholder="e.g. Engineering">
       </div>
       <div class="form-group">
-        <label class="form-label">LinkedIn URL</label>
-        <input class="form-input" type="text" value="${linkedin}" placeholder="https://linkedin.com/in/…">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="tf-email" type="email" value="${escHtml(m.email||'')}" placeholder="name@scoutrex.com">
       </div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Photo URL</label>
-      <input class="form-input" type="text" placeholder="https://… (leave blank for initials avatar)">
-      <div class="form-hint">Recommended: square image, at least 300×300px</div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Short Bio</label>
-      <textarea class="form-textarea" placeholder="A short description shown on the team page…">${bio}</textarea>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">LinkedIn URL</label>
+        <input class="form-input" id="tf-linkedin" type="url" value="${escHtml(m.linkedin||'')}" placeholder="https://linkedin.com/in/…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Photo filename or URL</label>
+        <input class="form-input" id="tf-photo" type="text" value="${escHtml(m.photo||'')}" placeholder="e.g. jane.jpg or https://…">
+        <div class="form-hint">Use a filename if the image is in the website folder, or a full URL.</div>
+      </div>
     </div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Display Order</label>
-        <input class="form-input" type="number" placeholder="1" min="1">
-        <div class="form-hint">Lower number = appears first</div>
+        <input class="form-input" id="tf-order" type="number" value="${m.display_order ?? 99}" min="1">
+        <div class="form-hint">Lower number appears first on the team page.</div>
       </div>
       <div class="form-group">
         <label class="form-label">Visibility</label>
-        <select class="form-select">
-          <option>Visible on team page</option>
-          <option>Hidden</option>
+        <select class="form-select" id="tf-visible">
+          <option value="1" ${m.visible !== 0 ? 'selected' : ''}>Visible on team page</option>
+          <option value="0" ${m.visible === 0 ? 'selected' : ''}>Hidden</option>
         </select>
       </div>
     </div>
     <div class="btn-row">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-orange" onclick="closeModal()">Save Member</button>
+      <button class="btn btn-orange" id="tf-save-btn" onclick="saveTeamMember(${m.id||0})">
+        ${m.id ? 'Save Changes' : 'Add Member'}
+      </button>
     </div>`;
+}
+
+function openAddTeamMember() {
+  openModal('Add Team Member', teamForm(null));
+}
+function openEditTeamMember(id) {
+  const m = _teamMembers.find(x => x.id === id);
+  if (!m) return;
+  openModal('Edit Team Member', teamForm(m));
+}
+
+async function saveTeamMember(id) {
+  const key = getApiKey();
+  if (!key) { alert('API key not set. Go to Settings → Messages API Key.'); return; }
+
+  const payload = {
+    name:          document.getElementById('tf-name').value.trim(),
+    role:          document.getElementById('tf-role').value.trim(),
+    department:    document.getElementById('tf-dept').value.trim(),
+    email:         document.getElementById('tf-email').value.trim(),
+    linkedin:      document.getElementById('tf-linkedin').value.trim(),
+    photo:         document.getElementById('tf-photo').value.trim(),
+    display_order: parseInt(document.getElementById('tf-order').value) || 99,
+    visible:       document.getElementById('tf-visible').value === '1',
+  };
+
+  if (!payload.name || !payload.role) {
+    alert('Name and Role are required.'); return;
+  }
+
+  const btn = document.getElementById('tf-save-btn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+
+  try {
+    const url    = id ? `${WORKER_BASE}/team/${id}` : `${WORKER_BASE}/team`;
+    const method = id ? 'PATCH' : 'POST';
+    const res    = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const d = await res.json().catch(()=>({}));
+      throw new Error(d.error || `Server error ${res.status}`);
+    }
+    closeModal();
+    await loadTeam();
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = id ? 'Save Changes' : 'Add Member';
+    alert('Could not save: ' + err.message);
+  }
+}
+
+async function deleteTeamMember(id, name) {
+  if (!confirm(`Remove ${name} from the team page?`)) return;
+  const key = getApiKey();
+  if (!key) { alert('API key not set. Go to Settings → Messages API Key.'); return; }
+  try {
+    const res = await fetch(`${WORKER_BASE}/team/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${key}` }
+    });
+    if (!res.ok) throw new Error(`Server error ${res.status}`);
+    await loadTeam();
+  } catch (err) { alert('Could not delete: ' + err.message); }
 }
 
 /* ──────────────────────────────────
@@ -1610,11 +1715,12 @@ async function archiveMessage(id) {
   renderMessageList();
 }
 
-// Auto-load when switching to messages panel
+// Auto-load when switching to live-data panels
 const _origShowPanel = showPanel;
 showPanel = function(name) {
   _origShowPanel(name);
   if (name === 'messages') loadMessages();
+  if (name === 'team')     loadTeam();
 };
 </script>
 </body>
