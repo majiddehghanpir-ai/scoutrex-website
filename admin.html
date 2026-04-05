@@ -358,7 +358,6 @@ a{text-decoration:none;color:inherit}
     </button>
     <button class="nav-item" onclick="showPanel('jobs')">
       <span class="nav-icon">📋</span> Job Listings
-      <span class="nav-badge" style="background:var(--indigo)">24</span>
     </button>
     <button class="nav-item" onclick="showPanel('team')">
       <span class="nav-icon">👤</span> Team Members
@@ -418,9 +417,9 @@ a{text-decoration:none;color:inherit}
         <div class="kpi-card">
           <div class="kpi-accent green"></div>
           <div class="kpi-icon green">📋</div>
-          <div class="kpi-val">24</div>
+          <div class="kpi-val">0</div>
           <div class="kpi-label">Active Job Listings</div>
-          <div class="kpi-trend up">▲ 4 <span class="kpi-trend-label">this month</span></div>
+          <div class="kpi-trend neutral">No open positions <span class="kpi-trend-label">currently</span></div>
         </div>
         <div class="kpi-card">
           <div class="kpi-accent purple"></div>
@@ -699,97 +698,50 @@ a{text-decoration:none;color:inherit}
         <button class="btn btn-orange" onclick="openAddPlan()">+ Add Plan</button>
       </div>
 
-      <div class="plan-grid">
-        <!-- Free -->
-        <div class="plan-card">
-          <div class="plan-name">Free</div>
-          <div class="plan-price">€0 <span>/ month</span></div>
-          <div class="plan-desc">Get started with the basics. Perfect for individual job seekers.</div>
-          <div class="plan-features">
-            <div class="plan-feature">Up to 3 job applications</div>
-            <div class="plan-feature">Basic profile page</div>
-            <div class="plan-feature">Email support</div>
-          </div>
-          <div class="plan-footer">
-            <span>Active subscribers</span>
-            <strong>248</strong>
-          </div>
-          <button class="btn btn-outline btn-sm plan-edit-btn" onclick="openEditPlan('Free','0','month','Get started with the basics. Perfect for individual job seekers.','Up to 3 job applications\nBasic profile page\nEmail support')">✏️ Edit Plan</button>
-        </div>
-
-        <!-- Pro -->
-        <div class="plan-card featured">
-          <div class="plan-featured-tag">Most Popular</div>
-          <div class="plan-name">Pro</div>
-          <div class="plan-price">€49 <span>/ month</span></div>
-          <div class="plan-desc">Everything you need to accelerate your hiring or job search.</div>
-          <div class="plan-features">
-            <div class="plan-feature">Unlimited applications</div>
-            <div class="plan-feature">AI-powered matching</div>
-            <div class="plan-feature">Priority listing</div>
-            <div class="plan-feature">Advanced analytics</div>
-            <div class="plan-feature">Priority support</div>
-          </div>
-          <div class="plan-footer">
-            <span>Active subscribers</span>
-            <strong>94</strong>
-          </div>
-          <button class="btn btn-outline btn-sm plan-edit-btn" onclick="openEditPlan('Pro','49','month','Everything you need to accelerate your hiring or job search.','Unlimited applications\nAI-powered matching\nPriority listing\nAdvanced analytics\nPriority support')">✏️ Edit Plan</button>
-        </div>
-
-        <!-- Enterprise -->
-        <div class="plan-card">
-          <div class="plan-name">Enterprise</div>
-          <div class="plan-price">Custom <span>pricing</span></div>
-          <div class="plan-desc">Tailored solutions for large teams and organisations.</div>
-          <div class="plan-features">
-            <div class="plan-feature">Everything in Pro</div>
-            <div class="plan-feature">Custom integrations</div>
-            <div class="plan-feature">Dedicated account manager</div>
-            <div class="plan-feature">SLA & GDPR compliance</div>
-            <div class="plan-feature">White-label options</div>
-          </div>
-          <div class="plan-footer">
-            <span>Active subscribers</span>
-            <strong>18</strong>
-          </div>
-          <button class="btn btn-outline btn-sm plan-edit-btn" onclick="openEditPlan('Enterprise','Custom','','Tailored solutions for large teams and organisations.','Everything in Pro\nCustom integrations\nDedicated account manager\nSLA & GDPR compliance\nWhite-label options')">✏️ Edit Plan</button>
-        </div>
+      <!-- Coming Soon notice -->
+      <div class="card" style="text-align:center;padding:40px 24px 32px">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.1);color:var(--orange-dark);font-size:12px;font-weight:700;letter-spacing:.06em;padding:5px 14px;border-radius:20px;text-transform:uppercase;margin-bottom:20px">⏳ Coming Soon</div>
+        <div style="font-size:22px;font-weight:700;color:var(--indigo);margin-bottom:10px">Transparent pricing, coming soon</div>
+        <div style="font-size:14px;color:var(--gray-500);max-width:480px;margin:0 auto">Pricing plans are not yet live on the website. Once you publish plans they will appear here and on the <strong>Pricing</strong> page for visitors.</div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Plan Subscribers Overview</div>
+      <!-- Product previews (matching pricing.html) -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:4px">
+
+        <!-- JobRex -->
+        <div class="plan-card" style="position:relative">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--orange);text-transform:uppercase;margin-bottom:8px">For Job Seekers</div>
+          <div class="plan-name" style="font-size:22px">JobRex</div>
+          <div class="plan-desc" style="margin-bottom:16px">AI-powered job matching that finds opportunities tailored to your skills and goals — before they find you.</div>
+          <div class="plan-features">
+            <div class="plan-feature">Smart job matching with AI</div>
+            <div class="plan-feature">Personalised career insights</div>
+            <div class="plan-feature">One-click applications</div>
+            <div class="plan-feature">Interview prep tools</div>
+          </div>
+          <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+            <span class="badge" style="background:rgba(249,115,22,0.12);color:var(--orange-dark);font-size:12px;padding:4px 12px;border-radius:12px">CTA: Get Early Access → contact.html</span>
+          </div>
+          <button class="btn btn-outline btn-sm plan-edit-btn" onclick="openEditPlan('JobRex','','','AI-powered job matching for job seekers.','Smart job matching with AI\nPersonalised career insights\nOne-click applications\nInterview prep tools')">✏️ Edit Preview</button>
         </div>
-        <table class="data-table">
-          <thead><tr><th>Plan</th><th>Price</th><th>Active Subscribers</th><th>Trial Users</th><th>Cancelled (30d)</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>Free</strong></td>
-              <td>€0/mo</td>
-              <td>248</td>
-              <td>—</td>
-              <td>—</td>
-              <td><span class="badge active"><span class="badge-dot"></span>Live</span></td>
-            </tr>
-            <tr>
-              <td><strong>Pro</strong></td>
-              <td>€49/mo</td>
-              <td>94</td>
-              <td>22</td>
-              <td>7</td>
-              <td><span class="badge active"><span class="badge-dot"></span>Live</span></td>
-            </tr>
-            <tr>
-              <td><strong>Enterprise</strong></td>
-              <td>Custom</td>
-              <td>18</td>
-              <td>3</td>
-              <td>1</td>
-              <td><span class="badge active"><span class="badge-dot"></span>Live</span></td>
-            </tr>
-          </tbody>
-        </table>
+
+        <!-- HireRex -->
+        <div class="plan-card featured" style="position:relative">
+          <div class="plan-featured-tag">For Hiring Teams</div>
+          <div class="plan-name" style="font-size:22px">HireRex</div>
+          <div class="plan-desc" style="margin-bottom:16px">Intelligent recruitment tools that help you find, screen, and hire top talent — faster and smarter.</div>
+          <div class="plan-features">
+            <div class="plan-feature">AI candidate screening</div>
+            <div class="plan-feature">Automated skill assessments</div>
+            <div class="plan-feature">Collaborative hiring pipeline</div>
+            <div class="plan-feature">Analytics & reporting</div>
+          </div>
+          <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+            <span class="badge" style="background:rgba(30,18,86,0.1);color:var(--indigo);font-size:12px;padding:4px 12px;border-radius:12px">CTA: Request a Demo → contact.html</span>
+          </div>
+          <button class="btn btn-outline btn-sm plan-edit-btn" onclick="openEditPlan('HireRex','','','Intelligent recruitment tools for hiring teams.','AI candidate screening\nAutomated skill assessments\nCollaborative hiring pipeline\nAnalytics & reporting')">✏️ Edit Preview</button>
+        </div>
+
       </div>
     </div>
 
@@ -798,7 +750,7 @@ a{text-decoration:none;color:inherit}
       <div class="panel-header">
         <div>
           <div class="panel-title">Job Listings</div>
-          <div class="panel-sub">24 active listings shown on the website</div>
+          <div class="panel-sub">0 active listings shown on the website</div>
         </div>
         <button class="btn btn-orange" onclick="openAddJob()">+ Add Job Listing</button>
       </div>
@@ -822,54 +774,11 @@ a{text-decoration:none;color:inherit}
             <option>Draft</option>
           </select>
         </div>
-        <table class="data-table">
-          <thead><tr><th>Job Title</th><th>Company</th><th>Location</th><th>Type</th><th>Status</th><th>Posted</th><th></th></tr></thead>
-          <tbody>
-            <tr>
-              <td><div class="user-name">Senior UX Designer</div><div class="user-email">Product · Design</div></td>
-              <td style="color:var(--gray-600)">Acme Corp</td>
-              <td style="color:var(--gray-600)">Berlin, DE</td>
-              <td><span class="badge trial">Full-time</span></td>
-              <td><span class="badge active"><span class="badge-dot"></span>Active</span></td>
-              <td style="color:var(--gray-500)">Apr 3, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditJob('Senior UX Designer','Acme Corp','Berlin, DE','Full-time','Product · Design')">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-name">Backend Engineer (Node.js)</div><div class="user-email">Engineering</div></td>
-              <td style="color:var(--gray-600)">Nova Solutions</td>
-              <td style="color:var(--gray-600)">Remote</td>
-              <td><span class="badge pro">Remote</span></td>
-              <td><span class="badge active"><span class="badge-dot"></span>Active</span></td>
-              <td style="color:var(--gray-500)">Apr 1, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditJob('Backend Engineer (Node.js)','Nova Solutions','Remote','Remote','Engineering')">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-name">Talent Acquisition Specialist</div><div class="user-email">HR</div></td>
-              <td style="color:var(--gray-600)">TechStart GmbH</td>
-              <td style="color:var(--gray-600)">Frankfurt, DE</td>
-              <td><span class="badge trial">Full-time</span></td>
-              <td><span class="badge active"><span class="badge-dot"></span>Active</span></td>
-              <td style="color:var(--gray-500)">Mar 29, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditJob('Talent Acquisition Specialist','TechStart GmbH','Frankfurt, DE','Full-time','HR')">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-name">Growth Marketing Manager</div><div class="user-email">Marketing</div></td>
-              <td style="color:var(--gray-600)">Acme Corp</td>
-              <td style="color:var(--gray-600)">Amsterdam, NL</td>
-              <td><span class="badge" style="background:rgba(5,150,105,0.1);color:var(--green)">Contract</span></td>
-              <td><span class="badge closed"><span class="badge-dot"></span>Closed</span></td>
-              <td style="color:var(--gray-500)">Mar 15, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditJob('Growth Marketing Manager','Acme Corp','Amsterdam, NL','Contract','Marketing')">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="pagination">
-          <span class="page-info">Showing 1–10 of 24</span>
-          <div class="page-btns">
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-          </div>
+        <div style="text-align:center;padding:56px 24px;color:var(--gray-400)">
+          <div style="font-size:48px;margin-bottom:16px">📋</div>
+          <div style="font-size:16px;font-weight:600;color:var(--gray-600);margin-bottom:6px">No open positions right now</div>
+          <div style="font-size:13.5px;max-width:380px;margin:0 auto 24px">When you add job listings they will appear here and on the <strong>Careers</strong> page of the website.</div>
+          <button class="btn btn-orange" onclick="openAddJob()">+ Add Your First Job Listing</button>
         </div>
       </div>
     </div>
@@ -885,45 +794,44 @@ a{text-decoration:none;color:inherit}
       </div>
 
       <div class="team-grid">
+        <!-- Majid -->
         <div class="team-card">
           <div class="team-card-actions">
-            <button class="icon-btn" onclick="openEditTeamMember('Majid Dehghanpir','Founder & CEO','Leadership','https://linkedin.com/in/majid')">✏️</button>
+            <button class="icon-btn" onclick="openEditTeamMember('Majid Dehghanpir','CEO & Co-Founder · Head of AI Research','Leadership','https://www.linkedin.com/in/majid-dehghanpir/')">✏️</button>
             <button class="icon-btn danger">🗑</button>
           </div>
-          <div class="team-photo-placeholder">MD</div>
+          <img src="majid.jpg" alt="Majid Dehghanpir" class="team-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-photo-placeholder" style="display:none">MD</div>
           <div class="team-member-name">Majid Dehghanpir</div>
-          <div class="team-member-role">Founder & CEO</div>
-          <div class="team-member-dept">Leadership</div>
+          <div class="team-member-role">CEO & Co-Founder</div>
+          <div class="team-member-dept">Leadership · AI Research</div>
+          <div style="margin-top:8px;font-size:11.5px;color:var(--gray-400)">majid.dehghanpir@scoutrex.com</div>
         </div>
+        <!-- Hamed -->
         <div class="team-card">
           <div class="team-card-actions">
-            <button class="icon-btn" onclick="openEditTeamMember('Anna Weber','Head of Product','Product')">✏️</button>
+            <button class="icon-btn" onclick="openEditTeamMember('Hamed Markazi','CTO & Co-Founder · Head of Product','Leadership','https://www.linkedin.com/in/hamed-markazi-62214410/')">✏️</button>
             <button class="icon-btn danger">🗑</button>
           </div>
-          <div class="team-photo-placeholder" style="background:linear-gradient(135deg,var(--orange-dark),var(--orange))">AW</div>
-          <div class="team-member-name">Anna Weber</div>
-          <div class="team-member-role">Head of Product</div>
-          <div class="team-member-dept">Product</div>
+          <img src="hamed.jpg" alt="Hamed Markazi" class="team-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-photo-placeholder" style="display:none;background:linear-gradient(135deg,var(--orange-dark),var(--orange))">HM</div>
+          <div class="team-member-name">Hamed Markazi</div>
+          <div class="team-member-role">CTO & Co-Founder</div>
+          <div class="team-member-dept">Engineering · Product</div>
+          <div style="margin-top:8px;font-size:11.5px;color:var(--gray-400)">hamed.markazi@scoutrex.com</div>
         </div>
+        <!-- Shadi -->
         <div class="team-card">
           <div class="team-card-actions">
-            <button class="icon-btn" onclick="openEditTeamMember('Luca Rossi','Lead Engineer','Engineering')">✏️</button>
+            <button class="icon-btn" onclick="openEditTeamMember('Shadi Moghaddam','Marketing','Marketing','https://www.linkedin.com/in/shadi-moghaddam-1a9325258/')">✏️</button>
             <button class="icon-btn danger">🗑</button>
           </div>
-          <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#059669,#34D399)">LR</div>
-          <div class="team-member-name">Luca Rossi</div>
-          <div class="team-member-role">Lead Engineer</div>
-          <div class="team-member-dept">Engineering</div>
-        </div>
-        <div class="team-card">
-          <div class="team-card-actions">
-            <button class="icon-btn" onclick="openEditTeamMember('Sophie Martin','UX Designer','Design')">✏️</button>
-            <button class="icon-btn danger">🗑</button>
-          </div>
-          <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">SM</div>
-          <div class="team-member-name">Sophie Martin</div>
-          <div class="team-member-role">UX Designer</div>
-          <div class="team-member-dept">Design</div>
+          <img src="Shadi.jpg" alt="Shadi Moghaddam" class="team-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="team-photo-placeholder" style="display:none;background:linear-gradient(135deg,#7C3AED,#A78BFA)">SM</div>
+          <div class="team-member-name">Shadi Moghaddam</div>
+          <div class="team-member-role">Marketing</div>
+          <div class="team-member-dept">Marketing</div>
+          <div style="margin-top:8px;font-size:11.5px;color:var(--gray-400)">shadi.moghaddam@scoutrex.com</div>
         </div>
         <!-- Add new member card -->
         <div class="team-card" style="border:2px dashed var(--gray-200);background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;gap:10px;color:var(--gray-400)" onclick="openAddTeamMember()">
