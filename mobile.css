@@ -418,6 +418,26 @@
 
 
 /* -- REXI CHATBOT (all pages) ------------------------------ */
+
+/*
+ * CRITICAL FIX: #rexi-bubble is a flex container that holds both the
+ * toggle button (52px) AND the panel (up to 360px wide, 500px tall).
+ * Even when the panel is visually hidden (opacity:0, pointer-events:none),
+ * the parent container still occupies that space with pointer-events:auto,
+ * blocking taps on anything underneath — including footer links.
+ * Fix: set pointer-events:none on the container and restore it only on
+ * the toggle button and the open panel.
+ */
+#rexi-bubble {
+  pointer-events: none !important;
+}
+#rexi-bubble .rexi-toggle {
+  pointer-events: auto !important;
+}
+#rexi-bubble .rexi-panel.open {
+  pointer-events: auto !important;
+}
+
 @media (max-width: 480px) {
   #rexi-bubble   { bottom: 16px; right: 16px; }
   .rexi-panel    { width: calc(100vw - 32px) !important; max-height: 420px; }
