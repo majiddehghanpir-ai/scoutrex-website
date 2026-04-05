@@ -297,23 +297,23 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       <div class="grid-4" style="margin-bottom:24px">
         <div class="stat-card">
           <div class="stat-card-label">AI Match Score</div>
-          <div class="stat-card-val">87<em>%</em></div>
-          <div class="stat-card-sub">+4% this week</div>
+          <div class="stat-card-val" id="stat-match-score">—</div>
+          <div class="stat-card-sub" id="stat-match-score-sub">Complete profile to get score</div>
         </div>
         <div class="stat-card">
           <div class="stat-card-label">New Matches</div>
-          <div class="stat-card-val">12</div>
-          <div class="stat-card-sub">Since last visit</div>
+          <div class="stat-card-val" id="stat-new-matches">0</div>
+          <div class="stat-card-sub" id="stat-new-matches-sub">No new matches yet</div>
         </div>
         <div class="stat-card">
           <div class="stat-card-label">Applications</div>
-          <div class="stat-card-val">5</div>
-          <div class="stat-card-sub">3 in review</div>
+          <div class="stat-card-val" id="stat-applications">0</div>
+          <div class="stat-card-sub" id="stat-applications-sub">No applications yet</div>
         </div>
         <div class="stat-card">
           <div class="stat-card-label">Profile Views</div>
-          <div class="stat-card-val">34</div>
-          <div class="stat-card-sub">This month</div>
+          <div class="stat-card-val" id="stat-profile-views">0</div>
+          <div class="stat-card-sub" id="stat-profile-views-sub">This month</div>
         </div>
       </div>
 
@@ -322,30 +322,10 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
           <div class="card-title">Recent Activity
             <a href="#" style="font-size:13px;font-weight:600;color:var(--indigo)">See all</a>
           </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon match">🎯</div>
-              <div class="activity-info">
-                <div class="activity-title">New top match, Senior AI Engineer, Berlin</div>
-                <div class="activity-sub">JobRex matched you at 94%</div>
-              </div>
-              <div class="activity-time">2h ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon view">👁</div>
-              <div class="activity-info">
-                <div class="activity-title">Your profile was viewed</div>
-                <div class="activity-sub">by a recruiter at Siemens</div>
-              </div>
-              <div class="activity-time">Yesterday</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon apply">✅</div>
-              <div class="activity-info">
-                <div class="activity-title">Application submitted</div>
-                <div class="activity-sub">Product Lead, Remote</div>
-              </div>
-              <div class="activity-time">3d ago</div>
+          <div class="activity-list" id="acct-activity-list">
+            <div style="padding:24px 0;text-align:center;color:var(--gray-400);font-size:14px">
+              <div style="font-size:28px;margin-bottom:8px">🎯</div>
+              No activity yet — complete your profile to get matched.
             </div>
           </div>
         </div>
@@ -354,13 +334,13 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
           <div class="plan-card" style="margin-bottom:20px">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
               <div>
-                <div class="plan-name">JobRex Pro</div>
-                <div class="plan-desc">Your active subscription</div>
+                <div class="plan-name" id="overview-plan-name">Free Plan</div>
+                <div class="plan-desc" id="overview-plan-desc">Your active plan</div>
               </div>
-              <span class="plan-badge">● Active</span>
+              <span class="plan-badge" id="overview-plan-badge">● Active</span>
             </div>
             <button class="btn-plan" onclick="showPanel('subscription')">Manage Plan →</button>
-            <div class="plan-renews">Renews on 1 May 2026 · €19/month</div>
+            <div class="plan-renews" id="overview-plan-renews">No billing — free tier</div>
           </div>
           <div class="card">
             <div class="card-title">Quick Actions</div>
@@ -635,16 +615,15 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       <div class="plan-card" style="margin-bottom:24px">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
           <div>
-            <div class="plan-name">JobRex Pro</div>
-            <div class="plan-desc">Unlimited AI matches · Priority support · Advanced analytics</div>
-            <div style="font-size:1.6rem;font-weight:800;color:#fff;margin:12px 0 4px">€19<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span></div>
-            <div class="plan-renews">Next billing: 1 May 2026</div>
+            <div class="plan-name" id="sub-plan-name">Free Plan</div>
+            <div class="plan-desc" id="sub-plan-desc">5 matches/month · Basic profile · Email support</div>
+            <div style="font-size:1.6rem;font-weight:800;color:#fff;margin:12px 0 4px" id="sub-plan-price">€0<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span></div>
+            <div class="plan-renews" id="sub-plan-renews">No billing — free tier</div>
           </div>
-          <span class="plan-badge">● Active</span>
+          <span class="plan-badge" id="sub-plan-badge">● Active</span>
         </div>
-        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
-          <button class="btn-plan" onclick="showPanel('billing')">View Invoices</button>
-          <button class="btn-plan" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15)">Cancel Plan</button>
+        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap" id="sub-plan-actions">
+          <a href="contact.html"><button class="btn-plan">Upgrade Plan →</button></a>
         </div>
       </div>
       <div class="card">
@@ -654,14 +633,14 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
             <div style="font-family:'Lora',serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Free</div>
             <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">€0</div>
             <div style="font-size:13px;color:var(--gray-500);line-height:1.7">5 matches/month<br>Basic profile<br>Email support</div>
-            <button class="btn-outline" style="width:100%;margin-top:16px;font-size:13px">Current plan</button>
+            <button class="btn-save" style="width:100%;margin-top:16px;font-size:13px;padding:10px" id="plan-cta-free">Active ✓</button>
           </div>
           <div style="padding:20px;border-radius:14px;border:2px solid var(--indigo);background:rgba(30,18,86,0.03);text-align:center;position:relative">
             <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:50px">Most Popular</div>
             <div style="font-family:'Lora',serif;font-weight:800;font-size:1.1rem;margin-bottom:6px;color:var(--indigo)">Pro</div>
             <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">€19<span style="font-size:13px;font-weight:500;color:var(--gray-400)">/mo</span></div>
             <div style="font-size:13px;color:var(--gray-500);line-height:1.7">Unlimited matches<br>Advanced profile<br>Priority support<br>Full analytics</div>
-            <button class="btn-save" style="width:100%;margin-top:16px;font-size:13px;padding:10px">Active ✓</button>
+            <a href="contact.html"><button class="btn-outline" style="width:100%;margin-top:16px;font-size:13px;padding:10px" id="plan-cta-pro">Upgrade →</button></a>
           </div>
           <div style="padding:20px;border-radius:14px;border:1.5px solid var(--gray-200);text-align:center">
             <div style="font-family:'Lora',serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Enterprise</div>
@@ -679,28 +658,23 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <h1 class="panel-title">Billing & Invoices</h1>
         <p class="panel-sub">Manage your payment method and download invoices.</p>
       </div>
-      <div class="card">
+      <div class="card" id="billing-payment-card">
         <div class="card-title">Payment Method</div>
-        <div class="payment-method" style="margin-bottom:14px">
-          <div class="pm-icon">VISA</div>
-          <div class="pm-info">
-            <p>Visa ending in 4242</p>
-            <span>Expires 08/2028 · Default</span>
-          </div>
-          <button class="btn-outline" style="font-size:13px;padding:8px 14px">Change</button>
+        <div style="padding:20px 0;text-align:center;color:var(--gray-400);font-size:14px">
+          <div style="font-size:28px;margin-bottom:8px">💳</div>
+          No payment method on file — you're on the free plan.
         </div>
-        <button class="btn-save" style="font-size:13px;padding:9px 20px">+ Add Payment Method</button>
+        <a href="contact.html"><button class="btn-save" style="font-size:13px;padding:9px 20px">Upgrade to add payment</button></a>
       </div>
       <div class="card">
         <div class="card-title">Billing History</div>
-        <table class="billing-table">
+        <div id="billing-history-empty" style="padding:20px 0;text-align:center;color:var(--gray-400);font-size:14px">
+          <div style="font-size:28px;margin-bottom:8px">🧾</div>
+          No billing history yet.
+        </div>
+        <table class="billing-table" id="billing-table" style="display:none">
           <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th>Invoice</th></tr></thead>
-          <tbody>
-            <tr><td>1 Apr 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
-            <tr><td>1 Mar 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
-            <tr><td>1 Feb 2026</td><td>JobRex Pro, Monthly</td><td>€19.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
-            <tr><td>1 Jan 2026</td><td>JobRex Starter, Monthly</td><td>€9.00</td><td><span class="status-badge paid">✓ Paid</span></td><td><a href="#" class="download-link">↓ PDF</a></td></tr>
-          </tbody>
+          <tbody id="billing-tbody"></tbody>
         </table>
       </div>
       <div class="card">
@@ -807,54 +781,85 @@ async function acctLoadProfile() {
   const token = localStorage.getItem('sr_token');
   if (!token) { window.location.href = 'login.html'; return; }
 
+  const headers = { 'Authorization': 'Bearer ' + token };
+
+  // Fetch profile + plan in parallel
   try {
-    const res = await fetch(ACCT_API + '/api/profile', {
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    if (res.status === 401) { acctLogout(); return; }
-    if (!res.ok) return;
-    const u = await res.json();
+    const [profileRes, planRes] = await Promise.all([
+      fetch(ACCT_API + '/api/profile', { headers }),
+      fetch(ACCT_API + '/api/subscriptions/my-plan', { headers })
+    ]);
 
-    const initials = acctInitials(u.name || '');
-    const nameParts = (u.name || '').trim().split(/\s+/);
-    const firstName = nameParts[0] || '';
-    const lastName = nameParts.slice(1).join(' ') || '';
+    if (profileRes.status === 401) { acctLogout(); return; }
 
-    // Topbar avatar
-    const sm = document.getElementById('acct-avatar-sm');
-    if (sm) sm.textContent = initials;
+    // ── Profile ───────────────────────────────────────────────
+    if (profileRes.ok) {
+      const u = await profileRes.json();
+      const initials = acctInitials(u.name || '');
+      const nameParts = (u.name || '').trim().split(/\s+/);
+      const firstName = nameParts[0] || '';
+      const lastName  = nameParts.slice(1).join(' ') || '';
 
-    // Welcome greeting
-    const gr = document.getElementById('acct-greeting');
-    if (gr) gr.textContent = 'Welcome back, ' + firstName + ' 👋';
+      const sm = document.getElementById('acct-avatar-sm');
+      if (sm) sm.textContent = initials;
+      const gr = document.getElementById('acct-greeting');
+      if (gr) gr.textContent = 'Welcome back, ' + (firstName || 'there') + ' 👋';
+      const lg = document.getElementById('acct-avatar-lg');
+      if (lg) lg.textContent = initials;
 
-    // Profile panel avatar
-    const lg = document.getElementById('acct-avatar-lg');
-    if (lg) lg.textContent = initials;
+      const fn = document.getElementById('acct-first-name');  if (fn) fn.value = firstName;
+      const ln = document.getElementById('acct-last-name');   if (ln) ln.value = lastName;
+      const em = document.getElementById('acct-email');       if (em) em.value = u.email || '';
+      const ti = document.getElementById('acct-title');       if (ti) ti.value = u.title || '';
+      const bi = document.getElementById('acct-bio');         if (bi) bi.value = u.bio || '';
+      const li = document.getElementById('acct-linkedin');    if (li) li.value = u.linkedin || '';
+      const ge = document.getElementById('acct-google-email');
+      if (ge) ge.textContent = u.email ? 'Signed in as ' + u.email : '';
+      const bn = document.getElementById('acct-billing-name'); if (bn) bn.value = u.name || '';
+    }
 
-    // Profile fields
-    const fn = document.getElementById('acct-first-name');
-    if (fn) fn.value = firstName;
-    const ln = document.getElementById('acct-last-name');
-    if (ln) ln.value = lastName;
-    const em = document.getElementById('acct-email');
-    if (em) em.value = u.email || '';
-    const ti = document.getElementById('acct-title');
-    if (ti) ti.value = u.title || '';
-    const bi = document.getElementById('acct-bio');
-    if (bi) bi.value = u.bio || '';
-    const li = document.getElementById('acct-linkedin');
-    if (li) li.value = u.linkedin || '';
+    // ── Plan ──────────────────────────────────────────────────
+    const planData = planRes.ok ? await planRes.json() : { plan: 'free', status: 'active' };
+    const planName   = planData.name || planData.plan || 'Free';
+    const isPaid     = planName.toLowerCase() !== 'free';
+    const planLabel  = isPaid ? planName : 'Free Plan';
+    const planBadge  = '● ' + (planData.status === 'active' ? 'Active' : planData.status || 'Active');
+    const planRenews = isPaid
+      ? (planData.expires_at ? 'Renews ' + planData.expires_at : 'Active subscription')
+      : 'No billing — free tier';
+    const planDesc   = isPaid
+      ? 'Unlimited AI matches · Priority support · Advanced analytics'
+      : '5 matches/month · Basic profile · Email support';
+    const planPrice  = isPaid ? (planData.price ? '€' + planData.price : '') : '€0';
 
-    // Settings — Google email display
-    const ge = document.getElementById('acct-google-email');
-    if (ge) ge.textContent = u.email ? 'Signed in as ' + u.email : '';
+    // Overview plan card
+    const el = (id) => document.getElementById(id);
+    if (el('overview-plan-name'))   el('overview-plan-name').textContent   = planLabel;
+    if (el('overview-plan-desc'))   el('overview-plan-desc').textContent   = planDesc;
+    if (el('overview-plan-badge'))  el('overview-plan-badge').textContent  = planBadge;
+    if (el('overview-plan-renews')) el('overview-plan-renews').textContent = planRenews;
 
-    // Billing name
-    const bn = document.getElementById('acct-billing-name');
-    if (bn) bn.value = u.name || '';
+    // Subscription panel
+    if (el('sub-plan-name'))   el('sub-plan-name').textContent   = planLabel;
+    if (el('sub-plan-desc'))   el('sub-plan-desc').textContent   = planDesc;
+    if (el('sub-plan-badge'))  el('sub-plan-badge').textContent  = planBadge;
+    if (el('sub-plan-renews')) el('sub-plan-renews').textContent = planRenews;
+    if (el('sub-plan-price') && planPrice) {
+      el('sub-plan-price').innerHTML = planPrice + '<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span>';
+    }
 
-  } catch (e) { console.error('Profile load failed', e); }
+    // Compare plans — highlight active tier
+    const freeBtn = el('plan-cta-free');
+    const proBtn  = el('plan-cta-pro');
+    if (isPaid) {
+      if (freeBtn) { freeBtn.textContent = 'Downgrade'; freeBtn.className = 'btn-outline'; }
+      if (proBtn)  { proBtn.textContent  = 'Active ✓';  proBtn.className = 'btn-save'; proBtn.style.cssText = 'width:100%;margin-top:16px;font-size:13px;padding:10px'; }
+    } else {
+      if (freeBtn) { freeBtn.textContent = 'Active ✓';  freeBtn.className = 'btn-save'; freeBtn.style.cssText = 'width:100%;margin-top:16px;font-size:13px;padding:10px'; }
+      if (proBtn)  { proBtn.textContent  = 'Upgrade →'; proBtn.className = 'btn-outline'; proBtn.style.cssText = 'width:100%;margin-top:16px;font-size:13px;padding:10px'; }
+    }
+
+  } catch (e) { console.error('Account load failed', e); }
 }
 
 acctLoadProfile();
