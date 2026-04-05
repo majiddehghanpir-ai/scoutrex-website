@@ -172,7 +172,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
 @media(max-width:900px){.gdpr-grid{grid-template-columns:1fr}.gdpr-toc{display:none}.footer-top{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.footer-top{grid-template-columns:1fr}.rights-grid,.measures-grid{grid-template-columns:1fr}}
 </style>
-<link rel="stylesheet" href="mobile.css?v=5"/>
+<link rel="stylesheet" href="mobile.css?v=6"/>
 </head>
 <body>
 
@@ -184,7 +184,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
       </a>
       <div class="nav-links">
-        <a href="products.html">Products</a>
+        <div class="nav-dropdown"><a href="products.html">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="jobrex.html">🎯 JobRex</a><a href="hirerex.html">🏢 HireRex</a></div></div>
         <a href="pricing.html">Pricing</a>
         <a href="about.html">About</a>
         <a href="team.html">Team</a>
@@ -201,6 +201,8 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="products.html" onclick="setTimeout(toggleMenu,100)">Products</a>
+  <a href="jobrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ JobRex</a>
+  <a href="hirerex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ HireRex</a>
   <a href="pricing.html" onclick="setTimeout(toggleMenu,100)">Pricing</a>
   <a href="about.html" onclick="setTimeout(toggleMenu,100)">About</a>
   <a href="team.html" onclick="setTimeout(toggleMenu,100)">Team</a>
@@ -498,8 +500,8 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
       <div class="footer-col">
         <div class="footer-col-title">Products</div>
         <ul>
-          <li><a href="login-candidate.html">JobRex: Candidates</a></li>
-          <li><a href="login-company.html">HireRex: Companies</a></li>
+          <li><a href="jobrex.html">JobRex: Candidates</a></li>
+          <li><a href="hirerex.html">HireRex: Companies</a></li>
           <li><a href="pricing.html">Pricing</a></li>
         </ul>
       </div>
@@ -567,6 +569,20 @@ window.addEventListener('scroll',()=>{
   });
 });
 
+
+// Dropdown: click toggle for touch/tablet
+document.querySelectorAll('.nav-dropdown').forEach(function(dd){
+  dd.addEventListener('click', function(e){
+    if(window.innerWidth <= 768) return;
+    if(e.target === dd.querySelector('a') || e.target === dd.querySelector('.nav-dd-arrow')){
+      dd.classList.toggle('open');
+      e.preventDefault();
+    }
+  });
+  document.addEventListener('click', function(e){
+    if(!dd.contains(e.target)) dd.classList.remove('open');
+  });
+});
 function toggleMenu(){const m=document.getElementById("mobileMenu");const o=m.classList.toggle("open");document.body.classList.toggle("menu-open",o);}
 </script>
 <script src="cookie-consent.js"></script>
