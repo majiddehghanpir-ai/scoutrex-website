@@ -722,7 +722,7 @@ html:not(.dark) .hero-actions .btn-ghost:hover{background:var(--indigo);color:#f
 </div>
 
 <script>
-function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function toggleMenu(){const m=document.getElementById("mobileMenu");const o=m.classList.toggle("open");document.body.classList.toggle("menu-open",o);}
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20)
 });

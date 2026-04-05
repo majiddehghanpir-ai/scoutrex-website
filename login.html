@@ -182,24 +182,24 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">First name</label>
-            <input type="text" class="form-input" placeholder="Jane"/>
+            <input type="text" id="reg-first-name" class="form-input" placeholder="Jane"/>
           </div>
           <div class="form-group">
             <label class="form-label">Last name</label>
-            <input type="text" class="form-input" placeholder="Smith"/>
+            <input type="text" id="reg-last-name" class="form-input" placeholder="Smith"/>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Email address</label>
-          <input type="email" class="form-input" placeholder="you@example.com"/>
+          <input type="email" id="reg-email" class="form-input" placeholder="you@example.com"/>
         </div>
         <div id="company-name-field" class="form-group" style="display:none">
           <label class="form-label">Company name</label>
-          <input type="text" class="form-input" placeholder="Acme Corp"/>
+          <input type="text" id="reg-company" class="form-input" placeholder="Acme Corp"/>
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
-          <input type="password" class="form-input" placeholder="Min. 8 characters"/>
+          <input type="password" id="reg-password" class="form-input" placeholder="Min. 8 characters"/>
         </div>
         <button class="btn-submit" style="background:var(--orange);box-shadow:0 4px 16px rgba(249,115,22,0.3)" onclick="handleRegister()">Create Account →</button>
         <div class="form-divider">or</div>
@@ -214,6 +214,7 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
         <div class="form-footer">Already have an account? <a href="login.html">Log in</a></div>
         <div class="form-footer" style="margin-top:12px;font-size:12px;color:var(--gray-400)">By creating an account you agree to our <a href="#">Terms</a> and <a href="gdpr.html">GDPR</a>
         <a href="#">Privacy Policy</a>.</div>
+        <div class="form-footer" style="margin-top:16px;font-size:12px;color:var(--gray-400)">Are you a company? <a href="contact.html">Contact us</a> to get started with HireRex.</div>
       </div>
 
     </div>
@@ -243,7 +244,9 @@ function setMode(m){
   const isReg = m==='register';
   document.getElementById('login-form').style.display = isReg ? 'none' : 'block';
   document.getElementById('register-form').style.display = isReg ? 'block' : 'none';
-  document.getElementById('type-toggle-wrap').style.display = isReg ? 'grid' : 'none';
+  // Type toggle hidden for both modes — website registration is candidates only
+  document.getElementById('type-toggle-wrap').style.display = 'none';
+  currentType = 'candidate';
   document.getElementById('form-title').textContent = isReg ? 'Create your account' : 'Welcome back';
   document.getElementById('form-subtitle').innerHTML = isReg
     ? 'Already have an account? <a href="login.html">Log in</a>'
@@ -291,12 +294,11 @@ async function handleLogin(){
 
 async function handleRegister(){
   const form = document.getElementById('register-form');
-  const inputs = form.querySelectorAll('.form-input');
-  const firstName = inputs[0].value.trim();
-  const lastName = inputs[1].value.trim();
-  const email = inputs[2].value.trim();
-  const companyName = currentType === 'company' ? inputs[3].value.trim() : '';
-  const password = currentType === 'company' ? inputs[4].value : inputs[3].value;
+  const firstName = document.getElementById('reg-first-name').value.trim();
+  const lastName = document.getElementById('reg-last-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const companyName = currentType === 'company' ? document.getElementById('reg-company').value.trim() : '';
+  const password = document.getElementById('reg-password').value;
   const errEl = document.getElementById('error-msg');
   const btn = form.querySelector('.btn-submit');
 

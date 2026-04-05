@@ -50,6 +50,11 @@ ul{list-style:none}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
 .hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.8);border-radius:2px;transition:all 0.3s}
 #navbar.scrolled .hamburger span{background:var(--text)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(15,10,46,0.97);z-index:999;overflow-y:auto;flex-direction:column;align-items:center;justify-content:flex-start;gap:18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1.2rem;font-weight:700;color:#fff;padding:10px;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--orange)}
+html.dark .mobile-menu{background:rgba(9,7,28,0.98)}
 
 /* ── HERO ── */
 .gdpr-hero{background:linear-gradient(145deg,#07051A 0%,#100B30 50%,#1E1256 100%);padding:72px 0 80px;position:relative;overflow:hidden}
@@ -194,6 +199,21 @@ html.dark .footer-brand p{color:rgba(255,255,255,0.45)}
     </div>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="products.html" onclick="setTimeout(toggleMenu,100)">Products</a>
+  <a href="pricing.html" onclick="setTimeout(toggleMenu,100)">Pricing</a>
+  <a href="about.html" onclick="setTimeout(toggleMenu,100)">About</a>
+  <a href="team.html" onclick="setTimeout(toggleMenu,100)">Team</a>
+  <a href="careers.html" onclick="setTimeout(toggleMenu,100)">Careers</a>
+  <a href="contact.html" onclick="setTimeout(toggleMenu,100)">Contact</a>
+  <hr class="mobile-divider">
+  <div class="mobile-section-label">Account</div>
+  <a href="login.html" onclick="setTimeout(toggleMenu,100)">Log In</a>
+  <a href="login.html?mode=register" onclick="setTimeout(toggleMenu,100)">Register</a>
+  <a href="account.html" onclick="setTimeout(toggleMenu,100)">My ScoutRex</a>
+  <a href="contact.html" onclick="setTimeout(toggleMenu,100)">Support</a>
+  <button class="theme-toggle" onclick="toggleTheme()" style="margin-top:8px">🌙</button>
+</div>
 
 <!-- HERO -->
 <section class="gdpr-hero">
@@ -547,10 +567,7 @@ window.addEventListener('scroll',()=>{
   });
 });
 
-function toggleMenu(){
-  const nav=document.getElementById('navbar');
-  nav.classList.toggle('menu-open');
-}
+function toggleMenu(){const m=document.getElementById("mobileMenu");const o=m.classList.toggle("open");document.body.classList.toggle("menu-open",o);}
 </script>
 <script src="cookie-consent.js"></script>
 </body>

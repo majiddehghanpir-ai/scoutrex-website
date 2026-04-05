@@ -450,7 +450,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
 </footer>
 
 <script>
-function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function toggleMenu(){const m=document.getElementById("mobileMenu");const o=m.classList.toggle("open");document.body.classList.toggle("menu-open",o);}
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20)
 });
