@@ -1,0 +1,21 @@
+name            = "scoutrex-contact"
+main            = "workers/contact.js"
+compatibility_date = "2024-09-23"
+
+# ── Routes ────────────────────────────────────────────────────────────────────
+# All /api/* requests on scoutrex.com are handled by this Worker.
+routes = [
+  { pattern = "scoutrex.com/api/*", zone_name = "scoutrex.com" }
+]
+
+# ── D1 Database ───────────────────────────────────────────────────────────────
+# After running: npx wrangler d1 create scoutrex-messages
+# paste the returned database_id below.
+[[d1_databases]]
+binding      = "DB"
+database_name = "scoutrex-messages"
+database_id  = "PASTE_DATABASE_ID_HERE"
+
+# ── Secrets (do NOT put values here) ─────────────────────────────────────────
+# Set via:  npx wrangler secret put ADMIN_API_KEY
+# Then paste the same key into admin.html Settings → API Key field.

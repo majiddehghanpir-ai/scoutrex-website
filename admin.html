@@ -846,108 +846,66 @@ a{text-decoration:none;color:inherit}
       <div class="panel-header">
         <div>
           <div class="panel-title">Contact Messages</div>
-          <div class="panel-sub">Messages sent through the website contact form</div>
+          <div class="panel-sub" id="msg-panel-sub">Messages sent through the website contact form</div>
         </div>
-        <div style="display:flex;gap:8px">
-          <select class="filter-select">
-            <option>All Messages</option>
-            <option>Unread</option>
-            <option>Replied</option>
-            <option>Archived</option>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select class="filter-select" id="msg-filter" onchange="filterMessages(this.value)">
+            <option value="all">All Messages</option>
+            <option value="unread">Unread</option>
+            <option value="read">Read</option>
+            <option value="replied">Replied</option>
+            <option value="archived">Archived</option>
           </select>
+          <button class="btn btn-outline btn-sm" onclick="loadMessages()" title="Refresh">↻ Refresh</button>
         </div>
       </div>
-      <div class="messages-layout">
+
+      <!-- API key prompt (shown if no key stored) -->
+      <div id="api-key-prompt" style="display:none" class="card" style="text-align:center;padding:40px 24px">
+        <div style="font-size:36px;margin-bottom:12px">🔑</div>
+        <div style="font-size:16px;font-weight:700;color:var(--indigo);margin-bottom:6px">Enter your Admin API Key</div>
+        <div style="font-size:13.5px;color:var(--gray-500);margin-bottom:20px">This is the <code>ADMIN_API_KEY</code> you set as a Cloudflare Worker secret.</div>
+        <div style="display:flex;gap:8px;max-width:440px;margin:0 auto">
+          <input id="api-key-input" type="password" class="form-input" placeholder="Paste your API key here…" style="flex:1">
+          <button class="btn btn-orange" onclick="saveApiKey()">Save &amp; Load</button>
+        </div>
+      </div>
+
+      <!-- Loading state -->
+      <div id="msg-loading" style="display:none;text-align:center;padding:48px;color:var(--gray-400)">
+        <div style="font-size:28px;margin-bottom:10px">⏳</div>
+        <div>Loading messages…</div>
+      </div>
+
+      <!-- Error state -->
+      <div id="msg-error" style="display:none" class="card">
+        <div style="text-align:center;padding:32px 24px;color:var(--gray-500)">
+          <div style="font-size:32px;margin-bottom:10px">⚠️</div>
+          <div id="msg-error-text" style="font-size:14px;font-weight:600;color:#991B1B;margin-bottom:8px"></div>
+          <div style="font-size:13px;margin-bottom:16px">Check that your Worker is deployed and your API key is correct.</div>
+          <div style="display:flex;gap:8px;justify-content:center">
+            <button class="btn btn-outline btn-sm" onclick="clearApiKey()">Change API Key</button>
+            <button class="btn btn-orange btn-sm" onclick="loadMessages()">Retry</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages layout (shown when loaded) -->
+      <div class="messages-layout" id="msg-layout" style="display:none">
         <!-- Message List -->
         <div class="msg-list">
           <div class="msg-list-header">
             <span class="msg-list-title">Inbox</span>
-            <span class="badge unread">5 unread</span>
+            <span class="badge unread" id="unread-count-badge"></span>
           </div>
-
-          <div class="msg-item unread active" onclick="showMessage(this,'Lena Fischer','Partnership inquiry','lena@partnerfirm.com','+49 176 000 0001','Hi, I represent a recruiting firm in Munich and we\'d love to explore a partnership with ScoutRex. We work with 200+ companies across the DACH region. Could we schedule a call to discuss how we might work together?\n\nBest regards,\nLena Fischer','12 min ago','Unread')">
-            <div class="msg-unread-dot"></div>
-            <div class="msg-sender">Lena Fischer</div>
-            <div class="msg-subject">Partnership inquiry</div>
-            <div class="msg-preview">Hi, I represent a recruiting firm...</div>
-            <div class="msg-time">12 minutes ago</div>
-          </div>
-
-          <div class="msg-item unread" onclick="showMessage(this,'James Okafor','Pricing question','j.okafor@company.ng','+44 7700 000 001','Hello ScoutRex team,\n\nI wanted to ask — is there a discount available for non-profits or NGOs? We are a social enterprise based in London and the Pro plan looks very interesting but the price point is a bit high for us.\n\nThank you,\nJames','1 hour ago','Unread')">
-            <div class="msg-unread-dot"></div>
-            <div class="msg-sender">James Okafor</div>
-            <div class="msg-subject">Pricing question</div>
-            <div class="msg-preview">Is there a discount for non-profits?</div>
-            <div class="msg-time">1 hour ago</div>
-          </div>
-
-          <div class="msg-item unread" onclick="showMessage(this,'Priya Nair','Bug report — login page','priya.nair@dev.in','','Hello,\n\nI noticed that the Login button on mobile doesn\'t seem to do anything when the screen width is below 375px (iPhone SE). I tried on both Safari and Chrome. Everything works fine on desktop.\n\nHope this helps!\nPriya','3 hours ago','Unread')">
-            <div class="msg-unread-dot"></div>
-            <div class="msg-sender">Priya Nair</div>
-            <div class="msg-subject">Bug report — login page</div>
-            <div class="msg-preview">Login button not working on mobile...</div>
-            <div class="msg-time">3 hours ago</div>
-          </div>
-
-          <div class="msg-item unread" onclick="showMessage(this,'Tom Eriksson','Enterprise plan inquiry','tom.e@largeorg.se','+46 70 000 0001','Hi there,\n\nWe are a 500-person company looking to roll out a modern recruiting platform across 3 countries. The Enterprise plan looks interesting — could you send over more details about customisation options and pricing?\n\nBest,\nTom Eriksson\nHead of HR, LargeOrg AB','5 hours ago','Unread')">
-            <div class="msg-unread-dot"></div>
-            <div class="msg-sender">Tom Eriksson</div>
-            <div class="msg-subject">Enterprise plan inquiry</div>
-            <div class="msg-preview">We are a 500-person company looking...</div>
-            <div class="msg-time">5 hours ago</div>
-          </div>
-
-          <div class="msg-item unread" onclick="showMessage(this,'Hana Kovač','Candidate profile deletion request','hana.k@mail.hr','','Hello,\n\nI created an account last month but I would like to delete my profile and all associated data in accordance with GDPR. Please confirm once completed.\n\nThank you,\nHana','Yesterday','Unread')">
-            <div class="msg-unread-dot"></div>
-            <div class="msg-sender">Hana Kovač</div>
-            <div class="msg-subject">Candidate profile deletion request</div>
-            <div class="msg-preview">I would like to delete my profile...</div>
-            <div class="msg-time">Yesterday</div>
-          </div>
-
-          <div class="msg-item" onclick="showMessage(this,'Mia Schulz','Demo request','mia.schulz@agency.de','+49 89 000 001','Hi, we would love to see a live demo of ScoutRex for our team of 20 recruiters. Are you available next week?\n\nMia','2 days ago','Replied')">
-            <div class="msg-sender">Mia Schulz</div>
-            <div class="msg-subject">Demo request</div>
-            <div class="msg-preview">We would love to see a live demo...</div>
-            <div class="msg-time">2 days ago · <span style="color:var(--green)">Replied</span></div>
-          </div>
-
-          <div class="msg-item" onclick="showMessage(this,'Ravi Patel','Enterprise plan — follow up','ravi.p@megacorp.in','+91 98000 00001','Following up on our conversation from last week about the Enterprise plan. Do you have a proposal ready?\n\nRavi','3 days ago','Replied')">
-            <div class="msg-sender">Ravi Patel</div>
-            <div class="msg-subject">Enterprise plan — follow up</div>
-            <div class="msg-preview">Following up on our conversation...</div>
-            <div class="msg-time">3 days ago · <span style="color:var(--green)">Replied</span></div>
-          </div>
+          <div id="msg-list-body"></div>
         </div>
 
         <!-- Message Detail -->
         <div class="msg-detail" id="msg-detail">
-          <div class="msg-detail-header">
-            <div class="msg-detail-subject" id="msg-subject">Partnership inquiry</div>
-            <div class="msg-detail-meta">
-              <div><strong>From:</strong> <span id="msg-from">Lena Fischer</span></div>
-              <div><strong>Email:</strong> <span id="msg-email">lena@partnerfirm.com</span></div>
-              <div id="msg-phone-wrap"><strong>Phone:</strong> <span id="msg-phone">+49 176 000 0001</span></div>
-              <div><strong>Received:</strong> <span id="msg-time-detail">12 minutes ago</span></div>
-              <div><span id="msg-status-badge" class="badge unread">Unread</span></div>
-            </div>
-          </div>
-          <div class="msg-body" id="msg-body">Hi, I represent a recruiting firm in Munich and we'd love to explore a partnership with ScoutRex. We work with 200+ companies across the DACH region. Could we schedule a call to discuss how we might work together?
-
-Best regards,
-Lena Fischer</div>
-          <div class="reply-area">
-            <div class="reply-to">Reply to: <strong id="reply-to-addr">lena@partnerfirm.com</strong></div>
-            <textarea id="reply-textarea" placeholder="Write your reply…"></textarea>
-            <div class="reply-footer">
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-ghost btn-sm">📎 Attach</button>
-              </div>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-outline btn-sm" onclick="archiveMessage()">Archive</button>
-                <button class="btn btn-orange btn-sm" onclick="sendReply()">Send Reply ↗</button>
-              </div>
-            </div>
+          <div style="text-align:center;padding:60px 24px;color:var(--gray-400)">
+            <div style="font-size:40px;margin-bottom:12px">✉️</div>
+            <div style="font-size:14px">Select a message to read it</div>
           </div>
         </div>
       </div>
@@ -999,6 +957,26 @@ Lena Fischer</div>
             <input class="form-input" type="password" placeholder="Leave blank to keep current">
           </div>
           <button class="btn btn-primary">Update Account</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div class="card-title">Messages API Key</div></div>
+          <div class="form-group">
+            <label class="form-label">Admin API Key</label>
+            <input class="form-input" type="password" id="settings-api-key" placeholder="Paste your ADMIN_API_KEY here">
+            <div class="form-hint">Set via <code>npx wrangler secret put ADMIN_API_KEY</code>. Stored locally in your browser only.</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="
+              const k = document.getElementById('settings-api-key').value.trim();
+              if (k) { localStorage.setItem('srx_admin_key', k); alert('API key saved. Go to Contact Messages to load your inbox.'); }
+            ">Save API Key</button>
+            <button class="btn btn-outline" onclick="
+              localStorage.removeItem('srx_admin_key');
+              document.getElementById('settings-api-key').value = '';
+              alert('API key cleared.');
+            ">Clear Key</button>
+          </div>
         </div>
       </div>
 
@@ -1431,53 +1409,213 @@ function teamForm(name, role, dept, linkedin, bio) {
 }
 
 /* ──────────────────────────────────
-   MESSAGES
+   MESSAGES  — live data from Worker API
 ────────────────────────────────── */
-function showMessage(el, from, subject, email, phone, body, time, status) {
-  document.querySelectorAll('.msg-item').forEach(m => m.classList.remove('active'));
-  el.classList.add('active');
-  el.classList.remove('unread');
-  const dot = el.querySelector('.msg-unread-dot');
-  if (dot) dot.remove();
+const WORKER_BASE = '/api';
+let _allMessages   = [];
+let _activeId      = null;
+let _filterStatus  = 'all';
 
-  document.getElementById('msg-subject').textContent = subject;
-  document.getElementById('msg-from').textContent = from;
-  document.getElementById('msg-email').textContent = email;
-  document.getElementById('msg-time-detail').textContent = time;
-  document.getElementById('reply-to-addr').textContent = email;
-  document.getElementById('reply-textarea').value = '';
+function getApiKey() { return localStorage.getItem('srx_admin_key') || ''; }
+function saveApiKey() {
+  const k = document.getElementById('api-key-input').value.trim();
+  if (!k) return;
+  localStorage.setItem('srx_admin_key', k);
+  document.getElementById('api-key-prompt').style.display = 'none';
+  loadMessages();
+}
+function clearApiKey() {
+  localStorage.removeItem('srx_admin_key');
+  document.getElementById('api-key-prompt').style.display = '';
+  document.getElementById('msg-layout').style.display = 'none';
+  document.getElementById('msg-error').style.display = 'none';
+}
 
-  const phoneWrap = document.getElementById('msg-phone-wrap');
-  if (phone) {
-    phoneWrap.style.display = '';
-    document.getElementById('msg-phone').textContent = phone;
+async function loadMessages() {
+  const key = getApiKey();
+  if (!key) {
+    document.getElementById('api-key-prompt').style.display = '';
+    document.getElementById('msg-layout').style.display = 'none';
+    document.getElementById('msg-loading').style.display = 'none';
+    return;
+  }
+  document.getElementById('api-key-prompt').style.display = 'none';
+  document.getElementById('msg-error').style.display = 'none';
+  document.getElementById('msg-layout').style.display = 'none';
+  document.getElementById('msg-loading').style.display = 'block';
+
+  try {
+    const res = await fetch(`${WORKER_BASE}/messages`, {
+      headers: { 'Authorization': `Bearer ${key}` }
+    });
+    if (res.status === 401) throw new Error('Invalid API key — check Settings and try again.');
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+    _allMessages = data.messages || [];
+    document.getElementById('msg-loading').style.display = 'none';
+    document.getElementById('msg-layout').style.display = '';
+    renderMessageList();
+  } catch (err) {
+    document.getElementById('msg-loading').style.display = 'none';
+    document.getElementById('msg-error').style.display = '';
+    document.getElementById('msg-error-text').textContent = err.message;
+  }
+}
+
+function filterMessages(val) {
+  _filterStatus = val;
+  renderMessageList();
+}
+
+function relativeTime(iso) {
+  const diff = Date.now() - new Date(iso + 'Z').getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1)  return 'just now';
+  if (m < 60) return `${m} min ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h} hour${h > 1 ? 's' : ''} ago`;
+  const d = Math.floor(h / 24);
+  if (d < 7)  return `${d} day${d > 1 ? 's' : ''} ago`;
+  return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+}
+
+function renderMessageList() {
+  const filtered = _filterStatus === 'all'
+    ? _allMessages
+    : _allMessages.filter(m => m.status === _filterStatus);
+
+  const unread = _allMessages.filter(m => m.status === 'unread').length;
+  const badge = document.getElementById('unread-count-badge');
+  badge.textContent = unread > 0 ? `${unread} unread` : '';
+  badge.style.display = unread > 0 ? '' : 'none';
+
+  const sub = document.getElementById('msg-panel-sub');
+  sub.textContent = `${_allMessages.length} message${_allMessages.length !== 1 ? 's' : ''} total · ${unread} unread`;
+
+  const list = document.getElementById('msg-list-body');
+  if (filtered.length === 0) {
+    list.innerHTML = `<div style="padding:32px 16px;text-align:center;color:var(--gray-400);font-size:13px">No messages${_filterStatus !== 'all' ? ` with status "${_filterStatus}"` : ''}</div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(m => {
+    const isUnread = m.status === 'unread';
+    const isActive = m.id === _activeId ? ' active' : '';
+    const time = relativeTime(m.created_at);
+    const subjLabel = ({general:'General Enquiry',product:'Product Question',partnership:'Partnership',press:'Press',other:'Other'})[m.subject] || m.subject;
+    const preview = m.message.replace(/\n/g,' ').slice(0, 60) + (m.message.length > 60 ? '…' : '');
+    const statusLabel = m.status === 'replied' ? `<span style="color:var(--green)">Replied</span>` : '';
+    return `<div class="msg-item${isUnread ? ' unread' : ''}${isActive}" onclick="openMessage(${m.id})">
+      ${isUnread ? '<div class="msg-unread-dot"></div>' : ''}
+      <div class="msg-sender">${escHtml(m.name)}</div>
+      <div class="msg-subject">${escHtml(subjLabel)}</div>
+      <div class="msg-preview">${escHtml(preview)}</div>
+      <div class="msg-time">${time}${statusLabel ? ' · ' + statusLabel : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function openMessage(id) {
+  _activeId = id;
+  const m = _allMessages.find(x => x.id === id);
+  if (!m) return;
+
+  // Mark as read in UI immediately
+  if (m.status === 'unread') {
+    m.status = 'read';
+    renderMessageList();
+    patchMessage(id, 'read');
   } else {
-    phoneWrap.style.display = 'none';
+    renderMessageList();
   }
 
-  const bodyEl = document.getElementById('msg-body');
-  bodyEl.innerHTML = body.replace(/\n/g, '<br>');
+  const subjLabel = ({general:'General Enquiry',product:'Product Question',partnership:'Partnership',press:'Press',other:'Other'})[m.subject] || m.subject;
+  const statusBadge = {
+    unread:   '<span class="badge unread">Unread</span>',
+    read:     '<span class="badge" style="background:rgba(100,100,100,0.1);color:var(--gray-600)">Read</span>',
+    replied:  '<span class="badge replied">Replied</span>',
+    archived: '<span class="badge closed">Archived</span>',
+  }[m.status] || '';
 
-  const badge = document.getElementById('msg-status-badge');
-  badge.textContent = status;
-  badge.className = 'badge ' + (status === 'Replied' ? 'replied' : 'unread');
+  const replySection = m.status === 'archived' ? '' : `
+    <div class="reply-area">
+      <div class="reply-to">Reply to: <strong>${escHtml(m.email)}</strong>
+        <a href="mailto:${escHtml(m.email)}?subject=Re: ${encodeURIComponent(subjLabel)}" target="_blank"
+           style="margin-left:10px;font-size:12px;color:var(--orange)">Open in email client ↗</a>
+      </div>
+      <textarea id="reply-textarea" placeholder="Write your reply…"></textarea>
+      <div class="reply-footer">
+        <div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="archiveMessage(${id})">Archive</button>
+          <button class="btn btn-orange btn-sm" onclick="sendReply(${id},'${escHtml(m.email)}')">Mark as Replied ✓</button>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('msg-detail').innerHTML = `
+    <div class="msg-detail-header">
+      <div class="msg-detail-subject">${escHtml(subjLabel)}</div>
+      <div class="msg-detail-meta">
+        <div><strong>From:</strong> ${escHtml(m.name)}</div>
+        <div><strong>Email:</strong> <a href="mailto:${escHtml(m.email)}" style="color:var(--orange)">${escHtml(m.email)}</a></div>
+        <div><strong>Received:</strong> ${relativeTime(m.created_at)} &nbsp;<span style="color:var(--gray-400);font-size:12px">(${new Date(m.created_at+'Z').toLocaleString('en-GB')})</span></div>
+        <div>${statusBadge}</div>
+      </div>
+    </div>
+    <div class="msg-body" style="white-space:pre-wrap">${escHtml(m.message)}</div>
+    ${m.reply_text ? `<div style="margin:16px 0;padding:14px 16px;background:rgba(5,150,105,0.07);border-left:3px solid var(--green);border-radius:6px;font-size:13px;color:var(--gray-700)"><strong style="color:var(--green);display:block;margin-bottom:4px">Your reply (${relativeTime(m.replied_at)}):</strong><span style="white-space:pre-wrap">${escHtml(m.reply_text)}</span></div>` : ''}
+    ${replySection}`;
 }
 
-function sendReply() {
-  const txt = document.getElementById('reply-textarea').value.trim();
-  if (!txt) { alert('Please write a reply first.'); return; }
-  const badge = document.getElementById('msg-status-badge');
-  badge.textContent = 'Replied';
-  badge.className = 'badge replied';
-  document.getElementById('reply-textarea').value = '';
-  alert('Reply sent!');
+async function patchMessage(id, status) {
+  try {
+    await fetch(`${WORKER_BASE}/messages/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type':'application/json', 'Authorization': `Bearer ${getApiKey()}` },
+      body: JSON.stringify({ status })
+    });
+  } catch(e) { console.warn('patchMessage failed', e); }
 }
 
-function archiveMessage() {
-  if (confirm('Archive this message?')) {
-    document.getElementById('msg-body').innerHTML = '<em style="color:var(--gray-400)">Message archived.</em>';
+async function sendReply(id, email) {
+  const txt = document.getElementById('reply-textarea') && document.getElementById('reply-textarea').value.trim();
+  if (!txt) {
+    alert('Write your reply text first, then click "Mark as Replied" to save it.');
+    return;
   }
+  try {
+    const res = await fetch(`${WORKER_BASE}/messages/${id}/reply`, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'Authorization': `Bearer ${getApiKey()}` },
+      body: JSON.stringify({ reply_text: txt })
+    });
+    if (!res.ok) throw new Error('Failed');
+    const m = _allMessages.find(x => x.id === id);
+    if (m) { m.status = 'replied'; m.reply_text = txt; m.replied_at = new Date().toISOString().replace('Z',''); }
+    openMessage(id);
+  } catch(e) { alert('Could not save reply: ' + e.message); }
 }
+
+async function archiveMessage(id) {
+  if (!confirm('Archive this message? You can still find it in the Archived filter.')) return;
+  await patchMessage(id, 'archived');
+  const m = _allMessages.find(x => x.id === id);
+  if (m) { m.status = 'archived'; }
+  openMessage(id);
+  renderMessageList();
+}
+
+// Auto-load when switching to messages panel
+const _origShowPanel = showPanel;
+showPanel = function(name) {
+  _origShowPanel(name);
+  if (name === 'messages') loadMessages();
+};
 </script>
 </body>
 </html>

@@ -289,7 +289,7 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
         <div class="section-tag">Send a message</div>
         <div class="contact-form-wrap">
           <h3>Contact Form</h3>
-          <form>
+          <form id="contact-form">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" placeholder="Your full name" required/>
@@ -313,9 +313,49 @@ html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!importan
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%">Send Message</button>
+            <button type="submit" id="contact-submit" class="btn btn-primary" style="width:100%">Send Message</button>
+            <div id="contact-feedback" style="display:none;margin-top:14px;padding:12px 16px;border-radius:8px;font-size:0.9rem;font-weight:500"></div>
             <div class="form-submit-note">We usually respond within 1–2 business days.</div>
           </form>
+          <script>
+          document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('contact-submit');
+            const fb  = document.getElementById('contact-feedback');
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+            fb.style.display = 'none';
+
+            const payload = {
+              name:    document.getElementById('name').value.trim(),
+              email:   document.getElementById('email').value.trim(),
+              subject: document.getElementById('subject').value,
+              message: document.getElementById('message').value.trim()
+            };
+
+            try {
+              const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+              const data = await res.json();
+              if (res.ok) {
+                fb.style.cssText = 'display:block;background:rgba(5,150,105,0.1);color:#065F46;border:1px solid rgba(5,150,105,0.2);margin-top:14px;padding:12px 16px;border-radius:8px;font-size:0.9rem;font-weight:500';
+                fb.textContent = '✓ Message sent! We'll get back to you within 1–2 business days.';
+                e.target.reset();
+                btn.textContent = 'Message Sent';
+              } else {
+                throw new Error(data.error || 'Something went wrong');
+              }
+            } catch (err) {
+              fb.style.cssText = 'display:block;background:rgba(220,38,38,0.08);color:#991B1B;border:1px solid rgba(220,38,38,0.18);margin-top:14px;padding:12px 16px;border-radius:8px;font-size:0.9rem;font-weight:500';
+              fb.textContent = '✗ ' + err.message + '. Please try emailing us at contact@scoutrex.com.';
+              btn.disabled = false;
+              btn.textContent = 'Send Message';
+            }
+          });
+          </script>
         </div>
       </div>
       <div>
