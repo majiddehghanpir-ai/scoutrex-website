@@ -556,13 +556,17 @@
 }
 .nav-dd-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  /* Start flush with the bottom of the trigger — no gap in the hover area.
+     Visual spacing comes from padding-top so the mouse never leaves .nav-dropdown
+     when moving straight down from the trigger into the menu. */
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
   border: 1px solid rgba(30,18,86,0.1);
   border-radius: 12px;
-  padding: 6px;
+  /* 8px top-padding creates the visual gap while keeping hover continuous */
+  padding: 8px 6px 6px;
   min-width: 165px;
   box-shadow: 0 8px 28px rgba(30,18,86,0.14);
   display: none;
