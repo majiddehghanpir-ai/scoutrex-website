@@ -195,7 +195,7 @@
       btn.textContent = 'Signing in...';
       
       try {
-        const API_URL = 'https://api.scoutrex.com';
+        const API_URL = 'https://scoutrex-app-production.up.railway.app';
         const res = await fetch(API_URL + '/api/auth/login', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
