@@ -257,18 +257,24 @@
       btn.textContent = 'Signing in...';
       
       try {
-        // API endpoint placeholder - replace with actual ScoutRex backend
-        const API_URL = 'https://api.scoutrex.com';
+        const API_URL = 'https://web-production-3de6a.up.railway.app';
         const res = await fetch(API_URL + '/api/auth/login', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({email, password, role: 'candidate'})
+          body: JSON.stringify({email, password})
         });
         const data = await res.json();
-        
+
         if (res.ok && data.token) {
-          localStorage.setItem('token', data.token);
-          window.location.href = 'https://app.scoutrex.com';
+          localStorage.setItem('sr_token', data.token);
+          localStorage.setItem('sr_user', JSON.stringify({
+            id: data.id, name: data.name, role: data.role,
+            recruiter_role: data.recruiter_role || null,
+            company: data.company || null,
+            permissions: data.permissions || null
+          }));
+          const dest = (data.role === 'recruiter' || data.role === 'admin') ? 'company-account.html' : 'account.html';
+          window.location.href = dest;
         } else {
           showError(error, data.detail || 'Invalid email or password.');
         }
@@ -308,17 +314,21 @@
       btn.textContent = 'Creating account...';
       
       try {
-        const API_URL = 'https://api.scoutrex.com';
+        const API_URL = 'https://web-production-3de6a.up.railway.app';
         const res = await fetch(API_URL + '/api/auth/register', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({name, email, password, role: 'candidate'})
         });
         const data = await res.json();
-        
+
         if (res.ok && data.token) {
-          localStorage.setItem('token', data.token);
-          window.location.href = 'https://app.scoutrex.com';
+          localStorage.setItem('sr_token', data.token);
+          localStorage.setItem('sr_user', JSON.stringify({
+            id: data.id, name: data.name, role: 'candidate',
+            recruiter_role: null, company: null, permissions: null
+          }));
+          window.location.href = 'account.html';
         } else {
           showError(error, data.detail || 'Registration failed. Please try again.');
         }

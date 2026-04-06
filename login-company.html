@@ -195,18 +195,23 @@
       btn.textContent = 'Signing in...';
       
       try {
-        // API endpoint placeholder - replace with actual ScoutRex backend
-        const API_URL = 'https://api.scoutrex.com';
-        const res = await fetch(API_URL + '/api/auth/company-login', {
+        const API_URL = 'https://web-production-3de6a.up.railway.app';
+        const res = await fetch(API_URL + '/api/auth/login', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({email, password, role: 'company'})
+          body: JSON.stringify({email, password})
         });
         const data = await res.json();
-        
+
         if (res.ok && data.token) {
-          localStorage.setItem('token', data.token);
-          window.location.href = 'https://app.scoutrex.com/dashboard';
+          localStorage.setItem('sr_token', data.token);
+          localStorage.setItem('sr_user', JSON.stringify({
+            id: data.id, name: data.name, role: data.role,
+            recruiter_role: data.recruiter_role || null,
+            company: data.company || null,
+            permissions: data.permissions || null
+          }));
+          window.location.href = 'company-account.html';
         } else {
           showError(error, data.detail || 'Invalid email or password.');
         }
