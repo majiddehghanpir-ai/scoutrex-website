@@ -266,6 +266,151 @@ html:not(.dark) .bridge-section{background:transparent!important}
 html:not(.dark) .cta-band{background:rgba(237,233,254,0.88)!important;backdrop-filter:blur(12px)}
 html:not(.dark) #stats{background:rgba(237,233,254,0.72)!important}
 
+
+/* ═══ SECTION SEPARATION — Glass Panels + Orange Accent ═══ */
+
+/* ── DARK MODE ── */
+/* All main content sections: frosted glass panel */
+html.dark .section,
+html.dark #ai-section,
+html.dark .mockup-section,
+html.dark .features-section,
+html.dark .bridge-section,
+html.dark .values-section,
+html.dark .team-section,
+html.dark .contact-section,
+html.dark .faq-section,
+html.dark .careers-section {
+  background: rgba(12,8,36,0.62) !important;
+  border-top: 1px solid rgba(249,115,22,0.16) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* CTA band: deeper glass, stronger orange border */
+html.dark .cta-band {
+  background: rgba(8,5,24,0.82) !important;
+  border-top: 1px solid rgba(249,115,22,0.28) !important;
+  border-bottom: 1px solid rgba(249,115,22,0.28) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Stats bar */
+html.dark #stats {
+  background: rgba(10,7,31,0.65) !important;
+  border-top: 1px solid rgba(249,115,22,0.14) !important;
+  border-bottom: 1px solid rgba(249,115,22,0.08) !important;
+}
+
+/* Story / special dark sections */
+html.dark .story-section,
+html.dark .pricing-dark-section {
+  background: rgba(8,5,22,0.72) !important;
+  border-top: 1px solid rgba(249,115,22,0.18) !important;
+  border-bottom: 1px solid rgba(249,115,22,0.08) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* Cards inside sections get subtle lift */
+html.dark .ai-step,
+html.dark .value-card,
+html.dark .mission-card,
+html.dark .plan-card,
+html.dark .feature-card {
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+}
+html.dark .ai-step:hover,
+html.dark .value-card:hover,
+html.dark .feature-card:hover {
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(249,115,22,0.25) !important;
+}
+
+/* ── LIGHT MODE ── */
+/* All main content sections: bright frosted glass */
+html:not(.dark) .section,
+html:not(.dark) #ai-section,
+html:not(.dark) .mockup-section,
+html:not(.dark) .features-section,
+html:not(.dark) .bridge-section,
+html:not(.dark) .values-section,
+html:not(.dark) .team-section,
+html:not(.dark) .contact-section,
+html:not(.dark) .faq-section,
+html:not(.dark) .careers-section {
+  background: rgba(255,255,255,0.72) !important;
+  border-top: 1px solid rgba(249,115,22,0.18) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* CTA band */
+html:not(.dark) .cta-band {
+  background: rgba(237,233,254,0.88) !important;
+  border-top: 1px solid rgba(249,115,22,0.25) !important;
+  border-bottom: 1px solid rgba(249,115,22,0.15) !important;
+  backdrop-filter: blur(14px);
+}
+
+/* Stats */
+html:not(.dark) #stats {
+  background: rgba(237,233,254,0.78) !important;
+  border-top: 1px solid rgba(249,115,22,0.16) !important;
+  border-bottom: 1px solid rgba(249,115,22,0.08) !important;
+}
+
+/* Story / special sections */
+html:not(.dark) .story-section,
+html:not(.dark) .pricing-dark-section {
+  background: rgba(244,242,255,0.82) !important;
+  border-top: 1px solid rgba(249,115,22,0.18) !important;
+  border-bottom: 1px solid rgba(249,115,22,0.08) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* AI section and mockup: slightly richer glass */
+html:not(.dark) #ai-section,
+html:not(.dark) .mockup-section {
+  background: rgba(248,247,255,0.78) !important;
+}
+
+/* ── ORANGE GLOW accent on top of each section ── */
+/* Adds a very subtle inset orange bloom at the top edge */
+html.dark .section::before,
+html.dark #ai-section::before,
+html.dark .mockup-section::before,
+html.dark .features-section::before,
+html.dark .bridge-section::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0; left: 10%; right: 10%;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, rgba(249,115,22,0.35), transparent) !important;
+  pointer-events: none !important;
+}
+
+html:not(.dark) .section::before,
+html:not(.dark) #ai-section::before,
+html:not(.dark) .mockup-section::before,
+html:not(.dark) .features-section::before,
+html:not(.dark) .bridge-section::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0; left: 10%; right: 10%;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, rgba(249,115,22,0.28), transparent) !important;
+  pointer-events: none !important;
+}
+
+/* Make sure sections with ::before have position:relative */
+.section, #ai-section, .mockup-section, .features-section, .bridge-section {
+  position: relative;
+}
+
 </style>
 <link rel="stylesheet" href="mobile.css?v=7"/>
 </head>
