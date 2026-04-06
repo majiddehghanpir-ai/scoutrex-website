@@ -257,7 +257,7 @@
       btn.textContent = 'Signing in...';
       
       try {
-        const API_URL = 'https://web-production-3de6a.up.railway.app';
+        const API_URL = 'https://api.scoutrex.com';
         const res = await fetch(API_URL + '/api/auth/login', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
@@ -314,7 +314,7 @@
       btn.textContent = 'Creating account...';
       
       try {
-        const API_URL = 'https://web-production-3de6a.up.railway.app';
+        const API_URL = 'https://api.scoutrex.com';
         const res = await fetch(API_URL + '/api/auth/register', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
