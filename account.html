@@ -781,6 +781,15 @@ async function acctLoadProfile() {
   const token = localStorage.getItem('sr_token');
   if (!token) { window.location.href = 'login.html'; return; }
 
+  // Role guard: company members (recruiters/admins) belong in company-account.html
+  try {
+    const cached = JSON.parse(localStorage.getItem('sr_user') || '{}');
+    if (cached.role && cached.role !== 'candidate') {
+      window.location.href = 'company-account.html';
+      return;
+    }
+  } catch(e) {}
+
   const headers = { 'Authorization': 'Bearer ' + token };
 
   // Fetch profile + plan in parallel
@@ -795,6 +804,11 @@ async function acctLoadProfile() {
     // ── Profile ───────────────────────────────────────────────
     if (profileRes.ok) {
       const u = await profileRes.json();
+      // Server-side role check: if account is not a candidate, send to correct panel
+      if (u.role && u.role !== 'candidate') {
+        window.location.href = 'company-account.html';
+        return;
+      }
       const initials = acctInitials(u.name || '');
       const nameParts = (u.name || '').trim().split(/\s+/);
       const firstName = nameParts[0] || '';

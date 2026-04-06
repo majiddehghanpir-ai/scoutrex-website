@@ -275,13 +275,24 @@ async function handleLogin(){
     });
     const data = await res.json();
     if(res.ok && data.token){
-      // Store token, same token works for both website portal and app
+      // Store token + full user record (role, company, recruiter_role all included)
       localStorage.setItem('sr_token', data.token);
-      localStorage.setItem('sr_user', JSON.stringify(data.user || {}));
-      // Website login always opens the My ScoutRex portal (not the app)
-      window.location.href = 'account.html';
+      localStorage.setItem('sr_user', JSON.stringify({
+        id: data.id,
+        name: data.name,
+        role: data.role,
+        recruiter_role: data.recruiter_role || null,
+        company: data.company || null,
+        permissions: data.permissions || null
+      }));
+      // Route to the correct panel based on account type:
+      // candidates → account.html  |  company members (recruiters/admins) → company-account.html
+      const dest = (data.role === 'recruiter' || data.role === 'admin')
+        ? 'company-account.html'
+        : 'account.html';
+      window.location.href = dest;
     } else {
-      errEl.textContent = data.message || 'Invalid email or password. Please try again.';
+      errEl.textContent = data.detail || data.message || 'Invalid email or password. Please try again.';
       errEl.classList.add('show');
       btn.textContent = 'Log In'; btn.disabled = false;
     }
@@ -315,8 +326,8 @@ async function handleRegister(){
     const data = await res.json();
     if(res.ok && data.token){
       localStorage.setItem('sr_token', data.token);
-      localStorage.setItem('sr_user', JSON.stringify(data.user || { name: data.name, role: data.role, id: data.id }));
-      // New registrations from the website go to the portal
+      // Website registration always creates a candidate account
+      localStorage.setItem('sr_user', JSON.stringify({ id: data.id, name: data.name, role: 'candidate', recruiter_role: null, company: null, permissions: null }));
       window.location.href = 'account.html';
     } else {
       errEl.textContent = data.message || 'Could not create account. Please try again.';
