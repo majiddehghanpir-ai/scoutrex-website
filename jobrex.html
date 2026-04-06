@@ -202,6 +202,9 @@ html:not(.dark) .hero .hero-sub{color:var(--gray-600)}
 html:not(.dark) .hero-eyebrow{background:rgba(99,102,241,0.08);border-color:rgba(99,102,241,0.2);color:var(--indigo)}
 html:not(.dark) .btn-ghost{background:transparent;color:var(--indigo);border:1.5px solid rgba(30,18,86,0.25)}
 html:not(.dark) .btn-ghost:hover{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+/* Ghost button on dark sections always stays white regardless of theme */
+html:not(.dark) .cta-band .btn-ghost{background:rgba(255,255,255,0.12);color:#fff;border:1.5px solid rgba(255,255,255,0.35)}
+html:not(.dark) .cta-band .btn-ghost:hover{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.6)}
 html:not(.dark) .hero-badge-item{color:var(--gray-400)}
 html:not(.dark) .mockup-section{background:linear-gradient(160deg,#09071F 0%,#130D3D 40%,#1E1256 100%)}
 html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)!important}
