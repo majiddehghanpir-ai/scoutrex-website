@@ -118,10 +118,56 @@ export default {
       let body;
       try { body = await request.json(); } catch { return json({ error: 'Invalid JSON' }, 400, origin); }
       if (!body.reply_text) return json({ error: 'reply_text is required' }, 422, origin);
+
+      // Fetch the original message so we have the contact's name, email, and subject
+      const msg = await env.DB.prepare(
+        `SELECT name, email, subject FROM messages WHERE id = ?`
+      ).bind(id).first();
+
+      if (!msg) return json({ error: 'Message not found' }, 404, origin);
+
+      // Save reply to DB
       await env.DB.prepare(
         `UPDATE messages SET status = 'replied', reply_text = ?, replied_at = datetime('now') WHERE id = ?`
       ).bind(body.reply_text, id).run();
-      return json({ success: true }, 200, origin);
+
+      // Send email via Resend (if API key is configured)
+      let emailSent = false;
+      if (env.RESEND_API_KEY) {
+        const subjectLine = `Re: ${msg.subject === 'general' ? 'Your enquiry' : msg.subject} — ScoutRex`;
+        const replyHtml = `
+          <div style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;color:#1E1256">
+            <div style="background:linear-gradient(135deg,#1E1256,#3D2CAE);padding:32px 40px;border-radius:12px 12px 0 0">
+              <h1 style="color:#fff;margin:0;font-size:22px;font-weight:700">ScoutRex</h1>
+            </div>
+            <div style="background:#fff;padding:32px 40px;border:1px solid #e5e7eb;border-top:none">
+              <p style="margin:0 0 16px;font-size:16px">Hi ${msg.name},</p>
+              <div style="white-space:pre-wrap;font-size:15px;line-height:1.7;color:#374151">${body.reply_text}</div>
+              <hr style="border:none;border-top:1px solid #e5e7eb;margin:32px 0"/>
+              <p style="font-size:13px;color:#6b7280;margin:0">
+                ScoutRex · <a href="https://www.scoutrex.com" style="color:#3D2CAE">www.scoutrex.com</a>
+              </p>
+            </div>
+          </div>`;
+
+        const resendRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'ScoutRex <contact@scoutrex.com>',
+            to:   [msg.email],
+            subject: subjectLine,
+            html: replyHtml,
+            reply_to: 'contact@scoutrex.com',
+          }),
+        });
+        emailSent = resendRes.ok;
+      }
+
+      return json({ success: true, email_sent: emailSent }, 200, origin);
     }
 
     // ══════════════════════════════════════════════════════════════════════
