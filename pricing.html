@@ -497,6 +497,31 @@ html:not(.dark) .pricing-dark-section .section-sub {
   color: var(--gray-600) !important;
 }
 </style>
+<style id="pricing-css-fix">
+/* Pricing CTA section: text colours respond to light/dark mode
+   (inline colours removed from HTML so CSS can control them)      */
+html:not(.dark) .pricing-dark-section .section-title,
+html:not(.dark) .pricing-dark-section h2 {
+  color: var(--text) !important;
+}
+html:not(.dark) .pricing-dark-section .section-sub,
+html:not(.dark) .pricing-dark-section p {
+  color: var(--gray-600) !important;
+}
+/* Dark mode: keep white text (was previously inline) */
+html.dark .pricing-dark-section .section-title,
+html.dark .pricing-dark-section h2,
+.pricing-dark-section .section-title,
+.pricing-dark-section h2 {
+  color: #fff;
+}
+html.dark .pricing-dark-section .section-sub,
+html.dark .pricing-dark-section p,
+.pricing-dark-section .section-sub,
+.pricing-dark-section p {
+  color: rgba(255,255,255,0.72);
+}
+</style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
 
@@ -595,12 +620,12 @@ html:not(.dark) .pricing-dark-section .section-sub {
   </div>
 </section>
 
-<section class="section" class="pricing-dark-section" style="background:linear-gradient(140deg,#07051A 0%,#100B30 40%,#1E1256 100%);text-align:center">
+<section class="section pricing-dark-section" style="background:linear-gradient(140deg,#07051A 0%,#100B30 40%,#1E1256 100%);text-align:center">
   <div class="container">
     <div style="max-width:600px;margin:0 auto">
       <div class="section-tag" style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.25);color:#FB923C">Early Access</div>
-      <h2 class="section-title" style="color:#fff;margin-top:16px">Be among the first to use ScoutRex</h2>
-      <p class="section-sub" style="color:rgba(255,255,255,0.6);margin-top:14px">We're onboarding early users now. If you're a job seeker or a hiring team who wants to get ahead, reach out and we'll get you set up.</p>
+      <h2 class="section-title" style="margin-top:16px">Be among the first to use ScoutRex</h2>
+      <p class="section-sub" style="margin-top:14px">We're onboarding early users now. If you're a job seeker or a hiring team who wants to get ahead, reach out and we'll get you set up.</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px">
         <a href="contact.html" class="btn btn-primary btn-lg">Get Early Access →</a>
         <a href="products.html" class="btn btn-ghost btn-lg">Learn More</a>
