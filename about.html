@@ -424,6 +424,7 @@ html:not(.dark) .bridge-section::before {
 <link rel="stylesheet" href="mobile.css?v=7"/>
 <style id="alt-sections">
 /* ── Alternating section backgrounds ─────────────────────────────── */
+
 /* EVEN sections (2nd, 4th…): frosted-glass panel */
 html:not(.dark) section:nth-of-type(even) {
   background: rgba(255,255,255,0.76) !important;
@@ -435,15 +436,48 @@ html.dark section:nth-of-type(even) {
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
-/* ODD non-hero sections (3rd, 5th…): fully transparent so canvas breathes through */
+
+/* ODD non-hero sections (3rd, 5th…): fully transparent so canvas breathes */
 section:nth-of-type(odd):not(.hero):not(.page-hero) {
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
-/* Hero always keeps its own gradient — no override */
-section.hero, section.page-hero,
-section#hero { /* index.html hero uses id */ }
+
+/* Hero always keeps its own gradient */
+section.hero, section.page-hero, section#hero { /* no override */ }
+
+/* ── "Dark-content" sections: always keep a dark bg in light mode ──
+   These sections have white text designed for dark backgrounds.
+   Making them transparent in light mode would hide all their text.  */
+html:not(.dark) .mockup-section,
+html:not(.dark) .bridge-section,
+html:not(.dark) .story-section,
+html:not(.dark) .pricing-dark-section {
+  background: rgba(20,12,60,0.88) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+
+/* CTA band: strong brand colour so it stands out as a call-to-action */
+html:not(.dark) .cta-band {
+  background: linear-gradient(135deg, rgba(30,18,86,0.94) 0%, rgba(45,27,142,0.94) 100%) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+
+/* Dark mode equivalents — glass overlay already works, just deepen slightly */
+html.dark .mockup-section,
+html.dark .bridge-section {
+  background: rgba(8,5,22,0.72) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+html.dark .cta-band {
+  background: rgba(10,7,31,0.85) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
 </style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
