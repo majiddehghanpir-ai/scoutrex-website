@@ -584,7 +584,16 @@ html:not(.dark) .bridge-section::before {
 
 </style>
 <link rel="stylesheet" href="mobile.css?v=7"/>
-<style id='index-nav-light-fix'>html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--indigo)!important}html:not(.dark) #navbar:not(.scrolled) .nav-links a{color:var(--indigo)!important;font-weight:600!important}html:not(.dark) #navbar:not(.scrolled) .nav-links a:hover{color:var(--orange)!important}html:not(.dark) #navbar:not(.scrolled) .login-btn{color:var(--orange)!important;border-color:var(--orange)!important;background:transparent!important}html:not(.dark) #navbar:not(.scrolled) .login-btn:hover{background:var(--orange)!important;color:#fff!important}html:not(.dark) #navbar:not(.scrolled) .hamburger span{background:var(--indigo)!important}</style>
+
+<style id='index-nav-light-fix'>
+/* Nav at top: hero bg is always dark → use white text in BOTH modes */
+#navbar:not(.scrolled) .logo-wordmark{color:#fff!important}
+#navbar:not(.scrolled) .nav-links a{color:rgba(255,255,255,.92)!important;font-weight:600!important}
+#navbar:not(.scrolled) .nav-links a:hover{color:#F97316!important}
+#navbar:not(.scrolled) .login-btn{color:#F97316!important;border-color:#F97316!important;background:transparent!important}
+#navbar:not(.scrolled) .login-btn:hover{background:#F97316!important;color:#fff!important}
+#navbar:not(.scrolled) .hamburger span{background:#fff!important}
+</style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
 
