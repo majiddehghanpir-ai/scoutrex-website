@@ -531,19 +531,19 @@ html:not(.dark) .bridge-section::before {
 /* ── Alternating section backgrounds ─────────────────────────── */
 
 /* EVEN sections (2nd, 4th…): frosted-glass panel */
-html:not(.dark) section:nth-of-type(even):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
+html:not(.dark) section:nth-of-type(even):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section):not(.compare-section) {
   background: rgba(255,255,255,0.76) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
-html.dark section:nth-of-type(even):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
+html.dark section:nth-of-type(even):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section):not(.compare-section) {
   background: rgba(10,7,31,0.64) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
 
 /* ODD non-hero sections (3rd, 5th…): transparent */
-section:nth-of-type(odd):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
+section:nth-of-type(odd):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section):not(.compare-section) {
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
@@ -610,6 +610,18 @@ html:not(.dark) .pricing-dark-section .section-title {
 html:not(.dark) .pricing-dark-section .section-sub {
   color: var(--gray-600) !important;
 }
+</style>
+<style id="compare-fix">
+/* keep compare-section dark gradient in light mode */
+html:not(.dark) .compare-section {
+  background: linear-gradient(145deg,#1E1256 0%,#2D1B8E 50%,#3D2CAE 100%) !important;
+  backdrop-filter: none !important;
+}
+html:not(.dark) .compare-section .section-title,
+html:not(.dark) .compare-section h2 { color: #fff !important; }
+html:not(.dark) .compare-section .section-sub,
+html:not(.dark) .compare-section p   { color: rgba(255,255,255,0.88) !important; }
+html:not(.dark) .compare-section .section-tag { color: rgba(255,255,255,0.7) !important; }
 </style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
