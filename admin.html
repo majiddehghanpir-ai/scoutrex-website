@@ -1657,7 +1657,7 @@ function openMessage(id) {
         <div></div>
         <div style="display:flex;gap:8px">
           <button class="btn btn-outline btn-sm" onclick="archiveMessage(${id})">Archive</button>
-          <button class="btn btn-orange btn-sm" onclick="sendReply(${id},'${escHtml(m.email)}')">Mark as Replied ✓</button>
+          <button class="btn btn-orange btn-sm" onclick="sendReply(${id},'${escHtml(m.email)}')">✉ Send Reply</button>
         </div>
       </div>
     </div>`;
@@ -1690,7 +1690,7 @@ async function patchMessage(id, status) {
 async function sendReply(id, email) {
   const txt = document.getElementById('reply-textarea') && document.getElementById('reply-textarea').value.trim();
   if (!txt) {
-    alert('Write your reply text first, then click "Mark as Replied" to save it.');
+    alert('Write your reply text first.');
     return;
   }
   try {
@@ -1700,10 +1700,20 @@ async function sendReply(id, email) {
       body: JSON.stringify({ reply_text: txt })
     });
     if (!res.ok) throw new Error('Failed');
+    const data = await res.json();
     const m = _allMessages.find(x => x.id === id);
     if (m) { m.status = 'replied'; m.reply_text = txt; m.replied_at = new Date().toISOString().replace('Z',''); }
     openMessage(id);
-  } catch(e) { alert('Could not save reply: ' + e.message); }
+    if (data.email_sent) {
+      const fb = document.createElement('div');
+      fb.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#065F46;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.18);z-index:9999';
+      fb.textContent = '✉ Reply sent to ' + email;
+      document.body.appendChild(fb);
+      setTimeout(() => fb.remove(), 4000);
+    } else {
+      alert('Reply saved. (Email sending not configured — check RESEND_API_KEY.)');
+    }
+  } catch(e) { alert('Could not send reply: ' + e.message); }
 }
 
 async function archiveMessage(id) {
