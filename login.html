@@ -287,6 +287,16 @@ html:not(.dark) .bridge-section::before {
 <style id="login-transparent">
 /* transparent left panel so canvas shows through */
 .login-left { background: transparent !important; }
+
+/* light mode: switch white text to dark on transparent panel */
+html:not(.dark) .left-logo span       { color: var(--text) !important; }
+html:not(.dark) .left-tagline         { color: var(--text) !important; }
+html:not(.dark) .left-tagline em      { color: var(--orange) !important; }
+html:not(.dark) .left-sub             { color: var(--gray-600) !important; }
+html:not(.dark) .left-feat-text       { color: var(--gray-600) !important; }
+html:not(.dark) .left-feat-text strong{ color: var(--text) !important; }
+html:not(.dark) .left-feat-icon       { background: rgba(30,18,86,0.08) !important; }
+html:not(.dark) .login-left::before   { opacity: 0 !important; }
 </style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
