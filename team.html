@@ -431,33 +431,31 @@ html:not(.dark) .bridge-section::before {
 </style>
 <link rel="stylesheet" href="mobile.css?v=7"/>
 <style id="alt-sections">
-/* ── Alternating section backgrounds ─────────────────────────────── */
+/* ── Alternating section backgrounds ────────────────────────────────
+   Dark-content sections (.mockup-section, .bridge-section, .cta-band,
+   .story-section, .pricing-dark-section) are fully excluded from the
+   nth-of-type rules so their own dark-bg override wins cleanly.      */
 
 /* EVEN sections (2nd, 4th…): frosted-glass panel */
-html:not(.dark) section:nth-of-type(even) {
+html:not(.dark) section:nth-of-type(even):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
   background: rgba(255,255,255,0.76) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
-html.dark section:nth-of-type(even) {
+html.dark section:nth-of-type(even):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
   background: rgba(10,7,31,0.64) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
 
-/* ODD non-hero sections (3rd, 5th…): fully transparent so canvas breathes */
-section:nth-of-type(odd):not(.hero):not(.page-hero) {
+/* ODD non-hero sections (3rd, 5th…): fully transparent */
+section:nth-of-type(odd):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-/* Hero always keeps its own gradient */
-section.hero, section.page-hero, section#hero { /* no override */ }
-
-/* ── "Dark-content" sections: always keep a dark bg in light mode ──
-   These sections have white text designed for dark backgrounds.
-   Making them transparent in light mode would hide all their text.  */
+/* ── Dark-content sections: always deep indigo so white text reads ── */
 html:not(.dark) .mockup-section,
 html:not(.dark) .bridge-section,
 html:not(.dark) .story-section,
@@ -466,15 +464,11 @@ html:not(.dark) .pricing-dark-section {
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
 }
-
-/* CTA band: strong brand colour so it stands out as a call-to-action */
 html:not(.dark) .cta-band {
   background: linear-gradient(135deg, rgba(30,18,86,0.94) 0%, rgba(45,27,142,0.94) 100%) !important;
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
 }
-
-/* Dark mode equivalents — glass overlay already works, just deepen slightly */
 html.dark .mockup-section,
 html.dark .bridge-section {
   background: rgba(8,5,22,0.72) !important;
