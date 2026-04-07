@@ -431,54 +431,87 @@ html:not(.dark) .bridge-section::before {
 </style>
 <link rel="stylesheet" href="mobile.css?v=7"/>
 <style id="alt-sections">
-/* ── Alternating section backgrounds ────────────────────────────────
-   Dark-content sections (.mockup-section, .bridge-section, .cta-band,
-   .story-section, .pricing-dark-section) are fully excluded from the
-   nth-of-type rules so their own dark-bg override wins cleanly.      */
+/* ── Alternating section backgrounds ─────────────────────────── */
 
 /* EVEN sections (2nd, 4th…): frosted-glass panel */
-html:not(.dark) section:nth-of-type(even):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
+html:not(.dark) section:nth-of-type(even):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
   background: rgba(255,255,255,0.76) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
-html.dark section:nth-of-type(even):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
+html.dark section:nth-of-type(even):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
   background: rgba(10,7,31,0.64) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
 }
 
-/* ODD non-hero sections (3rd, 5th…): fully transparent */
+/* ODD non-hero sections (3rd, 5th…): transparent */
 section:nth-of-type(odd):not(.hero):not(.page-hero):not(.mockup-section):not(.bridge-section):not(.cta-band):not(.story-section):not(.pricing-dark-section) {
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-/* ── Dark-content sections: always deep indigo so white text reads ── */
-html:not(.dark) .mockup-section,
-html:not(.dark) .bridge-section,
-html:not(.dark) .story-section,
-html:not(.dark) .pricing-dark-section {
-  background: rgba(20,12,60,0.88) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
+/* ── Light-mode text color fix for sections with white text ───
+   These sections were designed for dark backgrounds.
+   In light mode the canvas is light, so we switch text to dark. */
+html:not(.dark) .mockup-section h1,
+html:not(.dark) .mockup-section h2,
+html:not(.dark) .mockup-section h3,
+html:not(.dark) .mockup-section p,
+html:not(.dark) .mockup-section li,
+html:not(.dark) .mockup-section .section-title,
+html:not(.dark) .mockup-section .mockup-text h2,
+html:not(.dark) .mockup-section .step-title {
+  color: var(--text) !important;
 }
-html:not(.dark) .cta-band {
-  background: linear-gradient(135deg, rgba(30,18,86,0.94) 0%, rgba(45,27,142,0.94) 100%) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
+html:not(.dark) .mockup-section .section-sub,
+html:not(.dark) .mockup-section .step-desc {
+  color: var(--gray-600) !important;
 }
-html.dark .mockup-section,
-html.dark .bridge-section {
-  background: rgba(8,5,22,0.72) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
+
+html:not(.dark) .bridge-section h1,
+html:not(.dark) .bridge-section h2,
+html:not(.dark) .bridge-section h3,
+html:not(.dark) .bridge-section p,
+html:not(.dark) .bridge-section .section-title {
+  color: var(--text) !important;
 }
-html.dark .cta-band {
-  background: rgba(10,7,31,0.85) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
+html:not(.dark) .bridge-section .section-sub {
+  color: var(--gray-600) !important;
+}
+
+html:not(.dark) .cta-band h1,
+html:not(.dark) .cta-band h2,
+html:not(.dark) .cta-band h3,
+html:not(.dark) .cta-band p,
+html:not(.dark) .cta-band .section-title {
+  color: var(--text) !important;
+}
+html:not(.dark) .cta-band .section-sub {
+  color: var(--gray-600) !important;
+}
+
+html:not(.dark) .story-section h1,
+html:not(.dark) .story-section h2,
+html:not(.dark) .story-section h3,
+html:not(.dark) .story-section p,
+html:not(.dark) .story-section .section-title {
+  color: var(--text) !important;
+}
+html:not(.dark) .story-section .section-sub {
+  color: var(--gray-600) !important;
+}
+
+html:not(.dark) .pricing-dark-section h1,
+html:not(.dark) .pricing-dark-section h2,
+html:not(.dark) .pricing-dark-section h3,
+html:not(.dark) .pricing-dark-section p,
+html:not(.dark) .pricing-dark-section .section-title {
+  color: var(--text) !important;
+}
+html:not(.dark) .pricing-dark-section .section-sub {
+  color: var(--gray-600) !important;
 }
 </style>
 </head>
