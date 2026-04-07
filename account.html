@@ -403,6 +403,57 @@ html:not(.dark) .bridge-section::before {
 
 </style>
 <link rel="stylesheet" href="mobile.css?v=7"/>
+<style id="account-dark-fix">
+/* ── form-select: dark mode (Timezone, Industry, Experience, Country) ── */
+html.dark .form-select {
+  background-color: #110F26 !important;
+  border-color: #2D2850 !important;
+  color: #F1F0F9 !important;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23A09BBF' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+html.dark .form-select:focus { border-color: #3D2CAE !important; }
+html.dark .form-select option { background: #1C1836; color: #F1F0F9; }
+
+/* ── form-textarea: dark mode (Bio/Summary, experience text) ── */
+html.dark .form-textarea {
+  background: #110F26 !important;
+  border-color: #2D2850 !important;
+  color: #F1F0F9 !important;
+}
+html.dark .form-textarea::placeholder { color: #6B6485; }
+html.dark .form-textarea:focus { border-color: #3D2CAE !important; }
+
+/* ── Misc structural dark fixes ── */
+html.dark .form-section-title {
+  color: #F1F0F9;
+  border-bottom-color: #2D2850;
+}
+html.dark .avatar-section {
+  background: #161328 !important;
+  border-color: #2D2850 !important;
+}
+html.dark .toggle-row { border-bottom-color: #2D2850; }
+html.dark .toggle-info h4 { color: #F1F0F9; }
+html.dark .toggle-info p  { color: #A09BBF; }
+html.dark .billing-table th {
+  background: #161328 !important;
+  color: #6B6485 !important;
+  border-bottom-color: #2D2850 !important;
+}
+html.dark .billing-table td {
+  color: #A09BBF !important;
+  border-bottom-color: #2D2850 !important;
+}
+html.dark .payment-method {
+  background: #161328 !important;
+  border-color: #2D2850 !important;
+}
+html.dark .download-link { color: #A09BBF; }
+html.dark .form-hint { color: #6B6485; }
+html.dark .btn-outline { color: #A09BBF; border-color: #2D2850; }
+html.dark .btn-outline:hover { color: #F1F0F9; border-color: #3D3560; }
+html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.25); }
+</style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
 
