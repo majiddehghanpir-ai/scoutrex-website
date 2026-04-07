@@ -615,7 +615,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
               const data = await res.json();
               if (res.ok) {
                 fb.style.cssText = 'display:block;background:rgba(5,150,105,0.1);color:#065F46;border:1px solid rgba(5,150,105,0.2);margin-top:14px;padding:12px 16px;border-radius:8px;font-size:0.9rem;font-weight:500';
-                fb.textContent = '✓ Message sent! We'll get back to you within 1–2 business days.';
+                fb.textContent = '✓ Message sent! We\'ll get back to you within 1\u20132 business days.';
                 e.target.reset();
                 btn.textContent = 'Message Sent';
               } else {

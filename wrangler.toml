@@ -5,7 +5,8 @@ compatibility_date = "2024-09-23"
 # ── Routes ────────────────────────────────────────────────────────────────────
 # All /api/* requests on scoutrex.com are handled by this Worker.
 routes = [
-  { pattern = "scoutrex.com/api/*", zone_name = "scoutrex.com" }
+  { pattern = "scoutrex.com/api/*",     zone_name = "scoutrex.com" },
+  { pattern = "www.scoutrex.com/api/*", zone_name = "scoutrex.com" }
 ]
 
 # ── D1 Database ───────────────────────────────────────────────────────────────
