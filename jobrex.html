@@ -447,6 +447,29 @@ html:not(.dark) .bridge-section::before {
 
 </style>
 <link rel="stylesheet" href="mobile.css?v=8"/>
+<style id="alt-sections">
+/* ── Alternating section backgrounds ─────────────────────────────── */
+/* EVEN sections (2nd, 4th…): frosted-glass panel */
+html:not(.dark) section:nth-of-type(even) {
+  background: rgba(255,255,255,0.76) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+html.dark section:nth-of-type(even) {
+  background: rgba(10,7,31,0.64) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+/* ODD non-hero sections (3rd, 5th…): fully transparent so canvas breathes through */
+section:nth-of-type(odd):not(.hero):not(.page-hero) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+/* Hero always keeps its own gradient — no override */
+section.hero, section.page-hero,
+section#hero { /* index.html hero uses id */ }
+</style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
 
