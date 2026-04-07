@@ -514,6 +514,41 @@ html:not(.dark) .pricing-dark-section .section-sub {
   color: var(--gray-600) !important;
 }
 </style>
+<style id="team-bg-fix">
+/* ── Team page: alternating transparent / frosted-glass ────────────
+   page-hero  (1st section) = TRANSPARENT  — canvas breathes through
+   team-section (2nd section) = FROSTED GLASS — solid alternating block */
+
+/* Dark mode: page-hero transparent so animated canvas shows through */
+html.dark .page-hero {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Dark mode: team-section — deep glass panel */
+html.dark .team-section {
+  background: rgba(10,7,31,0.64) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-top: 1px solid rgba(249,115,22,0.18) !important;
+}
+
+/* Light mode: page-hero — keep the soft lavender gradient (already transparent-ish over topo) */
+html:not(.dark) .page-hero {
+  background: linear-gradient(145deg, rgba(238,233,255,0.82) 0%, rgba(248,247,255,0.72) 55%, rgba(255,248,243,0.78) 100%) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Light mode: team-section — frosted white glass */
+html:not(.dark) .team-section {
+  background: rgba(255,255,255,0.76) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-top: 1px solid rgba(249,115,22,0.18) !important;
+}
+</style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
 
