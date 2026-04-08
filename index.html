@@ -251,6 +251,7 @@ footer{background:var(--text);color:rgba(255,255,255,0.7);padding:72px 0 0}
 }
 @media(max-width:768px){
   .hero-content{grid-template-columns:1fr;gap:48px;padding:80px 0 60px}
+  #hero .container > div[style*="grid-template-columns"]{grid-template-columns:1fr!important;gap:40px!important}
   .pillars-grid{grid-template-columns:1fr}
   .nav-links,.nav-cta{display:none}
   .hamburger{display:flex}
@@ -396,6 +397,18 @@ html:not(.dark) .hi-match-icon.b{background:linear-gradient(135deg,rgba(249,115,
 html:not(.dark) .hi-match-icon.c{background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(21,128,61,0.08))}
 html:not(.dark) .hero-actions .btn-ghost{color:var(--indigo);border-color:rgba(30,18,86,0.25);background:transparent}
 html:not(.dark) .hero-actions .btn-ghost:hover{background:var(--indigo);color:#fff}
+/* Light mode: inline-styled hero text overrides */
+html:not(.dark) #hero h1{color:var(--text)!important}
+html:not(.dark) #hero h1 span[style*="color:var(--orange)"]{color:var(--orange)!important}
+html:not(.dark) #hero .hero-badge-text,
+html:not(.dark) #hero > .container p{color:var(--gray-600)!important}
+html:not(.dark) #hero strong[style*="#FB923C"]{color:var(--orange-dark)!important}
+html:not(.dark) #hero p[style*="rgba(255,255,255,0.90)"]{color:var(--text)!important}
+html:not(.dark) #hero a[style*="color:#fff"]{color:var(--indigo)!important;border-color:rgba(30,18,86,0.25)!important}
+html:not(.dark) #hero a[style*="color:#fff"]:hover{background:var(--indigo)!important;color:#fff!important}
+/* Light mode: video player card */
+html:not(.dark) #hero .video-player-card{background:rgba(255,255,255,0.9)!important;border-color:rgba(30,18,86,0.1)!important;box-shadow:0 24px 64px rgba(30,18,86,0.12)!important}
+html:not(.dark) #hero .video-player-bar{background:var(--gray-100)!important;border-bottom-color:var(--gray-200)!important}
 
 
 
@@ -729,47 +742,69 @@ html:not(.dark) .pricing-dark-section .section-sub {
 </div>
 
 <!-- HERO -->
-<section id="hero" style="position:relative;height:100vh;min-height:600px;max-height:900px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0;">
+<section id="hero" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0;">
 
-  <!-- Video Background -->
-  <video autoplay muted loop playsinline
-    style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">
-    <source src="video/Scoutrex.mp4" type="video/mp4">
-  </video>
+  <!-- Background orbs & grid (no video) -->
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
 
-  <!-- Dark gradient overlay -->
-  <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(110deg,rgba(15,10,46,0.94) 40%,rgba(15,10,46,0.65) 100%);z-index:1;"></div>
+  <!-- Two-column content -->
+  <div class="container" style="position:relative;z-index:2;padding-top:100px;padding-bottom:80px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
 
-  <!-- Content -->
-  <div class="container" style="position:relative;z-index:2;padding-top:80px;">
-    <div style="max-width:680px;">
+      <!-- Left: text -->
+      <div style="animation:fadeUp 0.7s ease both;">
 
-      <!-- Eye-brow badge -->
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;background:rgba(249,115,22,0.18);border:1px solid rgba(249,115,22,0.40);color:#FB923C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;">
-        <span style="width:7px;height:7px;border-radius:50%;background:#F97316;flex-shrink:0;animation:pulse 2s infinite;"></span>
-        From the First Click to the Age of Intelligence
+        <!-- Eye-brow badge -->
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;background:rgba(249,115,22,0.18);border:1px solid rgba(249,115,22,0.40);color:#FB923C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#F97316;flex-shrink:0;animation:pulse 2s infinite;"></span>
+          From the First Click to the Age of Intelligence
+        </div>
+
+        <!-- Headline -->
+        <h1 style="font-family:’Lora’,serif;font-weight:700;font-size:clamp(2rem,3.8vw,3.2rem);line-height:1.12;color:#fff;margin-bottom:20px;letter-spacing:-0.5px;">
+          The road we’ve been on all along.<br>
+          <span style="color:var(--orange);">The destination? A better world.</span>
+        </h1>
+
+        <!-- Body copy -->
+        <div style="font-size:0.97rem;line-height:1.75;color:rgba(255,255,255,0.75);margin-bottom:32px;display:flex;flex-direction:column;gap:10px;">
+          <p>Every era has its turning point. The first computer. The internet. Each leap was powered by <strong style="color:#FB923C;font-weight:600;">human determination.</strong></p>
+          <p>Now, we’re here — the AI era, where technology doesn’t just process, but <strong style="color:#FB923C;font-weight:600;">understands. Transforms.</strong></p>
+          <p style="color:rgba(255,255,255,0.90);font-weight:600;">This is the road we’ve been on all along — for all of us.</p>
+        </div>
+
+        <!-- CTAs -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="products.html" class="btn btn-primary btn-lg">Explore the Platform →</a>
+          <a href="about.html" class="btn btn-lg"
+            style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.35);">
+            Our Mission
+          </a>
+        </div>
+
       </div>
 
-      <!-- Headline -->
-      <h1 style="font-family:'Lora',serif;font-weight:700;font-size:clamp(2rem,4vw,3.2rem);line-height:1.12;color:#fff;margin-bottom:20px;letter-spacing:-0.5px;">
-        The road we’ve been on all along.<br>
-        <span style="color:var(--orange);">The destination? A better world.</span>
-      </h1>
-
-      <!-- Body copy — condensed to 2 lines per paragraph -->
-      <div style="font-size:0.97rem;line-height:1.75;color:rgba(255,255,255,0.75);max-width:580px;margin-bottom:28px;display:flex;flex-direction:column;gap:10px;">
-        <p>Every era has its turning point. The first computer. The internet. Each leap was powered by <strong style="color:#FB923C;font-weight:600;">human determination.</strong></p>
-        <p>For decades, brilliant minds laid the groundwork for something bigger than any of them could imagine alone. Now, we’re here — the AI era, where technology doesn’t just process, but <strong style="color:#FB923C;font-weight:600;">understands. Transforms.</strong></p>
-        <p style="color:rgba(255,255,255,0.90);font-weight:600;">This is the road we’ve been on all along — for all of us.</p>
-      </div>
-
-      <!-- CTAs -->
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="products.html" class="btn btn-primary btn-lg">Explore the Platform →</a>
-        <a href="about.html" class="btn btn-lg"
-          style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.35);">
-          Our Mission
-        </a>
+      <!-- Right: video player -->
+      <div style="animation:fadeUp 0.7s ease 0.15s both;">
+        <div class="video-player-card" style="background:rgba(255,255,255,0.05);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.12);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.4);">
+          <!-- Player title bar -->
+          <div class="video-player-bar" style="background:rgba(255,255,255,0.06);padding:12px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <span style="width:11px;height:11px;border-radius:50%;background:#FF5F57;display:inline-block;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#FFBD2E;display:inline-block;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#28C840;display:inline-block;"></span>
+            <span style="margin-left:10px;font-size:12px;color:rgba(255,255,255,0.45);font-weight:500;">ScoutRex — Platform Overview</span>
+          </div>
+          <!-- Video -->
+          <video controls preload="metadata"
+            style="width:100%;display:block;background:#000;max-height:340px;object-fit:contain;">
+            <source src="ScoutRex.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
 
     </div>
