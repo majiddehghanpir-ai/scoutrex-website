@@ -292,9 +292,68 @@ a{text-decoration:none;color:inherit}
 .empty-state-icon{font-size:40px;margin-bottom:12px}
 .empty-state h3{font-size:15px;font-weight:600;color:var(--gray-600);margin-bottom:5px}
 .empty-state p{font-size:13px}
+
+/* ── AUTH GATE ── */
+.auth-gate{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#07051A 0%,#100B30 40%,#1E1256 70%,#2A1B8E 100%);
+  transition:opacity 0.4s}
+.auth-gate.hidden{opacity:0;pointer-events:none}
+.auth-gate::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 20%,rgba(249,115,22,0.12),transparent 50%),
+             radial-gradient(circle at 10% 80%,rgba(93,78,214,0.15),transparent 50%)}
+.auth-card{position:relative;z-index:1;background:#fff;border-radius:20px;padding:44px 40px;width:100%;max-width:400px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.35)}
+.auth-card-logo{display:flex;align-items:center;gap:10px;margin-bottom:8px;justify-content:center}
+.auth-card-logo img{height:42px}
+.auth-card-logo span{font-family:'Lora',serif;font-weight:800;font-size:20px;color:var(--text)}
+.auth-card-logo .rex{color:var(--orange)}
+.auth-card-badge{text-align:center;margin-bottom:28px}
+.auth-card-badge span{display:inline-block;padding:3px 14px;border-radius:50px;background:rgba(249,115,22,0.12);
+  border:1px solid rgba(249,115,22,0.25);font-size:11px;font-weight:700;color:var(--orange);
+  letter-spacing:0.5px;text-transform:uppercase}
+.auth-card .form-group{margin-bottom:18px}
+.auth-card .form-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.auth-card .form-input{width:100%;padding:12px 16px;border:1.5px solid var(--gray-200);border-radius:12px;
+  font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:#fff;
+  transition:border-color 0.2s,box-shadow 0.2s;outline:none}
+.auth-card .form-input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(30,18,86,0.08)}
+.auth-card .form-input::placeholder{color:var(--gray-400)}
+.auth-card .btn-login{width:100%;padding:14px;background:var(--indigo);color:#fff;border:none;border-radius:50px;
+  font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;
+  box-shadow:0 4px 16px rgba(30,18,86,0.2)}
+.auth-card .btn-login:hover{background:var(--indigo-mid);transform:translateY(-1px)}
+.auth-card .btn-login:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.auth-error{background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);border-radius:10px;
+  padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:16px;display:none}
+.auth-error.show{display:block}
+body.locked{overflow:hidden}
+body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
 </style>
 </head>
-<body>
+<body class="locked">
+
+<!-- AUTH GATE -->
+<div class="auth-gate" id="auth-gate">
+  <div class="auth-card">
+    <div class="auth-card-logo">
+      <img src="ScoutRexLogo-transparent.png" alt="ScoutRex">
+      <span>Scout<span class="rex">Rex</span></span>
+    </div>
+    <div class="auth-card-badge"><span>Admin Panel</span></div>
+    <div class="auth-error" id="auth-error"></div>
+    <form id="auth-form" onsubmit="return adminLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="auth-email" placeholder="admin@scoutrex.com" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" id="auth-password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button class="btn-login" type="submit" id="auth-submit">Sign In</button>
+    </form>
+  </div>
+</div>
 
 <!-- MODAL OVERLAY -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
@@ -322,12 +381,16 @@ a{text-decoration:none;color:inherit}
       <span class="notif-dot"></span>
     </div>
     <div class="topbar-divider"></div>
-    <div class="topbar-admin">
+    <div class="topbar-admin" style="gap:12px">
       <div class="topbar-avatar">A</div>
       <div>
         <div class="topbar-admin-name">Admin</div>
         <div class="topbar-admin-role">Super Admin</div>
       </div>
+      <button onclick="adminLogout()" title="Sign out"
+        style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);
+               padding:5px 12px;border-radius:50px;font-size:11.5px;font-weight:600;cursor:pointer;
+               font-family:'Inter',sans-serif;transition:all 0.2s;margin-left:4px">Logout</button>
     </div>
   </div>
 </div>
@@ -1009,6 +1072,75 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <script>
+/* ──────────────────────────────────
+   AUTH GATE — blocks page until admin login
+────────────────────────────────── */
+const AUTH_API = 'https://scoutrex-app-production.up.railway.app';
+let _adminToken = null;
+let _adminUser  = null;
+
+(function checkSession() {
+  try {
+    const t = sessionStorage.getItem('srx_admin_token');
+    const u = sessionStorage.getItem('srx_admin_user');
+    if (t && u) {
+      _adminToken = t;
+      _adminUser  = JSON.parse(u);
+      unlockAdmin();
+    }
+  } catch(e) { /* no session */ }
+})();
+
+async function adminLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('auth-email').value.trim();
+  const pass  = document.getElementById('auth-password').value;
+  const errEl = document.getElementById('auth-error');
+  const btn   = document.getElementById('auth-submit');
+  errEl.className = 'auth-error'; errEl.textContent = '';
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try {
+    const res = await fetch(AUTH_API + '/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Invalid credentials');
+    if (data.role !== 'admin') {
+      throw new Error('Access denied — admin accounts only.');
+    }
+    _adminToken = data.token;
+    _adminUser  = { id: data.id, name: data.name, role: data.role };
+    sessionStorage.setItem('srx_admin_token', _adminToken);
+    sessionStorage.setItem('srx_admin_user', JSON.stringify(_adminUser));
+    unlockAdmin();
+  } catch(err) {
+    errEl.textContent = err.message;
+    errEl.className = 'auth-error show';
+  }
+  btn.disabled = false; btn.textContent = 'Sign In';
+  return false;
+}
+
+function unlockAdmin() {
+  document.body.classList.remove('locked');
+  const gate = document.getElementById('auth-gate');
+  if (gate) { gate.classList.add('hidden'); setTimeout(() => gate.remove(), 500); }
+  // Update topbar with logged-in admin name
+  const nameEl = document.querySelector('.topbar-admin-name');
+  const avatarEl = document.querySelector('.topbar-avatar');
+  if (nameEl && _adminUser) nameEl.textContent = _adminUser.name || 'Admin';
+  if (avatarEl && _adminUser && _adminUser.name) avatarEl.textContent = _adminUser.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('srx_admin_token');
+  sessionStorage.removeItem('srx_admin_user');
+  _adminToken = null; _adminUser = null;
+  window.location.reload();
+}
+
 /* ──────────────────────────────────
    PANEL NAVIGATION
 ────────────────────────────────── */
