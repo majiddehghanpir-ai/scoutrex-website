@@ -64,6 +64,31 @@ html.dark .form-forgot a{color:var(--orange)}
 .form-error{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:16px;display:none}
 .form-error.show{display:block}
 
+/* ── Verification Panel ── */
+.verify-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--indigo-light));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px}
+.verify-title{font-family:'Lora',serif;font-size:1.4rem;font-weight:800;text-align:center;margin-bottom:6px}
+.verify-sub{font-size:13px;color:var(--gray-600);text-align:center;margin-bottom:28px;line-height:1.6}
+.verify-sub strong{color:var(--text);font-weight:600}
+.verify-code-input{width:100%;padding:16px;border:2px solid var(--gray-200);border-radius:var(--radius);font-size:28px;font-family:'Inter',monospace;text-align:center;letter-spacing:12px;color:var(--text);background:#fff;transition:border-color 0.2s,box-shadow 0.2s;outline:none}
+.verify-code-input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(30,18,86,0.08)}
+.verify-code-input::placeholder{letter-spacing:4px;font-size:16px;color:var(--gray-400)}
+.verify-actions{margin-top:24px}
+.verify-resend{text-align:center;margin-top:16px;font-size:13px;color:var(--gray-600)}
+.verify-resend a{color:var(--indigo);font-weight:600;cursor:pointer}
+.verify-resend a:hover{text-decoration:underline}
+.verify-resend .cooldown{color:var(--gray-400);font-weight:400;cursor:default}
+.verify-back{text-align:center;margin-top:16px;font-size:13px}
+.verify-back a{color:var(--gray-600);font-weight:500}
+.verify-back a:hover{color:var(--indigo);text-decoration:underline}
+html.dark .verify-title{color:#F1F0F9}
+html.dark .verify-sub{color:#A09BBF}
+html.dark .verify-sub strong{color:#F1F0F9}
+html.dark .verify-code-input{background:#110F26;border-color:#2D2850;color:#F1F0F9}
+html.dark .verify-code-input:focus{border-color:var(--indigo-light);box-shadow:0 0 0 3px rgba(93,78,214,0.15)}
+html.dark .verify-resend a{color:var(--orange)}
+html.dark .verify-back a{color:#A09BBF}
+html.dark .verify-back a:hover{color:var(--orange)}
+
 @media(max-width:900px){
   .login-left{display:none}
   .login-right{flex:1;padding:40px 24px}
@@ -411,6 +436,27 @@ html:not(.dark) .login-left::before   { opacity: 0 !important; }
         <div class="form-footer" style="margin-top:16px;font-size:12px;color:var(--gray-400)">Are you a company? <a href="contact.html">Contact us</a> to get started with HireRex.</div>
       </div>
 
+      <!-- Verify Email Form (hidden by default) -->
+      <div id="verify-form" style="display:none">
+        <div class="verify-icon">✉️</div>
+        <h2 class="verify-title">Check your email</h2>
+        <p class="verify-sub">We sent a 6-digit verification code to<br><strong id="verify-email-display"></strong></p>
+        <div id="verify-error" class="form-error"></div>
+        <div class="form-group">
+          <label class="form-label" style="text-align:center">Verification code</label>
+          <input type="text" id="verify-code" class="verify-code-input" placeholder="000000" maxlength="6" inputmode="numeric" autocomplete="one-time-code"/>
+        </div>
+        <div class="verify-actions">
+          <button class="btn-submit" id="verify-btn" onclick="handleVerify()" disabled>Verify Email</button>
+        </div>
+        <div class="verify-resend">
+          Didn't receive the code? <a id="resend-link" onclick="handleResendCode()">Resend code</a>
+        </div>
+        <div class="verify-back">
+          <a href="login.html">← Back to sign in</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -435,18 +481,142 @@ function setType(t){
 }
 function setMode(m){
   currentMode = m;
+  const isLogin = m==='login';
   const isReg = m==='register';
-  document.getElementById('login-form').style.display = isReg ? 'none' : 'block';
+  const isVerify = m==='verify';
+  document.getElementById('login-form').style.display = isLogin ? 'block' : 'none';
   document.getElementById('register-form').style.display = isReg ? 'block' : 'none';
-  // Type toggle hidden for both modes — website registration is candidates only
+  document.getElementById('verify-form').style.display = isVerify ? 'block' : 'none';
+  // Type toggle hidden for all modes — website registration is candidates only
   document.getElementById('type-toggle-wrap').style.display = 'none';
   currentType = 'candidate';
-  document.getElementById('form-title').textContent = isReg ? 'Create your account' : 'Welcome back';
-  document.getElementById('form-subtitle').innerHTML = isReg
-    ? 'Already have an account? <a href="login.html">Log in</a>'
-    : 'New to ScoutRex? <a href="login.html?mode=register">Create an account</a>';
+  if(isVerify){
+    document.getElementById('form-title').textContent = 'Verify your email';
+    document.getElementById('form-subtitle').innerHTML = 'One last step to activate your account';
+  } else {
+    document.getElementById('form-title').textContent = isReg ? 'Create your account' : 'Welcome back';
+    document.getElementById('form-subtitle').innerHTML = isReg
+      ? 'Already have an account? <a href="login.html">Log in</a>'
+      : 'New to ScoutRex? <a href="login.html?mode=register">Create an account</a>';
+  }
 }
 const API_URL = 'https://scoutrex-app-production.up.railway.app';
+
+/* ── Verification state ── */
+let verifyUserEmail = '';
+let verifyUserId = null;
+let resendCooldown = 0;
+let resendTimer = null;
+
+// Enable/disable verify button based on code length
+document.addEventListener('input', function(e){
+  if(e.target.id === 'verify-code'){
+    e.target.value = e.target.value.replace(/\D/g,'').slice(0,6);
+    const btn = document.getElementById('verify-btn');
+    if(btn) btn.disabled = e.target.value.length !== 6;
+  }
+});
+
+// Allow Enter key to submit verification
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && currentMode === 'verify'){
+    const code = document.getElementById('verify-code').value;
+    if(code.length === 6) handleVerify();
+  }
+});
+
+function startResendCooldown(){
+  resendCooldown = 60;
+  const link = document.getElementById('resend-link');
+  if(resendTimer) clearInterval(resendTimer);
+  resendTimer = setInterval(function(){
+    resendCooldown--;
+    if(resendCooldown <= 0){
+      clearInterval(resendTimer);
+      resendTimer = null;
+      link.textContent = 'Resend code';
+      link.classList.remove('cooldown');
+      link.onclick = handleResendCode;
+    } else {
+      link.textContent = 'Resend in ' + resendCooldown + 's';
+      link.classList.add('cooldown');
+      link.onclick = null;
+    }
+  }, 1000);
+  link.textContent = 'Resend in 60s';
+  link.classList.add('cooldown');
+  link.onclick = null;
+}
+
+async function handleVerify(){
+  const code = document.getElementById('verify-code').value.trim();
+  const errEl = document.getElementById('verify-error');
+  const btn = document.getElementById('verify-btn');
+  if(code.length !== 6){ errEl.textContent = 'Please enter the 6-digit code.'; errEl.classList.add('show'); return; }
+  errEl.classList.remove('show');
+  btn.textContent = 'Verifying…'; btn.disabled = true;
+
+  try {
+    const res = await fetch(API_URL + '/api/auth/verify-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: verifyUserEmail, code: code })
+    });
+    const data = await res.json();
+    if(res.ok && data.token){
+      // Verified — auto-login
+      localStorage.setItem('sr_token', data.token);
+      localStorage.setItem('sr_user', JSON.stringify({
+        id: data.id, name: data.name, role: data.role || 'candidate',
+        recruiter_role: data.recruiter_role || null,
+        company: data.company || null,
+        permissions: data.permissions || null
+      }));
+      const dest = (data.role === 'recruiter' || data.role === 'admin')
+        ? 'company-account.html'
+        : 'account.html';
+      window.location.href = dest;
+    } else {
+      errEl.textContent = data.detail || data.message || 'Invalid or expired code. Please try again.';
+      errEl.classList.add('show');
+      btn.textContent = 'Verify Email'; btn.disabled = false;
+      document.getElementById('verify-code').value = '';
+      document.getElementById('verify-code').focus();
+    }
+  } catch(err){
+    errEl.textContent = 'Connection error. Please try again.';
+    errEl.classList.add('show');
+    btn.textContent = 'Verify Email'; btn.disabled = false;
+  }
+}
+
+async function handleResendCode(){
+  const errEl = document.getElementById('verify-error');
+  errEl.classList.remove('show');
+  try {
+    const res = await fetch(API_URL + '/api/auth/resend-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: verifyUserEmail })
+    });
+    const data = await res.json();
+    if(res.ok){
+      startResendCooldown();
+      errEl.textContent = 'A new code has been sent to your email.';
+      errEl.style.background = 'rgba(34,197,94,0.08)';
+      errEl.style.borderColor = 'rgba(34,197,94,0.2)';
+      errEl.style.color = '#15803D';
+      errEl.classList.add('show');
+      setTimeout(function(){ errEl.classList.remove('show'); errEl.style.background=''; errEl.style.borderColor=''; errEl.style.color=''; }, 4000);
+    } else {
+      errEl.textContent = data.detail || data.message || 'Could not resend code. Try again shortly.';
+      errEl.classList.add('show');
+    }
+  } catch(err){
+    errEl.textContent = 'Connection error. Please try again.';
+    errEl.classList.add('show');
+  }
+}
 
 async function handleLogin(){
   const inputs = document.querySelectorAll('#login-form .form-input');
@@ -485,6 +655,14 @@ async function handleLogin(){
         ? 'company-account.html'
         : 'account.html';
       window.location.href = dest;
+    } else if(res.status === 403 && data.detail === 'email_not_verified'){
+      // Unverified email — switch to verification panel
+      verifyUserEmail = email;
+      verifyUserId = data.user_id || null;
+      document.getElementById('verify-email-display').textContent = email;
+      setMode('verify');
+      startResendCooldown();
+      btn.textContent = 'Log In'; btn.disabled = false;
     } else {
       errEl.textContent = data.detail || data.message || 'Invalid email or password. Please try again.';
       errEl.classList.add('show');
@@ -518,13 +696,20 @@ async function handleRegister(){
       body: JSON.stringify({ name: (firstName + (lastName ? ' ' + lastName : '')).trim(), email, password, role: 'candidate' })
     });
     const data = await res.json();
-    if(res.ok && data.token){
+    if(res.ok && data.status === 'verification_required'){
+      // Email verification needed — switch to verify panel
+      verifyUserEmail = data.email || email;
+      verifyUserId = data.user_id || null;
+      document.getElementById('verify-email-display').textContent = verifyUserEmail;
+      setMode('verify');
+      startResendCooldown();
+      btn.textContent = 'Create Account →'; btn.disabled = false;
+    } else if(res.ok && data.token){
       localStorage.setItem('sr_token', data.token);
-      // Website registration always creates a candidate account
       localStorage.setItem('sr_user', JSON.stringify({ id: data.id, name: data.name, role: 'candidate', recruiter_role: null, company: null, permissions: null }));
       window.location.href = 'account.html';
     } else {
-      errEl.textContent = data.message || 'Could not create account. Please try again.';
+      errEl.textContent = data.message || data.detail || 'Could not create account. Please try again.';
       errEl.classList.add('show');
       btn.textContent = 'Create Account →'; btn.disabled = false;
     }
