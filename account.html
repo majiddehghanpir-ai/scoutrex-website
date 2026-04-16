@@ -727,12 +727,54 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
         <hr style="border:none;border-top:1px solid var(--gray-100);margin:24px 0"/>
         <div class="form-section-title">Two-Factor Authentication</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">
-          <div>
-            <div style="font-size:14px;font-weight:600">Authenticator App</div>
-            <div style="font-size:13px;color:var(--gray-500);margin-top:2px">Add an extra layer of security to your account.</div>
+        <div id="tfa-settings">
+          <div id="tfa-loading" style="font-size:13px;color:var(--gray-500);margin-top:12px">Loading 2FA settings...</div>
+
+          <!-- Status display (shown after loading) -->
+          <div id="tfa-status" style="display:none;margin-top:12px">
+            <div id="tfa-status-text" style="font-size:13px;color:var(--gray-500);margin-bottom:14px;line-height:1.6"></div>
+            <div id="tfa-error" style="display:none;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#B91C1C;margin-bottom:12px"></div>
+            <div id="tfa-success" style="display:none;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#15803D;margin-bottom:12px"></div>
+            <div id="tfa-buttons"></div>
           </div>
-          <button class="btn-outline" style="font-size:13px;padding:8px 16px">Enable 2FA</button>
+
+          <!-- SMS Setup -->
+          <div id="tfa-sms-setup" style="display:none;margin-top:14px">
+            <div style="font-size:13px;color:var(--gray-500);margin-bottom:10px">Enter your phone number. We'll send a verification code.</div>
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <input type="tel" id="tfa-phone" class="form-input" placeholder="+1 234 567 8900" style="flex:1"/>
+              <button class="btn-save" onclick="tfaSendSMS()" style="font-size:13px;padding:8px 16px;white-space:nowrap">Send Code</button>
+            </div>
+            <a onclick="tfaCancel()" style="font-size:12px;color:var(--gray-400);cursor:pointer">← Cancel</a>
+          </div>
+
+          <!-- SMS Verify -->
+          <div id="tfa-sms-verify" style="display:none;margin-top:14px">
+            <div style="font-size:13px;color:var(--gray-500);margin-bottom:10px">Enter the 6-digit code sent to your phone.</div>
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <input type="text" id="tfa-sms-code" class="form-input" placeholder="000000" maxlength="6" inputmode="numeric"
+                style="flex:1;text-align:center;font-size:20px;letter-spacing:6px;font-family:monospace"/>
+              <button class="btn-save" id="tfa-sms-verify-btn" onclick="tfaVerifySMS()" style="font-size:13px;padding:8px 16px" disabled>Verify</button>
+            </div>
+            <a onclick="tfaCancel()" style="font-size:12px;color:var(--gray-400);cursor:pointer">← Cancel</a>
+          </div>
+
+          <!-- TOTP Setup (QR code) -->
+          <div id="tfa-totp-setup" style="display:none;margin-top:14px">
+            <div style="font-size:13px;color:var(--gray-500);margin-bottom:14px;line-height:1.6">
+              Scan this QR code with Google Authenticator (or any TOTP app), then enter the 6-digit code to confirm.
+            </div>
+            <div style="text-align:center;margin-bottom:16px">
+              <img id="tfa-qr-img" src="" alt="QR Code" style="width:180px;height:180px;border-radius:8px;border:2px solid var(--gray-200);background:#fff;padding:8px"/>
+              <div id="tfa-totp-secret" style="font-family:monospace;font-size:11px;color:var(--gray-400);margin-top:8px;word-break:break-all"></div>
+            </div>
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <input type="text" id="tfa-totp-code" class="form-input" placeholder="000000" maxlength="6" inputmode="numeric"
+                style="flex:1;text-align:center;font-size:20px;letter-spacing:6px;font-family:monospace"/>
+              <button class="btn-save" id="tfa-totp-verify-btn" onclick="tfaVerifyTOTP()" style="font-size:13px;padding:8px 16px" disabled>Verify</button>
+            </div>
+            <a onclick="tfaCancel()" style="font-size:12px;color:var(--gray-400);cursor:pointer">← Cancel</a>
+          </div>
         </div>
       </div>
 
@@ -1108,6 +1150,153 @@ async function acctLoadProfile() {
 }
 
 acctLoadProfile();
+
+// ── Two-Factor Authentication ──────────────────────────────
+async function tfaLoadStatus() {
+  const token = localStorage.getItem('sr_token');
+  if (!token) return;
+  try {
+    const res = await fetch(ACCT_API + '/api/auth/2fa/status', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    const data = await res.json();
+    document.getElementById('tfa-loading').style.display = 'none';
+    document.getElementById('tfa-status').style.display = 'block';
+
+    const enabled = data.method && data.method !== 'none';
+    const statusText = document.getElementById('tfa-status-text');
+    const btnsDiv = document.getElementById('tfa-buttons');
+
+    if (enabled) {
+      const methodLabel = data.method === 'sms' ? 'SMS' : 'Google Authenticator';
+      statusText.innerHTML = 'Two-factor authentication is <strong style="color:var(--green)">enabled</strong> via <strong>' + methodLabel + '</strong>.';
+      btnsDiv.innerHTML =
+        '<button class="btn-outline" style="font-size:13px;padding:8px 16px;color:#EF4444;border-color:rgba(239,68,68,0.3)" onclick="tfaDisable()">Disable 2FA</button> ' +
+        (data.method === 'sms'
+          ? '<button class="btn-outline" style="font-size:13px;padding:8px 16px;margin-left:8px" onclick="tfaStartTOTP()">Switch to Authenticator</button>'
+          : (data.sms_available ? '<button class="btn-outline" style="font-size:13px;padding:8px 16px;margin-left:8px" onclick="tfaStartSMS()">Switch to SMS</button>' : ''));
+    } else {
+      statusText.textContent = 'Add an extra layer of security to your account. Choose a method below.';
+      btnsDiv.innerHTML =
+        (data.sms_available ? '<button class="btn-save" style="font-size:13px;padding:8px 16px" onclick="tfaStartSMS()">📱 Setup SMS</button> ' : '') +
+        '<button class="btn-save" style="font-size:13px;padding:8px 16px;background:var(--indigo-mid);margin-left:8px" onclick="tfaStartTOTP()">🔐 Setup Authenticator</button>';
+    }
+  } catch (e) {
+    document.getElementById('tfa-loading').textContent = 'Could not load 2FA settings.';
+  }
+}
+tfaLoadStatus();
+
+function tfaShowError(msg) {
+  const el = document.getElementById('tfa-error');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('tfa-success').style.display = 'none';
+}
+function tfaShowSuccess(msg) {
+  const el = document.getElementById('tfa-success');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('tfa-error').style.display = 'none';
+  setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+function tfaCancel() {
+  ['tfa-sms-setup','tfa-sms-verify','tfa-totp-setup'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('tfa-status').style.display = 'block';
+  document.getElementById('tfa-error').style.display = 'none';
+}
+function tfaStartSMS() {
+  document.getElementById('tfa-status').style.display = 'none';
+  document.getElementById('tfa-sms-setup').style.display = 'block';
+  document.getElementById('tfa-error').style.display = 'none';
+}
+async function tfaSendSMS() {
+  const token = localStorage.getItem('sr_token');
+  const phone = document.getElementById('tfa-phone').value.trim();
+  if (!phone || phone.length < 8) { tfaShowError('Enter a valid phone number'); return; }
+  try {
+    const res = await fetch(ACCT_API + '/api/auth/2fa/setup-sms', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ phone_number: phone })
+    });
+    const data = await res.json();
+    if (!res.ok) { tfaShowError(data.detail || 'Failed to send SMS'); return; }
+    document.getElementById('tfa-sms-setup').style.display = 'none';
+    document.getElementById('tfa-sms-verify').style.display = 'block';
+  } catch (e) { tfaShowError('Connection error'); }
+}
+async function tfaVerifySMS() {
+  const token = localStorage.getItem('sr_token');
+  const code = document.getElementById('tfa-sms-code').value.trim();
+  if (code.length !== 6) return;
+  try {
+    const res = await fetch(ACCT_API + '/api/auth/2fa/verify-sms-setup', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ code })
+    });
+    const data = await res.json();
+    if (!res.ok) { tfaShowError(data.detail || 'Invalid code'); return; }
+    document.getElementById('tfa-sms-verify').style.display = 'none';
+    tfaShowSuccess('SMS two-factor authentication enabled!');
+    tfaLoadStatus();
+  } catch (e) { tfaShowError('Connection error'); }
+}
+async function tfaStartTOTP() {
+  const token = localStorage.getItem('sr_token');
+  document.getElementById('tfa-status').style.display = 'none';
+  document.getElementById('tfa-error').style.display = 'none';
+  try {
+    const res = await fetch(ACCT_API + '/api/auth/2fa/setup-totp', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
+    });
+    const data = await res.json();
+    if (!res.ok) { tfaShowError(data.detail || 'Failed to setup TOTP'); document.getElementById('tfa-status').style.display = 'block'; return; }
+    document.getElementById('tfa-qr-img').src = data.qr_code;
+    document.getElementById('tfa-totp-secret').textContent = 'Secret: ' + data.secret;
+    document.getElementById('tfa-totp-setup').style.display = 'block';
+  } catch (e) { tfaShowError('Connection error'); document.getElementById('tfa-status').style.display = 'block'; }
+}
+async function tfaVerifyTOTP() {
+  const token = localStorage.getItem('sr_token');
+  const code = document.getElementById('tfa-totp-code').value.trim();
+  if (code.length !== 6) return;
+  try {
+    const res = await fetch(ACCT_API + '/api/auth/2fa/verify-totp-setup', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ code })
+    });
+    const data = await res.json();
+    if (!res.ok) { tfaShowError(data.detail || 'Invalid code'); return; }
+    document.getElementById('tfa-totp-setup').style.display = 'none';
+    tfaShowSuccess('Google Authenticator two-factor authentication enabled!');
+    tfaLoadStatus();
+  } catch (e) { tfaShowError('Connection error'); }
+}
+async function tfaDisable() {
+  const token = localStorage.getItem('sr_token');
+  try {
+    const res = await fetch(ACCT_API + '/api/auth/2fa/disable', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
+    });
+    if (res.ok) { tfaShowSuccess('Two-factor authentication disabled.'); tfaLoadStatus(); }
+  } catch (e) { tfaShowError('Connection error'); }
+}
+
+// Enable verify buttons when 6 digits entered
+document.addEventListener('input', function(e) {
+  if (e.target.id === 'tfa-sms-code') {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6);
+    document.getElementById('tfa-sms-verify-btn').disabled = e.target.value.length !== 6;
+  }
+  if (e.target.id === 'tfa-totp-code') {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6);
+    document.getElementById('tfa-totp-verify-btn').disabled = e.target.value.length !== 6;
+  }
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    if (e.target.id === 'tfa-sms-code' && e.target.value.length === 6) tfaVerifySMS();
+    if (e.target.id === 'tfa-totp-code' && e.target.value.length === 6) tfaVerifyTOTP();
+  }
+});
 
 // Read URL hash on load
 const hash = location.hash.replace('#','');
