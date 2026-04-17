@@ -283,7 +283,8 @@
         }
         .cms-color-wrap:hover { background: rgba(255,255,255,0.18); }
         .cms-color-wrap input[type=color] {
-          position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+          position: absolute; width: 1px; height: 1px; opacity: 0;
+          pointer-events: none; bottom: 0; left: 0; border: none; padding: 0;
         }
         .cms-color-icon { font-size: 14px; font-weight: 800; pointer-events: none; }
         .cms-color-bar {
@@ -384,13 +385,13 @@
 
           <!-- Text & highlight color -->
           <div class="cms-grp">
-            <div class="cms-color-wrap" title="Text color">
+            <div class="cms-color-wrap" id="cms-txt-color-wrap" title="Text color — click to apply, double-click to change">
               <span class="cms-color-icon" style="color:#fff">A</span>
-              <div class="cms-color-bar" id="cms-color-bar" style="background:#ffffff"></div>
-              <input type="color" id="cms-txt-color" value="#ffffff">
+              <div class="cms-color-bar" id="cms-color-bar" style="background:#ff0000"></div>
+              <input type="color" id="cms-txt-color" value="#ff0000">
             </div>
-            <div class="cms-color-wrap" title="Highlight color">
-              <span class="cms-color-icon">🖊</span>
+            <div class="cms-color-wrap" id="cms-hl-color-wrap" title="Highlight — click to apply, double-click to change">
+              <span class="cms-color-icon">▐</span>
               <div class="cms-color-bar" id="cms-hl-bar" style="background:#ffff00"></div>
               <input type="color" id="cms-hl-color" value="#ffff00">
             </div>
@@ -469,24 +470,20 @@
         if (url) document.execCommand('createLink', false, url);
       });
 
-      // ── Selects & color pickers: save selection on mousedown of the WRAPPER ──
-      // (mousedown fires before the native control steals focus)
-      const saveOnWrap = (el) => {
-        el.addEventListener('mousedown', () => this._saveSelection());
-      };
+      // ── Selects: save selection on mousedown (fires before native dropdown steals focus) ──
+      const saveOnEl = (el) => el.addEventListener('mousedown', () => this._saveSelection());
 
       // Paragraph / block style
       const selStyle = document.getElementById('cms-sel-style');
-      saveOnWrap(selStyle);
+      saveOnEl(selStyle);
       selStyle.addEventListener('change', e => {
         this._restoreSelection();
-        // formatBlock needs <tagname> in some browsers; supply both forms
         document.execCommand('formatBlock', false, '<' + e.target.value + '>');
       });
 
-      // Font family — use inline style (execCommand fontName is overridden by CSS)
+      // Font family — inline style (execCommand fontName is overridden by page CSS)
       const selFont = document.getElementById('cms-sel-font');
-      saveOnWrap(selFont);
+      saveOnEl(selFont);
       selFont.addEventListener('change', e => {
         this._restoreSelection();
         this._applyInlineStyle('fontFamily', e.target.value);
@@ -494,38 +491,49 @@
 
       // Font size
       const selSize = document.getElementById('cms-sel-size');
-      saveOnWrap(selSize);
+      saveOnEl(selSize);
       selSize.addEventListener('change', e => {
         this._restoreSelection();
         this._applyFontSize(e.target.value + 'px');
       });
 
-      // Text color — save on mousedown of the wrapper div, apply on change (picker closed)
-      const txtColorInput = document.getElementById('cms-txt-color');
-      const txtColorWrap  = txtColorInput.closest('.cms-color-wrap');
-      if (txtColorWrap) saveOnWrap(txtColorWrap);
-      txtColorInput.addEventListener('change', e => {
-        this._restoreSelection();
-        document.getElementById('cms-color-bar').style.background = e.target.value;
-        this._applyInlineStyle('color', e.target.value);
-      });
-      // Also update bar live while dragging (no DOM change needed)
-      txtColorInput.addEventListener('input', e => {
-        document.getElementById('cms-color-bar').style.background = e.target.value;
-      });
+      // ── Color buttons: single-click = apply current color, double-click = open picker ──
+      const setupColorBtn = (wrapId, inputId, barId, cssProp) => {
+        const wrap  = document.getElementById(wrapId);
+        const input = document.getElementById(inputId);
+        const bar   = document.getElementById(barId);
+        if (!wrap || !input) return;
 
-      // Highlight / background color
-      const hlColorInput = document.getElementById('cms-hl-color');
-      const hlColorWrap  = hlColorInput.closest('.cms-color-wrap');
-      if (hlColorWrap) saveOnWrap(hlColorWrap);
-      hlColorInput.addEventListener('change', e => {
-        this._restoreSelection();
-        document.getElementById('cms-hl-bar').style.background = e.target.value;
-        this._applyInlineStyle('backgroundColor', e.target.value);
-      });
-      hlColorInput.addEventListener('input', e => {
-        document.getElementById('cms-hl-bar').style.background = e.target.value;
-      });
+        let lastMs = 0;
+        wrap.addEventListener('mousedown', (e) => {
+          e.preventDefault(); // keep focus on contenteditable
+          const now = Date.now();
+          const dbl = (now - lastMs) < 300;
+          lastMs = now;
+          if (dbl) {
+            // Double-click → open colour picker
+            setTimeout(() => input.click(), 10);
+          } else {
+            // Single-click → apply the current colour to selection / whole box
+            this._restoreSelection();
+            this._applyInlineStyle(cssProp, input.value);
+          }
+        });
+
+        // When a new colour is confirmed in the picker, apply it
+        input.addEventListener('change', (e) => {
+          if (bar) bar.style.background = e.target.value;
+          this._restoreSelection();
+          this._applyInlineStyle(cssProp, e.target.value);
+        });
+        // Live-update the colour bar while dragging in the picker
+        input.addEventListener('input', (e) => {
+          if (bar) bar.style.background = e.target.value;
+        });
+      };
+
+      setupColorBtn('cms-txt-color-wrap', 'cms-txt-color', 'cms-color-bar', 'color');
+      setupColorBtn('cms-hl-color-wrap',  'cms-hl-color',  'cms-hl-bar',    'backgroundColor');
 
       // Keep toolbar state in sync with cursor + save selection for focus-stealers
       document.addEventListener('selectionchange', () => {
@@ -561,23 +569,36 @@
       sel.addRange(this._savedRange);
     },
 
-    // Apply an inline CSS property to the current selection using a <span>
-    // More reliable than execCommand which is often overridden by page CSS
+    // Apply an inline CSS property to the selection (or whole box if no selection).
+    // Uses insertHTML so the change lands in the browser undo stack → Ctrl+Z works.
     _applyInlineStyle(prop, value) {
+      const cssProp = prop.replace(/([A-Z])/g, c => '-' + c.toLowerCase()); // camelCase→kebab
+      const cssVal  = value.replace(/"/g, '\\"');
+
       const sel = window.getSelection();
-      if (!sel || sel.rangeCount === 0) return;
+      const hasSelection = sel && sel.rangeCount > 0 && !sel.isCollapsed;
+
+      if (!hasSelection) {
+        // No text highlighted → apply to every character in the active editing box
+        const el = this._activeEditEl;
+        if (!el) return;
+        el.focus();
+        const allRange = document.createRange();
+        allRange.selectNodeContents(el);
+        if (allRange.collapsed) return;
+        sel.removeAllRanges();
+        sel.addRange(allRange);
+      }
+
+      // Snapshot the selected HTML, then replace via insertHTML (undoable)
       const range = sel.getRangeAt(0);
-      if (range.collapsed) return; // nothing selected
-      const span = document.createElement('span');
-      span.style[prop] = value;
-      span.appendChild(range.extractContents());
-      range.insertNode(span);
-      // Re-select the new span so further commands still work
-      const newRange = document.createRange();
-      newRange.selectNodeContents(span);
-      sel.removeAllRanges();
-      sel.addRange(newRange);
-      this._savedRange = newRange.cloneRange();
+      const tmp   = document.createElement('div');
+      tmp.appendChild(range.cloneContents());
+      document.execCommand('insertHTML', false,
+        `<span style="${cssProp}:${cssVal}">${tmp.innerHTML}</span>`);
+
+      // Keep _savedRange current after the DOM change
+      if (sel.rangeCount > 0) this._savedRange = sel.getRangeAt(0).cloneRange();
     },
 
     _applyFontSize(px) {
@@ -596,12 +617,14 @@
     },
 
     _syncRibbon() {
-      // Only sync if something is being edited
+      // Only sync while something is being edited
       if (!document.querySelector('[data-cms-id][contenteditable="true"]')) return;
-      const active = (cmd) => { try { return document.queryCommandState(cmd); } catch (_) { return false; } };
+
+      // ── Toggle active state of format buttons ──
+      const qState = (cmd) => { try { return document.queryCommandState(cmd); } catch (_) { return false; } };
       const toggle = (id, cmd) => {
         const b = document.getElementById(id);
-        if (b) b.classList.toggle('cms-active', active(cmd));
+        if (b) b.classList.toggle('cms-active', qState(cmd));
       };
       toggle('cmsr-bold',    'bold');
       toggle('cmsr-italic',  'italic');
@@ -615,6 +638,65 @@
       toggle('cmsr-justify', 'justifyFull');
       toggle('cmsr-ul',      'insertUnorderedList');
       toggle('cmsr-ol',      'insertOrderedList');
+
+      // ── Reflect computed styles of the text at cursor ──
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+      const node = sel.getRangeAt(0).startContainer;
+      const el   = node.nodeType === 3 ? node.parentElement : node;
+      if (!el) return;
+      const cs = window.getComputedStyle(el);
+
+      // Font size → select nearest option
+      const sizeEl = document.getElementById('cms-sel-size');
+      if (sizeEl && cs.fontSize) {
+        const px = Math.round(parseFloat(cs.fontSize));
+        let best = sizeEl.options[0];
+        for (const opt of sizeEl.options) {
+          if (parseInt(opt.value) <= px) best = opt;
+        }
+        sizeEl.value = best.value;
+      }
+
+      // Font family → match first family name to an option
+      const fontEl = document.getElementById('cms-sel-font');
+      if (fontEl && cs.fontFamily) {
+        const first = cs.fontFamily.replace(/['"]/g, '').split(',')[0].trim().toLowerCase();
+        for (const opt of fontEl.options) {
+          const optFirst = opt.value.replace(/['"]/g, '').split(',')[0].trim().toLowerCase();
+          if (optFirst === first) { fontEl.value = opt.value; break; }
+        }
+      }
+
+      // Text colour → update bar + input value
+      if (cs.color && cs.color !== 'rgba(0, 0, 0, 0)') {
+        const hex = this._rgbToHex(cs.color);
+        if (hex) {
+          const bar = document.getElementById('cms-color-bar');
+          const inp = document.getElementById('cms-txt-color');
+          if (bar) bar.style.background = hex;
+          if (inp) inp.value = hex;
+        }
+      }
+
+      // Background / highlight colour → update bar + input value
+      if (cs.backgroundColor && cs.backgroundColor !== 'rgba(0, 0, 0, 0)') {
+        const hex = this._rgbToHex(cs.backgroundColor);
+        if (hex && hex !== '#000000') {
+          const bar = document.getElementById('cms-hl-bar');
+          const inp = document.getElementById('cms-hl-color');
+          if (bar) bar.style.background = hex;
+          if (inp) inp.value = hex;
+        }
+      }
+    },
+
+    // Convert "rgb(r, g, b)" / "rgba(r, g, b, a)" → "#rrggbb"
+    _rgbToHex(rgb) {
+      const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+      if (!m) return null;
+      return '#' + [m[1], m[2], m[3]]
+        .map(n => parseInt(n).toString(16).padStart(2, '0')).join('');
     },
 
     _markEditables() {
