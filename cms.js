@@ -620,12 +620,16 @@
     },
 
     // Apply a colour only for the current light/dark mode.
-    // Generates a unique class + a mode-scoped CSS rule so the other mode is unaffected.
+    // Uses direct DOM Range manipulation (avoids insertHTML sanitisation stripping classes).
+    // Injects TWO scoped CSS rules:
+    //   • current mode  → the chosen colour   (with !important to beat page CSS)
+    //   • other mode    → unset !important     (explicitly clears so the other mode is untouched)
     _applyColorForMode(prop, value) {
-      const cssProp      = prop === 'color' ? 'color' : 'background-color';
-      const isDark       = document.documentElement.classList.contains('dark');
-      const modeSelector = isDark ? 'html.dark' : 'html:not(.dark)';
-      const cls          = 'cms-mc-' + Math.random().toString(36).slice(2, 8);
+      const cssProp       = prop === 'color' ? 'color' : 'background-color';
+      const isDark        = document.documentElement.classList.contains('dark');
+      const thisMode      = isDark ? 'html.dark'      : 'html:not(.dark)';
+      const otherMode     = isDark ? 'html:not(.dark)' : 'html.dark';
+      const cls           = 'cms-mc-' + Math.random().toString(36).slice(2, 8);
 
       // Ensure the shared colour-rules <style> block exists
       if (!this._colorRulesEl) {
@@ -637,9 +641,22 @@
         }
         this._colorRulesEl = s;
       }
-      this._colorRulesEl.textContent += `\n${modeSelector} .${cls}{${cssProp}:${value};}`;
 
-      // Ensure something is selected (fall back to whole box)
+      // Use sheet.insertRule so the browser parses each rule immediately and reliably
+      const sheet = this._colorRulesEl.sheet;
+      try {
+        // Current mode: apply the colour
+        sheet.insertRule(`${thisMode} .${cls}{${cssProp}:${value}!important}`, sheet.cssRules.length);
+        // Other mode: explicitly unset so inherited/page colours show through
+        sheet.insertRule(`${otherMode} .${cls}{${cssProp}:unset!important}`,   sheet.cssRules.length);
+      } catch(e) {
+        // Fallback for browsers that don't support insertRule (very rare)
+        this._colorRulesEl.textContent +=
+          `\n${thisMode} .${cls}{${cssProp}:${value}!important}` +
+          `\n${otherMode} .${cls}{${cssProp}:unset!important}`;
+      }
+
+      // Ensure something is selected (fall back to whole element)
       const sel          = window.getSelection();
       const hasSelection = sel && sel.rangeCount > 0 && !sel.isCollapsed;
       if (!hasSelection) {
@@ -653,11 +670,19 @@
         sel.addRange(allRange);
       }
 
+      // Direct DOM Range manipulation — class is set via JS, never goes through HTML parser
       const range = sel.getRangeAt(0);
-      const tmp   = document.createElement('div');
-      tmp.appendChild(range.cloneContents());
-      document.execCommand('insertHTML', false, `<span class="${cls}">${tmp.innerHTML}</span>`);
-      if (sel.rangeCount > 0) this._savedRange = sel.getRangeAt(0).cloneRange();
+      const span  = document.createElement('span');
+      span.className = cls;
+      span.appendChild(range.extractContents()); // move selected nodes into the span
+      range.insertNode(span);                    // insert span at selection point
+
+      // Re-select the new span so further edits work
+      const nr = document.createRange();
+      nr.selectNodeContents(span);
+      sel.removeAllRanges();
+      sel.addRange(nr);
+      this._savedRange = nr.cloneRange();
     },
 
     _applyFontSize(px) {
@@ -877,8 +902,17 @@
 
       // Always persist the full colour-rules block so mode-scoped colours survive reload
       const styleEl = this._colorRulesEl || document.getElementById('cms-color-rules');
-      if (styleEl && styleEl.textContent.trim()) {
-        entries.push({ selector: '__cms_styles__', idx: 0, value: styleEl.textContent });
+      if (styleEl) {
+        let cssText = '';
+        // Prefer sheet.cssRules (reflects insertRule additions); fall back to textContent
+        if (styleEl.sheet && styleEl.sheet.cssRules.length > 0) {
+          cssText = Array.from(styleEl.sheet.cssRules).map(r => r.cssText).join('\n');
+        } else if (styleEl.textContent.trim()) {
+          cssText = styleEl.textContent;
+        }
+        if (cssText) {
+          entries.push({ selector: '__cms_styles__', idx: 0, value: cssText });
+        }
       }
 
       try {
