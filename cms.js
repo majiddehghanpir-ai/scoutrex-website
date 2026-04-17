@@ -37,6 +37,7 @@
     _savedRange: null,    // saved selection for focus-stealing controls
     _activeEditEl: null,  // element currently being edited
     _outsideHandler: null,// document mousedown handler for committing on outside click
+    _colorRulesEl: null,  // <style id="cms-color-rules"> holding mode-scoped colour CSS
 
     /* ── Public API ─────────────────────────────────────────── */
 
@@ -186,6 +187,18 @@
         const data = await res.json();
         for (const item of (data.content || [])) {
           try {
+            // Special entry: mode-scoped colour rules saved by CMS
+            if (item.selector === '__cms_styles__') {
+              let s = document.getElementById('cms-color-rules');
+              if (!s) {
+                s = document.createElement('style');
+                s.id = 'cms-color-rules';
+                document.head.appendChild(s);
+              }
+              s.textContent = item.value;
+              this._colorRulesEl = s;
+              continue;
+            }
             const els = document.querySelectorAll(item.selector);
             const el  = els[item.idx] || els[0];
             if (el) el.innerHTML = item.value;
@@ -292,8 +305,9 @@
           border-radius: 2px; pointer-events: none;
         }
 
-        /* Page elements */
-        body { padding-top: 90px !important; }
+        /* Page elements — push navbar below the CMS toolbar (88px), then pad body for both */
+        #navbar { top: 88px !important; }
+        body { padding-top: 160px !important; } /* 88px toolbar + 72px navbar */
         [data-cms-id] { cursor: pointer; transition: outline 0.12s; outline: 2px solid transparent; outline-offset: 3px; }
         [data-cms-id]:hover { outline: 2px dashed rgba(249,115,22,0.55) !important; }
         [data-cms-id].cms-editing {
@@ -570,16 +584,22 @@
     },
 
     // Apply an inline CSS property to the selection (or whole box if no selection).
-    // Uses insertHTML so the change lands in the browser undo stack → Ctrl+Z works.
+    // Colour properties are mode-scoped via _applyColorForMode.
+    // All others use an inline <span style="..."> so they apply in both modes.
     _applyInlineStyle(prop, value) {
-      const cssProp = prop.replace(/([A-Z])/g, c => '-' + c.toLowerCase()); // camelCase→kebab
+      // Colours are mode-specific — delegate
+      if (prop === 'color' || prop === 'backgroundColor') {
+        this._applyColorForMode(prop, value);
+        return;
+      }
+
+      const cssProp = prop.replace(/([A-Z])/g, c => '-' + c.toLowerCase());
       const cssVal  = value.replace(/"/g, '\\"');
 
       const sel = window.getSelection();
       const hasSelection = sel && sel.rangeCount > 0 && !sel.isCollapsed;
 
       if (!hasSelection) {
-        // No text highlighted → apply to every character in the active editing box
         const el = this._activeEditEl;
         if (!el) return;
         el.focus();
@@ -590,14 +610,53 @@
         sel.addRange(allRange);
       }
 
-      // Snapshot the selected HTML, then replace via insertHTML (undoable)
       const range = sel.getRangeAt(0);
       const tmp   = document.createElement('div');
       tmp.appendChild(range.cloneContents());
       document.execCommand('insertHTML', false,
         `<span style="${cssProp}:${cssVal}">${tmp.innerHTML}</span>`);
 
-      // Keep _savedRange current after the DOM change
+      if (sel.rangeCount > 0) this._savedRange = sel.getRangeAt(0).cloneRange();
+    },
+
+    // Apply a colour only for the current light/dark mode.
+    // Generates a unique class + a mode-scoped CSS rule so the other mode is unaffected.
+    _applyColorForMode(prop, value) {
+      const cssProp      = prop === 'color' ? 'color' : 'background-color';
+      const isDark       = document.documentElement.classList.contains('dark');
+      const modeSelector = isDark ? 'html.dark' : 'html:not(.dark)';
+      const cls          = 'cms-mc-' + Math.random().toString(36).slice(2, 8);
+
+      // Ensure the shared colour-rules <style> block exists
+      if (!this._colorRulesEl) {
+        let s = document.getElementById('cms-color-rules');
+        if (!s) {
+          s = document.createElement('style');
+          s.id = 'cms-color-rules';
+          document.head.appendChild(s);
+        }
+        this._colorRulesEl = s;
+      }
+      this._colorRulesEl.textContent += `\n${modeSelector} .${cls}{${cssProp}:${value};}`;
+
+      // Ensure something is selected (fall back to whole box)
+      const sel          = window.getSelection();
+      const hasSelection = sel && sel.rangeCount > 0 && !sel.isCollapsed;
+      if (!hasSelection) {
+        const el = this._activeEditEl;
+        if (!el) return;
+        el.focus();
+        const allRange = document.createRange();
+        allRange.selectNodeContents(el);
+        if (allRange.collapsed) return;
+        sel.removeAllRanges();
+        sel.addRange(allRange);
+      }
+
+      const range = sel.getRangeAt(0);
+      const tmp   = document.createElement('div');
+      tmp.appendChild(range.cloneContents());
+      document.execCommand('insertHTML', false, `<span class="${cls}">${tmp.innerHTML}</span>`);
       if (sel.rangeCount > 0) this._savedRange = sel.getRangeAt(0).cloneRange();
     },
 
@@ -815,6 +874,12 @@
 
       const key     = sessionStorage.getItem('srx_cms_auth') || localStorage.getItem('srx_admin_key') || '';
       const entries = Object.values(this.changes);
+
+      // Always persist the full colour-rules block so mode-scoped colours survive reload
+      const styleEl = this._colorRulesEl || document.getElementById('cms-color-rules');
+      if (styleEl && styleEl.textContent.trim()) {
+        entries.push({ selector: '__cms_styles__', idx: 0, value: styleEl.textContent });
+      }
 
       try {
         const res = await fetch(`${API}/content`, {
