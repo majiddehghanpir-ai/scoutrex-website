@@ -1037,8 +1037,13 @@ function showSave(btn){
 const ACCT_API = 'https://scoutrex-app-production.up.railway.app';
 
 function acctLogout() {
+  // Full manual logout — clears lock profile too (clean login screen)
+  if (window.srxLogout) { window.srxLogout('login.html'); return; }
   localStorage.removeItem('sr_token');
   localStorage.removeItem('sr_user');
+  localStorage.removeItem('srx_lock_profile');
+  localStorage.removeItem('srx_lock_return');
+  localStorage.removeItem('srx_session_email');
   window.location.href = 'login.html';
 }
 
@@ -1093,6 +1098,9 @@ async function acctLoadProfile() {
       if (gr) gr.textContent = 'Welcome back, ' + (firstName || 'there') + ' 👋';
       const lg = document.getElementById('acct-avatar-lg');
       if (lg) lg.textContent = initials;
+
+      // Persist email for lock screen profile
+      if (u.email) localStorage.setItem('srx_session_email', u.email);
 
       const fn = document.getElementById('acct-first-name');  if (fn) fn.value = firstName;
       const ln = document.getElementById('acct-last-name');   if (ln) ln.value = lastName;
@@ -1395,5 +1403,6 @@ window.addEventListener('load', updateThemeIcon);
   start();
 })();
 </script>
+<script src="/session.js"></script>
 </body>
 </html>

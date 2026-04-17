@@ -483,10 +483,110 @@ html:not(.dark) .login-left::before   { opacity: 0 !important; }
 let currentType = 'candidate';
 let currentMode = 'login';
 
+// ── Lock screen (inactivity redirect) ────────────────────────
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('mode') !== 'lock') return;
+
+  const profile = JSON.parse(localStorage.getItem('srx_lock_profile') || 'null');
+  if (!profile) return; // No profile — fall through to normal login
+
+  // Hide normal login UI, show lock screen instead
+  document.querySelector('.login-right').innerHTML = `
+    <div class="login-form-wrap" id="lock-wrap">
+      <div style="text-align:center;margin-bottom:28px;">
+        <div id="lock-avatar" style="
+          width:72px;height:72px;border-radius:50%;
+          background:linear-gradient(135deg,#1E1256,#F97316);
+          display:flex;align-items:center;justify-content:center;
+          font-family:'Lora',serif;font-weight:800;font-size:1.6rem;color:#fff;
+          margin:0 auto 14px;box-shadow:0 4px 20px rgba(30,18,86,0.25);
+        ">${profile.initials || '?'}</div>
+        <div style="font-family:'Lora',serif;font-size:1.1rem;font-weight:800;color:var(--text);">${profile.name || 'Welcome back'}</div>
+        <div style="font-size:13px;color:var(--gray-600);margin-top:4px;">${profile.email || ''}</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 12px;border-radius:50px;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);font-size:11px;font-weight:700;color:var(--orange-dark);text-transform:uppercase;letter-spacing:0.5px;">
+          🔒 Session locked
+        </div>
+      </div>
+
+      <div id="lock-error" class="form-error"></div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="lock-password" placeholder="Re-enter your password" autofocus/>
+      </div>
+      <div class="form-forgot"><a href="#">Forgot password?</a></div>
+      <button class="btn-submit" id="lock-submit" onclick="handleUnlock()">Unlock</button>
+
+      <div style="margin-top:20px;text-align:center;font-size:13px;color:var(--gray-600);">
+        Not you? <a href="login.html" onclick="localStorage.removeItem('srx_lock_profile');localStorage.removeItem('srx_lock_return');" style="color:var(--indigo);font-weight:600;">Sign in with a different account</a>
+      </div>
+    </div>`;
+
+  // Unlock handler
+  window.handleUnlock = async function() {
+    const password = document.getElementById('lock-password').value;
+    const errEl    = document.getElementById('lock-error');
+    const btn      = document.getElementById('lock-submit');
+    if (!password) { errEl.textContent = 'Please enter your password.'; errEl.classList.add('show'); return; }
+
+    errEl.classList.remove('show');
+    btn.textContent = 'Unlocking…'; btn.disabled = true;
+
+    const pr = JSON.parse(localStorage.getItem('srx_lock_profile') || '{}');
+    const email = pr.email || '';
+    const role  = pr.role  || '';
+    const returnUrl = localStorage.getItem('srx_lock_return') || (role === 'recruiter' || role === 'admin' ? 'company-account.html' : 'account.html');
+
+    try {
+      const endpoint = (role === 'recruiter' || role === 'admin')
+        ? '/api/auth/company-login' : '/api/auth/login';
+      const res = await fetch(API_URL + endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('sr_token', data.token);
+        localStorage.setItem('sr_user', JSON.stringify({
+          id: data.id, name: data.name, role: data.role,
+          recruiter_role: data.recruiter_role || null,
+          company: data.company || null,
+          permissions: data.permissions || null
+        }));
+        // Clear lock state
+        localStorage.removeItem('srx_lock_profile');
+        localStorage.removeItem('srx_lock_return');
+        window.location.href = returnUrl;
+      } else {
+        errEl.textContent = data.detail || 'Incorrect password. Please try again.';
+        errEl.classList.add('show');
+        document.getElementById('lock-password').value = '';
+        document.getElementById('lock-password').focus();
+        btn.textContent = 'Unlock'; btn.disabled = false;
+      }
+    } catch (_) {
+      errEl.textContent = 'Connection error. Please try again.';
+      errEl.classList.add('show');
+      btn.textContent = 'Unlock'; btn.disabled = false;
+    }
+  };
+
+  // Allow Enter key to submit
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.getElementById('lock-password') === document.activeElement) {
+      handleUnlock();
+    }
+  });
+
+})();
+// ─────────────────────────────────────────────────────────────
+
 // Read URL params
 const params = new URLSearchParams(window.location.search);
 // Default: hide the type toggle (login mode doesn't need it)
-document.getElementById('type-toggle-wrap').style.display = 'none';
+document.getElementById('type-toggle-wrap') && (document.getElementById('type-toggle-wrap').style.display = 'none');
 if(params.get('mode')==='register') setMode('register');
 if(params.get('type')==='company') setType('company');
 

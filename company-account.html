@@ -664,8 +664,13 @@ let _caProfile = null; // cached profile for discard
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 function caLogout() {
+  // Full manual logout — clears lock profile too (clean login screen)
+  if (window.srxLogout) { window.srxLogout('login.html'); return; }
   localStorage.removeItem('sr_token');
   localStorage.removeItem('sr_user');
+  localStorage.removeItem('srx_lock_profile');
+  localStorage.removeItem('srx_lock_return');
+  localStorage.removeItem('srx_session_email');
   window.location.href = 'login.html';
 }
 
@@ -755,6 +760,9 @@ async function caLoadProfile() {
     setEl('ca-stat-company', companyName);
     setEl('ca-company-role-line', roleLabel + ' at ' + companyName);
     setEl('ca-stat-role', roleLabel);
+    // Persist email for lock screen profile
+    if (u.email) localStorage.setItem('srx_session_email', u.email);
+
     setEl('ca-info-email', u.email || '—');
     setEl('ca-profile-fullname', u.name || '—');
     setEl('ca-profile-role-line', roleLabel + (companyName !== '—' ? ' · ' + companyName : ''));
@@ -947,5 +955,6 @@ caLoadProfile();
   start();
 })();
 </script>
+<script src="/session.js"></script>
 </body>
 </html>

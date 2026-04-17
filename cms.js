@@ -42,10 +42,136 @@
       await this._applyOverrides();
 
       const params = new URLSearchParams(location.search);
-      if (params.get('cms') === 'edit' && localStorage.getItem('srx_admin_key')) {
-        // Small delay so page finishes painting
-        setTimeout(() => this._enableEditMode(), 100);
+      if (params.get('cms') === 'edit') {
+        // Always require password — never skip this, even if key is cached
+        setTimeout(() => this._showAuthModal(), 120);
       }
+    },
+
+    /* ── Auth modal ─────────────────────────────────────────── */
+
+    _showAuthModal() {
+      const overlay = document.createElement('div');
+      overlay.id = 'cms-auth-overlay';
+      overlay.innerHTML = `
+        <div id="cms-auth-box">
+          <div id="cms-auth-logo">
+            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="10" fill="#1E1256"/>
+              <text x="20" y="27" text-anchor="middle" font-size="18" font-weight="800"
+                font-family="serif" fill="#F97316">S</text>
+            </svg>
+            <span>ScoutRex CMS</span>
+          </div>
+          <h2 id="cms-auth-title">Admin Access Required</h2>
+          <p id="cms-auth-sub">Enter your admin API key to enter edit mode for <strong>${this.page}</strong>.</p>
+          <div id="cms-auth-error"></div>
+          <input id="cms-auth-input" type="password" placeholder="Admin API key" autocomplete="current-password"/>
+          <button id="cms-auth-btn">Unlock Edit Mode</button>
+          <a id="cms-auth-cancel" href="#">Cancel</a>
+        </div>`;
+
+      const style = document.createElement('style');
+      style.textContent = `
+        #cms-auth-overlay {
+          position:fixed;inset:0;z-index:2147483647;
+          background:rgba(7,5,26,0.85);backdrop-filter:blur(6px);
+          display:flex;align-items:center;justify-content:center;
+          font-family:'Inter',sans-serif;
+        }
+        #cms-auth-box {
+          background:#fff;border-radius:20px;padding:40px;width:380px;max-width:90vw;
+          box-shadow:0 32px 80px rgba(0,0,0,0.4);text-align:center;
+        }
+        html.dark #cms-auth-box { background:#1C1836; }
+        #cms-auth-logo {
+          display:flex;align-items:center;justify-content:center;gap:10px;
+          font-family:'Lora',serif;font-size:17px;font-weight:800;
+          color:#1E1256;margin-bottom:20px;
+        }
+        html.dark #cms-auth-logo { color:#F1F0F9; }
+        #cms-auth-title {
+          font-family:'Lora',serif;font-size:1.35rem;font-weight:800;
+          color:#1E1256;margin-bottom:8px;
+        }
+        html.dark #cms-auth-title { color:#F1F0F9; }
+        #cms-auth-sub { font-size:13px;color:#6B7280;margin-bottom:22px;line-height:1.6; }
+        html.dark #cms-auth-sub { color:#A09BBF; }
+        #cms-auth-error {
+          background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);
+          border-radius:8px;padding:9px 14px;font-size:13px;color:#B91C1C;
+          margin-bottom:14px;display:none;
+        }
+        #cms-auth-error.show { display:block; }
+        #cms-auth-input {
+          width:100%;padding:13px 16px;border:1.5px solid #E5E7EB;border-radius:10px;
+          font-size:14px;font-family:'Inter',sans-serif;color:#0F0A2E;
+          background:#fff;outline:none;margin-bottom:14px;box-sizing:border-box;
+          transition:border-color 0.2s,box-shadow 0.2s;
+        }
+        #cms-auth-input:focus { border-color:#1E1256;box-shadow:0 0 0 3px rgba(30,18,86,0.08); }
+        html.dark #cms-auth-input { background:#110F26;border-color:#2D2850;color:#F1F0F9; }
+        html.dark #cms-auth-input:focus { border-color:#3D2CAE;box-shadow:0 0 0 3px rgba(93,78,214,0.15); }
+        #cms-auth-btn {
+          width:100%;padding:13px;background:#1E1256;color:#fff;border:none;
+          border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;
+          font-family:'Inter',sans-serif;transition:all 0.2s;margin-bottom:14px;
+          box-shadow:0 4px 16px rgba(30,18,86,0.25);
+        }
+        #cms-auth-btn:hover { background:#2D1B8E;transform:translateY(-1px); }
+        #cms-auth-btn:disabled { background:#9CA3AF;cursor:default;transform:none; }
+        #cms-auth-cancel { font-size:13px;color:#6B7280;text-decoration:none; }
+        #cms-auth-cancel:hover { color:#1E1256; }
+        html.dark #cms-auth-cancel { color:#A09BBF; }
+        html.dark #cms-auth-cancel:hover { color:#F1F0F9; }
+      `;
+      document.head.appendChild(style);
+      document.body.appendChild(overlay);
+
+      const input = document.getElementById('cms-auth-input');
+      const btn   = document.getElementById('cms-auth-btn');
+      const errEl = document.getElementById('cms-auth-error');
+
+      input.focus();
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+
+      btn.addEventListener('click', async () => {
+        const key = input.value.trim();
+        if (!key) { errEl.textContent = 'Please enter your admin API key.'; errEl.classList.add('show'); return; }
+        errEl.classList.remove('show');
+        btn.textContent = 'Verifying…'; btn.disabled = true;
+
+        try {
+          // Validate by hitting a protected endpoint
+          const res = await fetch('/api/messages?limit=1', {
+            headers: { 'Authorization': `Bearer ${key}` }
+          });
+          if (res.ok) {
+            // Valid — store for this session only (not localStorage)
+            sessionStorage.setItem('srx_cms_auth', key);
+            overlay.remove();
+            style.remove();
+            this._enableEditMode();
+          } else {
+            errEl.textContent = 'Incorrect API key. Please try again.';
+            errEl.classList.add('show');
+            input.value = '';
+            input.focus();
+            btn.textContent = 'Unlock Edit Mode'; btn.disabled = false;
+          }
+        } catch (_) {
+          errEl.textContent = 'Could not verify — check your connection.';
+          errEl.classList.add('show');
+          btn.textContent = 'Unlock Edit Mode'; btn.disabled = false;
+        }
+      });
+
+      document.getElementById('cms-auth-cancel').addEventListener('click', e => {
+        e.preventDefault();
+        const u = new URL(location.href);
+        u.searchParams.delete('cms');
+        location.href = u.toString();
+      });
     },
 
     /* ── Apply saved overrides on normal page load ──────────── */
@@ -242,7 +368,7 @@
       const saveBtn = document.getElementById('cms-save');
       if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '⏳ Saving…'; }
 
-      const key     = localStorage.getItem('srx_admin_key') || '';
+      const key     = sessionStorage.getItem('srx_cms_auth') || localStorage.getItem('srx_admin_key') || '';
       const entries = Object.values(this.changes);
 
       try {
