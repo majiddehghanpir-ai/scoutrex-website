@@ -4,6 +4,25 @@
    Stage 1: Accept All / Customize
    Stage 2: Per-category toggles (only if Customize chosen)
    ============================================================ */
+
+/* ── Dark-mode ambient orbs (injected on all pages) ────────── */
+(function () {
+  var style = document.createElement('style');
+  style.id = 'sr-dark-orbs';
+  style.textContent = [
+    'html.dark body::before{',
+    '  content:"";',
+    '  position:fixed;inset:0;pointer-events:none;z-index:0;',
+    '  background:',
+    '    radial-gradient(ellipse at 12% 25%,rgba(249,115,22,0.10) 0%,transparent 45%),',
+    '    radial-gradient(ellipse at 88% 15%,rgba(93,78,214,0.16) 0%,transparent 45%),',
+    '    radial-gradient(ellipse at 55% 85%,rgba(30,18,86,0.18) 0%,transparent 50%);',
+    '}',
+    'html.dark body>*{position:relative;z-index:1}',
+  ].join('');
+  document.head.appendChild(style);
+})();
+
 (function () {
   'use strict';
 
