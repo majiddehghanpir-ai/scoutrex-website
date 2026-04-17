@@ -34,6 +34,7 @@
     page: null,
     changes: {},       // key → {selector, idx, value}
     originals: {},     // key → original innerHTML
+    _savedRange: null, // saved selection for focus-stealing controls
 
     /* ── Public API ─────────────────────────────────────────── */
 
@@ -466,35 +467,73 @@
         if (url) document.execCommand('createLink', false, url);
       });
 
-      // Style select
-      document.getElementById('cms-sel-style').addEventListener('change', e => {
+      // Style select — save selection before dropdown opens, restore before command
+      const selStyle = document.getElementById('cms-sel-style');
+      selStyle.addEventListener('mousedown', () => this._saveSelection());
+      selStyle.addEventListener('change', e => {
+        this._restoreSelection();
         document.execCommand('formatBlock', false, e.target.value);
       });
 
       // Font family
-      document.getElementById('cms-sel-font').addEventListener('change', e => {
+      const selFont = document.getElementById('cms-sel-font');
+      selFont.addEventListener('mousedown', () => this._saveSelection());
+      selFont.addEventListener('change', e => {
+        this._restoreSelection();
         document.execCommand('fontName', false, e.target.value);
       });
 
-      // Font size (map px value → execCommand size 1-7 then fix up)
-      document.getElementById('cms-sel-size').addEventListener('change', e => {
+      // Font size
+      const selSize = document.getElementById('cms-sel-size');
+      selSize.addEventListener('mousedown', () => this._saveSelection());
+      selSize.addEventListener('change', e => {
+        this._restoreSelection();
         this._applyFontSize(e.target.value + 'px');
       });
 
-      // Text color
-      document.getElementById('cms-txt-color').addEventListener('input', e => {
+      // Text color — save on mousedown, restore before applying
+      const txtColor = document.getElementById('cms-txt-color');
+      txtColor.addEventListener('mousedown', () => this._saveSelection());
+      txtColor.addEventListener('input', e => {
+        this._restoreSelection();
         document.getElementById('cms-color-bar').style.background = e.target.value;
         document.execCommand('foreColor', false, e.target.value);
       });
 
       // Highlight color
-      document.getElementById('cms-hl-color').addEventListener('input', e => {
+      const hlColor = document.getElementById('cms-hl-color');
+      hlColor.addEventListener('mousedown', () => this._saveSelection());
+      hlColor.addEventListener('input', e => {
+        this._restoreSelection();
         document.getElementById('cms-hl-bar').style.background = e.target.value;
         document.execCommand('hiliteColor', false, e.target.value);
       });
 
-      // Keep toolbar state in sync with cursor
-      document.addEventListener('selectionchange', () => this._syncRibbon());
+      // Keep toolbar state in sync with cursor + save selection for focus-stealers
+      document.addEventListener('selectionchange', () => {
+        this._syncRibbon();
+        // Only save if we're inside a cms-editing element
+        const active = document.activeElement;
+        if (active && active.getAttribute('contenteditable') === 'true' && active.hasAttribute('data-cms-id')) {
+          this._saveSelection();
+        }
+      });
+    },
+
+    /* ── Selection save/restore (for selects & color pickers) ── */
+
+    _saveSelection() {
+      const sel = window.getSelection();
+      if (sel && sel.rangeCount > 0) {
+        this._savedRange = sel.getRangeAt(0).cloneRange();
+      }
+    },
+
+    _restoreSelection() {
+      if (!this._savedRange) return;
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(this._savedRange);
     },
 
     _applyFontSize(px) {
