@@ -203,40 +203,102 @@
       const s = document.createElement('style');
       s.id = 'cms-styles';
       s.textContent = `
+        /* ── Main toolbar shell ───────────────────────────────── */
         #cms-toolbar {
           position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647;
           background: #1E1256; color: #fff;
-          padding: 0 20px; height: 50px;
-          display: flex; align-items: center; gap: 12px;
           font-family: 'Inter', sans-serif; font-size: 13px;
-          box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+          box-shadow: 0 3px 20px rgba(0,0,0,0.45);
         }
-        #cms-toolbar-title { font-weight: 700; flex: 1; }
+        /* Row 1 — title + action buttons */
+        #cms-row1 {
+          display: flex; align-items: center; gap: 10px;
+          padding: 0 16px; height: 46px;
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        #cms-toolbar-title { font-weight: 700; flex: 1; font-size: 13px; }
         #cms-toolbar-title span { color: #FB923C; }
-        #cms-count { font-size: 12px; color: #FB923C; font-weight: 600; min-width: 120px; text-align:right; }
+        #cms-count { font-size: 12px; color: #FB923C; font-weight: 600; }
         .cms-btn {
-          padding: 7px 16px; border-radius: 8px; border: none;
+          padding: 6px 14px; border-radius: 8px; border: none;
           cursor: pointer; font-size: 12px; font-weight: 600;
-          font-family: 'Inter', sans-serif; transition: opacity 0.15s;
+          font-family: 'Inter', sans-serif; transition: all 0.15s; white-space: nowrap;
         }
-        .cms-btn:hover { opacity: 0.85; }
         #cms-save { background: #F97316; color: #fff; }
-        #cms-save:disabled { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.4); cursor: default; opacity: 1; }
-        #cms-reset { background: rgba(255,255,255,0.1); color: #fff; }
-        #cms-exit  { background: rgba(220,38,38,0.25); color: #fff; }
-        body { padding-top: 50px !important; }
+        #cms-save:hover { background: #ea6c0a; }
+        #cms-save:disabled { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); cursor: default; }
+        #cms-reset { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+        #cms-reset:hover { background: rgba(255,255,255,0.18); }
+        #cms-exit  { background: rgba(220,38,38,0.3); color: #fff; }
+        #cms-exit:hover { background: rgba(220,38,38,0.5); }
 
+        /* Row 2 — formatting ribbon */
+        #cms-ribbon {
+          display: flex; align-items: center; gap: 2px;
+          padding: 5px 12px; height: 44px; flex-wrap: nowrap; overflow-x: auto;
+          background: #28197A;
+        }
+        #cms-ribbon::-webkit-scrollbar { height: 3px; }
+        #cms-ribbon::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+        #cms-ribbon.cms-ribbon-off { opacity: 0.4; pointer-events: none; }
+
+        /* Groups & separators */
+        .cms-grp { display: flex; align-items: center; gap: 1px; }
+        .cms-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.15); margin: 0 6px; flex-shrink: 0; }
+
+        /* Ribbon selects */
+        .cms-sel {
+          height: 28px; padding: 0 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.18);
+          background: rgba(255,255,255,0.08); color: #fff; font-size: 12px;
+          font-family: 'Inter', sans-serif; cursor: pointer; outline: none;
+          transition: background 0.15s;
+        }
+        .cms-sel:hover, .cms-sel:focus { background: rgba(255,255,255,0.16); }
+        .cms-sel option { background: #1E1256; color: #fff; }
+        #cms-sel-style { width: 100px; }
+        #cms-sel-font  { width: 90px; }
+        #cms-sel-size  { width: 54px; }
+
+        /* Ribbon icon buttons */
+        .cms-rb {
+          display: inline-flex; align-items: center; justify-content: center;
+          width: 28px; height: 28px; border-radius: 5px; border: none;
+          background: transparent; color: #fff; font-size: 13px;
+          cursor: pointer; transition: background 0.12s; flex-shrink: 0;
+          font-family: 'Inter', sans-serif;
+        }
+        .cms-rb:hover { background: rgba(255,255,255,0.18); }
+        .cms-rb.cms-active { background: rgba(249,115,22,0.45); color: #fff; }
+        .cms-rb[title]::after { content: attr(title); }
+
+        /* Color pickers */
+        .cms-color-wrap {
+          position: relative; width: 28px; height: 28px;
+          border-radius: 5px; overflow: hidden; cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          background: transparent; transition: background 0.12s;
+        }
+        .cms-color-wrap:hover { background: rgba(255,255,255,0.18); }
+        .cms-color-wrap input[type=color] {
+          position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+        }
+        .cms-color-icon { font-size: 14px; font-weight: 800; pointer-events: none; }
+        .cms-color-bar {
+          position: absolute; bottom: 3px; left: 5px; right: 5px; height: 3px;
+          border-radius: 2px; pointer-events: none;
+        }
+
+        /* Page elements */
+        body { padding-top: 90px !important; }
         [data-cms-id] { cursor: pointer; transition: outline 0.12s; outline: 2px solid transparent; outline-offset: 3px; }
         [data-cms-id]:hover { outline: 2px dashed rgba(249,115,22,0.55) !important; }
         [data-cms-id].cms-editing {
           outline: 2px solid #F97316 !important;
-          background: rgba(249,115,22,0.07) !important;
-          border-radius: 4px;
-          min-height: 1em;
+          background: rgba(249,115,22,0.06) !important;
+          border-radius: 4px; min-height: 1em;
         }
-        [data-cms-id].cms-dirty { outline: 2px dashed #10B981 !important; }
-        [data-cms-id].cms-saved { outline: 2px solid #10B981 !important; }
-
+        [data-cms-id].cms-dirty  { outline: 2px dashed #10B981 !important; }
+        [data-cms-id].cms-saved  { outline: 2px solid  #10B981 !important; }
         #cms-hint {
           position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
           background: rgba(30,18,86,0.95); color: rgba(255,255,255,0.8);
@@ -252,12 +314,112 @@
       const bar = document.createElement('div');
       bar.id = 'cms-toolbar';
       bar.innerHTML = `
-        <div id="cms-toolbar-title">✏️ CMS Edit Mode — <span>${this.page}</span></div>
-        <div id="cms-count"></div>
-        <button class="cms-btn" id="cms-reset">↩ Reset All</button>
-        <button class="cms-btn" id="cms-save" disabled>💾 Save Changes</button>
-        <button class="cms-btn" id="cms-exit">✕ Exit</button>
-      `;
+        <!-- Row 1: title + save/exit -->
+        <div id="cms-row1">
+          <div id="cms-toolbar-title">✏️ CMS Edit Mode — <span>${this.page}</span></div>
+          <div id="cms-count"></div>
+          <button class="cms-btn" id="cms-reset">↩ Reset All</button>
+          <button class="cms-btn" id="cms-save" disabled>💾 Save Changes</button>
+          <button class="cms-btn" id="cms-exit">✕ Exit</button>
+        </div>
+
+        <!-- Row 2: Word-style formatting ribbon -->
+        <div id="cms-ribbon" class="cms-ribbon-off">
+
+          <!-- Undo / Redo -->
+          <div class="cms-grp">
+            <button class="cms-rb" id="cmsr-undo" title="Undo (Ctrl+Z)">↶</button>
+            <button class="cms-rb" id="cmsr-redo" title="Redo (Ctrl+Y)">↷</button>
+          </div>
+          <div class="cms-sep"></div>
+
+          <!-- Paragraph style -->
+          <div class="cms-grp">
+            <select class="cms-sel" id="cms-sel-style" title="Paragraph style">
+              <option value="p">Normal</option>
+              <option value="h1">Heading 1</option>
+              <option value="h2">Heading 2</option>
+              <option value="h3">Heading 3</option>
+              <option value="h4">Heading 4</option>
+              <option value="blockquote">Quote</option>
+              <option value="pre">Code</option>
+            </select>
+          </div>
+          <div class="cms-sep"></div>
+
+          <!-- Font family + size -->
+          <div class="cms-grp">
+            <select class="cms-sel" id="cms-sel-font" title="Font family">
+              <option value="Inter,sans-serif">Inter</option>
+              <option value="'Lora',serif">Lora</option>
+              <option value="Arial,sans-serif">Arial</option>
+              <option value="Georgia,serif">Georgia</option>
+              <option value="'Times New Roman',serif">Times New Roman</option>
+              <option value="'Courier New',monospace">Courier New</option>
+              <option value="Verdana,sans-serif">Verdana</option>
+              <option value="Tahoma,sans-serif">Tahoma</option>
+            </select>
+            <select class="cms-sel" id="cms-sel-size" title="Font size (px)">
+              <option>10</option><option>12</option><option>14</option>
+              <option selected>16</option><option>18</option><option>20</option>
+              <option>24</option><option>28</option><option>32</option>
+              <option>36</option><option>48</option><option>64</option><option>72</option>
+            </select>
+          </div>
+          <div class="cms-sep"></div>
+
+          <!-- Bold / Italic / Underline / Strikethrough -->
+          <div class="cms-grp">
+            <button class="cms-rb" id="cmsr-bold"   title="Bold (Ctrl+B)"><b>B</b></button>
+            <button class="cms-rb" id="cmsr-italic" title="Italic (Ctrl+I)"><i>I</i></button>
+            <button class="cms-rb" id="cmsr-under"  title="Underline (Ctrl+U)"><u>U</u></button>
+            <button class="cms-rb" id="cmsr-strike" title="Strikethrough"><s>S</s></button>
+            <button class="cms-rb" id="cmsr-super"  title="Superscript" style="font-size:10px">x²</button>
+            <button class="cms-rb" id="cmsr-sub"    title="Subscript"   style="font-size:10px">x₂</button>
+          </div>
+          <div class="cms-sep"></div>
+
+          <!-- Text & highlight color -->
+          <div class="cms-grp">
+            <div class="cms-color-wrap" title="Text color">
+              <span class="cms-color-icon" style="color:#fff">A</span>
+              <div class="cms-color-bar" id="cms-color-bar" style="background:#ffffff"></div>
+              <input type="color" id="cms-txt-color" value="#ffffff">
+            </div>
+            <div class="cms-color-wrap" title="Highlight color">
+              <span class="cms-color-icon">🖊</span>
+              <div class="cms-color-bar" id="cms-hl-bar" style="background:#ffff00"></div>
+              <input type="color" id="cms-hl-color" value="#ffff00">
+            </div>
+            <button class="cms-rb" id="cmsr-clr-fmt" title="Clear formatting" style="font-size:11px">✕ fmt</button>
+          </div>
+          <div class="cms-sep"></div>
+
+          <!-- Alignment -->
+          <div class="cms-grp">
+            <button class="cms-rb" id="cmsr-left"    title="Align left">⬛◻◻</button>
+            <button class="cms-rb" id="cmsr-center"  title="Center">◻⬛◻</button>
+            <button class="cms-rb" id="cmsr-right"   title="Align right">◻◻⬛</button>
+            <button class="cms-rb" id="cmsr-justify" title="Justify">▬▬▬</button>
+          </div>
+          <div class="cms-sep"></div>
+
+          <!-- Lists + indent -->
+          <div class="cms-grp">
+            <button class="cms-rb" id="cmsr-ul"      title="Bullet list">• ≡</button>
+            <button class="cms-rb" id="cmsr-ol"      title="Numbered list">1.≡</button>
+            <button class="cms-rb" id="cmsr-outdent" title="Decrease indent">⇤</button>
+            <button class="cms-rb" id="cmsr-indent"  title="Increase indent">⇥</button>
+          </div>
+          <div class="cms-sep"></div>
+
+          <!-- Link -->
+          <div class="cms-grp">
+            <button class="cms-rb" id="cmsr-link"   title="Insert link">🔗</button>
+            <button class="cms-rb" id="cmsr-unlink" title="Remove link">🔗✕</button>
+          </div>
+
+        </div>`;
       document.body.prepend(bar);
 
       const hint = document.createElement('div');
@@ -266,13 +428,117 @@
       document.body.appendChild(hint);
       setTimeout(() => { hint.style.opacity = '0'; setTimeout(() => hint.remove(), 400); }, 3500);
 
-      document.getElementById('cms-save').addEventListener('click', () => this._saveAll());
+      // Row 1 buttons
+      document.getElementById('cms-save').addEventListener('click',  () => this._saveAll());
       document.getElementById('cms-reset').addEventListener('click', () => this._resetAll());
-      document.getElementById('cms-exit').addEventListener('click', () => {
+      document.getElementById('cms-exit').addEventListener('click',  () => {
         const u = new URL(location.href);
         u.searchParams.delete('cms');
         location.href = u.toString();
       });
+
+      // Ribbon commands (mousedown to prevent blur on contenteditable)
+      const rb = (id, fn) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('mousedown', e => { e.preventDefault(); fn(); });
+      };
+
+      rb('cmsr-undo',    () => document.execCommand('undo'));
+      rb('cmsr-redo',    () => document.execCommand('redo'));
+      rb('cmsr-bold',    () => document.execCommand('bold'));
+      rb('cmsr-italic',  () => document.execCommand('italic'));
+      rb('cmsr-under',   () => document.execCommand('underline'));
+      rb('cmsr-strike',  () => document.execCommand('strikeThrough'));
+      rb('cmsr-super',   () => document.execCommand('superscript'));
+      rb('cmsr-sub',     () => document.execCommand('subscript'));
+      rb('cmsr-left',    () => document.execCommand('justifyLeft'));
+      rb('cmsr-center',  () => document.execCommand('justifyCenter'));
+      rb('cmsr-right',   () => document.execCommand('justifyRight'));
+      rb('cmsr-justify', () => document.execCommand('justifyFull'));
+      rb('cmsr-ul',      () => document.execCommand('insertUnorderedList'));
+      rb('cmsr-ol',      () => document.execCommand('insertOrderedList'));
+      rb('cmsr-outdent', () => document.execCommand('outdent'));
+      rb('cmsr-indent',  () => document.execCommand('indent'));
+      rb('cmsr-clr-fmt', () => { document.execCommand('removeFormat'); document.execCommand('unlink'); });
+      rb('cmsr-unlink',  () => document.execCommand('unlink'));
+      rb('cmsr-link',    () => {
+        const url = prompt('Enter URL:');
+        if (url) document.execCommand('createLink', false, url);
+      });
+
+      // Style select
+      document.getElementById('cms-sel-style').addEventListener('change', e => {
+        document.execCommand('formatBlock', false, e.target.value);
+      });
+
+      // Font family
+      document.getElementById('cms-sel-font').addEventListener('change', e => {
+        document.execCommand('fontName', false, e.target.value);
+      });
+
+      // Font size (map px value → execCommand size 1-7 then fix up)
+      document.getElementById('cms-sel-size').addEventListener('change', e => {
+        this._applyFontSize(e.target.value + 'px');
+      });
+
+      // Text color
+      document.getElementById('cms-txt-color').addEventListener('input', e => {
+        document.getElementById('cms-color-bar').style.background = e.target.value;
+        document.execCommand('foreColor', false, e.target.value);
+      });
+
+      // Highlight color
+      document.getElementById('cms-hl-color').addEventListener('input', e => {
+        document.getElementById('cms-hl-bar').style.background = e.target.value;
+        document.execCommand('hiliteColor', false, e.target.value);
+      });
+
+      // Keep toolbar state in sync with cursor
+      document.addEventListener('selectionchange', () => this._syncRibbon());
+    },
+
+    _applyFontSize(px) {
+      // execCommand fontSize only does 1-7; use temp marker then replace with span
+      document.execCommand('fontSize', false, '7');
+      document.querySelectorAll('font[size="7"]').forEach(font => {
+        const span = document.createElement('span');
+        span.style.fontSize = px;
+        while (font.firstChild) span.appendChild(font.firstChild);
+        font.parentNode.replaceChild(span, font);
+      });
+    },
+
+    _activateRibbon() {
+      const r = document.getElementById('cms-ribbon');
+      if (r) r.classList.remove('cms-ribbon-off');
+      this._syncRibbon();
+    },
+
+    _deactivateRibbon() {
+      const r = document.getElementById('cms-ribbon');
+      if (r) r.classList.add('cms-ribbon-off');
+    },
+
+    _syncRibbon() {
+      // Only sync if something is being edited
+      if (!document.querySelector('[data-cms-id][contenteditable="true"]')) return;
+      const active = (cmd) => { try { return document.queryCommandState(cmd); } catch (_) { return false; } };
+      const toggle = (id, cmd) => {
+        const b = document.getElementById(id);
+        if (b) b.classList.toggle('cms-active', active(cmd));
+      };
+      toggle('cmsr-bold',    'bold');
+      toggle('cmsr-italic',  'italic');
+      toggle('cmsr-under',   'underline');
+      toggle('cmsr-strike',  'strikeThrough');
+      toggle('cmsr-super',   'superscript');
+      toggle('cmsr-sub',     'subscript');
+      toggle('cmsr-left',    'justifyLeft');
+      toggle('cmsr-center',  'justifyCenter');
+      toggle('cmsr-right',   'justifyRight');
+      toggle('cmsr-justify', 'justifyFull');
+      toggle('cmsr-ul',      'insertUnorderedList');
+      toggle('cmsr-ol',      'insertOrderedList');
     },
 
     _markEditables() {
@@ -314,6 +580,7 @@
       el.classList.add('cms-editing');
       el.classList.remove('cms-dirty');
       el.focus();
+      this._activateRibbon();
 
       // Place cursor at end
       const range = document.createRange();
@@ -337,6 +604,7 @@
     _commitEdit(el) {
       el.contentEditable = 'false';
       el.classList.remove('cms-editing');
+      this._deactivateRibbon();
 
       const key      = el._cmsKey;
       const selector = el._cmsSelector;
