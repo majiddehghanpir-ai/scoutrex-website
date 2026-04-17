@@ -234,8 +234,8 @@
 
         /* Row 2 — formatting ribbon */
         #cms-ribbon {
-          display: flex; align-items: center; gap: 2px;
-          padding: 5px 12px; height: 44px; flex-wrap: nowrap; overflow-x: auto;
+          display: flex; align-items: center; gap: 1px;
+          padding: 4px 10px; height: 42px; flex-wrap: nowrap; overflow-x: auto;
           background: #28197A;
         }
         #cms-ribbon::-webkit-scrollbar { height: 3px; }
@@ -262,14 +262,14 @@
         /* Ribbon icon buttons */
         .cms-rb {
           display: inline-flex; align-items: center; justify-content: center;
-          width: 28px; height: 28px; border-radius: 5px; border: none;
+          width: 30px; height: 28px; border-radius: 5px; border: none;
           background: transparent; color: #fff; font-size: 13px;
           cursor: pointer; transition: background 0.12s; flex-shrink: 0;
-          font-family: 'Inter', sans-serif;
+          font-family: 'Inter', sans-serif; white-space: nowrap; overflow: hidden;
+          position: relative;
         }
         .cms-rb:hover { background: rgba(255,255,255,0.18); }
         .cms-rb.cms-active { background: rgba(249,115,22,0.45); color: #fff; }
-        .cms-rb[title]::after { content: attr(title); }
 
         /* Color pickers */
         .cms-color-wrap {
@@ -391,32 +391,32 @@
               <div class="cms-color-bar" id="cms-hl-bar" style="background:#ffff00"></div>
               <input type="color" id="cms-hl-color" value="#ffff00">
             </div>
-            <button class="cms-rb" id="cmsr-clr-fmt" title="Clear formatting" style="font-size:11px">✕ fmt</button>
+            <button class="cms-rb" id="cmsr-clr-fmt" title="Clear formatting" style="font-size:11px;width:36px">&#x2715;fmt</button>
           </div>
           <div class="cms-sep"></div>
 
           <!-- Alignment -->
           <div class="cms-grp">
-            <button class="cms-rb" id="cmsr-left"    title="Align left">⬛◻◻</button>
-            <button class="cms-rb" id="cmsr-center"  title="Center">◻⬛◻</button>
-            <button class="cms-rb" id="cmsr-right"   title="Align right">◻◻⬛</button>
-            <button class="cms-rb" id="cmsr-justify" title="Justify">▬▬▬</button>
+            <button class="cms-rb" id="cmsr-left"    title="Align left">&#8676;</button>
+            <button class="cms-rb" id="cmsr-center"  title="Center">&#8801;</button>
+            <button class="cms-rb" id="cmsr-right"   title="Align right">&#8677;</button>
+            <button class="cms-rb" id="cmsr-justify" title="Justify">&#10972;</button>
           </div>
           <div class="cms-sep"></div>
 
           <!-- Lists + indent -->
           <div class="cms-grp">
-            <button class="cms-rb" id="cmsr-ul"      title="Bullet list">• ≡</button>
-            <button class="cms-rb" id="cmsr-ol"      title="Numbered list">1.≡</button>
-            <button class="cms-rb" id="cmsr-outdent" title="Decrease indent">⇤</button>
-            <button class="cms-rb" id="cmsr-indent"  title="Increase indent">⇥</button>
+            <button class="cms-rb" id="cmsr-ul"      title="Bullet list">&#8226;&#8801;</button>
+            <button class="cms-rb" id="cmsr-ol"      title="Numbered list">1&#8801;</button>
+            <button class="cms-rb" id="cmsr-outdent" title="Decrease indent">&#8647;</button>
+            <button class="cms-rb" id="cmsr-indent"  title="Increase indent">&#8649;</button>
           </div>
           <div class="cms-sep"></div>
 
           <!-- Link -->
           <div class="cms-grp">
-            <button class="cms-rb" id="cmsr-link"   title="Insert link">🔗</button>
-            <button class="cms-rb" id="cmsr-unlink" title="Remove link">🔗✕</button>
+            <button class="cms-rb" id="cmsr-link"   title="Insert link">&#128279;</button>
+            <button class="cms-rb" id="cmsr-unlink" title="Remove link" style="font-size:11px">&#128279;&#x2715;</button>
           </div>
 
         </div>`;
