@@ -242,6 +242,53 @@ export default {
       return json({ success: true }, 200, origin);
     }
 
+    // ══════════════════════════════════════════════════════════════════════
+    //  CMS CONTENT OVERRIDES
+    // ══════════════════════════════════════════════════════════════════════
+
+    // GET /api/content?page=xxx  — public: fetch all overrides for a page
+    if (method === 'GET' && path === '/api/content') {
+      const page = url.searchParams.get('page');
+      if (!page) return json({ error: 'page param required' }, 400, origin);
+      const { results } = await env.DB.prepare(
+        `SELECT id, selector, idx, value, updated_at FROM content_overrides WHERE page = ? ORDER BY id ASC`
+      ).bind(page).all();
+      return json({ content: results || [] }, 200, origin);
+    }
+
+    // PUT /api/content  — admin: upsert array of changes for a page
+    if (method === 'PUT' && path === '/api/content') {
+      if (!isAdmin(request, env)) return unauthorized(origin);
+      let body;
+      try { body = await request.json(); } catch { return json({ error: 'Invalid JSON' }, 400, origin); }
+      const { page, changes } = body;
+      if (!page || !Array.isArray(changes)) return json({ error: 'page and changes[] required' }, 422, origin);
+      for (const c of changes) {
+        const { selector, idx = 0, value } = c;
+        if (!selector || value == null) continue;
+        await env.DB.prepare(
+          `INSERT INTO content_overrides (page, selector, idx, value, updated_at)
+           VALUES (?, ?, ?, ?, datetime('now'))
+           ON CONFLICT(page, selector, idx) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`
+        ).bind(page, selector, idx, value).run();
+      }
+      return json({ success: true, saved: changes.length }, 200, origin);
+    }
+
+    // DELETE /api/content  — admin: remove a specific override or all overrides for a page
+    if (method === 'DELETE' && path === '/api/content') {
+      if (!isAdmin(request, env)) return unauthorized(origin);
+      const page = url.searchParams.get('page');
+      const id   = url.searchParams.get('id');
+      if (!page) return json({ error: 'page param required' }, 400, origin);
+      if (id) {
+        await env.DB.prepare(`DELETE FROM content_overrides WHERE id = ? AND page = ?`).bind(id, page).run();
+      } else {
+        await env.DB.prepare(`DELETE FROM content_overrides WHERE page = ?`).bind(page).run();
+      }
+      return json({ success: true }, 200, origin);
+    }
+
     return json({ error: 'Not found' }, 404, origin);
   },
 };

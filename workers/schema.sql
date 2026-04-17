@@ -33,6 +33,19 @@ CREATE TABLE IF NOT EXISTS team_members (
 
 CREATE INDEX IF NOT EXISTS idx_team_order ON team_members(display_order ASC);
 
+-- ── CMS content overrides ─────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS content_overrides (
+  id          INTEGER  PRIMARY KEY AUTOINCREMENT,
+  page        TEXT     NOT NULL,
+  selector    TEXT     NOT NULL,
+  idx         INTEGER  NOT NULL DEFAULT 0,
+  value       TEXT     NOT NULL,
+  updated_at  DATETIME NOT NULL DEFAULT (datetime('now')),
+  UNIQUE(page, selector, idx)
+);
+
+CREATE INDEX IF NOT EXISTS idx_content_page ON content_overrides(page);
+
 -- ── Seed: real team members ───────────────────────────────────────────────────
 -- Run this only once after creating the table (skip if already seeded).
 INSERT OR IGNORE INTO team_members (id, name, role, department, email, linkedin, photo, display_order, visible)
