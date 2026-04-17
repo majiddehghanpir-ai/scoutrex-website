@@ -1055,6 +1055,19 @@ function acctInitials(name) {
     : parts[0].substring(0, 2).toUpperCase();
 }
 
+function acctSetAvatar(photoB64, initials) {
+  const imgStyle = 'width:100%;height:100%;border-radius:50%;object-fit:cover';
+  const smEl = document.getElementById('acct-avatar-sm');
+  const lgEl = document.getElementById('acct-avatar-lg');
+  if (photoB64) {
+    if (smEl) { smEl.textContent = ''; smEl.innerHTML = `<img src="${photoB64}" style="${imgStyle}" alt="avatar">`; }
+    if (lgEl) { lgEl.textContent = ''; lgEl.innerHTML = `<img src="${photoB64}" style="${imgStyle}" alt="avatar">`; }
+  } else {
+    if (smEl) smEl.textContent = initials;
+    if (lgEl) lgEl.textContent = initials;
+  }
+}
+
 async function acctLoadProfile() {
   const token = localStorage.getItem('sr_token');
   if (!token) { window.location.href = 'login.html'; return; }
@@ -1092,12 +1105,9 @@ async function acctLoadProfile() {
       const firstName = nameParts[0] || '';
       const lastName  = nameParts.slice(1).join(' ') || '';
 
-      const sm = document.getElementById('acct-avatar-sm');
-      if (sm) sm.textContent = initials;
+      acctSetAvatar(u.photo_b64 || '', initials);
       const gr = document.getElementById('acct-greeting');
       if (gr) gr.textContent = 'Welcome back, ' + (firstName || 'there') + ' 👋';
-      const lg = document.getElementById('acct-avatar-lg');
-      if (lg) lg.textContent = initials;
 
       // Persist email for lock screen profile
       if (u.email) localStorage.setItem('srx_session_email', u.email);
