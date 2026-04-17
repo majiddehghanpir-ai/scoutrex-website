@@ -606,6 +606,13 @@ html:not(.dark) .bridge-section::before {
 #navbar:not(.scrolled) .login-btn{color:#F97316!important;border-color:#F97316!important;background:transparent!important}
 #navbar:not(.scrolled) .login-btn:hover{background:#F97316!important;color:#fff!important}
 #navbar:not(.scrolled) .hamburger span{background:#fff!important}
+/* Light mode: hero bg is light — override white text with dark colours */
+html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--indigo)!important}
+html:not(.dark) #navbar:not(.scrolled) .nav-links a{color:var(--indigo)!important;font-weight:600!important}
+html:not(.dark) #navbar:not(.scrolled) .nav-links a:hover{color:var(--orange)!important;background:rgba(249,115,22,0.07)!important}
+html:not(.dark) #navbar:not(.scrolled) .login-btn{color:var(--orange)!important;border-color:var(--orange)!important;background:transparent!important}
+html:not(.dark) #navbar:not(.scrolled) .login-btn:hover{background:var(--orange)!important;color:#fff!important}
+html:not(.dark) #navbar:not(.scrolled) .hamburger span{background:var(--indigo)!important}
 </style>
 <style id="alt-sections">
 /* ── Alternating section backgrounds ─────────────────────────── */
