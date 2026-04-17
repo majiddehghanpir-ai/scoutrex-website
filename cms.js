@@ -32,9 +32,11 @@
 
   window.CMS = {
     page: null,
-    changes: {},       // key → {selector, idx, value}
-    originals: {},     // key → original innerHTML
-    _savedRange: null, // saved selection for focus-stealing controls
+    changes: {},          // key → {selector, idx, value}
+    originals: {},        // key → original innerHTML
+    _savedRange: null,    // saved selection for focus-stealing controls
+    _activeEditEl: null,  // element currently being edited
+    _outsideHandler: null,// document mousedown handler for committing on outside click
 
     /* ── Public API ─────────────────────────────────────────── */
 
@@ -467,46 +469,62 @@
         if (url) document.execCommand('createLink', false, url);
       });
 
-      // Style select — save selection before dropdown opens, restore before command
+      // ── Selects & color pickers: save selection on mousedown of the WRAPPER ──
+      // (mousedown fires before the native control steals focus)
+      const saveOnWrap = (el) => {
+        el.addEventListener('mousedown', () => this._saveSelection());
+      };
+
+      // Paragraph / block style
       const selStyle = document.getElementById('cms-sel-style');
-      selStyle.addEventListener('mousedown', () => this._saveSelection());
+      saveOnWrap(selStyle);
       selStyle.addEventListener('change', e => {
         this._restoreSelection();
-        document.execCommand('formatBlock', false, e.target.value);
+        // formatBlock needs <tagname> in some browsers; supply both forms
+        document.execCommand('formatBlock', false, '<' + e.target.value + '>');
       });
 
-      // Font family
+      // Font family — use inline style (execCommand fontName is overridden by CSS)
       const selFont = document.getElementById('cms-sel-font');
-      selFont.addEventListener('mousedown', () => this._saveSelection());
+      saveOnWrap(selFont);
       selFont.addEventListener('change', e => {
         this._restoreSelection();
-        document.execCommand('fontName', false, e.target.value);
+        this._applyInlineStyle('fontFamily', e.target.value);
       });
 
       // Font size
       const selSize = document.getElementById('cms-sel-size');
-      selSize.addEventListener('mousedown', () => this._saveSelection());
+      saveOnWrap(selSize);
       selSize.addEventListener('change', e => {
         this._restoreSelection();
         this._applyFontSize(e.target.value + 'px');
       });
 
-      // Text color — save on mousedown, restore before applying
-      const txtColor = document.getElementById('cms-txt-color');
-      txtColor.addEventListener('mousedown', () => this._saveSelection());
-      txtColor.addEventListener('input', e => {
+      // Text color — save on mousedown of the wrapper div, apply on change (picker closed)
+      const txtColorInput = document.getElementById('cms-txt-color');
+      const txtColorWrap  = txtColorInput.closest('.cms-color-wrap');
+      if (txtColorWrap) saveOnWrap(txtColorWrap);
+      txtColorInput.addEventListener('change', e => {
         this._restoreSelection();
         document.getElementById('cms-color-bar').style.background = e.target.value;
-        document.execCommand('foreColor', false, e.target.value);
+        this._applyInlineStyle('color', e.target.value);
+      });
+      // Also update bar live while dragging (no DOM change needed)
+      txtColorInput.addEventListener('input', e => {
+        document.getElementById('cms-color-bar').style.background = e.target.value;
       });
 
-      // Highlight color
-      const hlColor = document.getElementById('cms-hl-color');
-      hlColor.addEventListener('mousedown', () => this._saveSelection());
-      hlColor.addEventListener('input', e => {
+      // Highlight / background color
+      const hlColorInput = document.getElementById('cms-hl-color');
+      const hlColorWrap  = hlColorInput.closest('.cms-color-wrap');
+      if (hlColorWrap) saveOnWrap(hlColorWrap);
+      hlColorInput.addEventListener('change', e => {
         this._restoreSelection();
         document.getElementById('cms-hl-bar').style.background = e.target.value;
-        document.execCommand('hiliteColor', false, e.target.value);
+        this._applyInlineStyle('backgroundColor', e.target.value);
+      });
+      hlColorInput.addEventListener('input', e => {
+        document.getElementById('cms-hl-bar').style.background = e.target.value;
       });
 
       // Keep toolbar state in sync with cursor + save selection for focus-stealers
@@ -531,20 +549,39 @@
 
     _restoreSelection() {
       if (!this._savedRange) return;
+      // Re-enable editing if blur/commit happened (e.g. select stole focus)
+      const el = this._activeEditEl;
+      if (el && el.contentEditable !== 'true') {
+        el.contentEditable = 'true';
+        el.classList.add('cms-editing');
+      }
+      if (el) el.focus();
       const sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(this._savedRange);
     },
 
+    // Apply an inline CSS property to the current selection using a <span>
+    // More reliable than execCommand which is often overridden by page CSS
+    _applyInlineStyle(prop, value) {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+      const range = sel.getRangeAt(0);
+      if (range.collapsed) return; // nothing selected
+      const span = document.createElement('span');
+      span.style[prop] = value;
+      span.appendChild(range.extractContents());
+      range.insertNode(span);
+      // Re-select the new span so further commands still work
+      const newRange = document.createRange();
+      newRange.selectNodeContents(span);
+      sel.removeAllRanges();
+      sel.addRange(newRange);
+      this._savedRange = newRange.cloneRange();
+    },
+
     _applyFontSize(px) {
-      // execCommand fontSize only does 1-7; use temp marker then replace with span
-      document.execCommand('fontSize', false, '7');
-      document.querySelectorAll('font[size="7"]').forEach(font => {
-        const span = document.createElement('span');
-        span.style.fontSize = px;
-        while (font.firstChild) span.appendChild(font.firstChild);
-        font.parentNode.replaceChild(span, font);
-      });
+      this._applyInlineStyle('fontSize', px);
     },
 
     _activateRibbon() {
@@ -606,10 +643,10 @@
     },
 
     _startEdit(el, key, selector, elIdx) {
-      // Close any other open editor
-      document.querySelectorAll('[data-cms-id][contenteditable="true"]').forEach(other => {
-        if (other !== el) this._commitEdit(other);
-      });
+      // Close any other open editor first
+      if (this._activeEditEl && this._activeEditEl !== el) {
+        this._commitEdit(this._activeEditEl);
+      }
 
       if (!this.originals[key]) {
         this.originals[key] = el.innerHTML;
@@ -618,6 +655,11 @@
       el.contentEditable = 'true';
       el.classList.add('cms-editing');
       el.classList.remove('cms-dirty');
+      el._cmsKey      = key;
+      el._cmsSelector = selector;
+      el._cmsIdx      = elIdx;
+      this._activeEditEl = el;
+
       el.focus();
       this._activateRibbon();
 
@@ -628,21 +670,35 @@
       const sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(range);
+      this._savedRange = range.cloneRange();
 
-      el.addEventListener('blur',  () => this._commitEdit(el), { once: true });
+      // Keyboard shortcuts
       el.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { el.innerHTML = this.originals[key] || el.innerHTML; el.blur(); }
-        if (e.key === 'Enter' && !e.shiftKey && el.tagName !== 'LI') { e.preventDefault(); el.blur(); }
-      }, { once: false });
+        if (e.key === 'Escape') { el.innerHTML = this.originals[key] || el.innerHTML; this._commitEdit(el); }
+        if (e.key === 'Enter' && !e.shiftKey && el.tagName !== 'LI') { e.preventDefault(); this._commitEdit(el); }
+      });
 
-      el._cmsKey = key;
-      el._cmsSelector = selector;
-      el._cmsIdx = elIdx;
+      // Commit when user clicks OUTSIDE the editing element AND outside the toolbar
+      // (using mousedown so it fires before focus moves — avoids the blur→commit race)
+      if (this._outsideHandler) document.removeEventListener('mousedown', this._outsideHandler);
+      this._outsideHandler = (e) => {
+        const toolbar = document.getElementById('cms-toolbar');
+        if (el.contains(e.target)) return;           // click inside the element = keep editing
+        if (toolbar && toolbar.contains(e.target)) return; // click on toolbar = keep editing
+        this._commitEdit(el);
+      };
+      document.addEventListener('mousedown', this._outsideHandler);
     },
 
     _commitEdit(el) {
+      if (el.contentEditable !== 'true') return; // already committed
       el.contentEditable = 'false';
       el.classList.remove('cms-editing');
+      if (this._activeEditEl === el) this._activeEditEl = null;
+      if (this._outsideHandler) {
+        document.removeEventListener('mousedown', this._outsideHandler);
+        this._outsideHandler = null;
+      }
       this._deactivateRibbon();
 
       const key      = el._cmsKey;
