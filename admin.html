@@ -514,11 +514,11 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
     <span class="sidebar-label">Accounts</span>
     <button class="nav-item" onclick="showPanel('companies')">
       <span class="nav-icon">🏢</span> Companies
-      <span class="nav-badge" style="background:var(--indigo)">48</span>
+      <span class="nav-badge" id="nav-badge-companies" style="background:var(--indigo);display:none"></span>
     </button>
     <button class="nav-item" onclick="showPanel('candidates')">
       <span class="nav-icon">🧑‍💼</span> Candidates
-      <span class="nav-badge" style="background:var(--indigo)">312</span>
+      <span class="nav-badge" id="nav-badge-candidates" style="background:var(--indigo);display:none"></span>
     </button>
 
     <span class="sidebar-label">Website Content</span>
@@ -535,7 +535,7 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
     <span class="sidebar-label">Communications</span>
     <button class="nav-item" onclick="showPanel('messages')">
       <span class="nav-icon">✉️</span> Contact Messages
-      <span class="nav-badge">5</span>
+      <span class="nav-badge" id="nav-badge-messages" style="display:none"></span>
     </button>
 
     <span class="sidebar-label">System</span>
@@ -1091,6 +1091,46 @@ function unlockAdmin() {
   const avatarEl = document.querySelector('.topbar-avatar');
   if (nameEl && _adminUser) nameEl.textContent = _adminUser.name || 'Admin';
   if (avatarEl && _adminUser && _adminUser.name) avatarEl.textContent = _adminUser.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  // Populate sidebar counts from live data
+  loadSidebarCounts();
+}
+
+async function loadSidebarCounts() {
+  // Companies
+  try {
+    const r = await fetch(AUTH_API + '/api/admin/companies', {
+      headers: { 'Authorization': 'Bearer ' + _adminToken }
+    });
+    if (r.ok) {
+      const data = await r.json();
+      const b = document.getElementById('nav-badge-companies');
+      b.textContent = data.length; b.style.display = '';
+    }
+  } catch(e) {}
+
+  // Candidates
+  try {
+    const r = await fetch(AUTH_API + '/api/candidates', {
+      headers: { 'Authorization': 'Bearer ' + _adminToken }
+    });
+    if (r.ok) {
+      const data = await r.json();
+      const b = document.getElementById('nav-badge-candidates');
+      b.textContent = data.length; b.style.display = '';
+    }
+  } catch(e) {}
+
+  // Messages (unread count)
+  try {
+    const r = await fetch(WORKER_BASE + '/api/messages?key=' + getApiKey());
+    if (r.ok) {
+      const data = await r.json();
+      const unread = Array.isArray(data) ? data.filter(m => m.status === 'unread').length : 0;
+      const b = document.getElementById('nav-badge-messages');
+      if (unread > 0) { b.textContent = unread; b.style.display = ''; }
+      else b.style.display = 'none';
+    }
+  } catch(e) {}
 }
 
 function adminLogout() {
@@ -1174,6 +1214,9 @@ async function loadCompanies() {
     document.getElementById('companies-list').style.display    = '';
     document.getElementById('companies-panel-sub').textContent =
       `${_allCompanies.length} registered compan${_allCompanies.length !== 1 ? 'ies' : 'y'}`;
+    const compBadge = document.getElementById('nav-badge-companies');
+    compBadge.textContent = _allCompanies.length;
+    compBadge.style.display = '';
     renderCompaniesList();
   } catch (err) {
     document.getElementById('companies-loading').style.display = 'none';
@@ -1306,6 +1349,9 @@ async function loadCandidates() {
     document.getElementById('candidates-list').style.display    = '';
     document.getElementById('candidates-panel-sub').textContent =
       `${_allCandidates.length} registered candidate${_allCandidates.length !== 1 ? 's' : ''}`;
+    const candBadge = document.getElementById('nav-badge-candidates');
+    candBadge.textContent = _allCandidates.length;
+    candBadge.style.display = '';
     renderCandidatesList();
   } catch (err) {
     document.getElementById('candidates-loading').style.display = 'none';
@@ -2091,6 +2137,9 @@ function renderMessageList() {
   const badge = document.getElementById('unread-count-badge');
   badge.textContent = unread > 0 ? `${unread} unread` : '';
   badge.style.display = unread > 0 ? '' : 'none';
+  // Keep sidebar badge in sync
+  const navBadge = document.getElementById('nav-badge-messages');
+  if (navBadge) { navBadge.textContent = unread; navBadge.style.display = unread > 0 ? '' : 'none'; }
 
   const sub = document.getElementById('msg-panel-sub');
   sub.textContent = `${_allMessages.length} message${_allMessages.length !== 1 ? 's' : ''} total · ${unread} unread`;
