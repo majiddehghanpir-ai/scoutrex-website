@@ -630,21 +630,21 @@ html:not(.dark) .pricing-dark-section .section-sub {
     grid.innerHTML = jobs.map(j => {
       const color = TYPE_COLORS[j.type] || '#6B7280';
       const meta  = [j.location, j.salary].filter(Boolean).join(' · ');
-      const desc  = j.description ? `<p style="font-size:14px;color:var(--gray-600);line-height:1.65;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">${j.description}</p>` : '';
-      return `<div style="border:1px solid var(--gray-200);border-radius:16px;padding:24px 28px;margin-bottom:16px;background:#fff;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 20px rgba(30,18,86,0.10)'" onmouseout="this.style.boxShadow=''">
+      const desc  = j.description ? `<p style="font-size:14px;color:#4B5563;line-height:1.65;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">${j.description}</p>` : '';
+      return `<div style="border:1px solid #E5E7EB;border-radius:16px;padding:24px 28px;margin-bottom:16px;background:#fff;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 20px rgba(30,18,86,0.10)'" onmouseout="this.style.boxShadow=''">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
               <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:${color}18;color:${color}">${j.type || 'Full-time'}</span>
-              ${j.department ? `<span style="font-size:12px;color:var(--gray-400)">${j.department}</span>` : ''}
+              ${j.department ? `<span style="font-size:12px;color:#9CA3AF">${j.department}</span>` : ''}
             </div>
-            <h3 style="font-family:'Lora',serif;font-size:1.15rem;font-weight:800;color:var(--text);margin:0">${j.title}</h3>
-            ${meta ? `<div style="font-size:13px;color:var(--gray-500);margin-top:4px">📍 ${meta}</div>` : ''}
+            <h3 style="font-family:'Lora',serif;font-size:1.15rem;font-weight:800;color:#0F0A2E;margin:0">${j.title}</h3>
+            ${meta ? `<div style="font-size:13px;color:#6B7280;margin-top:4px">📍 ${meta}</div>` : ''}
             ${desc}
           </div>
           <a href="contact.html?role=${encodeURIComponent(j.title)}" class="btn btn-primary" style="flex-shrink:0;white-space:nowrap">Apply →</a>
         </div>
-        ${j.deadline ? `<div style="font-size:11px;color:var(--gray-400);margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-100)">⏰ Deadline: ${j.deadline}</div>` : ''}
+        ${j.deadline ? `<div style="font-size:11px;color:#9CA3AF;margin-top:14px;padding-top:14px;border-top:1px solid #F3F4F6">⏰ Deadline: ${j.deadline}</div>` : ''}
       </div>`;
     }).join('');
     grid.style.display = '';
