@@ -1181,6 +1181,21 @@ function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
 }
 
+/* confirmDelete(title, message, onConfirm)
+   Shows a branded warning modal instead of the browser's confirm() dialog. */
+function confirmDelete(title, message, onConfirm) {
+  openModal(title, `
+    <div style="text-align:center;padding:8px 0 24px">
+      <div style="font-size:48px;margin-bottom:16px">⚠️</div>
+      <p style="color:var(--text);font-size:15px;line-height:1.6;margin:0 0 24px">${message}</p>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-gray" onclick="closeModal()">Cancel</button>
+        <button class="btn" style="background:var(--red);color:#fff" onclick="closeModal();(${onConfirm.toString()})()">Delete</button>
+      </div>
+    </div>
+  `);
+}
+
 /* ──────────────────────────────────
    COMPANY MODAL
 ────────────────────────────────── */
@@ -1317,16 +1332,21 @@ async function saveCompany() {
   }
 }
 
-async function deleteCompany(id, name) {
-  if (!confirm(`Delete company "${name}"? This will unassign all its recruiters.`)) return;
-  try {
-    const res = await fetch(`${AUTH_API}/api/admin/companies/${id}`, {
-      method: 'DELETE',
-      headers: { 'Authorization': 'Bearer ' + _adminToken }
-    });
-    if (!res.ok) throw new Error(`Server ${res.status}`);
-    loadCompanies();
-  } catch (err) { alert('Delete failed: ' + err.message); }
+function deleteCompany(id, name) {
+  confirmDelete(
+    'Delete Company',
+    `Are you sure you want to delete <strong>${escHtml(name)}</strong>?<br>All recruiters will be unassigned. This cannot be undone.`,
+    async () => {
+      try {
+        const res = await fetch(`${AUTH_API}/api/admin/companies/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + _adminToken }
+        });
+        if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.detail || `Server ${res.status}`); }
+        loadCompanies();
+      } catch (err) { alert('Delete failed: ' + err.message); }
+    }
+  );
 }
 
 /* ──────────────────────────────────
@@ -1444,16 +1464,21 @@ async function saveCandidate() {
   }
 }
 
-async function deleteCandidate(id, name) {
-  if (!confirm(`Delete candidate "${name}"? This cannot be undone.`)) return;
-  try {
-    const res = await fetch(`${AUTH_API}/api/admin/recruiters/${id}`, {
-      method: 'DELETE',
-      headers: { 'Authorization': 'Bearer ' + _adminToken }
-    });
-    if (!res.ok) throw new Error(`Server ${res.status}`);
-    loadCandidates();
-  } catch (err) { alert('Delete failed: ' + err.message); }
+function deleteCandidate(id, name) {
+  confirmDelete(
+    'Delete Candidate',
+    `Are you sure you want to delete <strong>${escHtml(name)}</strong>?<br>Their account and all associated data will be permanently removed.`,
+    async () => {
+      try {
+        const res = await fetch(`${AUTH_API}/api/admin/recruiters/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + _adminToken }
+        });
+        if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.detail || `Server ${res.status}`); }
+        loadCandidates();
+      } catch (err) { alert('Delete failed: ' + err.message); }
+    }
+  );
 }
 
 /* ──────────────────────────────────
