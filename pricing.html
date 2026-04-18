@@ -580,43 +580,125 @@ html.dark .pricing-dark-section p,
   </div>
 </section>
 
-<section class="section" style="background:var(--off-white)">
+<section class="section" style="background:var(--off-white)" id="plans-section">
   <div class="container">
+
+    <!-- Header — swaps between "coming soon" and "live" state -->
     <div class="text-center" style="margin-bottom:56px">
-      <div class="section-tag">What's coming</div>
-      <h2 class="section-title">Plans for every stage</h2>
-      <p class="section-sub">We're building plans for both job seekers and hiring teams. Exact pricing will be announced at launch.</p>
+      <div class="section-tag" id="plans-tag">What's coming</div>
+      <h2 class="section-title" id="plans-title">Plans for every stage</h2>
+      <p class="section-sub" id="plans-sub">We're building plans for both job seekers and hiring teams. Exact pricing will be announced at launch.</p>
     </div>
-    <div class="pricing-preview-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:800px;margin:0 auto">
-      <div class="pricing-preview-card">
-        <div style="font-size:2rem;margin-bottom:16px">🎯</div>
-        <h3>JobRex</h3>
-        <p class="price-sub">For job seekers</p>
-        <ul>
-          <li>AI-powered job matching</li>
-          <li>Living career profile</li>
-          <li>Career trajectory insights</li>
-          <li>Interview preparation</li>
-          <li>Job application tracking</li>
-        </ul>
-        <a href="contact.html" class="btn btn-secondary" style="margin-top:24px;width:100%;justify-content:center">Get Early Access</a>
-      </div>
-      <div class="pricing-preview-card">
-        <div style="font-size:2rem;margin-bottom:16px">🏢</div>
-        <h3>HireRex</h3>
-        <p class="price-sub">For hiring teams</p>
-        <ul>
-          <li>AI candidate matching & sourcing</li>
-          <li>Smart screening & shortlisting</li>
-          <li>Pipeline analytics</li>
-          <li>Team collaboration tools</li>
-          <li>Integrations & API access</li>
-        </ul>
-        <a href="contact.html" class="btn btn-secondary" style="margin-top:24px;width:100%;justify-content:center">Request a Demo</a>
+
+    <!-- Loading -->
+    <div id="plans-loading" style="text-align:center;padding:32px;color:var(--gray-400)">
+      <div style="font-size:2rem;margin-bottom:10px">⏳</div>
+      <p>Loading plans…</p>
+    </div>
+
+    <!-- Fallback: no plans yet (shown when API returns empty) -->
+    <div id="plans-fallback" style="display:none">
+      <div class="pricing-preview-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:800px;margin:0 auto">
+        <div class="pricing-preview-card">
+          <div style="font-size:2rem;margin-bottom:16px">🎯</div>
+          <h3>JobRex</h3>
+          <p class="price-sub">For job seekers</p>
+          <ul>
+            <li>AI-powered job matching</li>
+            <li>Living career profile</li>
+            <li>Career trajectory insights</li>
+            <li>Interview preparation</li>
+            <li>Job application tracking</li>
+          </ul>
+          <a href="contact.html" class="btn btn-secondary" style="margin-top:24px;width:100%;justify-content:center">Get Early Access</a>
+        </div>
+        <div class="pricing-preview-card">
+          <div style="font-size:2rem;margin-bottom:16px">🏢</div>
+          <h3>HireRex</h3>
+          <p class="price-sub">For hiring teams</p>
+          <ul>
+            <li>AI candidate matching &amp; sourcing</li>
+            <li>Smart screening &amp; shortlisting</li>
+            <li>Pipeline analytics</li>
+            <li>Team collaboration tools</li>
+            <li>Integrations &amp; API access</li>
+          </ul>
+          <a href="contact.html" class="btn btn-secondary" style="margin-top:24px;width:100%;justify-content:center">Request a Demo</a>
+        </div>
       </div>
     </div>
+
+    <!-- Live plans grid (shown when plans exist) -->
+    <div id="plans-live" style="display:none"></div>
+
   </div>
 </section>
+
+<script>
+(async function loadPricingPlans() {
+  const loading  = document.getElementById('plans-loading');
+  const fallback = document.getElementById('plans-fallback');
+  const live     = document.getElementById('plans-live');
+  const tag      = document.getElementById('plans-tag');
+  const title    = document.getElementById('plans-title');
+  const sub      = document.getElementById('plans-sub');
+
+  function escH(s){ const d=document.createElement('div');d.textContent=s||'';return d.innerHTML; }
+
+  function renderGroup(plans, product) {
+    if (!plans.length) return '';
+    const isJobRex   = product === 'jobrex';
+    const accent     = isJobRex ? '#F97316' : '#1E1256';
+    const groupLabel = isJobRex ? '🎯 JobRex — For Job Seekers' : '🏢 HireRex — For Hiring Teams';
+    const cards = plans.map(p => {
+      const feats   = (p.features||'').split('\n').filter(Boolean);
+      const featHtml = feats.map(f=>`<li>${escH(f)}</li>`).join('');
+      const currency = p.currency === 'USD' ? '$' : p.currency === 'GBP' ? '£' : '€';
+      const priceHtml = p.price
+        ? `<div style="margin:16px 0 4px"><span style="font-size:2.2rem;font-weight:800;color:var(--text)">${currency}${escH(p.price)}</span><span style="font-size:14px;color:var(--gray-500)">${p.billing==='month'?' / month':p.billing==='year'?' / year':''}</span></div>`
+        : `<div style="margin:16px 0 4px;font-size:14px;font-weight:600;color:var(--gray-400)">Contact for pricing</div>`;
+      const popularBadge = p.popular ? `<div style="display:inline-block;background:${accent}18;color:${accent};font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 12px;border-radius:20px;margin-bottom:14px">⭐ Most Popular</div>` : '';
+      const cta = isJobRex
+        ? `<a href="contact.html" class="btn btn-secondary" style="margin-top:auto;width:100%;justify-content:center">Get Early Access</a>`
+        : `<a href="contact.html" class="btn btn-secondary" style="margin-top:auto;width:100%;justify-content:center">Request a Demo</a>`;
+      return `<div class="pricing-preview-card" style="display:flex;flex-direction:column;${p.popular?`border-color:${accent};border-width:2px`:''}" >
+        ${popularBadge}
+        <h3 style="margin:0">${escH(p.name)}</h3>
+        ${p.description ? `<p class="price-sub">${escH(p.description)}</p>` : ''}
+        ${priceHtml}
+        <ul style="flex:1">${featHtml}</ul>
+        ${cta}
+      </div>`;
+    }).join('');
+    return `<div style="margin-bottom:48px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${accent};margin-bottom:20px;text-align:center">${groupLabel}</div>
+      <div class="pricing-preview-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;max-width:1000px;margin:0 auto">${cards}</div>
+    </div>`;
+  }
+
+  try {
+    const res   = await fetch('/api/plans');
+    const data  = await res.json();
+    const plans = (data.plans || []).filter(p => p.visible);
+    loading.style.display = 'none';
+
+    if (!plans.length) { fallback.style.display = ''; return; }
+
+    // Switch header to live state
+    tag.textContent   = 'Pricing';
+    title.textContent = 'Simple, transparent pricing';
+    sub.textContent   = 'Choose the plan that fits your needs. Cancel any time.';
+
+    const hirerex = plans.filter(p => p.product === 'hirerex');
+    const jobrex  = plans.filter(p => p.product === 'jobrex');
+    live.innerHTML  = renderGroup(hirerex, 'hirerex') + renderGroup(jobrex, 'jobrex');
+    live.style.display = '';
+  } catch(e) {
+    loading.style.display = 'none';
+    fallback.style.display = '';
+  }
+})();
+</script>
 
 <section class="section pricing-dark-section" style="background:linear-gradient(140deg,#07051A 0%,#100B30 40%,#1E1256 100%);text-align:center">
   <div class="container">

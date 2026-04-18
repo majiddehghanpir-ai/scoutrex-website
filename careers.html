@@ -597,15 +597,63 @@ html:not(.dark) .pricing-dark-section .section-sub {
       <div class="section-tag">Open Positions</div>
       <h2 class="section-title">Join the team</h2>
     </div>
-    
-    <div style="text-align:center;padding:56px 32px;border:2px dashed var(--gray-200);border-radius:24px;max-width:640px;margin:0 auto">
+
+    <!-- Jobs container — populated by JS -->
+    <div id="jobs-loading" style="text-align:center;padding:40px;color:var(--gray-400)">
+      <div style="font-size:2rem;margin-bottom:12px">⏳</div>
+      <p>Loading open positions…</p>
+    </div>
+
+    <div id="jobs-empty" style="display:none;text-align:center;padding:56px 32px;border:2px dashed var(--gray-200);border-radius:24px;max-width:640px;margin:0 auto">
       <div style="font-size:2.5rem;margin-bottom:20px">📭</div>
       <h3 style="font-family:'Lora',serif;font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:12px">No open positions right now</h3>
-      <p style="color:var(--gray-600);line-height:1.7;margin-bottom:28px">We're not actively hiring at the moment, but we're always happy to hear from exceptional people. If you think you'd be a great fit, reach out, we keep good CVs on file.</p>
+      <p style="color:var(--gray-600);line-height:1.7;margin-bottom:28px">We're not actively hiring at the moment, but we're always happy to hear from exceptional people. If you think you'd be a great fit, reach out — we keep good CVs on file.</p>
       <a href="contact.html" class="btn btn-primary">Get in Touch →</a>
     </div>
+
+    <div id="jobs-grid" style="display:none;display:none;max-width:860px;margin:0 auto"></div>
   </div>
 </section>
+
+<script>
+(async function loadCareersJobs() {
+  const grid    = document.getElementById('jobs-grid');
+  const empty   = document.getElementById('jobs-empty');
+  const loading = document.getElementById('jobs-loading');
+  try {
+    const res  = await fetch('/api/jobs');
+    const data = await res.json();
+    const jobs = (data.jobs || []).filter(j => j.status === 'active');
+    loading.style.display = 'none';
+    if (jobs.length === 0) { empty.style.display = ''; return; }
+    const TYPE_COLORS = { 'Full-time':'#1E1256', 'Part-time':'#2563EB', 'Remote':'#059669', 'Contract':'#D97706', 'Internship':'#7C3AED' };
+    grid.innerHTML = jobs.map(j => {
+      const color = TYPE_COLORS[j.type] || '#6B7280';
+      const meta  = [j.location, j.salary].filter(Boolean).join(' · ');
+      const desc  = j.description ? `<p style="font-size:14px;color:var(--gray-600);line-height:1.65;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">${j.description}</p>` : '';
+      return `<div style="border:1px solid var(--gray-200);border-radius:16px;padding:24px 28px;margin-bottom:16px;background:#fff;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 20px rgba(30,18,86,0.10)'" onmouseout="this.style.boxShadow=''">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:${color}18;color:${color}">${j.type || 'Full-time'}</span>
+              ${j.department ? `<span style="font-size:12px;color:var(--gray-400)">${j.department}</span>` : ''}
+            </div>
+            <h3 style="font-family:'Lora',serif;font-size:1.15rem;font-weight:800;color:var(--text);margin:0">${j.title}</h3>
+            ${meta ? `<div style="font-size:13px;color:var(--gray-500);margin-top:4px">📍 ${meta}</div>` : ''}
+            ${desc}
+          </div>
+          <a href="contact.html?role=${encodeURIComponent(j.title)}" class="btn btn-primary" style="flex-shrink:0;white-space:nowrap">Apply →</a>
+        </div>
+        ${j.deadline ? `<div style="font-size:11px;color:var(--gray-400);margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-100)">⏰ Deadline: ${j.deadline}</div>` : ''}
+      </div>`;
+    }).join('');
+    grid.style.display = '';
+  } catch(e) {
+    loading.style.display = 'none';
+    empty.style.display   = '';
+  }
+})();
+</script>
 
 <footer>
   <div class="container">
