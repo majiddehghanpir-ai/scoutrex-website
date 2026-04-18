@@ -518,7 +518,7 @@ html.dark .sr-phone-home-bar{background:rgba(255,255,255,0.15)}
 }
 
 </style>
-<link rel="stylesheet" href="mobile.css?v=9"/>
+<link rel="stylesheet" href="mobile.css?v=10"/>
 <style id="alt-sections">
 /* ── Alternating section backgrounds ─────────────────────────── */
 
@@ -991,7 +991,19 @@ html:not(.dark) .pricing-dark-section .section-sub {
 
 <script src="cookie-consent.js"></script>
 <script>
-function toggleMenu(){const m=document.getElementById("mobileMenu");const o=m.classList.toggle("open");document.body.classList.toggle("menu-open",o);}
+function toggleMenu(){
+  var m=document.getElementById("mobileMenu");
+  var o=m.classList.toggle("open");
+  document.body.classList.toggle("menu-open",o);
+  var bd=document.getElementById("sr-menu-backdrop");
+  if(!bd){
+    bd=document.createElement("div");
+    bd.id="sr-menu-backdrop";
+    bd.onclick=function(){toggleMenu();};
+    document.body.insertBefore(bd,m);
+  }
+  bd.classList.toggle("open",o);
+}
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20)
 });

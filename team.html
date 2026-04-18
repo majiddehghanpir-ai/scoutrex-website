@@ -429,7 +429,7 @@ html:not(.dark) .bridge-section::before {
 }
 
 </style>
-<link rel="stylesheet" href="mobile.css?v=9"/>
+<link rel="stylesheet" href="mobile.css?v=10"/>
 <style id="alt-sections">
 /* ── Alternating section backgrounds ─────────────────────────── */
 
@@ -578,10 +578,8 @@ html:not(.dark) .team-section {
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="products.html" onclick="setTimeout(toggleMenu,100)">Products</a>
-  <a href="jobrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ JobRex</a>
   <a href="hirerex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ HireRex</a>
   <a href="jobrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ JobRex</a>
-  <a href="hirerex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ HireRex</a>
   <a href="pricing.html"  onclick="setTimeout(toggleMenu,100)">Pricing</a>
   <a href="about.html"  onclick="setTimeout(toggleMenu,100)">About</a>
   <a href="team.html"  onclick="setTimeout(toggleMenu,100)">Team</a>
@@ -727,7 +725,19 @@ html:not(.dark) .team-section {
 </footer>
 
 <script>
-function toggleMenu(){const m=document.getElementById("mobileMenu");const o=m.classList.toggle("open");document.body.classList.toggle("menu-open",o);}
+function toggleMenu(){
+  var m=document.getElementById("mobileMenu");
+  var o=m.classList.toggle("open");
+  document.body.classList.toggle("menu-open",o);
+  var bd=document.getElementById("sr-menu-backdrop");
+  if(!bd){
+    bd=document.createElement("div");
+    bd.id="sr-menu-backdrop";
+    bd.onclick=function(){toggleMenu();};
+    document.body.insertBefore(bd,m);
+  }
+  bd.classList.toggle("open",o);
+}
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);
 });

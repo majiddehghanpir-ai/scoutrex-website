@@ -55,74 +55,166 @@
 
 
 /* -- NAVBAR / MOBILE MENU ---------------------------------- */
+
+/* Backdrop — injected by toggleMenu() JS, lives behind sidebar */
+#sr-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 99997;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+#sr-menu-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @media (max-width: 768px) {
   .nav-cta   { display: none !important; }
   .nav-links { display: none !important; }
   .hamburger { display: flex !important; }
 
-  /* Raise menu above navbar (1000), Rexi (9998) and cookie banner (9999) */
+  /* ── Right-sidebar slide-in menu ── */
+  .mobile-menu {
+    /* Override inline display:none / full-screen inset */
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
+    width: 270px !important;
+    max-width: 88vw !important;
+
+    /* Slide off-screen to the right when closed */
+    transform: translateX(110%) !important;
+    visibility: hidden;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
+                visibility 0s linear 0.28s !important;
+
+    /* Light mode background */
+    background: #ffffff !important;
+    box-shadow: none;
+    z-index: 99999 !important;
+
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 72px 16px 40px !important;
+    gap: 2px !important;
+  }
+
+  /* Open state */
   .mobile-menu.open {
-    z-index: 100000 !important;
+    transform: translateX(0) !important;
+    visibility: visible;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
+                visibility 0s linear 0s !important;
+    box-shadow: -6px 0 36px rgba(0,0,0,0.22) !important;
     pointer-events: auto !important;
   }
 
-  /* Mobile menu: scroll-safe so all links are always reachable */
-  .mobile-menu {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    justify-content: flex-start !important;
-    padding: 80px 20px 48px !important;
-    gap: 14px !important;
-  }
-  /* Large tap targets + force pointer events so nothing above can block */
+  /* Dark mode sidebar */
+  html.dark .mobile-menu { background: #16122E !important; }
+
+  /* ── Link styles ── */
   .mobile-menu a {
-    padding: 12px 20px;
-    font-size: 1.1rem;
-    display: block;
-    width: 100%;
-    text-align: center;
-    pointer-events: auto !important;
-    -webkit-tap-highlight-color: rgba(249,115,22,0.18);
-    touch-action: manipulation;
-  }
-  .mobile-menu button.theme-toggle {
-    margin-top: 8px;
-    touch-action: manipulation;
-    pointer-events: auto !important;
-  }
-  /* Hide Rexi bubble while menu is open so it can't intercept touches */
-  body.menu-open #rexi-bubble { display: none !important; }
-  /* Lock body scroll on iOS so touch events go to the menu overlay */
-  body.menu-open {
-    overflow: hidden !important;
-    position: fixed !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #1E1256 !important;
+    padding: 9px 12px !important;
+    border-radius: 8px !important;
     width: 100% !important;
+    text-align: left !important;
+    display: block !important;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    transition: background 0.15s, color 0.15s !important;
+    -webkit-tap-highlight-color: rgba(249,115,22,0.15);
   }
-  /* Divider between nav links and account links */
+  .mobile-menu a:hover {
+    background: rgba(249,115,22,0.08) !important;
+    color: #F97316 !important;
+  }
+  html.dark .mobile-menu a {
+    color: rgba(255,255,255,0.85) !important;
+  }
+  html.dark .mobile-menu a:hover {
+    background: rgba(249,115,22,0.12) !important;
+    color: #F97316 !important;
+  }
+
+  /* Sub-links (↳ HireRex etc.) */
+  .mobile-sub-link {
+    font-size: 0.85rem !important;
+    padding-left: 28px !important;
+    opacity: 0.6;
+    margin-top: 0 !important;
+  }
+  .mobile-sub-link:hover { opacity: 1; }
+
+  /* Divider */
   .mobile-menu .mobile-divider {
     width: 100%;
     border: none;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    margin: 4px 0;
+    border-top: 1px solid rgba(30,18,86,0.1) !important;
+    margin: 8px 0 !important;
     pointer-events: none;
   }
-  .mobile-menu .mobile-section-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    padding: 0 20px;
-    pointer-events: none;
+  html.dark .mobile-menu .mobile-divider {
+    border-top-color: rgba(255,255,255,0.1) !important;
   }
-}
 
-@media (max-width: 480px) {
-  .mobile-menu {
-    padding: 70px 16px 32px !important;
-    gap: 10px !important;
+  /* Section label */
+  .mobile-menu .mobile-section-label {
+    font-size: 9px !important;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(30,18,86,0.35) !important;
+    padding: 8px 12px 2px !important;
+    pointer-events: none;
   }
-  .mobile-menu a { font-size: 1.05rem; }
+  html.dark .mobile-menu .mobile-section-label {
+    color: rgba(255,255,255,0.25) !important;
+  }
+
+  /* Theme toggle inside sidebar */
+  .mobile-menu .theme-toggle,
+  .mobile-menu button.theme-toggle {
+    margin: 10px 0 0 12px !important;
+    border-color: rgba(30,18,86,0.2) !important;
+    color: #1E1256 !important;
+    touch-action: manipulation;
+    pointer-events: auto !important;
+  }
+  html.dark .mobile-menu .theme-toggle,
+  html.dark .mobile-menu button.theme-toggle {
+    border-color: rgba(255,255,255,0.2) !important;
+    color: rgba(255,255,255,0.85) !important;
+  }
+
+  /* Hamburger bar color — light mode: dark, dark mode: light */
+  .hamburger span { background: #1E1256 !important; }
+  html.dark .hamburger span { background: rgba(255,255,255,0.9) !important; }
+  /* When navbar is transparent over dark hero: always white */
+  #navbar:not(.scrolled) .hamburger span { background: #fff !important; }
+  /* Exception: pages where hero is light in light mode */
+  html:not(.dark) #navbar:not(.scrolled) .hamburger span { background: #1E1256 !important; }
+
+  /* Lock body scroll — but use scroll position trick NOT position:fixed to
+     avoid page jump on iOS */
+  body.menu-open {
+    overflow: hidden !important;
+    touch-action: none !important;
+  }
+
+  /* Hide Rexi while menu is open */
+  body.menu-open #rexi-bubble { display: none !important; }
 }
 
 
@@ -363,42 +455,41 @@
     padding-bottom: 32px;
   }
 
-  /* Compact tap targets — keep 44px hit area via padding but not min-height */
-  .footer-col ul li { margin-bottom: 4px; }
+  /* Compact list items — override inline margin-bottom:10px */
+  .footer-col ul li { margin-bottom: 4px !important; }
   .footer-col ul li a {
-    font-size: 14px;
-    display: flex;
+    font-size: 14px !important;
+    display: flex !important;
     align-items: center;
-    padding: 6px 0;
-    min-height: 36px;
+    padding: 5px 0 !important;
+    min-height: 34px !important;
   }
+  .footer-col-title { margin-bottom: 10px !important; }
 
   /* Push footer bottom away from Rexi bubble (fixed bottom-right) */
-  .footer-bottom {
-    padding-bottom: 72px;
-  }
+  .footer-bottom { padding-bottom: 72px !important; }
 }
 
 @media (max-width: 480px) {
   /* Single column on phones */
-  footer { padding: 40px 0 0; }
+  footer { padding: 36px 0 0 !important; }
   .footer-top {
     grid-template-columns: 1fr !important;
-    gap: 20px;
-    padding-bottom: 24px;
+    gap: 18px !important;
+    padding-bottom: 20px !important;
   }
-  .footer-brand p { margin-top: 10px; font-size: 13px; }
-  .footer-social  { margin-top: 12px; }
-  .footer-col-title { font-size: 11px; margin-bottom: 8px; }
-  .footer-col ul li { margin-bottom: 2px; }
+  .footer-brand p { margin-top: 8px !important; font-size: 13px !important; }
+  .footer-social  { margin-top: 10px !important; }
+  .footer-col-title { font-size: 11px !important; margin-bottom: 6px !important; }
+  .footer-col ul li { margin-bottom: 2px !important; }
   .footer-col ul li a {
-    font-size: 13px;
-    padding: 5px 0;
-    min-height: 32px;
+    font-size: 13px !important;
+    padding: 4px 0 !important;
+    min-height: 30px !important;
   }
-  .footer-bottom { padding: 16px 0 80px; }
-  .footer-bottom-left  { font-size: 11px; }
-  .footer-bottom-right a { font-size: 11px; }
+  .footer-bottom { padding: 14px 0 76px !important; }
+  .footer-bottom-left  { font-size: 11px !important; }
+  .footer-bottom-right a { font-size: 11px !important; }
 }
 
 
