@@ -46,6 +46,43 @@ CREATE TABLE IF NOT EXISTS content_overrides (
 
 CREATE INDEX IF NOT EXISTS idx_content_page ON content_overrides(page);
 
+-- ── Job listings ──────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS job_listings (
+  id          INTEGER  PRIMARY KEY AUTOINCREMENT,
+  title       TEXT     NOT NULL,
+  company     TEXT     NOT NULL DEFAULT '',
+  location    TEXT     NOT NULL DEFAULT '',
+  department  TEXT     NOT NULL DEFAULT '',
+  type        TEXT     NOT NULL DEFAULT 'Full-time',
+  salary      TEXT     NOT NULL DEFAULT '',
+  description TEXT     NOT NULL DEFAULT '',
+  deadline    TEXT     NOT NULL DEFAULT '',
+  status      TEXT     NOT NULL DEFAULT 'active',  -- active | draft | closed
+  created_at  DATETIME NOT NULL DEFAULT (datetime('now')),
+  updated_at  DATETIME NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_jobs_status ON job_listings(status);
+
+-- ── Pricing plans ─────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS pricing_plans (
+  id            INTEGER  PRIMARY KEY AUTOINCREMENT,
+  name          TEXT     NOT NULL,
+  price         TEXT     NOT NULL DEFAULT '',
+  billing       TEXT     NOT NULL DEFAULT 'month',  -- month | year | ''
+  currency      TEXT     NOT NULL DEFAULT 'EUR',
+  description   TEXT     NOT NULL DEFAULT '',
+  features      TEXT     NOT NULL DEFAULT '',       -- newline-separated list
+  product       TEXT     NOT NULL DEFAULT 'hirerex', -- hirerex | jobrex
+  popular       INTEGER  NOT NULL DEFAULT 0,
+  visible       INTEGER  NOT NULL DEFAULT 1,
+  display_order INTEGER  NOT NULL DEFAULT 99,
+  created_at    DATETIME NOT NULL DEFAULT (datetime('now')),
+  updated_at    DATETIME NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_plans_product ON pricing_plans(product);
+
 -- ── Seed: real team members ───────────────────────────────────────────────────
 -- Run this only once after creating the table (skip if already seeded).
 INSERT OR IGNORE INTO team_members (id, name, role, department, email, linkedin, photo, display_order, visible)

@@ -289,6 +289,114 @@ export default {
       return json({ success: true }, 200, origin);
     }
 
+    // ══════════════════════════════════════════════════════════════════════
+    //  JOB LISTINGS
+    // ══════════════════════════════════════════════════════════════════════
+
+    // GET /api/jobs  — public: active; admin: all
+    if (method === 'GET' && path === '/api/jobs') {
+      const admin = isAdmin(request, env);
+      const { results } = await env.DB.prepare(
+        admin
+          ? `SELECT * FROM job_listings ORDER BY created_at DESC LIMIT 200`
+          : `SELECT * FROM job_listings WHERE status = 'active' ORDER BY created_at DESC`
+      ).all();
+      return json({ jobs: results || [] }, 200, origin);
+    }
+
+    // POST /api/jobs  — admin: create
+    if (method === 'POST' && path === '/api/jobs') {
+      if (!isAdmin(request, env)) return unauthorized(origin);
+      let body;
+      try { body = await request.json(); } catch { return json({ error: 'Invalid JSON' }, 400, origin); }
+      const { title, company = '', location = '', department = '', type = 'Full-time', salary = '', description = '', deadline = '', status = 'active' } = body;
+      if (!title) return json({ error: 'title required' }, 422, origin);
+      const { meta } = await env.DB.prepare(
+        `INSERT INTO job_listings (title, company, location, department, type, salary, description, deadline, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(title, company, location, department, type, salary, description, deadline, status).run();
+      return json({ success: true, id: meta.last_row_id }, 201, origin);
+    }
+
+    // PATCH /api/jobs/:id  — admin: update
+    const jobPatch = path.match(/^\/api\/jobs\/(\d+)$/);
+    if (jobPatch) {
+      if (method === 'PATCH') {
+        if (!isAdmin(request, env)) return unauthorized(origin);
+        const id = jobPatch[1];
+        let body;
+        try { body = await request.json(); } catch { return json({ error: 'Invalid JSON' }, 400, origin); }
+        const allowed = ['title','company','location','department','type','salary','description','deadline','status'];
+        const sets = []; const vals = [];
+        for (const k of allowed) { if (body[k] !== undefined) { sets.push(`${k} = ?`); vals.push(body[k]); } }
+        sets.push(`updated_at = datetime('now')`);
+        if (vals.length === 0) return json({ error: 'No fields to update' }, 422, origin);
+        vals.push(id);
+        await env.DB.prepare(`UPDATE job_listings SET ${sets.join(', ')} WHERE id = ?`).bind(...vals).run();
+        return json({ success: true }, 200, origin);
+      }
+      if (method === 'DELETE') {
+        if (!isAdmin(request, env)) return unauthorized(origin);
+        const id = jobPatch[1];
+        await env.DB.prepare(`DELETE FROM job_listings WHERE id = ?`).bind(id).run();
+        return json({ success: true }, 200, origin);
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  PRICING PLANS
+    // ══════════════════════════════════════════════════════════════════════
+
+    // GET /api/plans  — public: visible; admin: all
+    if (method === 'GET' && path === '/api/plans') {
+      const admin = isAdmin(request, env);
+      const { results } = await env.DB.prepare(
+        admin
+          ? `SELECT * FROM pricing_plans ORDER BY display_order ASC, id ASC`
+          : `SELECT * FROM pricing_plans WHERE visible = 1 ORDER BY display_order ASC, id ASC`
+      ).all();
+      return json({ plans: results || [] }, 200, origin);
+    }
+
+    // POST /api/plans  — admin: create
+    if (method === 'POST' && path === '/api/plans') {
+      if (!isAdmin(request, env)) return unauthorized(origin);
+      let body;
+      try { body = await request.json(); } catch { return json({ error: 'Invalid JSON' }, 400, origin); }
+      const { name, price = '', billing = 'month', currency = 'EUR', description = '', features = '', product = 'hirerex', popular = 0, visible = 1 } = body;
+      if (!name) return json({ error: 'name required' }, 422, origin);
+      const { meta } = await env.DB.prepare(
+        `INSERT INTO pricing_plans (name, price, billing, currency, description, features, product, popular, visible)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(name, price, billing, currency, description, features, product, popular ? 1 : 0, visible ? 1 : 0).run();
+      return json({ success: true, id: meta.last_row_id }, 201, origin);
+    }
+
+    // PATCH /api/plans/:id  — admin: update
+    const planPatch = path.match(/^\/api\/plans\/(\d+)$/);
+    if (planPatch) {
+      if (method === 'PATCH') {
+        if (!isAdmin(request, env)) return unauthorized(origin);
+        const id = planPatch[1];
+        let body;
+        try { body = await request.json(); } catch { return json({ error: 'Invalid JSON' }, 400, origin); }
+        const allowed = ['name','price','billing','currency','description','features','product','popular','visible','display_order'];
+        const sets = []; const vals = [];
+        for (const k of allowed) { if (body[k] !== undefined) { sets.push(`${k} = ?`); vals.push(body[k]); } }
+        sets.push(`updated_at = datetime('now')`);
+        if (vals.length === 0) return json({ error: 'No fields to update' }, 422, origin);
+        vals.push(id);
+        await env.DB.prepare(`UPDATE pricing_plans SET ${sets.join(', ')} WHERE id = ?`).bind(...vals).run();
+        return json({ success: true }, 200, origin);
+      }
+      if (method === 'DELETE') {
+        if (!isAdmin(request, env)) return unauthorized(origin);
+        const id = planPatch[1];
+        await env.DB.prepare(`DELETE FROM pricing_plans WHERE id = ?`).bind(id).run();
+        return json({ success: true }, 200, origin);
+      }
+    }
+
     return json({ error: 'Not found' }, 404, origin);
   },
 };

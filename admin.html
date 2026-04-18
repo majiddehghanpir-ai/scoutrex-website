@@ -862,56 +862,24 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
       <div class="panel-header">
         <div>
           <div class="panel-title">Pricing Plans</div>
-          <div class="panel-sub">Manage the plans displayed on your website's pricing page</div>
+          <div class="panel-sub" id="plans-panel-sub">Manage the plans displayed on your website's pricing page</div>
         </div>
-        <button class="btn btn-orange" onclick="openAddPlan()">+ Add Plan</button>
-      </div>
-
-      <!-- Coming Soon notice -->
-      <div class="card" style="text-align:center;padding:40px 24px 32px">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.1);color:var(--orange-dark);font-size:12px;font-weight:700;letter-spacing:.06em;padding:5px 14px;border-radius:20px;text-transform:uppercase;margin-bottom:20px">⏳ Coming Soon</div>
-        <div style="font-size:22px;font-weight:700;color:var(--indigo);margin-bottom:10px">Transparent pricing, coming soon</div>
-        <div style="font-size:14px;color:var(--gray-500);max-width:480px;margin:0 auto">Pricing plans are not yet live on the website. Once you publish plans they will appear here and on the <strong>Pricing</strong> page for visitors.</div>
-      </div>
-
-      <!-- Product previews (matching pricing.html) -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:4px">
-
-        <!-- JobRex -->
-        <div class="plan-card" style="position:relative">
-          <div style="font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--orange);text-transform:uppercase;margin-bottom:8px">For Job Seekers</div>
-          <div class="plan-name" style="font-size:22px">JobRex</div>
-          <div class="plan-desc" style="margin-bottom:16px">AI-powered job matching that finds opportunities tailored to your skills and goals — before they find you.</div>
-          <div class="plan-features">
-            <div class="plan-feature">Smart job matching with AI</div>
-            <div class="plan-feature">Personalised career insights</div>
-            <div class="plan-feature">One-click applications</div>
-            <div class="plan-feature">Interview prep tools</div>
-          </div>
-          <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-            <span class="badge" style="background:rgba(249,115,22,0.12);color:var(--orange-dark);font-size:12px;padding:4px 12px;border-radius:12px">CTA: Get Early Access → contact.html</span>
-          </div>
-          <button class="btn btn-outline btn-sm plan-edit-btn" onclick="openEditPlan('JobRex','','','AI-powered job matching for job seekers.','Smart job matching with AI\nPersonalised career insights\nOne-click applications\nInterview prep tools')">✏️ Edit Preview</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="loadPlans()" title="Refresh">↻ Refresh</button>
+          <button class="btn btn-orange" onclick="openAddPlan()">+ Add Plan</button>
         </div>
-
-        <!-- HireRex -->
-        <div class="plan-card featured" style="position:relative">
-          <div class="plan-featured-tag">For Hiring Teams</div>
-          <div class="plan-name" style="font-size:22px">HireRex</div>
-          <div class="plan-desc" style="margin-bottom:16px">Intelligent recruitment tools that help you find, screen, and hire top talent — faster and smarter.</div>
-          <div class="plan-features">
-            <div class="plan-feature">AI candidate screening</div>
-            <div class="plan-feature">Automated skill assessments</div>
-            <div class="plan-feature">Collaborative hiring pipeline</div>
-            <div class="plan-feature">Analytics & reporting</div>
-          </div>
-          <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-            <span class="badge" style="background:rgba(30,18,86,0.1);color:var(--indigo);font-size:12px;padding:4px 12px;border-radius:12px">CTA: Request a Demo → contact.html</span>
-          </div>
-          <button class="btn btn-outline btn-sm plan-edit-btn" onclick="openEditPlan('HireRex','','','Intelligent recruitment tools for hiring teams.','AI candidate screening\nAutomated skill assessments\nCollaborative hiring pipeline\nAnalytics & reporting')">✏️ Edit Preview</button>
-        </div>
-
       </div>
+      <div id="plans-loading" style="text-align:center;padding:48px;color:var(--gray-400)">
+        <div style="font-size:28px;margin-bottom:10px">⏳</div><div>Loading plans…</div>
+      </div>
+      <div id="plans-error" style="display:none" class="card">
+        <div style="text-align:center;padding:32px 24px">
+          <div style="font-size:32px;margin-bottom:10px">⚠️</div>
+          <div id="plans-error-text" style="font-size:14px;font-weight:600;color:#991B1B;margin-bottom:12px"></div>
+          <button class="btn btn-orange btn-sm" onclick="loadPlans()">Retry</button>
+        </div>
+      </div>
+      <div id="plans-list" style="display:none"></div>
     </div>
 
     <!-- ═══════════════ JOB LISTINGS ═══════════════ -->
@@ -919,37 +887,24 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
       <div class="panel-header">
         <div>
           <div class="panel-title">Job Listings</div>
-          <div class="panel-sub">0 active listings shown on the website</div>
+          <div class="panel-sub" id="jobs-panel-sub">Loading…</div>
         </div>
-        <button class="btn btn-orange" onclick="openAddJob()">+ Add Job Listing</button>
-      </div>
-      <div class="card">
-        <div class="filter-bar">
-          <div class="search-box">
-            <span style="color:var(--gray-400)">🔍</span>
-            <input type="text" placeholder="Search by title, company, or location…">
-          </div>
-          <select class="filter-select">
-            <option>All Types</option>
-            <option>Full-time</option>
-            <option>Part-time</option>
-            <option>Remote</option>
-            <option>Contract</option>
-          </select>
-          <select class="filter-select">
-            <option>All Status</option>
-            <option>Active</option>
-            <option>Closed</option>
-            <option>Draft</option>
-          </select>
-        </div>
-        <div style="text-align:center;padding:56px 24px;color:var(--gray-400)">
-          <div style="font-size:48px;margin-bottom:16px">📋</div>
-          <div style="font-size:16px;font-weight:600;color:var(--gray-600);margin-bottom:6px">No open positions right now</div>
-          <div style="font-size:13.5px;max-width:380px;margin:0 auto 24px">When you add job listings they will appear here and on the <strong>Careers</strong> page of the website.</div>
-          <button class="btn btn-orange" onclick="openAddJob()">+ Add Your First Job Listing</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="loadJobs()" title="Refresh">↻ Refresh</button>
+          <button class="btn btn-orange" onclick="openAddJob()">+ Add Job Listing</button>
         </div>
       </div>
+      <div id="jobs-loading" style="text-align:center;padding:48px;color:var(--gray-400)">
+        <div style="font-size:28px;margin-bottom:10px">⏳</div><div>Loading listings…</div>
+      </div>
+      <div id="jobs-error" style="display:none" class="card">
+        <div style="text-align:center;padding:32px 24px">
+          <div style="font-size:32px;margin-bottom:10px">⚠️</div>
+          <div id="jobs-error-text" style="font-size:14px;font-weight:600;color:#991B1B;margin-bottom:12px"></div>
+          <button class="btn btn-orange btn-sm" onclick="loadJobs()">Retry</button>
+        </div>
+      </div>
+      <div id="jobs-list" style="display:none"></div>
     </div>
 
     <!-- ═══════════════ TEAM MEMBERS ═══════════════ -->
@@ -1278,6 +1233,8 @@ function showPanel(id) {
     document.body.style.overflow='';
   }
   window.scrollTo(0, 0);
+  if (id === 'jobs')  loadJobs();
+  if (id === 'plans') loadPlans();
 }
 
 /* ──────────────────────────────────
@@ -1434,144 +1391,410 @@ function candidateForm(name, email, position, location, plan, status) {
 }
 
 /* ──────────────────────────────────
-   PRICING PLAN MODAL
+   PRICING PLANS  — live data from Worker API
 ────────────────────────────────── */
+let _allPlans = [];
+let _editingPlanId = null;
+
+async function loadPlans() {
+  const key = getApiKey();
+  document.getElementById('plans-loading').style.display = 'block';
+  document.getElementById('plans-error').style.display   = 'none';
+  document.getElementById('plans-list').style.display    = 'none';
+  try {
+    const res = await fetch(`${WORKER_BASE}/plans`, {
+      headers: key ? { 'Authorization': `Bearer ${key}` } : {}
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+    _allPlans = data.plans || [];
+    document.getElementById('plans-loading').style.display = 'none';
+    document.getElementById('plans-list').style.display    = '';
+    const active = _allPlans.filter(p => p.visible).length;
+    document.getElementById('plans-panel-sub').textContent =
+      `${_allPlans.length} plan${_allPlans.length !== 1 ? 's' : ''} · ${active} visible on pricing page`;
+    renderPlansList();
+  } catch (err) {
+    document.getElementById('plans-loading').style.display = 'none';
+    document.getElementById('plans-error').style.display   = '';
+    document.getElementById('plans-error-text').textContent = err.message;
+  }
+}
+
+function renderPlansList() {
+  const container = document.getElementById('plans-list');
+  if (_allPlans.length === 0) {
+    container.innerHTML = `<div class="card" style="text-align:center;padding:56px 24px;color:var(--gray-400)">
+      <div style="font-size:48px;margin-bottom:16px">💳</div>
+      <div style="font-size:16px;font-weight:600;color:var(--gray-600);margin-bottom:6px">No pricing plans yet</div>
+      <div style="font-size:13.5px;max-width:380px;margin:0 auto 24px">Add plans for HireRex and JobRex — they will appear on the pricing page.</div>
+      <button class="btn btn-orange" onclick="openAddPlan()">+ Add Your First Plan</button>
+    </div>`;
+    return;
+  }
+  const hirerex = _allPlans.filter(p => p.product === 'hirerex');
+  const jobrex  = _allPlans.filter(p => p.product === 'jobrex');
+  const section = (title, color, plans) => {
+    if (plans.length === 0) return '';
+    const cards = plans.map(p => {
+      const feats = (p.features || '').split('\n').filter(Boolean)
+        .map(f => `<div class="plan-feature">${escHtml(f)}</div>`).join('');
+      const priceLabel = p.price
+        ? `<span style="font-size:26px;font-weight:800;color:var(--indigo)">${escHtml(p.price)}</span>
+           <span style="font-size:13px;color:var(--gray-500)">${p.billing==='month'?'/mo':p.billing==='year'?'/yr':''}</span>`
+        : `<span style="font-size:16px;font-weight:700;color:var(--gray-400)">No price set</span>`;
+      const vis = p.visible ? '' : `<span class="badge closed" style="font-size:10px;padding:2px 8px;position:absolute;top:8px;left:8px">Hidden</span>`;
+      const pop = p.popular ? `<span class="badge" style="background:rgba(249,115,22,0.15);color:var(--orange-dark);font-size:10px;position:absolute;top:8px;right:8px">⭐ Popular</span>` : '';
+      return `<div class="plan-card" style="position:relative;${p.visible?'':'opacity:0.6'}">
+        ${vis}${pop}
+        <div style="font-size:13px;font-weight:700;letter-spacing:.05em;color:${color};text-transform:uppercase;margin-bottom:6px">${escHtml(p.name)}</div>
+        <div style="margin-bottom:8px">${priceLabel}</div>
+        <div style="font-size:13px;color:var(--gray-500);margin-bottom:12px">${escHtml(p.description||'')}</div>
+        <div class="plan-features">${feats}</div>
+        <div style="margin-top:16px;display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="openEditPlanById(${p.id})">✏️ Edit</button>
+          <button class="btn btn-sm" style="background:transparent;color:var(--red);border:1.5px solid rgba(220,38,38,0.25)" onclick="deletePlan(${p.id},'${escHtml(p.name)}')">🗑 Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div style="margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:${color};text-transform:uppercase;margin-bottom:10px">${title}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">${cards}</div>
+    </div>`;
+  };
+  container.innerHTML =
+    section('🏢 HireRex Plans · for Companies', 'var(--indigo)', hirerex) +
+    section('🎯 JobRex Plans · for Candidates', 'var(--orange)', jobrex);
+}
+
 function openAddPlan() {
-  openModal('Add Pricing Plan', planForm('', '', 'month', '', ''));
+  _editingPlanId = null;
+  openModal('Add Pricing Plan', planForm({}));
 }
-function openEditPlan(name, price, billing, desc, features) {
-  openModal('Edit Plan — ' + name, planForm(name, price, billing, desc, features));
+function openEditPlanById(id) {
+  const p = _allPlans.find(x => x.id === id);
+  if (!p) return;
+  _editingPlanId = id;
+  openModal('Edit Plan — ' + p.name, planForm(p));
 }
-function planForm(name, price, billing, desc, features) {
+function planForm(p) {
+  const name     = escHtml(p.name     || '');
+  const price    = escHtml(p.price    || '');
+  const billing  = p.billing  ?? 'month';
+  const currency = p.currency ?? 'EUR';
+  const desc     = escHtml(p.description || '');
+  const features = escHtml(p.features   || '');
+  const product  = p.product  ?? 'hirerex';
+  const popular  = p.popular  ? 'selected' : '';
+  const hidden   = !p.visible && p.id ? 'selected' : '';
   return `
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Plan Name *</label>
-        <input class="form-input" type="text" value="${name}" placeholder="e.g. Pro">
+        <input id="pf-name" class="form-input" type="text" value="${name}" placeholder="e.g. Pro">
       </div>
       <div class="form-group">
-        <label class="form-label">Price</label>
-        <input class="form-input" type="text" value="${price}" placeholder="e.g. 49 or Custom">
+        <label class="form-label">Product</label>
+        <select id="pf-product" class="form-select">
+          <option value="hirerex" ${product==='hirerex'?'selected':''}>🏢 HireRex (for Companies)</option>
+          <option value="jobrex"  ${product==='jobrex' ?'selected':''}>🎯 JobRex (for Candidates)</option>
+        </select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
+        <label class="form-label">Price</label>
+        <input id="pf-price" class="form-input" type="text" value="${price}" placeholder="e.g. 49 or Custom">
+      </div>
+      <div class="form-group">
         <label class="form-label">Billing Period</label>
-        <select class="form-select">
+        <select id="pf-billing" class="form-select">
           <option value="month" ${billing==='month'?'selected':''}>Per Month</option>
-          <option value="year" ${billing==='year'?'selected':''}>Per Year</option>
-          <option value="" ${billing===''?'selected':''}>Custom / One-time</option>
+          <option value="year"  ${billing==='year' ?'selected':''}>Per Year</option>
+          <option value=""      ${billing===''     ?'selected':''}>Custom / One-time</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Currency</label>
+        <select id="pf-currency" class="form-select">
+          <option value="EUR" ${currency==='EUR'?'selected':''}>€ EUR</option>
+          <option value="USD" ${currency==='USD'?'selected':''}>$ USD</option>
+          <option value="GBP" ${currency==='GBP'?'selected':''}>£ GBP</option>
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">Currency</label>
-        <select class="form-select">
-          <option>€ EUR</option>
-          <option>$ USD</option>
-          <option>£ GBP</option>
+        <label class="form-label">Highlight as "Most Popular"</label>
+        <select id="pf-popular" class="form-select">
+          <option value="0">No</option>
+          <option value="1" ${popular}>Yes</option>
         </select>
       </div>
     </div>
     <div class="form-group">
       <label class="form-label">Short Description</label>
-      <input class="form-input" type="text" value="${desc}" placeholder="One-line description shown below the price">
+      <input id="pf-desc" class="form-input" type="text" value="${desc}" placeholder="One-line description shown below the price">
     </div>
     <div class="form-group">
       <label class="form-label">Features (one per line)</label>
-      <textarea class="form-textarea" style="min-height:130px" placeholder="Unlimited applications&#10;AI-powered matching&#10;Priority support">${features}</textarea>
+      <textarea id="pf-features" class="form-textarea" style="min-height:130px" placeholder="Unlimited applications&#10;AI-powered matching&#10;Priority support">${features}</textarea>
       <div class="form-hint">Each line becomes a ✓ feature bullet on the pricing page</div>
     </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Highlight as "Most Popular"</label>
-        <select class="form-select">
-          <option>No</option>
-          <option ${name==='Pro'?'selected':''}>Yes</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Visibility</label>
-        <select class="form-select">
-          <option>Visible on website</option>
-          <option>Hidden</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label class="form-label">Visibility</label>
+      <select id="pf-visible" class="form-select">
+        <option value="1" ${!hidden?'selected':''}>Visible on website</option>
+        <option value="0" ${hidden}>Hidden</option>
+      </select>
     </div>
+    <div id="pf-saving-msg" style="display:none;font-size:13px;color:var(--gray-500);margin-bottom:8px">Saving…</div>
     <div class="btn-row">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-orange" onclick="closeModal()">Save Plan</button>
+      <button class="btn btn-orange" onclick="savePlan()">Save Plan</button>
     </div>`;
 }
 
+async function savePlan() {
+  const key = getApiKey();
+  if (!key) { alert('No API key set — go to Messages and enter your API key first.'); return; }
+  const name     = document.getElementById('pf-name').value.trim();
+  if (!name) { alert('Plan name is required.'); return; }
+  const body = {
+    name,
+    product:     document.getElementById('pf-product').value,
+    price:       document.getElementById('pf-price').value.trim(),
+    billing:     document.getElementById('pf-billing').value,
+    currency:    document.getElementById('pf-currency').value,
+    description: document.getElementById('pf-desc').value.trim(),
+    features:    document.getElementById('pf-features').value.trim(),
+    popular:     Number(document.getElementById('pf-popular').value),
+    visible:     Number(document.getElementById('pf-visible').value),
+  };
+  document.getElementById('pf-saving-msg').style.display = '';
+  try {
+    const url    = _editingPlanId ? `${WORKER_BASE}/plans/${_editingPlanId}` : `${WORKER_BASE}/plans`;
+    const method = _editingPlanId ? 'PATCH' : 'POST';
+    const res    = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.error || `Server ${res.status}`); }
+    closeModal();
+    loadPlans();
+  } catch (err) {
+    document.getElementById('pf-saving-msg').style.display = 'none';
+    alert('Failed to save plan: ' + err.message);
+  }
+}
+
+async function deletePlan(id, name) {
+  if (!confirm(`Delete plan "${name}"? This cannot be undone.`)) return;
+  const key = getApiKey();
+  try {
+    const res = await fetch(`${WORKER_BASE}/plans/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${key}` }
+    });
+    if (!res.ok) throw new Error(`Server ${res.status}`);
+    loadPlans();
+  } catch (err) {
+    alert('Delete failed: ' + err.message);
+  }
+}
+
 /* ──────────────────────────────────
-   JOB LISTING MODAL
+   JOB LISTINGS  — live data from Worker API
 ────────────────────────────────── */
+let _allJobs = [];
+let _editingJobId = null;
+
+async function loadJobs() {
+  const key = getApiKey();
+  document.getElementById('jobs-loading').style.display = 'block';
+  document.getElementById('jobs-error').style.display   = 'none';
+  document.getElementById('jobs-list').style.display    = 'none';
+  try {
+    const res = await fetch(`${WORKER_BASE}/jobs`, {
+      headers: key ? { 'Authorization': `Bearer ${key}` } : {}
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+    _allJobs = data.jobs || [];
+    document.getElementById('jobs-loading').style.display = 'none';
+    document.getElementById('jobs-list').style.display    = '';
+    const active = _allJobs.filter(j => j.status === 'active').length;
+    document.getElementById('jobs-panel-sub').textContent =
+      `${_allJobs.length} listing${_allJobs.length !== 1 ? 's' : ''} · ${active} active on website`;
+    renderJobsList();
+  } catch (err) {
+    document.getElementById('jobs-loading').style.display = 'none';
+    document.getElementById('jobs-error').style.display   = '';
+    document.getElementById('jobs-error-text').textContent = err.message;
+  }
+}
+
+const JOB_STATUS_COLORS = { active:'var(--green)', draft:'var(--yellow)', closed:'var(--gray-400)' };
+
+function renderJobsList() {
+  const container = document.getElementById('jobs-list');
+  if (_allJobs.length === 0) {
+    container.innerHTML = `<div class="card" style="text-align:center;padding:56px 24px;color:var(--gray-400)">
+      <div style="font-size:48px;margin-bottom:16px">📋</div>
+      <div style="font-size:16px;font-weight:600;color:var(--gray-600);margin-bottom:6px">No job listings yet</div>
+      <div style="font-size:13.5px;max-width:380px;margin:0 auto 24px">When you add listings they'll appear here and on the Careers page.</div>
+      <button class="btn btn-orange" onclick="openAddJob()">+ Add Your First Job Listing</button>
+    </div>`;
+    return;
+  }
+  const rows = _allJobs.map(j => {
+    const color  = JOB_STATUS_COLORS[j.status] || 'var(--gray-400)';
+    const badge  = `<span class="badge" style="background:${color}20;color:${color};font-size:10px">${escHtml(j.status)}</span>`;
+    const meta   = [j.company, j.location, j.type].filter(Boolean).map(escHtml).join(' · ');
+    return `<tr>
+      <td><div style="font-weight:600;font-size:13px">${escHtml(j.title)}</div>
+          <div style="font-size:11px;color:var(--gray-400)">${meta}</div></td>
+      <td><span style="font-size:12px;color:var(--gray-500)">${escHtml(j.department||'—')}</span></td>
+      <td>${badge}</td>
+      <td><span style="font-size:11px;color:var(--gray-400)">${j.deadline||'—'}</span></td>
+      <td>
+        <button class="icon-btn" onclick="openEditJobById(${j.id})" title="Edit">✏️</button>
+        <button class="icon-btn danger" onclick="deleteJob(${j.id},'${escHtml(j.title)}')" title="Delete">🗑</button>
+      </td>
+    </tr>`;
+  }).join('');
+  container.innerHTML = `<div class="card">
+    <table class="data-table">
+      <thead><tr><th>Title</th><th>Dept</th><th>Status</th><th>Deadline</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
 function openAddJob() {
-  openModal('Add Job Listing', jobForm('', '', '', '', 'Full-time', 'active'), true);
+  _editingJobId = null;
+  openModal('Add Job Listing', jobForm({}), true);
 }
-function openEditJob(title, company, location, type, dept, status) {
-  openModal('Edit Job Listing', jobForm(title||'', company||'', location||'', dept||'', type||'Full-time', status||'active'), true);
+function openEditJobById(id) {
+  const j = _allJobs.find(x => x.id === id);
+  if (!j) return;
+  _editingJobId = id;
+  openModal('Edit Job Listing — ' + j.title, jobForm(j), true);
 }
-function jobForm(title, company, location, dept, type, status) {
+function jobForm(j) {
+  const v = (x) => escHtml(x||'');
+  const type   = j.type   || 'Full-time';
+  const status = j.status || 'active';
   return `
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Job Title *</label>
-        <input class="form-input" type="text" value="${title}" placeholder="e.g. Senior UX Designer">
+        <input id="jf-title" class="form-input" type="text" value="${v(j.title)}" placeholder="e.g. Senior UX Designer">
       </div>
       <div class="form-group">
-        <label class="form-label">Department / Category</label>
-        <input class="form-input" type="text" value="${dept}" placeholder="e.g. Engineering, Design, HR">
+        <label class="form-label">Department</label>
+        <input id="jf-dept" class="form-input" type="text" value="${v(j.department)}" placeholder="e.g. Engineering, Design, HR">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Company *</label>
-        <input class="form-input" type="text" value="${company}" placeholder="Hiring company name">
+        <label class="form-label">Company</label>
+        <input id="jf-company" class="form-input" type="text" value="${v(j.company)}" placeholder="Hiring company name">
       </div>
       <div class="form-group">
-        <label class="form-label">Location *</label>
-        <input class="form-input" type="text" value="${location}" placeholder="e.g. Berlin, DE or Remote">
+        <label class="form-label">Location</label>
+        <input id="jf-location" class="form-input" type="text" value="${v(j.location)}" placeholder="e.g. Berlin, DE or Remote">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Job Type</label>
-        <select class="form-select">
-          <option ${type==='Full-time'?'selected':''}>Full-time</option>
-          <option ${type==='Part-time'?'selected':''}>Part-time</option>
-          <option ${type==='Remote'?'selected':''}>Remote</option>
-          <option ${type==='Contract'?'selected':''}>Contract</option>
+        <select id="jf-type" class="form-select">
+          <option ${type==='Full-time' ?'selected':''}>Full-time</option>
+          <option ${type==='Part-time' ?'selected':''}>Part-time</option>
+          <option ${type==='Remote'    ?'selected':''}>Remote</option>
+          <option ${type==='Contract'  ?'selected':''}>Contract</option>
           <option ${type==='Internship'?'selected':''}>Internship</option>
         </select>
       </div>
       <div class="form-group">
         <label class="form-label">Salary Range</label>
-        <input class="form-input" type="text" placeholder="e.g. €60,000 – €80,000 or Negotiable">
+        <input id="jf-salary" class="form-input" type="text" value="${v(j.salary)}" placeholder="e.g. €60,000 – €80,000 or Negotiable">
       </div>
     </div>
     <div class="form-group">
-      <label class="form-label">Job Description *</label>
-      <textarea class="form-textarea" style="min-height:120px" placeholder="Describe the role, responsibilities, and requirements…"></textarea>
+      <label class="form-label">Job Description</label>
+      <textarea id="jf-desc" class="form-textarea" style="min-height:120px" placeholder="Describe the role, responsibilities, and requirements…">${v(j.description)}</textarea>
     </div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Application Deadline</label>
-        <input class="form-input" type="date">
+        <input id="jf-deadline" class="form-input" type="date" value="${v(j.deadline)}">
       </div>
       <div class="form-group">
         <label class="form-label">Status</label>
-        <select class="form-select">
+        <select id="jf-status" class="form-select">
           <option value="active" ${status==='active'?'selected':''}>Active — visible on website</option>
-          <option value="draft" ${status==='draft'?'selected':''}>Draft — hidden</option>
+          <option value="draft"  ${status==='draft' ?'selected':''}>Draft — hidden</option>
           <option value="closed" ${status==='closed'?'selected':''}>Closed</option>
         </select>
       </div>
     </div>
+    <div id="jf-saving-msg" style="display:none;font-size:13px;color:var(--gray-500);margin-bottom:8px">Saving…</div>
     <div class="btn-row">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-orange" onclick="closeModal()">Save Job Listing</button>
+      <button class="btn btn-orange" onclick="saveJob()">Save Job Listing</button>
     </div>`;
+}
+
+async function saveJob() {
+  const key = getApiKey();
+  if (!key) { alert('No API key set — go to Messages and enter your API key first.'); return; }
+  const title = document.getElementById('jf-title').value.trim();
+  if (!title) { alert('Job title is required.'); return; }
+  const body = {
+    title,
+    department:  document.getElementById('jf-dept').value.trim(),
+    company:     document.getElementById('jf-company').value.trim(),
+    location:    document.getElementById('jf-location').value.trim(),
+    type:        document.getElementById('jf-type').value,
+    salary:      document.getElementById('jf-salary').value.trim(),
+    description: document.getElementById('jf-desc').value.trim(),
+    deadline:    document.getElementById('jf-deadline').value,
+    status:      document.getElementById('jf-status').value,
+  };
+  document.getElementById('jf-saving-msg').style.display = '';
+  try {
+    const url    = _editingJobId ? `${WORKER_BASE}/jobs/${_editingJobId}` : `${WORKER_BASE}/jobs`;
+    const method = _editingJobId ? 'PATCH' : 'POST';
+    const res    = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.error || `Server ${res.status}`); }
+    closeModal();
+    loadJobs();
+  } catch (err) {
+    document.getElementById('jf-saving-msg').style.display = 'none';
+    alert('Failed to save listing: ' + err.message);
+  }
+}
+
+async function deleteJob(id, title) {
+  if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+  const key = getApiKey();
+  try {
+    const res = await fetch(`${WORKER_BASE}/jobs/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${key}` }
+    });
+    if (!res.ok) throw new Error(`Server ${res.status}`);
+    loadJobs();
+  } catch (err) {
+    alert('Delete failed: ' + err.message);
+  }
 }
 
 /* ──────────────────────────────────
