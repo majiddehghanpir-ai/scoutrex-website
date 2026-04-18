@@ -213,6 +213,9 @@
     touch-action: none !important;
   }
 
+  /* Lift navbar ABOVE the sidebar so the hamburger stays tappable */
+  body.menu-open #navbar { z-index: 100001 !important; }
+
   /* Hide Rexi while menu is open */
   body.menu-open #rexi-bubble { display: none !important; }
 }
