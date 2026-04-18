@@ -363,42 +363,42 @@
     padding-bottom: 32px;
   }
 
-  /* Larger touch targets so links are easy to tap */
-  .footer-col ul li { margin-bottom: 14px; }
+  /* Compact tap targets — keep 44px hit area via padding but not min-height */
+  .footer-col ul li { margin-bottom: 4px; }
   .footer-col ul li a {
-    font-size: 15px;
-    display: block;
-    padding: 8px 0;
-    min-height: 44px;
+    font-size: 14px;
     display: flex;
     align-items: center;
+    padding: 6px 0;
+    min-height: 36px;
   }
 
   /* Push footer bottom away from Rexi bubble (fixed bottom-right) */
   .footer-bottom {
-    padding-bottom: 80px;
+    padding-bottom: 72px;
   }
 }
 
 @media (max-width: 480px) {
-  /* Single column on phones so every link gets full width */
+  /* Single column on phones */
+  footer { padding: 40px 0 0; }
   .footer-top {
     grid-template-columns: 1fr !important;
-    gap: 24px;
+    gap: 20px;
+    padding-bottom: 24px;
   }
-  .footer-col-title { font-size: 11px; }
+  .footer-brand p { margin-top: 10px; font-size: 13px; }
+  .footer-social  { margin-top: 12px; }
+  .footer-col-title { font-size: 11px; margin-bottom: 8px; }
+  .footer-col ul li { margin-bottom: 2px; }
   .footer-col ul li a {
-    font-size: 14px;
-    padding: 10px 0;
-    min-height: 44px;
+    font-size: 13px;
+    padding: 5px 0;
+    min-height: 32px;
   }
-  .footer-bottom-left { font-size: 11px; }
+  .footer-bottom { padding: 16px 0 80px; }
+  .footer-bottom-left  { font-size: 11px; }
   .footer-bottom-right a { font-size: 11px; }
-
-  /* Extra bottom padding on small phones — Rexi is 52px + 16px gap */
-  .footer-bottom {
-    padding-bottom: 88px;
-  }
 }
 
 
@@ -632,4 +632,123 @@ html.dark .nav-dd-menu a:hover {
     margin-top: -6px !important;
   }
   .mobile-sub-link:hover { opacity: 1; color: var(--orange, #F97316) !important; }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   HIREREX / JOBREX PAGES — MOCKUP SECTION
+   The mockup layout is a 2-col grid that has no mobile
+   override. On phones it squashes both columns into a
+   tiny viewport. Fix: stack to single column and centre.
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Stack mockup layout: text first, then mockup below */
+  .mockup-layout {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .mockup-section { padding: 64px 0 !important; }
+
+  /* Centre the phone-mockup wrap when stacked */
+  .sr-phone-wrap { justify-content: center !important; }
+
+  /* On tablet the desktop mockup is still visible — constrain its width */
+  .sr-mockup-wrap { max-width: 560px; margin: 0 auto !important; }
+
+  /* Steps gap tighter */
+  .mockup-steps { gap: 14px !important; margin-top: 24px !important; }
+  .mockup-step-num { width: 28px; height: 28px; font-size: 12px; }
+  .mockup-step-body h4 { font-size: 13px; }
+  .mockup-step-body p  { font-size: 12px; }
+}
+
+@media (max-width: 560px) {
+  .mockup-section { padding: 48px 0 !important; }
+  .mockup-layout  { gap: 28px !important; }
+  /* On phones the phone mockup shows; centre it nicely */
+  .sr-phone-wrap  { padding: 8px 0 !important; }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   HIREREX / JOBREX PAGES — FEATURES GRID
+   2-column card grid, needs to collapse on mobile.
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    margin-top: 36px !important;
+  }
+  .feature-card { padding: 24px 20px !important; border-radius: 16px !important; }
+  .feature-card-icon { width: 42px; height: 42px; font-size: 20px; margin-bottom: 14px; }
+  .feature-card h3 { font-size: 1rem !important; margin-bottom: 6px; }
+  .feature-card p  { font-size: 13px !important; }
+}
+
+@media (max-width: 480px) {
+  /* Single column — cards are already compact but 2-col is too narrow */
+  .features-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .feature-card  { padding: 20px 16px !important; border-radius: 14px !important; }
+  .feature-card-icon { margin-bottom: 12px; }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   HIREREX / JOBREX PAGES — BRIDGE SECTION
+   flex row with 48px gap & 48px padding is too wide on mobile.
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .bridge-section  { padding: 52px 0 !important; }
+  .bridge-inner {
+    flex-direction: column !important;
+    gap: 20px !important;
+    padding: 28px 24px !important;
+    border-radius: 18px !important;
+    text-align: center;
+    align-items: center !important;
+  }
+  .bridge-icon { font-size: 2rem !important; }
+  .bridge-body h3   { font-size: 1.1rem !important; }
+  .bridge-body p    { font-size: 0.88rem !important; }
+  .bridge-body .btn { margin-top: 4px; width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .bridge-inner { padding: 22px 18px !important; gap: 16px !important; border-radius: 14px !important; }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   HIREREX / JOBREX PAGES — CTA BAND
+   96px padding is very tall on mobile.
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cta-band { padding: 60px 0 !important; }
+  .cta-band h2 { font-size: clamp(1.5rem, 5vw, 2rem) !important; margin-bottom: 12px; }
+  .cta-band p  { font-size: 0.95rem !important; margin-bottom: 28px; }
+  .cta-band-btns { gap: 10px; flex-direction: column; align-items: center; }
+  .cta-band-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .cta-band { padding: 48px 0 !important; }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   HIREREX / JOBREX PAGES — HERO BADGES ROW
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .hero-badges { gap: 10px !important; margin-top: 24px !important; }
+  .hero-badge-item { font-size: 12px; gap: 5px; }
+}
+
+@media (max-width: 400px) {
+  /* Stack badges 1-per-row on very small phones */
+  .hero-badges {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
 }
