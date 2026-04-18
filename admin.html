@@ -328,6 +328,108 @@ a{text-decoration:none;color:inherit}
 .auth-error.show{display:block}
 body.locked{overflow:hidden}
 body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
+
+/* ── SIDEBAR TOGGLE BTN (hidden on desktop) ── */
+.sidebar-toggle{display:none}
+
+/* ── ADMIN SIDEBAR BACKDROP ── */
+#admin-sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9998;opacity:0;pointer-events:none;transition:opacity 0.28s ease}
+#admin-sidebar-backdrop.open{opacity:1;pointer-events:auto}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:900px){
+
+  /* Topbar */
+  .topbar{padding:0 14px}
+  .admin-badge{display:none}
+  .topbar-admin-name,.topbar-admin-role{display:none}
+  .topbar-logo span{font-size:14px}
+
+  /* Sidebar toggle button */
+  .sidebar-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:38px;height:38px;background:rgba(255,255,255,0.10);
+    border:1px solid rgba(255,255,255,0.18);border-radius:9px;
+    cursor:pointer;font-size:19px;color:#fff;flex-shrink:0;
+    transition:background 0.2s;margin-right:4px
+  }
+  .sidebar-toggle:hover{background:rgba(255,255,255,0.18)}
+
+  /* Sidebar slides in from left */
+  .sidebar{
+    position:fixed!important;
+    top:0!important;left:0!important;bottom:0!important;
+    height:100vh!important;width:256px!important;
+    z-index:9999;
+    transform:translateX(-110%);
+    transition:transform 0.28s cubic-bezier(0.4,0,0.2,1),box-shadow 0.28s;
+    padding-top:72px!important;
+    overflow-y:auto
+  }
+  .sidebar.open{
+    transform:translateX(0)!important;
+    box-shadow:4px 0 32px rgba(0,0,0,0.22)
+  }
+
+  /* Layout */
+  .layout{flex-direction:column}
+  .main{padding:18px 14px}
+
+  /* KPI grid → 2 cols */
+  .kpi-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+
+  /* 2-col grids → 1 col */
+  .grid-2{grid-template-columns:1fr!important;gap:14px!important}
+
+  /* Messages layout → stacked */
+  .messages-layout{grid-template-columns:1fr!important}
+  .msg-detail{position:relative!important;top:auto!important}
+
+  /* Plan grid (inline style uses 1fr 1fr; override) */
+  .page-panel [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+
+  /* Settings grid-2 → 1 col */
+  .grid-2 .card+.card{margin-top:0}
+
+  /* Tables: scrollable wrapper via parent */
+  .data-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:12px;white-space:nowrap}
+  .data-table tbody td,.data-table thead th{padding:10px 9px}
+
+  /* Panel header */
+  .panel-header{flex-direction:column;align-items:flex-start!important;gap:10px}
+
+  /* Filter bar */
+  .filter-bar{flex-direction:column;gap:8px!important}
+  .search-box{min-width:100%!important}
+  .filter-select{width:100%}
+
+  /* Form row */
+  .form-row{grid-template-columns:1fr!important}
+  .btn-row{flex-direction:column}
+  .btn-row .btn{width:100%;justify-content:center}
+
+  /* Modal: bottom sheet on mobile */
+  .modal-overlay{align-items:flex-end!important;padding:0!important}
+  .modal{border-radius:18px 18px 0 0!important;max-width:100%!important;max-height:85vh!important}
+
+  /* Auth card */
+  .auth-card{padding:32px 22px;margin:12px}
+
+  /* KPI trend – shorten */
+  .kpi-trend-label{display:none}
+
+  /* Topbar admin: keep avatar but hide text */
+  .topbar-admin{padding:4px 6px}
+}
+
+@media(max-width:480px){
+  .kpi-grid{grid-template-columns:1fr!important;gap:8px!important}
+  .main{padding:14px 11px}
+  .panel-title{font-size:1.15rem}
+  .kpi-val{font-size:1.5rem}
+  .card{padding:16px 14px}
+  .kpi-card{padding:14px 14px}
+}
 </style>
 </head>
 <body class="locked">
@@ -366,9 +468,13 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
   </div>
 </div>
 
+<!-- ADMIN SIDEBAR BACKDROP -->
+<div id="admin-sidebar-backdrop" onclick="toggleAdminSidebar()"></div>
+
 <!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-left">
+    <button class="sidebar-toggle" onclick="toggleAdminSidebar()" title="Toggle menu">☰</button>
     <div class="topbar-logo">
       <img src="ScoutRexLogo-transparent.png" alt="ScoutRex">
       <span>Scout<span class="rex">Rex</span></span>
@@ -1072,6 +1178,15 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
 </div>
 
 <script>
+/* ── ADMIN SIDEBAR TOGGLE (mobile) ── */
+function toggleAdminSidebar(){
+  var sb=document.querySelector('.sidebar');
+  var bd=document.getElementById('admin-sidebar-backdrop');
+  var open=sb.classList.toggle('open');
+  bd.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+
 /* ──────────────────────────────────
    AUTH GATE — blocks page until admin login
 ────────────────────────────────── */
@@ -1154,6 +1269,14 @@ function showPanel(id) {
       n.classList.add('active');
     }
   });
+  /* Close sidebar on mobile after navigation */
+  var sb=document.querySelector('.sidebar');
+  if(sb && sb.classList.contains('open')){
+    sb.classList.remove('open');
+    var bd=document.getElementById('admin-sidebar-backdrop');
+    if(bd) bd.classList.remove('open');
+    document.body.style.overflow='';
+  }
   window.scrollTo(0, 0);
 }
 
