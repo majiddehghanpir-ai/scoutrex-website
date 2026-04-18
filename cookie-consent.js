@@ -5,20 +5,28 @@
    Stage 2: Per-category toggles (only if Customize chosen)
    ============================================================ */
 
-/* ── Dark-mode ambient orbs (injected on all pages) ────────── */
+/* ── Ambient orbs — dark + light mode (injected on all pages) ── */
 (function () {
   var style = document.createElement('style');
-  style.id = 'sr-dark-orbs';
+  style.id = 'sr-ambient-orbs';
   style.textContent = [
+    /* dark mode: orange top-left, indigo top-right, deep purple bottom */
     'html.dark body::before{',
-    '  content:"";',
-    '  position:fixed;inset:0;pointer-events:none;z-index:0;',
+    '  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;',
     '  background:',
     '    radial-gradient(ellipse at 12% 25%,rgba(249,115,22,0.10) 0%,transparent 45%),',
     '    radial-gradient(ellipse at 88% 15%,rgba(93,78,214,0.16) 0%,transparent 45%),',
     '    radial-gradient(ellipse at 55% 85%,rgba(30,18,86,0.18) 0%,transparent 50%);',
     '}',
     'html.dark body>*{position:relative;z-index:1}',
+    /* light mode: soft orange top-left, faint indigo top-right */
+    'html:not(.dark) body::before{',
+    '  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;',
+    '  background:',
+    '    radial-gradient(ellipse at 10% 20%,rgba(249,115,22,0.09) 0%,transparent 45%),',
+    '    radial-gradient(ellipse at 90% 15%,rgba(93,78,214,0.07) 0%,transparent 45%);',
+    '}',
+    'html:not(.dark) body>*{position:relative;z-index:1}',
   ].join('');
   document.head.appendChild(style);
 })();

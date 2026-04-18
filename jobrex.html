@@ -445,6 +445,61 @@ html:not(.dark) .bridge-section::before {
   position: relative;
 }
 
+/* ── JobRex Mockup: Light Mode ───────────────────────────── */
+html:not(.dark) .sr-mockup{background:#fff;border-color:rgba(93,78,214,0.15);box-shadow:0 24px 64px rgba(30,18,86,0.12)}
+html:not(.dark) .sr-mockup-bar{background:#F3F0FF;border-bottom-color:rgba(93,78,214,0.1)}
+html:not(.dark) .sr-mockup-url{color:rgba(30,18,86,0.25)}
+html:not(.dark) .sr-mockup-sidebar{background:#F3F0FF;border-right-color:rgba(93,78,214,0.1)}
+html:not(.dark) .sr-muser-name{color:#1E1256}
+html:not(.dark) .sr-muser-role{color:rgba(30,18,86,0.4)}
+html:not(.dark) .sr-mlabel{color:rgba(30,18,86,0.3)}
+html:not(.dark) .sr-mnav{color:rgba(30,18,86,0.5)}
+html:not(.dark) .sr-mnav.active{background:rgba(93,78,214,0.1);color:#3D2CAE}
+html:not(.dark) .sr-mtitle{color:#1E1256}
+html:not(.dark) .sr-mbtn-ghost{border-color:rgba(30,18,86,0.15);color:rgba(30,18,86,0.5)}
+html:not(.dark) .sr-app-card{background:#F8F7FF;border-color:rgba(93,78,214,0.1)}
+html:not(.dark) .sr-app-card.expanded{background:rgba(93,78,214,0.05);border-color:rgba(93,78,214,0.25)}
+html:not(.dark) .sr-app-company{color:#1E1256}
+html:not(.dark) .sr-app-role{color:rgba(30,18,86,0.5)}
+html:not(.dark) .sr-test-pending{background:rgba(249,115,22,0.1);color:#C2410C}
+html:not(.dark) .sr-test-done{background:rgba(21,128,61,0.1);color:#15803D}
+html:not(.dark) .sr-badge-amber{background:rgba(251,191,36,0.18);color:#B45309}
+html:not(.dark) .sr-badge-green{background:rgba(34,197,94,0.15);color:#15803D}
+
+/* ── Phone Mockup ─────────────────────────────────────────── */
+.sr-phone-wrap{display:none;justify-content:center;align-items:center}
+.sr-phone-frame{width:220px;background:#13103A;border-radius:36px;border:6px solid rgba(99,102,241,0.25);box-shadow:0 32px 72px rgba(0,0,0,0.5),inset 0 0 0 1px rgba(255,255,255,0.06);overflow:hidden;position:relative}
+html:not(.dark) .sr-phone-frame{background:#fff;border-color:rgba(93,78,214,0.25);box-shadow:0 32px 72px rgba(30,18,86,0.15),inset 0 0 0 1px rgba(93,78,214,0.08)}
+.sr-phone-notch{width:70px;height:18px;background:#0D0B28;border-radius:0 0 14px 14px;margin:0 auto;position:relative;z-index:2}
+html:not(.dark) .sr-phone-notch{background:#F3F0FF}
+.sr-phone-status{display:flex;justify-content:space-between;align-items:center;padding:6px 14px 0;font-size:8px;font-weight:700;color:rgba(255,255,255,0.3)}
+html:not(.dark) .sr-phone-status{color:rgba(30,18,86,0.35)}
+.sr-phone-screen{padding:0 0 16px}
+.sr-phone-topbar{background:#0D0B28;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:6px}
+html:not(.dark) .sr-phone-topbar{background:#F3F0FF;border-bottom-color:rgba(93,78,214,0.1)}
+.sr-phone-topbar-logo{font-size:10px;font-weight:800;color:#6366F1}
+.sr-phone-topbar-title{font-size:9px;font-weight:700;color:rgba(255,255,255,0.8);margin-left:4px}
+html:not(.dark) .sr-phone-topbar-title{color:#1E1256}
+.sr-phone-body{padding:10px}
+.sr-phone-greeting{font-size:10px;font-weight:800;color:rgba(255,255,255,0.9);margin-bottom:6px}
+html:not(.dark) .sr-phone-greeting{color:#1E1256}
+.sr-phone-apps-label{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:5px}
+html:not(.dark) .sr-phone-apps-label{color:rgba(30,18,86,0.3)}
+.sr-phone-app-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:8px 10px;margin-bottom:5px}
+html:not(.dark) .sr-phone-app-card{background:#F8F7FF;border-color:rgba(93,78,214,0.1)}
+.sr-phone-app-row{display:flex;align-items:center;gap:6px}
+.sr-phone-app-company{font-size:9px;font-weight:700;color:rgba(255,255,255,0.85)}
+html:not(.dark) .sr-phone-app-company{color:#1E1256}
+.sr-phone-app-role{font-size:8px;color:rgba(255,255,255,0.4)}
+html:not(.dark) .sr-phone-app-role{color:rgba(30,18,86,0.5)}
+.sr-phone-home{height:20px;display:flex;align-items:center;justify-content:center}
+.sr-phone-home-bar{width:60px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px}
+html:not(.dark) .sr-phone-home-bar{background:rgba(30,18,86,0.15)}
+@media(max-width:900px){
+  .sr-mockup-wrap{display:none!important}
+  .sr-phone-wrap{display:flex!important}
+}
+
 </style>
 <link rel="stylesheet" href="mobile.css?v=8"/>
 <style id="alt-sections">
@@ -737,6 +792,73 @@ html:not(.dark) .pricing-dark-section .section-sub {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <!-- Phone mockup (shown on mobile only via media query) -->
+      <div class="sr-phone-wrap">
+        <div class="sr-phone-frame">
+          <div class="sr-phone-notch"></div>
+          <div class="sr-phone-status"><span>9:41</span><span>▲ ◉</span></div>
+          <div class="sr-phone-screen">
+            <div class="sr-phone-topbar">
+              <div style="font-weight:700;font-size:13px;color:#F97316">Job<span style="color:inherit">Rex</span></div>
+              <div style="font-size:10px;opacity:0.6">Stefan W.</div>
+            </div>
+            <div class="sr-phone-body">
+              <!-- Profile strip -->
+              <div style="display:flex;align-items:center;gap:8px;padding:10px 12px 6px;border-bottom:1px solid rgba(93,78,214,0.08)">
+                <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#3D2CAE,#6C5CE7);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">SW</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700">Stefan Weis</div>
+                  <div style="font-size:9px;opacity:0.55">4 Active Applications</div>
+                </div>
+                <div style="margin-left:auto;font-size:9px;background:rgba(249,115,22,0.12);color:#F97316;padding:3px 8px;border-radius:20px;font-weight:600">🔍 Find Jobs</div>
+              </div>
+              <!-- Apps list -->
+              <div style="padding:8px 10px;display:flex;flex-direction:column;gap:6px">
+                <div style="font-size:9px;font-weight:700;opacity:0.45;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px">My Applications</div>
+                <!-- App 1 -->
+                <div style="background:rgba(93,78,214,0.08);border-radius:10px;padding:8px 10px;border:1px solid rgba(93,78,214,0.12)">
+                  <div style="display:flex;align-items:center;gap:7px">
+                    <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#1E40AF,#3B82F6);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">BM</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BMW Group</div>
+                      <div style="font-size:9px;opacity:0.6">Compliance Officer</div>
+                    </div>
+                    <div style="font-size:8px;background:rgba(245,158,11,0.15);color:#D97706;padding:2px 6px;border-radius:10px;font-weight:600;white-space:nowrap">In Progress</div>
+                  </div>
+                  <div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap">
+                    <span style="font-size:8px;background:rgba(93,78,214,0.1);color:#6C5CE7;padding:2px 6px;border-radius:8px">⏳ Legal</span>
+                    <span style="font-size:8px;background:rgba(93,78,214,0.1);color:#6C5CE7;padding:2px 6px;border-radius:8px">⏳ Risk</span>
+                    <span style="font-size:8px;background:rgba(16,185,129,0.12);color:#059669;padding:2px 6px;border-radius:8px">✓ English</span>
+                  </div>
+                </div>
+                <!-- App 2 -->
+                <div style="background:rgba(93,78,214,0.05);border-radius:10px;padding:8px 10px;border:1px solid rgba(93,78,214,0.08)">
+                  <div style="display:flex;align-items:center;gap:7px">
+                    <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#047857,#10B981);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">SA</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:10px;font-weight:700">SAP SE</div>
+                      <div style="font-size:9px;opacity:0.6">Software Engineer</div>
+                    </div>
+                    <div style="font-size:8px;background:rgba(16,185,129,0.12);color:#059669;padding:2px 6px;border-radius:10px;font-weight:600">Shortlisted</div>
+                  </div>
+                </div>
+                <!-- App 3 -->
+                <div style="background:rgba(93,78,214,0.05);border-radius:10px;padding:8px 10px;border:1px solid rgba(93,78,214,0.08)">
+                  <div style="display:flex;align-items:center;gap:7px">
+                    <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#7C3AED,#A78BFA);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">DB</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:10px;font-weight:700">Deutsche Bank</div>
+                      <div style="font-size:9px;opacity:0.6">Data Analyst</div>
+                    </div>
+                    <div style="font-size:8px;background:rgba(245,158,11,0.15);color:#D97706;padding:2px 6px;border-radius:10px;font-weight:600">Screening</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sr-phone-home"><div class="sr-phone-home-bar"></div></div>
         </div>
       </div>
     </div>
