@@ -1497,17 +1497,16 @@ let _allPlans = [];
 let _editingPlanId = null;
 
 async function loadPlans() {
-  const key = getApiKey();
   document.getElementById('plans-loading').style.display = 'block';
   document.getElementById('plans-error').style.display   = 'none';
   document.getElementById('plans-list').style.display    = 'none';
   try {
-    const res = await fetch(`${WORKER_BASE}/plans`, {
-      headers: key ? { 'Authorization': `Bearer ${key}` } : {}
+    const res = await fetch(`${AUTH_API}/api/subscriptions/plans`, {
+      headers: { 'Authorization': `Bearer ${_adminToken}` }
     });
     if (!res.ok) throw new Error(`Server returned ${res.status}`);
     const data = await res.json();
-    _allPlans = data.plans || [];
+    _allPlans = Array.isArray(data) ? data : (data.plans || []);
     document.getElementById('plans-loading').style.display = 'none';
     document.getElementById('plans-list').style.display    = '';
     const active = _allPlans.filter(p => p.visible).length;
@@ -1656,9 +1655,8 @@ function planForm(p) {
 }
 
 async function savePlan() {
-  const key = getApiKey();
-  if (!key) { alert('No API key set — go to Messages and enter your API key first.'); return; }
-  const name     = document.getElementById('pf-name').value.trim();
+  if (!_adminToken) { alert('Not logged in.'); return; }
+  const name = document.getElementById('pf-name').value.trim();
   if (!name) { alert('Plan name is required.'); return; }
   const body = {
     name,
@@ -1673,14 +1671,16 @@ async function savePlan() {
   };
   document.getElementById('pf-saving-msg').style.display = '';
   try {
-    const url    = _editingPlanId ? `${WORKER_BASE}/plans/${_editingPlanId}` : `${WORKER_BASE}/plans`;
-    const method = _editingPlanId ? 'PATCH' : 'POST';
+    const url    = _editingPlanId
+      ? `${AUTH_API}/api/subscriptions/plans/${_editingPlanId}`
+      : `${AUTH_API}/api/subscriptions/plans`;
+    const method = _editingPlanId ? 'PUT' : 'POST';
     const res    = await fetch(url, {
       method,
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${_adminToken}` },
       body: JSON.stringify(body)
     });
-    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.error || `Server ${res.status}`); }
+    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.detail || d.error || `Server ${res.status}`); }
     closeModal();
     loadPlans();
   } catch (err) {
@@ -1689,19 +1689,19 @@ async function savePlan() {
   }
 }
 
-async function deletePlan(id, name) {
-  if (!confirm(`Delete plan "${name}"? This cannot be undone.`)) return;
-  const key = getApiKey();
-  try {
-    const res = await fetch(`${WORKER_BASE}/plans/${id}`, {
-      method: 'DELETE',
-      headers: { 'Authorization': `Bearer ${key}` }
-    });
-    if (!res.ok) throw new Error(`Server ${res.status}`);
-    loadPlans();
-  } catch (err) {
-    alert('Delete failed: ' + err.message);
-  }
+function deletePlan(id, name) {
+  confirmDelete('Delete Plan', `Delete plan "<strong>${escHtml(name)}</strong>"? This cannot be undone.`, async () => {
+    try {
+      const res = await fetch(`${AUTH_API}/api/subscriptions/plans/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${_adminToken}` }
+      });
+      if (!res.ok) throw new Error(`Server ${res.status}`);
+      loadPlans();
+    } catch (err) {
+      alert('Delete failed: ' + err.message);
+    }
+  });
 }
 
 /* ──────────────────────────────────
@@ -1711,20 +1711,19 @@ let _allJobs = [];
 let _editingJobId = null;
 
 async function loadJobs() {
-  const key = getApiKey();
   document.getElementById('jobs-loading').style.display = 'block';
   document.getElementById('jobs-error').style.display   = 'none';
   document.getElementById('jobs-list').style.display    = 'none';
   try {
-    const res = await fetch(`${WORKER_BASE}/jobs`, {
-      headers: key ? { 'Authorization': `Bearer ${key}` } : {}
+    const res = await fetch(`${AUTH_API}/api/admin/website/jobs`, {
+      headers: { 'Authorization': `Bearer ${_adminToken}` }
     });
     if (!res.ok) throw new Error(`Server returned ${res.status}`);
     const data = await res.json();
-    _allJobs = data.jobs || [];
+    _allJobs = Array.isArray(data) ? data : (data.jobs || []);
     document.getElementById('jobs-loading').style.display = 'none';
     document.getElementById('jobs-list').style.display    = '';
-    const active = _allJobs.filter(j => j.status === 'active').length;
+    const active = _allJobs.filter(j => j.is_active).length;
     document.getElementById('jobs-panel-sub').textContent =
       `${_allJobs.length} listing${_allJobs.length !== 1 ? 's' : ''} · ${active} active on website`;
     renderJobsList();
@@ -1734,8 +1733,6 @@ async function loadJobs() {
     document.getElementById('jobs-error-text').textContent = err.message;
   }
 }
-
-const JOB_STATUS_COLORS = { active:'var(--green)', draft:'var(--yellow)', closed:'var(--gray-400)' };
 
 function renderJobsList() {
   const container = document.getElementById('jobs-list');
@@ -1749,9 +1746,10 @@ function renderJobsList() {
     return;
   }
   const rows = _allJobs.map(j => {
-    const color  = JOB_STATUS_COLORS[j.status] || 'var(--gray-400)';
-    const badge  = `<span class="badge" style="background:${color}20;color:${color};font-size:10px">${escHtml(j.status)}</span>`;
-    const meta   = [j.company, j.location, j.type].filter(Boolean).map(escHtml).join(' · ');
+    const statusStr = j.is_active ? 'active' : 'closed';
+    const color     = j.is_active ? 'var(--green)' : 'var(--gray-400)';
+    const badge     = `<span class="badge" style="background:${color}20;color:${color};font-size:10px">${statusStr}</span>`;
+    const meta      = [j.location, j.job_type].filter(Boolean).map(escHtml).join(' · ');
     return `<tr>
       <td><div style="font-weight:600;font-size:13px">${escHtml(j.title)}</div>
           <div style="font-size:11px;color:var(--gray-400)">${meta}</div></td>
@@ -1783,9 +1781,9 @@ function openEditJobById(id) {
   openModal('Edit Job Listing — ' + j.title, jobForm(j), true);
 }
 function jobForm(j) {
-  const v = (x) => escHtml(x||'');
-  const type   = j.type   || 'Full-time';
-  const status = j.status || 'active';
+  const v      = (x) => escHtml(x||'');
+  const type   = j.job_type || 'Full-time';
+  const active = j.is_active !== undefined ? j.is_active : true;
   return `
     <div class="form-row">
       <div class="form-group">
@@ -1799,15 +1797,9 @@ function jobForm(j) {
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Company</label>
-        <input id="jf-company" class="form-input" type="text" value="${v(j.company)}" placeholder="Hiring company name">
-      </div>
-      <div class="form-group">
         <label class="form-label">Location</label>
         <input id="jf-location" class="form-input" type="text" value="${v(j.location)}" placeholder="e.g. Berlin, DE or Remote">
       </div>
-    </div>
-    <div class="form-row">
       <div class="form-group">
         <label class="form-label">Job Type</label>
         <select id="jf-type" class="form-select">
@@ -1818,28 +1810,27 @@ function jobForm(j) {
           <option ${type==='Internship'?'selected':''}>Internship</option>
         </select>
       </div>
+    </div>
+    <div class="form-row">
       <div class="form-group">
         <label class="form-label">Salary Range</label>
         <input id="jf-salary" class="form-input" type="text" value="${v(j.salary)}" placeholder="e.g. €60,000 – €80,000 or Negotiable">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Application Deadline</label>
+        <input id="jf-deadline" class="form-input" type="date" value="${v(j.deadline)}">
       </div>
     </div>
     <div class="form-group">
       <label class="form-label">Job Description</label>
       <textarea id="jf-desc" class="form-textarea" style="min-height:120px" placeholder="Describe the role, responsibilities, and requirements…">${v(j.description)}</textarea>
     </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Application Deadline</label>
-        <input id="jf-deadline" class="form-input" type="date" value="${v(j.deadline)}">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Status</label>
-        <select id="jf-status" class="form-select">
-          <option value="active" ${status==='active'?'selected':''}>Active — visible on website</option>
-          <option value="draft"  ${status==='draft' ?'selected':''}>Draft — hidden</option>
-          <option value="closed" ${status==='closed'?'selected':''}>Closed</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label class="form-label">Status</label>
+      <select id="jf-status" class="form-select">
+        <option value="active"  ${active ?'selected':''}>Active — visible on website</option>
+        <option value="closed"  ${!active?'selected':''}>Closed — hidden</option>
+      </select>
     </div>
     <div id="jf-saving-msg" style="display:none;font-size:13px;color:var(--gray-500);margin-bottom:8px">Saving…</div>
     <div class="btn-row">
@@ -1849,31 +1840,31 @@ function jobForm(j) {
 }
 
 async function saveJob() {
-  const key = getApiKey();
-  if (!key) { alert('No API key set — go to Messages and enter your API key first.'); return; }
+  if (!_adminToken) { alert('Not logged in.'); return; }
   const title = document.getElementById('jf-title').value.trim();
   if (!title) { alert('Job title is required.'); return; }
   const body = {
     title,
     department:  document.getElementById('jf-dept').value.trim(),
-    company:     document.getElementById('jf-company').value.trim(),
     location:    document.getElementById('jf-location').value.trim(),
-    type:        document.getElementById('jf-type').value,
+    job_type:    document.getElementById('jf-type').value,
     salary:      document.getElementById('jf-salary').value.trim(),
     description: document.getElementById('jf-desc').value.trim(),
     deadline:    document.getElementById('jf-deadline').value,
-    status:      document.getElementById('jf-status').value,
+    is_active:   document.getElementById('jf-status').value === 'active',
   };
   document.getElementById('jf-saving-msg').style.display = '';
   try {
-    const url    = _editingJobId ? `${WORKER_BASE}/jobs/${_editingJobId}` : `${WORKER_BASE}/jobs`;
-    const method = _editingJobId ? 'PATCH' : 'POST';
+    const url    = _editingJobId
+      ? `${AUTH_API}/api/admin/website/jobs/${_editingJobId}`
+      : `${AUTH_API}/api/admin/website/jobs`;
+    const method = _editingJobId ? 'PUT' : 'POST';
     const res    = await fetch(url, {
       method,
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${_adminToken}` },
       body: JSON.stringify(body)
     });
-    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.error || `Server ${res.status}`); }
+    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.detail || d.error || `Server ${res.status}`); }
     closeModal();
     loadJobs();
   } catch (err) {
@@ -1882,19 +1873,19 @@ async function saveJob() {
   }
 }
 
-async function deleteJob(id, title) {
-  if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
-  const key = getApiKey();
-  try {
-    const res = await fetch(`${WORKER_BASE}/jobs/${id}`, {
-      method: 'DELETE',
-      headers: { 'Authorization': `Bearer ${key}` }
-    });
-    if (!res.ok) throw new Error(`Server ${res.status}`);
-    loadJobs();
-  } catch (err) {
-    alert('Delete failed: ' + err.message);
-  }
+function deleteJob(id, title) {
+  confirmDelete('Delete Job Listing', `Delete "<strong>${escHtml(title)}</strong>"? This cannot be undone.`, async () => {
+    try {
+      const res = await fetch(`${AUTH_API}/api/admin/website/jobs/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${_adminToken}` }
+      });
+      if (!res.ok) throw new Error(`Server ${res.status}`);
+      loadJobs();
+    } catch (err) {
+      alert('Delete failed: ' + err.message);
+    }
+  });
 }
 
 /* ──────────────────────────────────

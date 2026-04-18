@@ -677,9 +677,10 @@ html.dark .pricing-dark-section p,
   }
 
   try {
-    const res   = await fetch('/api/plans');
+    const AUTH_API = 'https://scoutrex-app-production.up.railway.app';
+    const res   = await fetch(AUTH_API + '/api/public/plans');
     const data  = await res.json();
-    const plans = (data.plans || []).filter(p => p.visible);
+    const plans = (Array.isArray(data) ? data : (data.plans || [])).filter(p => p.visible);
     loading.style.display = 'none';
 
     if (!plans.length) { fallback.style.display = ''; return; }

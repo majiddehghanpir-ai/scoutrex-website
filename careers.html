@@ -639,21 +639,23 @@ html:not(.dark) .pricing-dark-section .section-sub {
   const empty   = document.getElementById('jobs-empty');
   const loading = document.getElementById('jobs-loading');
   try {
-    const res  = await fetch('/api/jobs');
+    const AUTH_API = 'https://scoutrex-app-production.up.railway.app';
+    const res  = await fetch(AUTH_API + '/api/public/jobs');
     const data = await res.json();
-    const jobs = (data.jobs || []).filter(j => j.status === 'active');
+    const jobs = (Array.isArray(data) ? data : (data.jobs || [])).filter(j => j.is_active);
     loading.style.display = 'none';
     if (jobs.length === 0) { empty.style.display = ''; return; }
     const TYPE_COLORS = { 'Full-time':'#1E1256', 'Part-time':'#2563EB', 'Remote':'#059669', 'Contract':'#D97706', 'Internship':'#7C3AED' };
     grid.innerHTML = jobs.map(j => {
-      const color = TYPE_COLORS[j.type] || '#6B7280';
+      const jobType = j.job_type || 'Full-time';
+      const color = TYPE_COLORS[jobType] || '#6B7280';
       const meta  = [j.location, j.salary].filter(Boolean).join(' · ');
       const desc  = j.description ? `<p class="jc-desc">${j.description}</p>` : '';
       return `<div class="job-card">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
-              <span class="jc-badge" data-type="${j.type||'Full-time'}" style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:${color}18;color:${color}">${j.type || 'Full-time'}</span>
+              <span class="jc-badge" data-type="${jobType}" style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:${color}18;color:${color}">${jobType}</span>
               ${j.department ? `<span class="jc-dept">${j.department}</span>` : ''}
             </div>
             <h3 class="jc-title">${j.title}</h3>
