@@ -701,80 +701,24 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
       <div class="panel-header">
         <div>
           <div class="panel-title">Companies</div>
-          <div class="panel-sub">48 registered company accounts</div>
+          <div class="panel-sub" id="companies-panel-sub">Loading…</div>
         </div>
-        <button class="btn btn-orange" onclick="openAddCompany()">+ Add Company</button>
-      </div>
-      <div class="card">
-        <div class="filter-bar">
-          <div class="search-box">
-            <span style="color:var(--gray-400)">🔍</span>
-            <input type="text" placeholder="Search by name, email, or industry…">
-          </div>
-          <select class="filter-select">
-            <option>All Plans</option>
-            <option>Free</option>
-            <option>Pro</option>
-            <option>Enterprise</option>
-          </select>
-          <select class="filter-select">
-            <option>All Status</option>
-            <option>Active</option>
-            <option>Trial</option>
-            <option>Suspended</option>
-          </select>
-        </div>
-        <table class="data-table">
-          <thead><tr><th>Company</th><th>Contact Person</th><th>Industry</th><th>Plan</th><th>Status</th><th>Joined</th><th></th></tr></thead>
-          <tbody>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#1E1256,#3D2CAE)">AC</div><div><div class="user-name">Acme Corp</div><div class="user-email">hr@acmecorp.com</div></div></div></td>
-              <td style="color:var(--gray-600)">Jane Doe</td>
-              <td style="color:var(--gray-600)">Technology</td>
-              <td><span class="badge pro">Pro</span></td>
-              <td><span class="badge active"><span class="badge-dot"></span>Active</span></td>
-              <td style="color:var(--gray-500)">Apr 5, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" title="Edit" onclick="openEditCompany()">✏️</button><button class="icon-btn danger" title="Delete">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#059669,#34D399)">NS</div><div><div class="user-name">Nova Solutions</div><div class="user-email">contact@nova.io</div></div></div></td>
-              <td style="color:var(--gray-600)">Anika Keller</td>
-              <td style="color:var(--gray-600)">Consulting</td>
-              <td><span class="badge enterprise">Enterprise</span></td>
-              <td><span class="badge trial"><span class="badge-dot"></span>Trial</span></td>
-              <td style="color:var(--gray-500)">Apr 4, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" title="Edit" onclick="openEditCompany()">✏️</button><button class="icon-btn danger" title="Delete">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#F97316,#EA6C0A)">TG</div><div><div class="user-name">TechStart GmbH</div><div class="user-email">jobs@techstart.de</div></div></div></td>
-              <td style="color:var(--gray-600)">Felix Bauer</td>
-              <td style="color:var(--gray-600)">Fintech</td>
-              <td><span class="badge free">Free</span></td>
-              <td><span class="badge active"><span class="badge-dot"></span>Active</span></td>
-              <td style="color:var(--gray-500)">Mar 28, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" title="Edit" onclick="openEditCompany()">✏️</button><button class="icon-btn danger" title="Delete">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">HR</div><div><div class="user-name">Horizon Recruiting</div><div class="user-email">info@horizonrec.eu</div></div></div></td>
-              <td style="color:var(--gray-600)">Sophie Laurent</td>
-              <td style="color:var(--gray-600)">HR Services</td>
-              <td><span class="badge pro">Pro</span></td>
-              <td><span class="badge suspended"><span class="badge-dot"></span>Suspended</span></td>
-              <td style="color:var(--gray-500)">Feb 11, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" title="Edit" onclick="openEditCompany()">✏️</button><button class="icon-btn danger" title="Delete">🗑</button></div></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="pagination">
-          <span class="page-info">Showing 1–10 of 48</span>
-          <div class="page-btns">
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">›</button>
-          </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="loadCompanies()" title="Refresh">↻ Refresh</button>
+          <button class="btn btn-orange" onclick="openAddCompany()">+ Add Company</button>
         </div>
       </div>
+      <div id="companies-loading" style="text-align:center;padding:48px;color:var(--gray-400)">
+        <div style="font-size:28px;margin-bottom:10px">⏳</div><div>Loading companies…</div>
+      </div>
+      <div id="companies-error" style="display:none" class="card">
+        <div style="text-align:center;padding:32px 24px">
+          <div style="font-size:32px;margin-bottom:10px">⚠️</div>
+          <div id="companies-error-text" style="font-size:14px;font-weight:600;color:#991B1B;margin-bottom:12px"></div>
+          <button class="btn btn-orange btn-sm" onclick="loadCompanies()">Retry</button>
+        </div>
+      </div>
+      <div id="companies-list" style="display:none"></div>
     </div>
 
     <!-- ═══════════════ CANDIDATES ═══════════════ -->
@@ -782,79 +726,24 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
       <div class="panel-header">
         <div>
           <div class="panel-title">Candidates</div>
-          <div class="panel-sub">312 registered candidate accounts</div>
+          <div class="panel-sub" id="candidates-panel-sub">Loading…</div>
         </div>
-        <button class="btn btn-orange" onclick="openAddCandidate()">+ Add Candidate</button>
-      </div>
-      <div class="card">
-        <div class="filter-bar">
-          <div class="search-box">
-            <span style="color:var(--gray-400)">🔍</span>
-            <input type="text" placeholder="Search by name or email…">
-          </div>
-          <select class="filter-select">
-            <option>All Plans</option>
-            <option>Free</option>
-            <option>Pro</option>
-          </select>
-          <select class="filter-select">
-            <option>All Status</option>
-            <option>Active</option>
-            <option>Inactive</option>
-            <option>Suspended</option>
-          </select>
-        </div>
-        <table class="data-table">
-          <thead><tr><th>Candidate</th><th>Position Interest</th><th>Location</th><th>Plan</th><th>Status</th><th>Registered</th><th></th></tr></thead>
-          <tbody>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#F97316,#EA6C0A)">SC</div><div><div class="user-name">Sarah Chen</div><div class="user-email">s.chen@email.com</div></div></div></td>
-              <td style="color:var(--gray-600)">UX Designer</td>
-              <td style="color:var(--gray-600)">Berlin, DE</td>
-              <td><span class="badge free">Free</span></td>
-              <td><span class="badge active"><span class="badge-dot"></span>Active</span></td>
-              <td style="color:var(--gray-500)">Apr 5, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditCandidate()">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#1E1256,#3D2CAE)">ML</div><div><div class="user-name">Marcus Lee</div><div class="user-email">m.lee@techcorp.io</div></div></div></td>
-              <td style="color:var(--gray-600)">Software Engineer</td>
-              <td style="color:var(--gray-600)">Amsterdam, NL</td>
-              <td><span class="badge pro">Pro</span></td>
-              <td><span class="badge suspended"><span class="badge-dot"></span>Suspended</span></td>
-              <td style="color:var(--gray-500)">Mar 18, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditCandidate()">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#059669,#34D399)">RP</div><div><div class="user-name">Riya Patel</div><div class="user-email">riya.p@gmail.com</div></div></div></td>
-              <td style="color:var(--gray-600)">Product Manager</td>
-              <td style="color:var(--gray-600)">London, UK</td>
-              <td><span class="badge pro">Pro</span></td>
-              <td><span class="badge active"><span class="badge-dot"></span>Active</span></td>
-              <td style="color:var(--gray-500)">Mar 10, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditCandidate()">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-            <tr>
-              <td><div class="user-cell"><div class="user-avatar" style="background:linear-gradient(135deg,#D97706,#F59E0B)">JB</div><div><div class="user-name">Jonas Berg</div><div class="user-email">jonas.b@mail.de</div></div></div></td>
-              <td style="color:var(--gray-600)">Data Analyst</td>
-              <td style="color:var(--gray-600)">Munich, DE</td>
-              <td><span class="badge free">Free</span></td>
-              <td><span class="badge inactive"><span class="badge-dot"></span>Inactive</span></td>
-              <td style="color:var(--gray-500)">Feb 22, 2026</td>
-              <td><div class="table-actions"><button class="icon-btn" onclick="openEditCandidate()">✏️</button><button class="icon-btn danger">🗑</button></div></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="pagination">
-          <span class="page-info">Showing 1–10 of 312</span>
-          <div class="page-btns">
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">›</button>
-          </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="loadCandidates()" title="Refresh">↻ Refresh</button>
+          <button class="btn btn-orange" onclick="openAddCandidate()">+ Add Candidate</button>
         </div>
       </div>
+      <div id="candidates-loading" style="text-align:center;padding:48px;color:var(--gray-400)">
+        <div style="font-size:28px;margin-bottom:10px">⏳</div><div>Loading candidates…</div>
+      </div>
+      <div id="candidates-error" style="display:none" class="card">
+        <div style="text-align:center;padding:32px 24px">
+          <div style="font-size:32px;margin-bottom:10px">⚠️</div>
+          <div id="candidates-error-text" style="font-size:14px;font-weight:600;color:#991B1B;margin-bottom:12px"></div>
+          <button class="btn btn-orange btn-sm" onclick="loadCandidates()">Retry</button>
+        </div>
+      </div>
+      <div id="candidates-list" style="display:none"></div>
     </div>
 
     <!-- ═══════════════ PRICING PLANS ═══════════════ -->
@@ -1233,8 +1122,10 @@ function showPanel(id) {
     document.body.style.overflow='';
   }
   window.scrollTo(0, 0);
-  if (id === 'jobs')  loadJobs();
-  if (id === 'plans') loadPlans();
+  if (id === 'jobs')       loadJobs();
+  if (id === 'plans')      loadPlans();
+  if (id === 'companies')  loadCompanies();
+  if (id === 'candidates') loadCandidates();
 }
 
 /* ──────────────────────────────────
@@ -1253,141 +1144,270 @@ function closeModal() {
 /* ──────────────────────────────────
    COMPANY MODAL
 ────────────────────────────────── */
+/* ──────────────────────────────────
+   COMPANIES  — live data from Railway API
+────────────────────────────────── */
+let _allCompanies   = [];
+let _editingCompanyId = null;
+
+const AVATAR_GRADIENTS = [
+  'linear-gradient(135deg,#1E1256,#3D2CAE)',
+  'linear-gradient(135deg,#F97316,#EA6C0A)',
+  'linear-gradient(135deg,#059669,#34D399)',
+  'linear-gradient(135deg,#7C3AED,#A78BFA)',
+  'linear-gradient(135deg,#0891B2,#22D3EE)',
+  'linear-gradient(135deg,#D97706,#F59E0B)',
+];
+
+async function loadCompanies() {
+  if (!_adminToken) return;
+  document.getElementById('companies-loading').style.display = 'block';
+  document.getElementById('companies-error').style.display   = 'none';
+  document.getElementById('companies-list').style.display    = 'none';
+  try {
+    const res = await fetch(AUTH_API + '/api/admin/companies', {
+      headers: { 'Authorization': 'Bearer ' + _adminToken }
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    _allCompanies = await res.json();
+    document.getElementById('companies-loading').style.display = 'none';
+    document.getElementById('companies-list').style.display    = '';
+    document.getElementById('companies-panel-sub').textContent =
+      `${_allCompanies.length} registered compan${_allCompanies.length !== 1 ? 'ies' : 'y'}`;
+    renderCompaniesList();
+  } catch (err) {
+    document.getElementById('companies-loading').style.display = 'none';
+    document.getElementById('companies-error').style.display   = '';
+    document.getElementById('companies-error-text').textContent = err.message;
+  }
+}
+
+function renderCompaniesList() {
+  const container = document.getElementById('companies-list');
+  if (_allCompanies.length === 0) {
+    container.innerHTML = `<div class="card" style="text-align:center;padding:56px 24px;color:var(--gray-400)">
+      <div style="font-size:48px;margin-bottom:16px">🏢</div>
+      <div style="font-size:16px;font-weight:600;color:var(--gray-600);margin-bottom:6px">No companies yet</div>
+      <button class="btn btn-orange" style="margin-top:16px" onclick="openAddCompany()">+ Add First Company</button>
+    </div>`;
+    return;
+  }
+  const rows = _allCompanies.map((c, i) => {
+    const initials = c.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const grad     = AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length];
+    const date     = c.created_at ? new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const count    = c.recruiter_count || 0;
+    return `<tr>
+      <td><div class="user-cell">
+        <div class="user-avatar" style="background:${grad}">${initials}</div>
+        <div><div class="user-name">${escHtml(c.name)}</div>
+             <div class="user-email">${count} recruiter${count!==1?'s':''}</div></div>
+      </div></td>
+      <td style="color:var(--gray-600)">${c.primary_color ? `<span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${escHtml(c.primary_color)};vertical-align:middle;margin-right:6px"></span>${escHtml(c.primary_color)}` : '—'}</td>
+      <td style="color:var(--gray-500);font-size:12px">${date}</td>
+      <td><div class="table-actions">
+        <button class="icon-btn" title="Edit" onclick="openEditCompanyById(${c.id})">✏️</button>
+        <button class="icon-btn danger" title="Delete" onclick="deleteCompany(${c.id},'${escHtml(c.name)}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+  container.innerHTML = `<div class="card">
+    <table class="data-table">
+      <thead><tr><th>Company</th><th>Brand Colour</th><th>Created</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
 function openAddCompany() {
-  openModal('Add Company', companyForm('', '', '', '', '', 'free', 'active'));
+  _editingCompanyId = null;
+  openModal('Add Company', companyForm({}));
 }
-function openEditCompany(name, contact, email, industry, plan, status) {
-  openModal('Edit Company', companyForm(
-    name||'Acme Corp', contact||'Jane Doe', email||'hr@acmecorp.com',
-    industry||'Technology', plan||'pro', status||'active'
-  ));
+function openEditCompanyById(id) {
+  const c = _allCompanies.find(x => x.id === id);
+  if (!c) return;
+  _editingCompanyId = id;
+  openModal('Edit Company — ' + c.name, companyForm(c));
 }
-function companyForm(name, contact, email, industry, plan, status) {
+function companyForm(c) {
   return `
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Company Name *</label>
-        <input class="form-input" type="text" value="${name}" placeholder="e.g. Acme Corp">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Industry</label>
-        <input class="form-input" type="text" value="${industry}" placeholder="e.g. Technology">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Contact Person *</label>
-        <input class="form-input" type="text" value="${contact}" placeholder="Full name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email *</label>
-        <input class="form-input" type="email" value="${email}" placeholder="contact@company.com">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Phone</label>
-        <input class="form-input" type="text" placeholder="+1 555 000 0000">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Website</label>
-        <input class="form-input" type="text" placeholder="https://company.com">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Subscription Plan</label>
-        <select class="form-select">
-          <option value="free" ${plan==='free'?'selected':''}>Free</option>
-          <option value="pro" ${plan==='pro'?'selected':''}>Pro</option>
-          <option value="enterprise" ${plan==='enterprise'?'selected':''}>Enterprise</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Status</label>
-        <select class="form-select">
-          <option value="active" ${status==='active'?'selected':''}>Active</option>
-          <option value="trial" ${status==='trial'?'selected':''}>Trial</option>
-          <option value="suspended" ${status==='suspended'?'selected':''}>Suspended</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label class="form-label">Company Name *</label>
+      <input id="cf-name" class="form-input" type="text" value="${escHtml(c.name||'')}" placeholder="e.g. Acme Corp">
     </div>
     <div class="form-group">
-      <label class="form-label">Notes</label>
-      <textarea class="form-textarea" placeholder="Internal notes about this company…"></textarea>
+      <label class="form-label">Brand Colour</label>
+      <div style="display:flex;gap:10px;align-items:center">
+        <input id="cf-color-picker" type="color" value="${c.primary_color||'#6366f1'}" style="width:42px;height:38px;border:1.5px solid var(--gray-200);border-radius:8px;cursor:pointer;padding:2px">
+        <input id="cf-color" class="form-input" type="text" value="${escHtml(c.primary_color||'#6366f1')}" placeholder="#6366f1" style="flex:1" oninput="document.getElementById('cf-color-picker').value=this.value">
+      </div>
+      <div class="form-hint">Used as the brand accent colour in the HireRex app for this company</div>
     </div>
+    <div id="cf-saving-msg" style="display:none;font-size:13px;color:var(--gray-500);margin-bottom:8px">Saving…</div>
     <div class="btn-row">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-orange" onclick="closeModal()">Save Company</button>
+      <button class="btn btn-orange" onclick="saveCompany()">Save Company</button>
     </div>`;
 }
 
+async function saveCompany() {
+  if (!_adminToken) { alert('Not logged in.'); return; }
+  const name  = document.getElementById('cf-name').value.trim();
+  if (!name) { alert('Company name is required.'); return; }
+  const color = document.getElementById('cf-color').value.trim() || '#6366f1';
+  const body  = { name, primary_color: color };
+  document.getElementById('cf-saving-msg').style.display = '';
+  try {
+    const url    = _editingCompanyId ? `${AUTH_API}/api/admin/companies/${_editingCompanyId}` : `${AUTH_API}/api/admin/companies`;
+    const method = _editingCompanyId ? 'PUT' : 'POST';
+    const res    = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _adminToken },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.detail || `Server ${res.status}`); }
+    closeModal();
+    loadCompanies();
+  } catch (err) {
+    document.getElementById('cf-saving-msg').style.display = 'none';
+    alert('Failed to save company: ' + err.message);
+  }
+}
+
+async function deleteCompany(id, name) {
+  if (!confirm(`Delete company "${name}"? This will unassign all its recruiters.`)) return;
+  try {
+    const res = await fetch(`${AUTH_API}/api/admin/companies/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + _adminToken }
+    });
+    if (!res.ok) throw new Error(`Server ${res.status}`);
+    loadCompanies();
+  } catch (err) { alert('Delete failed: ' + err.message); }
+}
+
 /* ──────────────────────────────────
-   CANDIDATE MODAL
+   CANDIDATES  — live data from Railway API
 ────────────────────────────────── */
+let _allCandidates = [];
+
+async function loadCandidates() {
+  if (!_adminToken) return;
+  document.getElementById('candidates-loading').style.display = 'block';
+  document.getElementById('candidates-error').style.display   = 'none';
+  document.getElementById('candidates-list').style.display    = 'none';
+  try {
+    const res = await fetch(AUTH_API + '/api/candidates', {
+      headers: { 'Authorization': 'Bearer ' + _adminToken }
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    _allCandidates = await res.json();
+    document.getElementById('candidates-loading').style.display = 'none';
+    document.getElementById('candidates-list').style.display    = '';
+    document.getElementById('candidates-panel-sub').textContent =
+      `${_allCandidates.length} registered candidate${_allCandidates.length !== 1 ? 's' : ''}`;
+    renderCandidatesList();
+  } catch (err) {
+    document.getElementById('candidates-loading').style.display = 'none';
+    document.getElementById('candidates-error').style.display   = '';
+    document.getElementById('candidates-error-text').textContent = err.message;
+  }
+}
+
+function renderCandidatesList() {
+  const container = document.getElementById('candidates-list');
+  if (_allCandidates.length === 0) {
+    container.innerHTML = `<div class="card" style="text-align:center;padding:56px 24px;color:var(--gray-400)">
+      <div style="font-size:48px;margin-bottom:16px">🎯</div>
+      <div style="font-size:16px;font-weight:600;color:var(--gray-600);margin-bottom:6px">No candidates yet</div>
+      <button class="btn btn-orange" style="margin-top:16px" onclick="openAddCandidate()">+ Add First Candidate</button>
+    </div>`;
+    return;
+  }
+  const rows = _allCandidates.map((c, i) => {
+    const initials = (c.name||c.email).split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const grad     = AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length];
+    const date     = c.created_at ? new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    return `<tr>
+      <td><div class="user-cell">
+        <div class="user-avatar" style="background:${grad}">${initials}</div>
+        <div><div class="user-name">${escHtml(c.name||'—')}</div>
+             <div class="user-email">${escHtml(c.email)}</div></div>
+      </div></td>
+      <td style="color:var(--gray-500);font-size:12px">${date}</td>
+      <td><div class="table-actions">
+        <button class="icon-btn danger" title="Delete" onclick="deleteCandidate(${c.id},'${escHtml(c.name||c.email)}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+  container.innerHTML = `<div class="card">
+    <table class="data-table">
+      <thead><tr><th>Candidate</th><th>Registered</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
 function openAddCandidate() {
-  openModal('Add Candidate', candidateForm('', '', '', '', 'free', 'active'));
+  openModal('Add Candidate Account', candidateForm());
 }
-function openEditCandidate(name, email, position, location, plan, status) {
-  openModal('Edit Candidate', candidateForm(
-    name||'Sarah Chen', email||'s.chen@email.com',
-    position||'UX Designer', location||'Berlin, DE',
-    plan||'free', status||'active'
-  ));
-}
-function candidateForm(name, email, position, location, plan, status) {
+function candidateForm() {
   return `
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Full Name *</label>
-        <input class="form-input" type="text" value="${name}" placeholder="e.g. Sarah Chen">
+        <input id="caf-name" class="form-input" type="text" placeholder="e.g. Sarah Chen">
       </div>
       <div class="form-group">
         <label class="form-label">Email *</label>
-        <input class="form-input" type="email" value="${email}" placeholder="candidate@email.com">
+        <input id="caf-email" class="form-input" type="email" placeholder="candidate@email.com">
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Position Interest</label>
-        <input class="form-input" type="text" value="${position}" placeholder="e.g. UX Designer">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Location</label>
-        <input class="form-input" type="text" value="${location}" placeholder="e.g. Berlin, DE">
-      </div>
+    <div class="form-group">
+      <label class="form-label">Password *</label>
+      <input id="caf-password" class="form-input" type="password" placeholder="Temporary password for the candidate">
+      <div class="form-hint">The candidate can change this after first login.</div>
     </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Phone</label>
-        <input class="form-input" type="text" placeholder="+1 555 000 0000">
-      </div>
-      <div class="form-group">
-        <label class="form-label">LinkedIn</label>
-        <input class="form-input" type="text" placeholder="https://linkedin.com/in/…">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Subscription Plan</label>
-        <select class="form-select">
-          <option value="free" ${plan==='free'?'selected':''}>Free</option>
-          <option value="pro" ${plan==='pro'?'selected':''}>Pro</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Status</label>
-        <select class="form-select">
-          <option value="active" ${status==='active'?'selected':''}>Active</option>
-          <option value="inactive" ${status==='inactive'?'selected':''}>Inactive</option>
-          <option value="suspended" ${status==='suspended'?'selected':''}>Suspended</option>
-        </select>
-      </div>
-    </div>
+    <div id="caf-saving-msg" style="display:none;font-size:13px;color:var(--gray-500);margin-bottom:8px">Creating account…</div>
     <div class="btn-row">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-orange" onclick="closeModal()">Save Candidate</button>
+      <button class="btn btn-orange" onclick="saveCandidate()">Create Account</button>
     </div>`;
+}
+
+async function saveCandidate() {
+  const name     = document.getElementById('caf-name').value.trim();
+  const email    = document.getElementById('caf-email').value.trim();
+  const password = document.getElementById('caf-password').value;
+  if (!name)     { alert('Full name is required.'); return; }
+  if (!email)    { alert('Email is required.'); return; }
+  if (!password) { alert('Password is required.'); return; }
+  document.getElementById('caf-saving-msg').style.display = '';
+  try {
+    const res = await fetch(`${AUTH_API}/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, role: 'candidate' })
+    });
+    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.detail || `Server ${res.status}`); }
+    closeModal();
+    loadCandidates();
+  } catch (err) {
+    document.getElementById('caf-saving-msg').style.display = 'none';
+    alert('Failed to create account: ' + err.message);
+  }
+}
+
+async function deleteCandidate(id, name) {
+  if (!confirm(`Delete candidate "${name}"? This cannot be undone.`)) return;
+  try {
+    const res = await fetch(`${AUTH_API}/api/admin/recruiters/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + _adminToken }
+    });
+    if (!res.ok) throw new Error(`Server ${res.status}`);
+    loadCandidates();
+  } catch (err) { alert('Delete failed: ' + err.message); }
 }
 
 /* ──────────────────────────────────
