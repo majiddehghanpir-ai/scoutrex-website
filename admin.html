@@ -1182,18 +1182,27 @@ function closeModal() {
 }
 
 /* confirmDelete(title, message, onConfirm)
-   Shows a branded warning modal instead of the browser's confirm() dialog. */
+   Shows a branded warning modal. Stores the callback in a global so the
+   Delete button can call it without any closure-serialisation tricks. */
+let _pendingDeleteFn = null;
 function confirmDelete(title, message, onConfirm) {
+  _pendingDeleteFn = onConfirm;
   openModal(title, `
     <div style="text-align:center;padding:8px 0 24px">
       <div style="font-size:48px;margin-bottom:16px">⚠️</div>
       <p style="color:var(--text);font-size:15px;line-height:1.6;margin:0 0 24px">${message}</p>
       <div style="display:flex;gap:10px;justify-content:center">
         <button class="btn btn-gray" onclick="closeModal()">Cancel</button>
-        <button class="btn" style="background:var(--red);color:#fff" onclick="closeModal();(${onConfirm.toString()})()">Delete</button>
+        <button class="btn" style="background:var(--red);color:#fff" onclick="closeModal();executePendingDelete()">Delete</button>
       </div>
     </div>
   `);
+}
+function executePendingDelete() {
+  if (typeof _pendingDeleteFn === 'function') {
+    _pendingDeleteFn();
+    _pendingDeleteFn = null;
+  }
 }
 
 /* ──────────────────────────────────
