@@ -643,12 +643,21 @@ html.dark .pricing-dark-section p,
   const title    = document.getElementById('plans-title');
   const sub      = document.getElementById('plans-sub');
 
+  // Cached plan groups for re-render on theme toggle
+  let _hirerex = [], _jobrex = [];
+
   function escH(s){ const d=document.createElement('div');d.textContent=s||'';return d.innerHTML; }
+
+  function getAccent(product) {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (product === 'jobrex') return '#F97316';
+    return isDark ? '#A78BFA' : '#1E1256';
+  }
 
   function renderGroup(plans, product) {
     if (!plans.length) return '';
     const isJobRex   = product === 'jobrex';
-    const accent     = isJobRex ? '#F97316' : '#1E1256';
+    const accent     = getAccent(product);
     const groupLabel = isJobRex ? '🎯 JobRex — For Job Seekers' : '🏢 HireRex — For Hiring Teams';
     const cards = plans.map(p => {
       const feats   = (p.features||'').split('\n').filter(Boolean);
@@ -657,7 +666,7 @@ html.dark .pricing-dark-section p,
       const priceHtml = p.price
         ? `<div style="margin:16px 0 4px"><span style="font-size:2.2rem;font-weight:800;color:var(--text)">${currency}${escH(p.price)}</span><span style="font-size:14px;color:var(--gray-500)">${p.billing==='month'?' / month':p.billing==='year'?' / year':''}</span></div>`
         : `<div style="margin:16px 0 4px;font-size:14px;font-weight:600;color:var(--gray-400)">Contact for pricing</div>`;
-      const popularBadge = p.popular ? `<div style="display:inline-block;background:${accent}18;color:${accent};font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 12px;border-radius:20px;margin-bottom:14px">⭐ Most Popular</div>` : '';
+      const popularBadge = p.popular ? `<div style="display:inline-block;background:${accent}22;color:${accent};font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 12px;border-radius:20px;margin-bottom:14px">⭐ Most Popular</div>` : '';
       const cta = isJobRex
         ? `<a href="contact.html" class="btn btn-secondary" style="margin-top:auto;width:100%;justify-content:center">Get Early Access</a>`
         : `<a href="contact.html" class="btn btn-secondary" style="margin-top:auto;width:100%;justify-content:center">Request a Demo</a>`;
@@ -676,6 +685,14 @@ html.dark .pricing-dark-section p,
     </div>`;
   }
 
+  function reRender() {
+    if (!_hirerex.length && !_jobrex.length) return;
+    live.innerHTML = renderGroup(_hirerex, 'hirerex') + renderGroup(_jobrex, 'jobrex');
+  }
+
+  // Re-render when user switches dark/light mode
+  new MutationObserver(reRender).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
   try {
     const AUTH_API = 'https://scoutrex-app-production.up.railway.app';
     const res   = await fetch(AUTH_API + '/api/public/plans');
@@ -690,9 +707,9 @@ html.dark .pricing-dark-section p,
     title.textContent = 'Simple, transparent pricing';
     sub.textContent   = 'Choose the plan that fits your needs. Cancel any time.';
 
-    const hirerex = plans.filter(p => p.product === 'hirerex');
-    const jobrex  = plans.filter(p => p.product === 'jobrex');
-    live.innerHTML  = renderGroup(hirerex, 'hirerex') + renderGroup(jobrex, 'jobrex');
+    _hirerex = plans.filter(p => p.product === 'hirerex');
+    _jobrex  = plans.filter(p => p.product === 'jobrex');
+    live.innerHTML  = renderGroup(_hirerex, 'hirerex') + renderGroup(_jobrex, 'jobrex');
     live.style.display = '';
   } catch(e) {
     loading.style.display = 'none';
