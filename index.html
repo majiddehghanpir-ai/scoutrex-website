@@ -146,23 +146,23 @@ ul{list-style:none}
 .platforms-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
 .platform-card{border-radius:28px;padding:48px 40px;position:relative;overflow:hidden;transition:all 0.3s;cursor:pointer}
 .platform-card:hover{transform:translateY(-6px)}
-.platform-card.jr{background:linear-gradient(145deg,#FFF3E4 0%,#FFF8ED 100%);border:1px solid rgba(249,115,22,0.15)}
-.platform-card.hr{background:linear-gradient(145deg,#F2F1F8 0%,#ECECF5 100%)}
+.platform-card.jr{background:linear-gradient(145deg,#F2F1F8 0%,#ECECF5 100%)}
+.platform-card.hr{background:linear-gradient(145deg,#FFF3E4 0%,#FFF8ED 100%);border:1px solid rgba(249,115,22,0.15)}
 .pc-icon{font-size:2.8rem;margin-bottom:20px;display:block}
 .pc-name{font-family:'Lora',serif;font-size:2rem;font-weight:700;margin-bottom:6px}
-.pc-name.jr{color:var(--orange-dark)}
-.pc-name.hr{color:var(--indigo)}
+.pc-name.jr{color:var(--indigo)}
+.pc-name.hr{color:var(--orange-dark)}
 .pc-for{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:18px;opacity:0.6}
-.pc-for.jr{color:var(--orange-dark)}
-.pc-for.hr{color:var(--indigo)}
+.pc-for.jr{color:var(--indigo)}
+.pc-for.hr{color:var(--orange-dark)}
 .pc-desc{font-size:15px;color:var(--gray-600);line-height:1.7;margin-bottom:28px;max-width:360px}
 .pc-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;transition:gap 0.2s}
-.pc-link.jr{color:var(--orange-dark)}
-.pc-link.hr{color:var(--indigo)}
+.pc-link.jr{color:var(--indigo)}
+.pc-link.hr{color:var(--orange-dark)}
 .pc-link:hover{gap:10px}
 .pc-deco{position:absolute;bottom:-50px;right:-50px;width:220px;height:220px;border-radius:50%;opacity:0.07}
-.pc-deco.jr{background:var(--orange)}
-.pc-deco.hr{background:var(--indigo)}
+.pc-deco.jr{background:var(--indigo)}
+.pc-deco.hr{background:var(--orange)}
 
 /* ── HOW AI WORKS ── */
 #ai-section{background:linear-gradient(140deg,#07051A 0%,#100B30 40%,#1E1256 100%);padding:100px 0;position:relative;overflow:hidden}
@@ -283,11 +283,14 @@ html.dark .pillar:hover{border-color:var(--orange);box-shadow:0 12px 48px rgba(0
 html.dark .pillar-title{color:#F1F0F9}
 html.dark .pillar-desc{color:#A09BBF}
 html.dark #platforms{background:#0D0B1F}
-html.dark .platform-card.jr{background:linear-gradient(145deg,#221508 0%,#1A1005 100%)}
-html.dark .platform-card.hr{background:linear-gradient(145deg,#0F0D2A 0%,#09081E 100%)}
-html.dark .pc-name.hr{color:#9E9EF5}
-html.dark .pc-for.hr{color:#9E9EF5}
-html.dark .pc-link.hr{color:#9E9EF5}
+html.dark .platform-card.jr{background:linear-gradient(145deg,#0F0D2A 0%,#09081E 100%)}
+html.dark .platform-card.hr{background:linear-gradient(145deg,#221508 0%,#1A1005 100%)}
+html.dark .pc-name.hr{color:var(--orange-light)}
+html.dark .pc-for.hr{color:var(--orange-light)}
+html.dark .pc-link.hr{color:var(--orange-light)}
+html.dark .pc-name.jr{color:#9E9EF5}
+html.dark .pc-for.jr{color:#9E9EF5}
+html.dark .pc-link.jr{color:#9E9EF5}
 html.dark .pc-desc{color:#A09BBF}
 html.dark #cta{background:#110F26}
 html.dark .cta-note{color:#6B6485}
@@ -709,7 +712,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
       </a>
       <div class="nav-links">
-        <div class="nav-dropdown"><a href="products.html">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="jobrex.html">🎯 JobRex</a><a href="hirerex.html">🏢 HireRex</a></div></div>
+        <div class="nav-dropdown"><a href="products.html">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="hirerex.html">🏢 HireRex</a><a href="jobrex.html">🎯 JobRex</a></div></div>
         <a href="pricing.html">Pricing</a>
         <a href="about.html">About</a>
         <a href="team.html">Team</a>
@@ -861,21 +864,21 @@ html:not(.dark) .pricing-dark-section .section-sub {
       <p class="section-sub">Each platform is purpose-built for its audience, and they're better together.</p>
     </div>
     <div class="platforms-grid">
-      <a href="products.html" class="platform-card jr">
-        <span class="pc-icon">🎯</span>
-        <div class="pc-name jr">JobRex</div>
-        <div class="pc-for jr">For Job Seekers</div>
-        <p class="pc-desc">Your AI career co-pilot. Build a living profile, get intelligently matched to roles that fit your goals, and track your entire job search in one place.</p>
-        <span class="pc-link jr">Learn more →</span>
-        <div class="pc-deco jr"></div>
-      </a>
-      <a href="products.html" class="platform-card hr">
+      <a href="hirerex.html" class="platform-card hr">
         <span class="pc-icon">🏢</span>
         <div class="pc-name hr">HireRex</div>
         <div class="pc-for hr">For Hiring Teams</div>
         <p class="pc-desc">AI-powered talent intelligence for recruiters and HR teams. Source smarter, screen faster, and build teams that actually perform, all in one platform.</p>
         <span class="pc-link hr">Learn more →</span>
         <div class="pc-deco hr"></div>
+      </a>
+      <a href="jobrex.html" class="platform-card jr">
+        <span class="pc-icon">🎯</span>
+        <div class="pc-name jr">JobRex</div>
+        <div class="pc-for jr">For Job Seekers</div>
+        <p class="pc-desc">Your AI career co-pilot. Build a living profile, get intelligently matched to roles that fit your goals, and track your entire job search in one place.</p>
+        <span class="pc-link jr">Learn more →</span>
+        <div class="pc-deco jr"></div>
       </a>
     </div>
   </div>
