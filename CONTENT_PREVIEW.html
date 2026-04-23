@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Content Changes Preview — ScoutRex Website</title>
+<style>
+  body{font-family:'Segoe UI',sans-serif;background:#0f0e1a;color:#e0dff0;margin:0;padding:0;}
+  .top-bar{background:#1a1830;border-bottom:1px solid #2d2a4a;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  .top-bar h1{font-size:15px;font-weight:700;color:#fff;margin:0;}
+  .top-bar span{font-size:12px;color:#9E9EF5;background:rgba(158,158,245,0.12);padding:4px 12px;border-radius:20px;}
+  .page{max-width:900px;margin:0 auto;padding:40px 32px;}
+  .page-section{margin-bottom:60px;}
+  .file-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#F97316;margin-bottom:24px;display:flex;align-items:center;gap:10px;}
+  .file-label::after{content:'';flex:1;height:1px;background:rgba(249,115,22,0.2);}
+  .change-block{background:#161428;border-radius:12px;overflow:hidden;margin-bottom:20px;border:1px solid #2d2a4a;}
+  .change-location{background:#1e1b3a;padding:10px 18px;font-size:11px;font-weight:700;color:#9E9EF5;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #2d2a4a;}
+  .change-row{display:grid;grid-template-columns:1fr 1fr;min-height:80px;}
+  .old-col{padding:18px 20px;border-right:1px solid #2d2a4a;}
+  .new-col{padding:18px 20px;}
+  .col-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+  .old-col .col-label{color:#ef4444;}
+  .new-col .col-label{color:#22c55e;}
+  .old-text{font-size:13px;line-height:1.7;color:#9a8fa8;font-style:italic;}
+  .new-text{font-size:13px;line-height:1.7;color:#e0dff0;font-weight:500;}
+  .new-text strong{color:#F97316;}
+  .new-text em{color:#FB923C;font-style:normal;font-weight:700;}
+  .summary-box{background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.25);border-radius:10px;padding:16px 20px;margin-bottom:32px;font-size:13px;color:#FB923C;line-height:1.7;}
+  .approve-bar{background:#1a1830;border-top:1px solid #2d2a4a;padding:20px 32px;display:flex;align-items:center;gap:16px;position:sticky;bottom:0;}
+  .approve-bar p{font-size:13px;color:#9E9EF5;margin:0;flex:1;}
+  .note{font-size:11px;color:#6b648a;margin-top:6px;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>📝 Content Changes Preview — ScoutRex Website</h1>
+  <span>Review before publishing</span>
+</div>
+
+<div class="page">
+
+  <div class="summary-box">
+    <strong>What changed and why:</strong> The pitch deck's core message — "AI has broken resume screening, HireRex fixes it" — is direct, urgent, and differentiated. The current website is philosophical and soft. These changes make every page lead with the real problem and the real solution, using the exact language from your pitch.
+    Pages updated: <strong>Homepage (index.html)</strong> and <strong>HireRex (hirerex.html)</strong>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="page-section">
+    <div class="file-label">Homepage — index.html</div>
+
+    <!-- Hero badge -->
+    <div class="change-block">
+      <div class="change-location">Hero · Eyebrow Badge</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">From the First Click to the Age of Intelligence</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text"><em>🚀 Fixing Hiring in the Age of AI</em></div></div>
+      </div>
+    </div>
+
+    <!-- Hero headline -->
+    <div class="change-block">
+      <div class="change-location">Hero · Main Headline</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">The road we've been on all along.<br>The destination? A better world.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text"><strong>AI broke resume screening.<br>We built the fix.</strong></div></div>
+      </div>
+    </div>
+
+    <!-- Hero body -->
+    <div class="change-block">
+      <div class="change-location">Hero · Body Copy</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Every era has its turning point. The first computer. The internet. Each leap was powered by human determination. Now, we're here — the AI era, where technology doesn't just process, but understands. Transforms. This is the road we've been on all along — for all of us.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">Candidates now use AI to generate perfect CVs in seconds. Every applicant passes keyword screening. Your shortlist is noise.<br><br>HireRex replaces broken resume filtering with <strong>automated, skill-based assessment</strong> — so you hire on what candidates can actually do, not what they claim on paper.</div></div>
+      </div>
+    </div>
+
+    <!-- Hero CTAs -->
+    <div class="change-block">
+      <div class="change-location">Hero · CTA Buttons</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Explore the Platform →  |  Our Mission</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text"><strong>See HireRex in Action →</strong>  |  For Job Seekers</div></div>
+      </div>
+    </div>
+
+    <!-- Value Pillars heading -->
+    <div class="change-block">
+      <div class="change-location">Value Pillars · Section Heading</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Tag: "Why ScoutRex"<br>Title: Built different, by design<br>Sub: Most hiring tools automate the old way of doing things. We rethought the problem from scratch.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">Tag: "Why It's Different"<br>Title: <strong>We measure what candidates can do. Not what they claim.</strong><br>Sub: Resumes are no longer a signal. AI-generated CVs flood every ATS. HireRex is the intelligence layer between your shortlist and your interview room.</div></div>
+      </div>
+    </div>
+
+    <!-- Pillar 1 -->
+    <div class="change-block">
+      <div class="change-location">Value Pillars · Pillar 1</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">🧠 AI That Understands Context — Our models go beyond keyword matching to evaluate real skills, growth trajectories, culture fit, and career intent...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">🎯 <strong>Skill Validation, Not Resume Scanning</strong> — Every candidate is assessed on job-specific tests generated by AI. What they can actually do — not what they wrote on their CV — determines who advances.</div></div>
+      </div>
+    </div>
+
+    <!-- Pillar 2 -->
+    <div class="change-block">
+      <div class="change-location">Value Pillars · Pillar 2</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">⚡ Two Sides, One Ecosystem — JobRex for job seekers and HireRex for hiring teams share the same underlying intelligence layer...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">⚡ <strong>Automated. Fair. Instant.</strong> — HireRex scores candidates in minutes, not days. No manual review, no bias from CV polish, no wasted interviews on candidates who looked great on paper but can't do the job.</div></div>
+      </div>
+    </div>
+
+    <!-- Pillar 3 -->
+    <div class="change-block">
+      <div class="change-location">Value Pillars · Pillar 3</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">🔒 Privacy-First Architecture — Candidates control exactly what's shared and with whom...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">🔗 <strong>A New Layer in Your Hiring Stack</strong> — HireRex doesn't replace your ATS — it sits between your ATS shortlist and your interview room. One intelligence layer that changes everything downstream.</div></div>
+      </div>
+    </div>
+
+    <!-- Platforms section -->
+    <div class="change-block">
+      <div class="change-location">Platforms · Section Heading</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Tag: "Our Platforms"<br>Title: Two platforms, one mission<br>Sub: Each platform is purpose-built for its audience, and they're better together.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">Tag: "Two Platforms, One AI Engine"<br>Title: <strong>Smarter hiring. Smarter job search.</strong><br>Sub: HireRex screens for hiring teams. JobRex matches for candidates. Both run on the same AI — every signal makes both sides sharper.</div></div>
+      </div>
+    </div>
+
+    <!-- HireRex card -->
+    <div class="change-block">
+      <div class="change-location">Platforms · HireRex Card Description</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">AI-powered talent intelligence for recruiters and HR teams. Source smarter, screen faster, and build teams that actually perform, all in one platform.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text"><strong>Automated skill screening for hiring teams.</strong> Replace broken resume filtering with job-specific AI assessments, instant scoring, and structured candidate reports.</div></div>
+      </div>
+    </div>
+
+    <!-- JobRex card -->
+    <div class="change-block">
+      <div class="change-location">Platforms · JobRex Card Description</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Your AI career co-pilot. Build a living profile, get intelligently matched to roles that fit your goals, and track your entire job search in one place.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text"><strong>AI job matching for candidates who are more than their CV.</strong> Build a living career profile and get matched to roles where you'll genuinely succeed — not just roles that contain your keywords.</div></div>
+      </div>
+    </div>
+
+    <!-- AI Engine section -->
+    <div class="change-block">
+      <div class="change-location">AI Engine · Section Heading</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Tag: "Under the Hood"<br>Title: How the AI engine works<br>Sub: Four layers of intelligence that turn raw data into decisions you can trust.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">Tag: "How It Works"<br>Title: <strong>From ATS shortlist to hiring decision in minutes.</strong><br>Sub: Six automated steps that turn candidate volume into clarity.</div></div>
+      </div>
+    </div>
+
+    <!-- AI Steps -->
+    <div class="change-block">
+      <div class="change-location">AI Engine · 4 Steps</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">01 Deep Profile Parsing<br>02 Semantic Role Mapping<br>03 Multi-Signal Matching<br>04 Continuous Learning</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">01 <strong>ATS Creates Shortlist</strong> — Your existing ATS works as normal. HireRex takes it from here.<br><br>02 <strong>AI Generates Assessment</strong> — A job-specific technical test is created in seconds, tailored to the role's actual requirements.<br><br>03 <strong>Candidates Complete Test</strong> — Timed, fair, role-relevant. No generic coding challenges.<br><br>04 <strong>AI Scores Instantly</strong> — Ranked results with structured reports and AI-explained reasoning for every candidate. Your team sees who to interview and exactly why.</div></div>
+      </div>
+    </div>
+
+    <!-- CTA section -->
+    <div class="change-block">
+      <div class="change-location">CTA Banner · Heading + Sub</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">(existing CTA text)</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">Title: <strong>The future of hiring is intelligent.</strong><br>Sub: Stop sorting through AI-generated CVs. HireRex tells you what candidates can actually do — automatically, fairly, and in minutes.<br>CTA: Get Started with HireRex  |  Explore JobRex</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="page-section">
+    <div class="file-label">HireRex Page — hirerex.html</div>
+
+    <!-- Hero -->
+    <div class="change-block">
+      <div class="change-location">Hero · Eyebrow + Headline + Sub</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Eyebrow: 🏢 HireRex — For Hiring Teams<br>H1: Talent intelligence for modern teams<br>Sub: Find the candidates your existing tools miss. HireRex surfaces talent based on what actually predicts performance — not just who applied last week.</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">Eyebrow: 🏢 HireRex — AI Recruiting Software<br>H1: <strong>AI broke resume screening.<br>HireRex fixed it.</strong><br>Sub: Candidates use AI to generate perfect CVs — so everyone passes your ATS filter. HireRex is the automated skill screening layer between your shortlist and your interview room. Hire on what people can actually do.</div></div>
+      </div>
+    </div>
+
+    <!-- Hero badges -->
+    <div class="change-block">
+      <div class="change-location">Hero · Badges</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">⚡ AI Screening in Hours  |  📈 Full Pipeline Analytics  |  🤝 Team Collaboration</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">⚡ <strong>Scored in Minutes</strong>  |  🎯 <strong>Role-Specific Tests</strong>  |  📊 <strong>Structured Reports</strong></div></div>
+      </div>
+    </div>
+
+    <!-- Features section heading -->
+    <div class="change-block">
+      <div class="change-location">Features · Section Heading</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">Tag: "What HireRex does for your team"<br>Title: Hire on potential, not just paperwork<br>Sub: Every feature is built to help data-driven hiring teams move fast...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">Tag: "How HireRex works"<br>Title: <strong>From job post to ranked shortlist. Automatically.</strong><br>Sub: HireRex removes every manual step between receiving applications and knowing who to interview. No CV sifting. No bias. No wasted time.</div></div>
+      </div>
+    </div>
+
+    <!-- Feature 1 -->
+    <div class="change-block">
+      <div class="change-location">Features · Card 1</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">🔍 Smart Sourcing — Surface passive candidates who match your role before they even start looking...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">🧪 <strong>AI-Generated Assessments</strong> — HireRex creates job-specific technical tests tailored to each role's exact requirements in seconds. Not a generic test bank. Not one-size-fits-all. The right test for the right role, every time.</div></div>
+      </div>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="change-block">
+      <div class="change-location">Features · Card 2</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">⚡ AI Screening — Go from applicant pool to shortlist in hours, not days...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">⚡ <strong>Instant AI Scoring</strong> — Candidates are scored automatically with detailed skill breakdowns and structured reports. From hundreds of applicants to a ranked shortlist — without a single manual review.</div></div>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="change-block">
+      <div class="change-location">Features · Card 3</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">📈 Hiring Analytics — Pipeline health, source quality, time-to-hire, diversity metrics...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">🤖 <strong>Automated Candidate Routing</strong> — Top candidates are routed to interviews automatically. Communication, scheduling, and follow-ups happen without your team lifting a finger.</div></div>
+      </div>
+    </div>
+
+    <!-- Feature 4 -->
+    <div class="change-block">
+      <div class="change-location">Features · Card 4</div>
+      <div class="change-row">
+        <div class="old-col"><div class="col-label">Before</div><div class="old-text">🤝 Team Collaboration — Shared scorecards, structured feedback, and role-based access...</div></div>
+        <div class="new-col"><div class="col-label">After</div><div class="new-text">📊 <strong>Structured Hiring Reports</strong> — Every candidate gets an AI-explained score. Recruiters see exactly why someone ranked where they did — making decisions fast, fair, and fully defensible.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="approve-bar">
+  <p>Review the changes above. When ready, tell Claude <strong>"looks good, apply it"</strong> to push everything live — or share any edits you want first.</p>
+</div>
+
+</body>
+</html>
