@@ -240,7 +240,7 @@ html.dark #sr-bg-canvas{display:block}
 html:not(.dark) #sr-bg-topo{display:block}
 html.dark body{background:transparent!important}
 html:not(.dark) body{background:transparent!important}
-/* Dark: hero transparent — constellation shows through */
+/* Dark: hero transparent, constellation shows through */
 html.dark #hero,html.dark .hero{background:transparent!important}
 html.dark .hero-orb,html.dark .hero-grid{display:none}
 /* Dark: main sections transparent */
@@ -267,7 +267,7 @@ html:not(.dark) .cta-band{background:rgba(237,233,254,0.88)!important;backdrop-f
 html:not(.dark) #stats{background:rgba(237,233,254,0.72)!important}
 
 
-/* ═══ SECTION SEPARATION — Glass Panels + Orange Accent ═══ */
+/* ═══ SECTION SEPARATION, Glass Panels + Orange Accent ═══ */
 
 /* ── DARK MODE ── */
 /* All main content sections: frosted glass panel */
@@ -580,7 +580,7 @@ html.dark .pricing-dark-section p,
 <section class="section" style="background:var(--off-white)" id="plans-section">
   <div class="container">
 
-    <!-- Header — swaps between "coming soon" and "live" state -->
+    <!-- Header, swaps between "coming soon" and "live" state -->
     <div class="text-center" style="margin-bottom:56px">
       <div class="section-tag" id="plans-tag">What's coming</div>
       <h2 class="section-title" id="plans-title">Plans for every stage</h2>
@@ -655,7 +655,7 @@ html.dark .pricing-dark-section p,
     if (!plans.length) return '';
     const isJobRex   = product === 'jobrex';
     const accent     = getAccent(product);
-    const groupLabel = isJobRex ? '🎯 JobRex — For Job Seekers' : '🏢 HireRex — For Hiring Teams';
+    const groupLabel = isJobRex ? '🎯 JobRex, For Job Seekers' : '🏢 HireRex, For Hiring Teams';
     const cards = plans.map(p => {
       const feats   = (p.features||'').split('\n').filter(Boolean);
       const featHtml = feats.map(f=>`<li>${escH(f)}</li>`).join('');
@@ -1008,7 +1008,7 @@ function toggleFaq(elem){
 </script>
 <script src="cookie-consent.js"></script>
 <script>
-/* ScoutRex — Dark03 Constellation + Light05 Topographic */
+/* ScoutRex, Dark03 Constellation + Light05 Topographic */
 (function(){
   var dC=document.getElementById('sr-bg-canvas'),dX=dC.getContext('2d');
   var dPts=[],dW=0,dH=0,dGo=false;

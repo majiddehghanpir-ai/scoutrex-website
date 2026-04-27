@@ -99,7 +99,7 @@ html.dark .verify-back a:hover{color:var(--orange)}
   .form-row{grid-template-columns:1fr}
 }
 
-/* THEME TOGGLE — anchored inside the right panel, always visible */
+/* THEME TOGGLE, anchored inside the right panel, always visible */
 .page-theme-toggle{position:absolute;top:16px;right:16px;z-index:10;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;background:rgba(30,18,86,0.07);border:1.5px solid rgba(30,18,86,0.16);color:var(--indigo)}
 .page-theme-toggle:hover{background:rgba(30,18,86,0.13);transform:scale(1.08)}
 
@@ -137,7 +137,7 @@ html.dark #sr-bg-canvas{display:block}
 html:not(.dark) #sr-bg-topo{display:block}
 html.dark body{background:transparent!important}
 html:not(.dark) body{background:transparent!important}
-/* Dark: hero transparent — constellation shows through */
+/* Dark: hero transparent, constellation shows through */
 html.dark #hero,html.dark .hero{background:transparent!important}
 html.dark .hero-orb,html.dark .hero-grid{display:none}
 /* Dark: main sections transparent */
@@ -164,7 +164,7 @@ html:not(.dark) .cta-band{background:rgba(237,233,254,0.88)!important;backdrop-f
 html:not(.dark) #stats{background:rgba(237,233,254,0.72)!important}
 
 
-/* ═══ SECTION SEPARATION — Glass Panels + Orange Accent ═══ */
+/* ═══ SECTION SEPARATION, Glass Panels + Orange Accent ═══ */
 
 /* ── DARK MODE ── */
 /* All main content sections: frosted glass panel */
@@ -489,7 +489,7 @@ let currentMode = 'login';
   if (params.get('mode') !== 'lock') return;
 
   const profile = JSON.parse(localStorage.getItem('srx_lock_profile') || 'null');
-  if (!profile) return; // No profile — fall through to normal login
+  if (!profile) return; // No profile, fall through to normal login
 
   // Hide normal login UI, show lock screen instead
   document.querySelector('.login-right').innerHTML = `
@@ -607,7 +607,7 @@ function setMode(m){
   document.getElementById('register-form').style.display = isReg ? 'block' : 'none';
   document.getElementById('verify-form').style.display = isVerify ? 'block' : 'none';
   document.getElementById('tfa-form').style.display = isTFA ? 'block' : 'none';
-  // Type toggle hidden for all modes — website registration is candidates only
+  // Type toggle hidden for all modes, website registration is candidates only
   document.getElementById('type-toggle-wrap').style.display = 'none';
   currentType = 'candidate';
   if(isTFA){
@@ -704,7 +704,7 @@ async function handleVerify(){
     });
     const data = await res.json();
     if(res.ok && data.token){
-      // Verified — auto-login
+      // Verified, auto-login
       localStorage.setItem('sr_token', data.token);
       localStorage.setItem('sr_user', JSON.stringify({
         id: data.id, name: data.name, role: data.role || 'candidate',
@@ -927,7 +927,7 @@ async function handleLogin(){
         : 'account.html';
       window.location.href = dest;
     } else if(res.status === 403 && data.detail === 'email_not_verified'){
-      // Unverified email — switch to verification panel
+      // Unverified email, switch to verification panel
       verifyUserEmail = email;
       verifyUserId = data.user_id || null;
       document.getElementById('verify-email-display').textContent = email;
@@ -968,7 +968,7 @@ async function handleRegister(){
     });
     const data = await res.json();
     if(res.ok && data.status === 'verification_required'){
-      // Email verification needed — switch to verify panel
+      // Email verification needed, switch to verify panel
       verifyUserEmail = data.email || email;
       verifyUserId = data.user_id || null;
       document.getElementById('verify-email-display').textContent = verifyUserEmail;
@@ -1006,7 +1006,7 @@ window.addEventListener('load', updateThemeIcon);
 </script>
 <script src="cookie-consent.js"></script>
 <script>
-/* ScoutRex — Dark03 Constellation + Light05 Topographic */
+/* ScoutRex, Dark03 Constellation + Light05 Topographic */
 (function(){
   var dC=document.getElementById('sr-bg-canvas'),dX=dC.getContext('2d');
   var dPts=[],dW=0,dH=0,dGo=false;
