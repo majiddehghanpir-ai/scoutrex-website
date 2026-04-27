@@ -147,7 +147,7 @@ ul{list-style:none}
 
 /* ── VALUE PILLARS ── */
 #value{background:var(--off-white)}
-.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;margin-top:56px}
 .pillar{background:#fff;border-radius:24px;padding:36px 32px;border:1px solid var(--gray-100);transition:all 0.3s;position:relative;overflow:hidden}
 .pillar:hover{box-shadow:0 12px 48px rgba(249,115,22,0.12);transform:translateY(-4px);border-color:rgba(249,115,22,0.25)}
 .pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:24px 24px 0 0}
@@ -870,6 +870,11 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <div class="pillar-title">A New Layer in Your Hiring Stack</div>
         <p class="pillar-desc">HireRex doesn't replace your ATS — it sits between your ATS shortlist and your interview room. One intelligence layer that changes everything downstream.</p>
       </div>
+      <div class="pillar" style="border-top:3px solid transparent;background-image:linear-gradient(#fff,#fff),linear-gradient(90deg,#6366f1,#8b5cf6);background-origin:border-box;background-clip:padding-box,border-box;">
+        <div class="pillar-icon" style="background:rgba(99,102,241,0.1)">🗂️</div>
+        <div class="pillar-title">Built-in CRM — No Extra Tool</div>
+        <p class="pillar-desc">Recruiter notes, outreach campaigns, in-app messaging, interview scheduling, document collection, and team collaboration — all inside HireRex. One platform, the full hiring lifecycle.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -908,37 +913,44 @@ html:not(.dark) .pricing-dark-section .section-sub {
   <div class="container">
     <div>
       <span class="section-tag ai-section-tag">How It Works</span>
-      <h2 class="section-title ai-section-title">From ATS shortlist to hiring decision in minutes.</h2>
-      <p class="section-sub ai-section-sub" style="max-width:520px">Four automated steps that turn candidate volume into clarity — no manual review required.</p>
+      <h2 class="section-title ai-section-title">From first application to signed offer. End to end.</h2>
+      <p class="section-sub ai-section-sub" style="max-width:520px">Five automated steps that replace your entire hiring stack — assessment, scheduling, documents, CRM, and outreach — no manual review required.</p>
     </div>
     <div class="ai-grid">
       <div class="ai-steps">
         <div class="ai-step">
           <div class="ai-step-num">01</div>
           <div class="ai-step-content">
-            <h4>ATS Creates Shortlist</h4>
-            <p>Your existing ATS works as normal. HireRex picks up from there — no migration, no disruption to your current workflow.</p>
+            <h4>Post Role &amp; Import Candidates</h4>
+            <p>Create a job position, define requirements in plain language, and connect your existing ATS or import CVs directly. HireRex picks up from there — no disruption to your current workflow.</p>
           </div>
         </div>
         <div class="ai-step">
           <div class="ai-step-num">02</div>
           <div class="ai-step-content">
-            <h4>AI Generates Assessment</h4>
-            <p>A job-specific technical test is created in seconds, tailored to the role's exact requirements. Not a generic question bank — the right test for the right role.</p>
+            <h4>AI Generates Tailored Assessments</h4>
+            <p>Job-specific tests are created in seconds from your Question Library or generated fresh by AI — tailored to the exact skills, seniority, and role requirements you defined.</p>
           </div>
         </div>
         <div class="ai-step">
           <div class="ai-step-num">03</div>
           <div class="ai-step-content">
-            <h4>Candidates Complete Test</h4>
-            <p>Timed, fair, and role-relevant. Every candidate gets the same structured assessment — so results are comparable and hiring decisions are defensible.</p>
+            <h4>Candidates Test, Upload Docs &amp; Score</h4>
+            <p>Candidates complete assessments, submit required documents, and are scored automatically. Weighted AI scoring produces a ranked shortlist with full explanations — no manual review needed.</p>
           </div>
         </div>
         <div class="ai-step">
           <div class="ai-step-num">04</div>
           <div class="ai-step-content">
-            <h4>AI Scores &amp; Routes Instantly</h4>
-            <p>Ranked results with structured reports and AI-explained reasoning for every candidate. Your team sees exactly who to interview — and why — without reading a single CV.</p>
+            <h4>AI Schedules Interviews Automatically</h4>
+            <p>Top candidates are invited to interview based on your team's availability calendar. Rescheduling, counter-proposals, and waitlist promotion all happen without anyone on your team lifting a finger.</p>
+          </div>
+        </div>
+        <div class="ai-step">
+          <div class="ai-step-num">05</div>
+          <div class="ai-step-content">
+            <h4>CRM, Outreach &amp; Team Collaboration</h4>
+            <p>Add recruiter notes, send personalised outreach, message candidates in-app, and collaborate with your team — all inside one platform. Every interaction is logged to the candidate's CRM profile.</p>
           </div>
         </div>
       </div>
@@ -983,8 +995,8 @@ html:not(.dark) .pricing-dark-section .section-sub {
   <div class="container">
     <div class="cta-inner">
       <span class="section-tag">Get Started</span>
-      <h2 class="section-title">The future of hiring is intelligent.</h2>
-      <p class="section-sub">Stop sorting through AI-generated CVs. HireRex tells you what candidates can actually do — automatically, fairly, and in minutes.</p>
+      <h2 class="section-title">The complete hiring platform. Powered by AI.</h2>
+      <p class="section-sub">Screening, scheduling, documents, CRM, outreach, analytics — everything your hiring team needs, inside one platform. Stop patching tools together and start hiring smarter.</p>
       <div class="cta-actions">
         <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Get Started with HireRex →</a>
         <a href="jobrex.html" class="btn btn-secondary btn-lg">Explore JobRex</a>

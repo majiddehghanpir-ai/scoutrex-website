@@ -539,6 +539,33 @@ html.dark .sr-phone-home-bar{background:rgba(255,255,255,0.15)}
   .sr-phone-wrap{display:flex!important}
 }
 
+/* ── CRM SECTION ── */
+.crm-section{padding:100px 0;background:var(--off-white)}
+.crm-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.crm-items{display:flex;flex-direction:column;gap:20px;margin-top:36px}
+.crm-item{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;border-radius:14px;background:#fff;border:1px solid var(--gray-100);transition:all 0.2s}
+.crm-item:hover{border-color:rgba(249,115,22,0.25);box-shadow:0 6px 24px rgba(249,115,22,0.08);transform:translateY(-2px)}
+.crm-item-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+.crm-item-title{font-weight:700;color:var(--text);font-size:0.95rem;margin-bottom:4px}
+.crm-item-desc{font-size:13px;color:var(--gray-600);line-height:1.6}
+.crm-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.crm-stat-card{background:#fff;border:1px solid var(--gray-100);border-radius:16px;padding:24px;text-align:center}
+.crm-stat-card .stat-num{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:var(--orange);margin-bottom:4px}
+.crm-stat-card .stat-label{font-size:12px;color:var(--gray-600);font-weight:600;text-transform:uppercase;letter-spacing:0.4px}
+.crm-activity{background:#fff;border:1px solid var(--gray-100);border-radius:16px;padding:20px;margin-top:16px}
+.crm-activity-title{font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:14px}
+.crm-activity-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--gray-100)}
+.crm-activity-row:last-child{border-bottom:none}
+.crm-activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.crm-activity-text{font-size:12px;color:var(--gray-600);flex:1}
+.crm-activity-time{font-size:11px;color:var(--gray-400);flex-shrink:0}
+html.dark .crm-section{background:rgba(255,255,255,0.02)}
+html.dark .crm-item{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07)}
+html.dark .crm-item-title{color:#F1F0F9}
+html.dark .crm-item-desc{color:#A09BBF}
+html.dark .crm-stat-card,.crm-activity{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.07)}
+@media(max-width:768px){.crm-grid{grid-template-columns:1fr}.crm-cards{grid-template-columns:1fr 1fr}}
+
 </style>
 <link rel="stylesheet" href="mobile.css?v=11"/>
 <style id="alt-sections">
@@ -698,30 +725,143 @@ html:not(.dark) .pricing-dark-section .section-sub {
 <section class="features-section">
   <div class="container">
     <div class="text-center">
-      <div class="section-tag">How HireRex Works</div>
-      <h2 class="section-title">From job post to ranked shortlist. Automatically.</h2>
-      <p class="section-sub">HireRex removes every manual step between receiving applications and knowing who to interview. No CV sifting. No bias. No wasted time.</p>
+      <div class="section-tag">Platform Capabilities</div>
+      <h2 class="section-title">Everything you need to hire right. All in one platform.</h2>
+      <p class="section-sub">HireRex isn't just a screening tool — it's a complete hiring operating system. From the first application to the signed offer, every step is powered by AI.</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-card-icon">🧪</div>
         <h3>AI-Generated Assessments</h3>
-        <p>HireRex creates job-specific technical tests tailored to each role's exact requirements in seconds. Not a generic test bank — the right test for the right role, every time.</p>
+        <p>HireRex creates job-specific technical tests tailored to each role's exact requirements in seconds. Build a custom Question Library or let AI generate role-matched tests on demand — every time.</p>
       </div>
       <div class="feature-card">
         <div class="feature-card-icon">⚡</div>
-        <h3>Instant AI Scoring</h3>
-        <p>Candidates are scored automatically with detailed skill breakdowns and structured reports. From hundreds of applicants to a ranked shortlist — without a single manual review.</p>
+        <h3>Instant AI Scoring & Ranking</h3>
+        <p>Candidates are scored automatically with detailed skill breakdowns, weighted scoring, and structured reports. From hundreds of applicants to a ranked shortlist — without a single manual review.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📅</div>
+        <h3>Calendar & Interview Scheduling</h3>
+        <p>Smart scheduling that syncs with team availability. Set your windows once and HireRex handles interview invitations, confirmations, candidate counter-proposals, rescheduling, and waitlist promotion — automatically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📁</div>
+        <h3>Document Collection & AI Verification</h3>
+        <p>Define required documents per role — certificates, compliance files, portfolios. Candidates upload them in-portal; AI evaluates each submission and flags missing or insufficient items instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">💬</div>
+        <h3>Built-in Messaging & Email Outreach</h3>
+        <p>Message candidates directly inside HireRex — no external email threads. Send personalised outreach campaigns, track delivery, and keep every conversation attached to the candidate's profile and pipeline stage.</p>
       </div>
       <div class="feature-card">
         <div class="feature-card-icon">🤖</div>
         <h3>Automated Candidate Routing</h3>
-        <p>Top candidates are routed to interviews automatically. Communication, scheduling, and follow-ups happen without your team lifting a finger.</p>
+        <p>Top candidates are routed to interviews automatically. AI analyses job requirements, extracts skills from JDs, and matches candidates with precise fit scores — so your team only sees who's worth their time.</p>
       </div>
       <div class="feature-card">
         <div class="feature-card-icon">📊</div>
         <h3>Structured Hiring Reports</h3>
-        <p>Every candidate gets an AI-explained score. Recruiters see exactly why someone ranked where they did — making decisions fast, fair, and fully defensible.</p>
+        <p>Every candidate gets an AI-explained score with a detailed breakdown. Hiring decisions are fast, fair, and fully defensible — and all data is exportable to XLSX or CSV for your own reporting.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📈</div>
+        <h3>Analytics & Pipeline Intelligence</h3>
+        <p>Pipeline analytics, time-to-hire, assessment quality scores, team performance dashboards, and AI feedback loops — giving you the data to continuously improve how your team hires.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CANDIDATE CRM -->
+<section class="crm-section">
+  <div class="container">
+    <div class="crm-grid">
+      <!-- Left: Text + CRM feature list -->
+      <div>
+        <span class="section-tag">Candidate CRM</span>
+        <h2 class="section-title">Your entire candidate relationship. One place.</h2>
+        <p class="section-sub" style="margin-bottom:0">HireRex includes a built-in CRM so your team never loses context on a candidate — from first contact to final decision and beyond. No separate tool needed.</p>
+        <div class="crm-items">
+          <div class="crm-item">
+            <span class="crm-item-icon">🗒️</span>
+            <div>
+              <div class="crm-item-title">Recruiter Notes & Activity Log</div>
+              <div class="crm-item-desc">Log notes on any candidate at any stage. Every interaction is time-stamped and visible to your whole team — creating a complete, searchable history for every person in your pipeline.</div>
+            </div>
+          </div>
+          <div class="crm-item">
+            <span class="crm-item-icon">📧</span>
+            <div>
+              <div class="crm-item-title">Personalised Outreach Campaigns</div>
+              <div class="crm-item-desc">Send targeted email sequences to candidates directly from HireRex. Track opens and replies in the same pipeline view where you see their test scores and application status.</div>
+            </div>
+          </div>
+          <div class="crm-item">
+            <span class="crm-item-icon">👥</span>
+            <div>
+              <div class="crm-item-title">Team Collaboration & Permissions</div>
+              <div class="crm-item-desc">Invite recruiters, assign granular roles and permissions, and collaborate on hiring decisions in real time. Each team member sees exactly what they're supposed to — nothing more.</div>
+            </div>
+          </div>
+          <div class="crm-item">
+            <span class="crm-item-icon">🏢</span>
+            <div>
+              <div class="crm-item-title">Multi-Company Management</div>
+              <div class="crm-item-desc">Recruiting agencies and talent ops teams can manage multiple companies under one platform — each with their own branding, pipelines, and recruiter teams.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Visual stats + activity log -->
+      <div>
+        <div class="crm-cards">
+          <div class="crm-stat-card">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Candidate History Tracked</div>
+          </div>
+          <div class="crm-stat-card">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Team Members Supported</div>
+          </div>
+          <div class="crm-stat-card">
+            <div class="stat-num">Auto</div>
+            <div class="stat-label">Outreach Scheduling</div>
+          </div>
+          <div class="crm-stat-card">
+            <div class="stat-num">1</div>
+            <div class="stat-label">Platform. No Extra Tools.</div>
+          </div>
+        </div>
+        <div class="crm-activity">
+          <div class="crm-activity-title">Recent Activity — Anna Mueller</div>
+          <div class="crm-activity-row">
+            <div class="crm-activity-dot" style="background:#22c55e"></div>
+            <div class="crm-activity-text">Test completed · Score: 87% — <strong>Advanced to interview stage</strong></div>
+            <div class="crm-activity-time">2h ago</div>
+          </div>
+          <div class="crm-activity-row">
+            <div class="crm-activity-dot" style="background:#f97316"></div>
+            <div class="crm-activity-text">Outreach email opened · Reply received</div>
+            <div class="crm-activity-time">Yesterday</div>
+          </div>
+          <div class="crm-activity-row">
+            <div class="crm-activity-dot" style="background:#6366f1"></div>
+            <div class="crm-activity-text">Interview scheduled · <strong>Thu 2 May, 10:00 AM</strong></div>
+            <div class="crm-activity-time">Yesterday</div>
+          </div>
+          <div class="crm-activity-row">
+            <div class="crm-activity-dot" style="background:#a78bfa"></div>
+            <div class="crm-activity-text">Note added by <strong>M. Dehghan</strong> — "Strong cultural fit, revisit after panel"</div>
+            <div class="crm-activity-time">3d ago</div>
+          </div>
+          <div class="crm-activity-row">
+            <div class="crm-activity-dot" style="background:#94a3b8"></div>
+            <div class="crm-activity-text">Documents collected · ID + Portfolio verified by AI</div>
+            <div class="crm-activity-time">4d ago</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -751,6 +891,11 @@ html:not(.dark) .pricing-dark-section .section-sub {
               <div class="sr-mlabel">Jobs</div>
               <div class="sr-mnav">📋 Job Positions</div>
               <div class="sr-mnav">⚡ Test Cases</div>
+              <div class="sr-mnav">📁 Documents</div>
+              <div class="sr-mlabel">CRM</div>
+              <div class="sr-mnav">💬 Messages</div>
+              <div class="sr-mnav">📧 Outreach</div>
+              <div class="sr-mnav">📅 Calendar</div>
               <div class="sr-mlabel">Team</div>
               <div class="sr-mnav">👥 Team Members</div>
               <div class="sr-mnav">📊 Analytics</div>
