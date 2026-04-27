@@ -31,7 +31,7 @@
 <style>
 :root{
   --indigo:#1E1256;--indigo-mid:#2D1B8E;--indigo-light:#3D2CAE;
-  --orange:#F97316;--orange-light:#FB923C;--orange-dark:#EA6C0A;
+  --orange:#F97316;--orange-light:#FB923C;--orange-dark:#EA6C0A;--blue:#2563EB;--blue-light:#3B82F6;--teal:#0D9488;--teal-light:#14B8A6;--teal-dark:#0F766E;--violet:#7C3AED;--violet-light:#8B5CF6;--violet-dark:#6D28D9;
   --white:#FFFFFF;--off-white:#F7F7F7;
   --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
   --gray-400:#9CA3AF;--gray-600:#4B5563;--gray-800:#1F2937;
@@ -312,7 +312,7 @@ html.dark .pc-for.hr{color:var(--orange-light)}
 html.dark .pc-link.hr{color:var(--orange-light)}
 html.dark .pc-name.jr{color:#9E9EF5}
 html.dark .pc-for.jr{color:#9E9EF5}
-html.dark .pc-link.jr{color:#9E9EF5}
+html.dark .pc-link.jr{color:#9E9EF5}.platform-card.tr{background:linear-gradient(145deg,#E6FAF9 0%,#F0FEFD 100%);border:1px solid rgba(13,148,136,0.15)}.platform-card.lr{background:linear-gradient(145deg,#F3EEFF 0%,#F8F4FF 100%);border:1px solid rgba(124,58,237,0.15)}.pc-name.tr{color:var(--teal-dark)}.pc-for.tr{color:var(--teal-dark)}.pc-link.tr{color:var(--teal-dark)}.pc-name.lr{color:var(--violet-dark)}.pc-for.lr{color:var(--violet-dark)}.pc-link.lr{color:var(--violet-dark)}.pc-deco.tr{background:var(--teal)}.pc-deco.lr{background:var(--violet)}.pc-link.tr:hover,.pc-link.lr:hover{gap:10px}.pc-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.08);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:12px;color:#6B7280}html.dark .platform-card.tr{background:linear-gradient(145deg,#041F1E 0%,#061A19 100%)}html.dark .platform-card.lr{background:linear-gradient(145deg,#180E2E 0%,#120A22 100%)}html.dark .pc-name.tr{color:var(--teal-light)}.html.dark .pc-for.tr{color:var(--teal-light)}.html.dark .pc-link.tr{color:var(--teal-light)}html.dark .pc-name.lr{color:var(--violet-light)}.html.dark .pc-for.lr{color:var(--violet-light)}.html.dark .pc-link.lr{color:var(--violet-light)}html.dark .pc-badge{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.5)}
 html.dark .pc-desc{color:#A09BBF}
 html.dark #cta{background:#110F26}
 html.dark .cta-note{color:#6B6485}
@@ -885,9 +885,9 @@ html:not(.dark) .pricing-dark-section .section-sub {
 <section id="platforms" class="section">
   <div class="container">
     <div class="text-center">
-      <span class="section-tag">Two Platforms, One AI Engine</span>
-      <h2 class="section-title">Smarter hiring. Smarter job search.</h2>
-      <p class="section-sub">HireRex screens for hiring teams. JobRex matches for candidates. Both run on the same AI, and every signal makes both sides sharper.</p>
+      <span class="section-tag">Four Products, One AI Engine</span>
+      <h2 class="section-title">Hire, match, onboard, and upskill. All connected.</h2>
+      <p class="section-sub">HireRex and JobRex handle recruitment and matching. TempRex manages the probation period. LearnRex closes every skill gap. One AI layer connects them all.</p>
     </div>
     <div class="platforms-grid">
       <a href="hirerex.html" class="platform-card hr">
@@ -905,6 +905,24 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <p class="pc-desc">AI job matching for candidates who are more than their CV. Build a living career profile and get matched to roles where you'll genuinely succeed, not just roles that contain your keywords.</p>
         <span class="pc-link jr">Learn more →</span>
         <div class="pc-deco jr"></div>
+      </a>
+      <a href="temprex.html" class="platform-card tr">
+        <div class="pc-badge">🚧 Coming Soon</div>
+        <span class="pc-icon">⏱️</span>
+        <div class="pc-name tr">TempRex</div>
+        <div class="pc-for tr">For Probation Management</div>
+        <p class="pc-desc">ScoutRex acts as employer of record during the 6-month probation. AI performance reports, milestone check-ins, and LearnRex-powered upskilling keep every stakeholder informed — with a clean hire-or-exit decision at the end.</p>
+        <span class="pc-link tr">Learn more →</span>
+        <div class="pc-deco tr"></div>
+      </a>
+      <a href="learnrex.html" class="platform-card lr">
+        <div class="pc-badge">🚧 Coming Soon</div>
+        <span class="pc-icon">📖</span>
+        <div class="pc-name lr">LearnRex</div>
+        <div class="pc-for lr">For Skill Development</div>
+        <p class="pc-desc">Fail a skill test? LearnRex queues the exact course to close that gap. Tied to your JobRex profile and TempRex performance, every recommendation is earned — not random. Pass the quiz, earn a verified certificate.</p>
+        <span class="pc-link lr">Learn more →</span>
+        <div class="pc-deco lr"></div>
       </a>
     </div>
   </div>
