@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TempRex – AI New Recruiter Screening & Probezeit Management | ScoutRex</title>
+<meta name="description" content="TempRex automates the 6-month probation screening process. AI monitors new hire performance, generates reports for the hiring company, and manages the Temp relationship from day one to contract decision."/>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="ScoutRex"/>
+<link rel="canonical" href="https://www.scoutrex.com/temprex.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.scoutrex.com/temprex.html"/>
+<meta property="og:title" content="TempRex – AI New Recruiter Screening"/>
+<meta property="og:description" content="AI-powered Probezeit management. ScoutRex acts as the employer of record during the 6-month screening period, delivering performance reports and making the transition to permanent hire seamless."/>
+<meta property="og:image" content="https://www.scoutrex.com/ScoutRexLogo-transparent.png"/>
+<meta property="og:site_name" content="ScoutRex"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lora:wght@600;700&display=swap" rel="stylesheet"/>
+<script>try{if(localStorage.getItem('sr_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+:root{
+  --indigo:#1E1256;--indigo-mid:#2D1B8E;--indigo-light:#3D2CAE;
+  --orange:#F97316;--orange-light:#FB923C;--orange-dark:#EA6C0A;
+  --teal:#0D9488;--teal-light:#14B8A6;--teal-dark:#0F766E;
+  --white:#FFFFFF;--off-white:#F7F7F7;
+  --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-400:#9CA3AF;--gray-600:#4B5563;--gray-800:#1F2937;
+  --text:#0F0A2E;--radius:16px;
+  --shadow:0 4px 24px rgba(30,18,86,0.10);--shadow-lg:0 12px 48px rgba(30,18,86,0.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+ul{list-style:none}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;font-weight:600;font-size:15px;cursor:pointer;transition:all 0.2s ease;border:none;outline:none}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 4px 16px rgba(13,148,136,0.35)}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(13,148,136,0.45)}
+.btn-ghost{background:rgba(255,255,255,0.12);color:#fff;border:1.5px solid rgba(255,255,255,0.25)}
+.btn-ghost:hover{background:rgba(255,255,255,0.22)}
+.btn-lg{padding:16px 36px;font-size:16px}
+.btn-outline-indigo{background:transparent;color:var(--indigo);border:2px solid var(--indigo);border-radius:50px;padding:12px 28px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-outline-indigo:hover{background:var(--indigo);color:#fff}
+html.dark .btn-outline-indigo{color:var(--teal-light);border-color:var(--teal-light)}
+html.dark .btn-outline-indigo:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.section{padding:100px 0}
+.section-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;background:rgba(13,148,136,0.12);color:var(--teal-dark);border:1px solid rgba(13,148,136,0.2);margin-bottom:16px}
+.section-title{font-family:'Lora',serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--text);line-height:1.15}
+.section-sub{font-size:1.125rem;color:var(--gray-600);line-height:1.7;margin-top:14px}
+.text-center{text-align:center}
+.text-center .section-sub{max-width:580px;margin-left:auto;margin-right:auto;margin-top:14px}
+
+/* NAVBAR */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all 0.3s ease}
+#navbar.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(13,148,136,0.08)}
+#navbar:not(.scrolled) .logo-wordmark{color:#fff}
+#navbar:not(.scrolled) .logo-rex{color:var(--orange)!important}
+#navbar:not(.scrolled) .nav-links a{color:#fff;font-weight:700}
+#navbar:not(.scrolled) .nav-links a:hover{color:#fff;background:rgba(255,255,255,0.1)}
+#navbar:not(.scrolled) .login-btn{color:#fff;border-color:rgba(255,255,255,0.5)}
+#navbar:not(.scrolled) .login-btn:hover{background:rgba(255,255,255,0.12)}
+#navbar:not(.scrolled) .hamburger span{background:#fff}
+html:not(.dark) #navbar:not(.scrolled) .logo-wordmark{color:var(--text)}html:not(.dark) #navbar:not(.scrolled) .logo-rex{color:var(--orange)!important}html:not(.dark) #navbar:not(.scrolled) .nav-links a{color:var(--text);font-weight:700}html:not(.dark) #navbar:not(.scrolled) .nav-links a:hover{color:var(--teal);background:rgba(13,148,136,0.07)}html:not(.dark) #navbar:not(.scrolled) .login-btn{color:var(--teal);border-color:var(--teal)}html:not(.dark) #navbar:not(.scrolled) .login-btn:hover{background:var(--teal);color:#fff}html:not(.dark) #navbar:not(.scrolled) .hamburger span{background:var(--text)}html:not(.dark) #navbar:not(.scrolled) .theme-toggle{border-color:rgba(13,148,136,0.4);color:var(--text)}html:not(.dark) #navbar:not(.scrolled) .theme-toggle:hover{background:rgba(13,148,136,0.07)}
+html:not(.dark) footer{background:linear-gradient(180deg,#F0FFFE 0%,#E5FFFE 100%);color:var(--gray-800)}html:not(.dark) .footer-top{border-bottom-color:rgba(13,148,136,0.12)}html:not(.dark) .footer-brand p{color:var(--gray-600)}html:not(.dark) .footer-social a{background:rgba(13,148,136,0.07);color:var(--teal)}html:not(.dark) .footer-social a:hover{background:var(--teal);color:#fff}html:not(.dark) .footer-col-title{color:var(--indigo)}html:not(.dark) .footer-col ul li a{color:var(--gray-600)}html:not(.dark) .footer-col ul li a:hover{color:var(--teal)}html:not(.dark) .footer-bottom{border-top:1px solid rgba(13,148,136,0.08)}html:not(.dark) .footer-bottom-left{color:var(--gray-400)}html:not(.dark) .footer-bottom-right a{color:var(--gray-400)}html:not(.dark) .footer-bottom-right a:hover{color:var(--teal)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.logo-wordmark{font-family:'Lora',serif;font-weight:800;font-size:20px;color:var(--indigo);letter-spacing:-0.3px;white-space:nowrap}
+.logo-rex{color:var(--orange)}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:8px 14px;border-radius:50px;font-size:14px;font-weight:600;color:var(--indigo);transition:all 0.2s}
+.nav-links a:hover{color:var(--teal);background:rgba(13,148,136,0.07)}
+.nav-links a.active{color:var(--indigo);font-weight:700}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.login-btn{background:transparent;color:var(--teal);border:2px solid var(--teal);padding:9px 20px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;border-radius:50px;font-weight:600;transition:all 0.2s}
+.login-btn:hover{background:var(--teal);color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:var(--indigo);border-radius:2px;transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(15,10,46,0.97);z-index:999;overflow-y:auto;flex-direction:column;align-items:center;justify-content:flex-start;gap:18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1.2rem;font-weight:700;color:#fff;padding:10px;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--teal-light)}
+.mobile-sub-link{font-size:1rem!important;opacity:0.7;padding-left:28px!important}
+.theme-toggle{background:transparent;border:2px solid rgba(255,255,255,0.35);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;flex-shrink:0}
+.theme-toggle:hover{background:rgba(255,255,255,0.12);transform:scale(1.08)}
+#navbar.scrolled .theme-toggle{border-color:#E5E7EB;color:#1E1256}
+#navbar.scrolled .theme-toggle:hover{background:#F0FFFE}
+
+/* NAV DROPDOWN */
+.nav-dropdown{position:relative}
+.nav-dd-arrow{font-size:10px;opacity:0.6}
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--gray-200);border-radius:14px;box-shadow:var(--shadow-lg);padding:8px;min-width:280px;z-index:999}
+.nav-dropdown:hover .nav-dd-menu{display:flex;flex-direction:column}
+.nav-dd-menu a{padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--indigo);white-space:nowrap;transition:all 0.15s}
+.nav-dd-menu a:hover{background:rgba(13,148,136,0.08);color:var(--teal)}
+html.dark .nav-dd-menu{background:#1C1836;border-color:#2D2850}
+html.dark .nav-dd-menu a{color:#C4BFDA}
+html.dark .nav-dd-menu a:hover{background:rgba(13,148,136,0.15);color:var(--teal-light)}
+
+/* FOOTER */
+footer{background:#0F0A2E;color:rgba(255,255,255,0.7);padding:72px 0 0}
+.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.footer-brand p{font-size:14px;line-height:1.75;margin-top:16px;max-width:280px;color:rgba(255,255,255,0.5)}
+.footer-social{display:flex;gap:8px;margin-top:20px}
+.footer-social a{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:all 0.2s;color:rgba(255,255,255,0.6)}
+.footer-social a:hover{background:var(--teal);color:#fff}
+.footer-col-title{font-family:'Lora',serif;font-size:12px;font-weight:800;color:#fff;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{font-size:14px;color:rgba(255,255,255,0.45);transition:color 0.2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.footer-bottom-left{font-size:12px;color:rgba(255,255,255,0.3)}
+.footer-bottom-right{display:flex;gap:20px}
+.footer-bottom-right a{font-size:12px;color:rgba(255,255,255,0.3);transition:color 0.2s}
+.footer-bottom-right a:hover{color:#fff}
+
+/* DARK MODE */
+html.dark{--text:#F1F0F9;--gray-600:#A09BBF;--gray-800:#C4BFDA;--gray-400:#6B6485;--gray-200:#2D2850;--gray-100:#231F42;--off-white:#110F26;--white:#0D0B1F;--shadow:0 4px 24px rgba(0,0,0,0.4);--shadow-lg:0 12px 48px rgba(0,0,0,0.5)}
+html.dark body{background:#0D0B1F;color:#F1F0F9}
+html.dark .section-title{color:#F1F0F9}
+html.dark .section-sub{color:#A09BBF}
+html.dark #navbar.scrolled{background:rgba(13,11,31,0.97);box-shadow:0 2px 20px rgba(0,0,0,0.4)}
+html.dark #navbar.scrolled .logo-wordmark{color:#F1F0F9}
+html.dark #navbar.scrolled .nav-links a{color:#A09BBF}
+html.dark #navbar.scrolled .nav-links a:hover{color:#fff;background:rgba(13,148,136,0.18)}
+html.dark #navbar.scrolled .login-btn{color:var(--teal-light);border-color:var(--teal-dark)}
+html.dark #navbar.scrolled .login-btn:hover{background:var(--teal);color:#fff}
+html.dark #navbar.scrolled .theme-toggle{border-color:#0F4D48;color:#F1F0F9}
+html.dark .mobile-menu{background:rgba(9,7,28,0.98)}
+html.dark .feature-card{background:#0F0D24;border-color:#2D2850}
+html.dark .feature-card h3{color:#F1F0F9}
+html.dark .feature-card p{color:#A09BBF}
+html.dark footer{background:#09071C}
+
+/* HERO — teal/green palette for TempRex */
+.hero{min-height:55vh;padding-top:72px;background:linear-gradient(140deg,#011A18 0%,#042E2B 30%,#0A5C55 60%,#0D9488 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 30% 50%,rgba(13,148,136,0.25) 0%,transparent 70%);pointer-events:none}
+.hero-content{text-align:center;position:relative;z-index:2;padding:56px 0 48px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;background:rgba(13,148,136,0.25);border:1px solid rgba(13,148,136,0.4);font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-bottom:20px}
+.hero h1{font-family:'Lora',serif;font-size:clamp(2.6rem,5.5vw,3.8rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:20px}
+.hero h1 span{color:var(--teal-light)}
+.hero .hero-sub{color:rgba(255,255,255,0.72);font-size:1.15rem;max-width:660px;margin:0 auto 36px;line-height:1.7}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-badges{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.hero-badge-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.55);font-weight:500}
+.hero-badge-item span{font-size:15px}
+html:not(.dark) .hero{background:linear-gradient(140deg,#F0FFFE 0%,#CCFBF1 45%,#ECFDF5 100%)!important}
+html:not(.dark) .hero h1{color:var(--text)}
+html:not(.dark) .hero h1 span{color:var(--teal)}
+html:not(.dark) .hero .hero-sub{color:var(--gray-600)}
+html:not(.dark) .hero-eyebrow{background:rgba(13,148,136,0.1);border-color:rgba(13,148,136,0.25);color:var(--teal-dark)}
+html:not(.dark) .hero-badge-item{color:var(--gray-400)}
+html:not(.dark) .btn-ghost{background:transparent;color:var(--indigo);border:1.5px solid rgba(30,18,86,0.25)}
+html:not(.dark) .btn-ghost:hover{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+
+/* FEATURES */
+.features-section{padding:96px 0;background:var(--white)}
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:56px}
+.feature-card{padding:36px;background:#fff;border:1px solid var(--gray-200);border-radius:20px;transition:all 0.3s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,148,136,0.04) 0%,transparent 60%);pointer-events:none}
+.feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(13,148,136,0.25)}
+.feature-card-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(13,148,136,0.15),rgba(13,148,136,0.05));display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+.feature-card h3{font-family:'Lora',serif;font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:10px}
+.feature-card p{font-size:14px;color:var(--gray-600);line-height:1.65}
+
+/* MOCKUP */
+.mockup-section{padding:96px 0;background:linear-gradient(160deg,#011A18 0%,#042E2B 40%,#0D9488 100%)}
+.mockup-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.mockup-text .section-tag{background:rgba(13,148,136,0.18);color:var(--teal-light)}
+.mockup-text .section-title{color:#fff}
+.mockup-text .section-sub{color:rgba(255,255,255,0.65)}
+.mockup-steps{margin-top:32px;display:flex;flex-direction:column;gap:18px}
+.mockup-step{display:flex;gap:16px;align-items:flex-start}
+.mockup-step-num{width:32px;height:32px;border-radius:50%;background:rgba(13,148,136,0.2);border:1px solid rgba(13,148,136,0.4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--teal-light);flex-shrink:0;margin-top:2px}
+.mockup-step-body h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.mockup-step-body p{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5}
+
+/* TIMELINE PANEL — the fake app mockup */
+.tr-panel{background:#F0FFFE;border-radius:16px;border:1px solid rgba(13,148,136,0.15);box-shadow:0 24px 64px rgba(13,148,136,0.25);overflow:hidden}
+.tr-topbar{background:#CCFBF1;padding:10px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(13,148,136,0.1)}
+.tr-dot{width:10px;height:10px;border-radius:50%}
+.tr-dot-r{background:#FF5F57}.tr-dot-y{background:#FEBC2E}.tr-dot-g{background:#28C840}
+.tr-url{flex:1;text-align:center;font-size:10px;color:rgba(13,148,136,0.4);font-family:monospace}
+.tr-body{padding:14px}
+.tr-header{font-size:12px;font-weight:800;color:#0D9488;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.tr-name{font-size:14px;font-weight:700;color:#0F0A2E;margin-bottom:2px}
+.tr-sub{font-size:10px;color:rgba(13,148,136,0.6);margin-bottom:12px}
+.tr-progress-bar-wrap{background:rgba(13,148,136,0.1);border-radius:50px;height:8px;overflow:hidden;margin-bottom:4px}
+.tr-progress-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,#0D9488,#14B8A6)}
+.tr-progress-label{font-size:9px;color:rgba(13,148,136,0.6);margin-bottom:14px;font-weight:600}
+.tr-months{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:14px}
+.tr-month{text-align:center;padding:6px 2px;border-radius:6px;border:1px solid rgba(13,148,136,0.1)}
+.tr-month.done{background:rgba(13,148,136,0.15);border-color:rgba(13,148,136,0.3)}
+.tr-month.active{background:#0D9488;border-color:#0D9488}
+.tr-month-n{font-size:9px;font-weight:800;color:#0F0A2E}
+.tr-month.done .tr-month-n{color:#0D9488}
+.tr-month.active .tr-month-n{color:#fff}
+.tr-month-l{font-size:7px;color:rgba(13,148,136,0.5);margin-top:1px}
+.tr-month.active .tr-month-l{color:rgba(255,255,255,0.7)}
+.tr-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.tr-kpi{background:#fff;border:1px solid rgba(13,148,136,0.1);border-radius:8px;padding:7px;text-align:center}
+.tr-kpi-n{font-size:14px;font-weight:800;color:#0D9488}
+.tr-kpi-l{font-size:8px;color:rgba(30,18,86,0.4);font-weight:600;margin-top:1px}
+.tr-report-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid rgba(13,148,136,0.08)}
+.tr-report-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.tr-report-text{font-size:11px;color:rgba(30,18,86,0.6);flex:1}
+.tr-report-badge{font-size:8px;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(13,148,136,0.12);color:#0D9488}
+html.dark .tr-panel{background:#0D1F1E;border-color:rgba(13,148,136,0.2);box-shadow:0 24px 64px rgba(0,0,0,0.5)}
+html.dark .tr-topbar{background:#041A18;border-bottom-color:rgba(13,148,136,0.1)}
+html.dark .tr-name{color:rgba(255,255,255,0.9)}
+html.dark .tr-kpi{background:rgba(255,255,255,0.04);border-color:rgba(13,148,136,0.15)}
+html.dark .tr-kpi-l{color:rgba(255,255,255,0.3)}
+
+/* CTA BAND */
+.cta-band{padding:96px 0;background:linear-gradient(135deg,#0A5C55 0%,#0D9488 50%,#0A5C55 100%);text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(20,184,166,0.3) 0%,transparent 60%);pointer-events:none}
+.cta-band h2{font-family:'Lora',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:16px;position:relative;z-index:1}
+.cta-band p{color:rgba(255,255,255,0.65);font-size:1.05rem;max-width:520px;margin:0 auto 36px;line-height:1.65;position:relative;z-index:1}
+.cta-band-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+html:not(.dark) .cta-band{background:rgba(204,251,241,0.88)!important;backdrop-filter:blur(14px)}
+html:not(.dark) .cta-band h2{color:var(--text)}
+html:not(.dark) .cta-band p{color:var(--gray-600)}
+
+/* BRIDGE */
+.bridge-section{padding:80px 0;background:var(--gray-50)}
+html.dark .bridge-section{background:#0A0820}
+.bridge-inner{display:flex;align-items:center;gap:48px;background:#fff;border-radius:24px;padding:48px;border:1px solid var(--gray-200);box-shadow:var(--shadow)}
+html.dark .bridge-inner{background:#0F0D24;border-color:#2D2850}
+.bridge-icon{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,rgba(13,148,136,0.15),rgba(13,148,136,0.05));display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0}
+.bridge-body h3{font-family:'Lora',serif;font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:8px}
+.bridge-body p{font-size:15px;color:var(--gray-600);line-height:1.65;margin-bottom:20px}
+
+/* ANIMATED BG */
+#sr-bg-canvas,#sr-bg-topo{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:none}
+#sr-bg-canvas{background:#0A071F}
+#sr-bg-topo{background:#F0FFFE}
+html.dark #sr-bg-canvas{display:block}
+html:not(.dark) #sr-bg-topo{display:block}
+html.dark body{background:transparent!important}
+html:not(.dark) body{background:transparent!important}
+html.dark .hero{background:transparent!important}
+html:not(.dark) .hero{background:linear-gradient(160deg,rgba(240,255,254,0.82) 0%,rgba(204,251,241,0.7) 100%)!important;backdrop-filter:blur(2px)}
+html.dark .mockup-section{background:transparent!important}
+html.dark .section{background:transparent!important}
+html.dark .bridge-section{background:transparent!important}
+html:not(.dark) .section{background:transparent!important}
+html:not(.dark) .bridge-section{background:transparent!important}
+html:not(.dark) .mockup-section{background:rgba(248,255,254,0.78)!important}
+
+html.dark .section,html.dark .features-section,html.dark .mockup-section,html.dark .bridge-section{background:rgba(12,8,36,0.62)!important;border-top:1px solid rgba(13,148,136,0.16)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+html.dark .cta-band{background:rgba(8,5,24,0.82)!important;border-top:1px solid rgba(13,148,136,0.28)!important;border-bottom:1px solid rgba(13,148,136,0.28)!important;backdrop-filter:blur(16px)}
+html:not(.dark) .section,html:not(.dark) .features-section,html:not(.dark) .bridge-section{background:rgba(255,255,255,0.72)!important;border-top:1px solid rgba(13,148,136,0.18)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+html:not(.dark) .cta-band{background:rgba(204,251,241,0.88)!important;border-top:1px solid rgba(13,148,136,0.25)!important;border-bottom:1px solid rgba(13,148,136,0.15)!important;backdrop-filter:blur(14px)}
+.section,.features-section,.mockup-section,.bridge-section{position:relative}
+html:not(.dark) .mockup-section h1,html:not(.dark) .mockup-section h2,html:not(.dark) .mockup-section h3,html:not(.dark) .mockup-section .section-title,html:not(.dark) .mockup-section .mockup-step-body h4{color:var(--text)!important}
+html:not(.dark) .mockup-section .section-sub,html:not(.dark) .mockup-section .mockup-step-body p{color:var(--gray-600)!important}
+
+/* COMING SOON POPUP */
+.cs-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.cs-overlay.open{display:flex}
+.cs-modal{background:#fff;border-radius:24px;padding:48px 40px;max-width:460px;width:90%;text-align:center;box-shadow:0 32px 80px rgba(0,0,0,0.2);position:relative}
+html.dark .cs-modal{background:#1C1836;border:1px solid #2D2850}
+.cs-icon{font-size:3rem;margin-bottom:16px}
+.cs-modal h2{font-family:'Lora',serif;font-size:1.6rem;font-weight:800;color:var(--text);margin-bottom:10px}
+html.dark .cs-modal h2{color:#F1F0F9}
+.cs-modal p{font-size:0.95rem;color:var(--gray-600);line-height:1.65;margin-bottom:28px}
+html.dark .cs-modal p{color:#A09BBF}
+.cs-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:50px;background:rgba(13,148,136,0.12);color:var(--teal-dark);font-size:13px;font-weight:700;border:1px solid rgba(13,148,136,0.25);margin-bottom:24px}
+.cs-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--gray-400);line-height:1}
+.cs-close:hover{color:var(--gray-800)}
+
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .section{padding:72px 0}
+  .features-grid{grid-template-columns:1fr}
+  .mockup-layout{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .bridge-inner{flex-direction:column;text-align:center}
+}
+@media(max-width:560px){
+  .footer-top{grid-template-columns:1fr}
+  .hero h1{font-size:2rem}
+  .cs-modal{padding:32px 24px}
+}
+</style>
+<link rel="stylesheet" href="mobile.css?v=11"/>
+</head>
+<body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
+
+<!-- COMING SOON MODAL -->
+<div class="cs-overlay" id="csOverlay" onclick="closeCS(event)">
+  <div class="cs-modal">
+    <button class="cs-close" onclick="document.getElementById('csOverlay').classList.remove('open')">✕</button>
+    <div class="cs-icon">⏱️</div>
+    <div class="cs-badge">🚧 Under Production</div>
+    <h2>TempRex is on its way</h2>
+    <p>We're building TempRex right now. It will connect directly with HireRex and LearnRex to manage the full Probezeit lifecycle, from day one to permanent hire decision. Be among the first to know when it launches.</p>
+    <a href="contact.html" class="btn btn-primary btn-lg" style="display:inline-flex">Get Early Access →</a>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+      </a>
+      <div class="nav-links">
+        <div class="nav-dropdown">
+          <a href="products.html" class="active">Products <span class="nav-dd-arrow">▾</span></a>
+          <div class="nav-dd-menu">
+            <a href="hirerex.html">🏢 HireRex: AI Recruiting &amp; HR Software</a>
+            <a href="jobrex.html">🎯 JobRex: AI Career Co-Pilot</a>
+            <a href="temprex.html">⏱️ TempRex: AI New Recruiter Screening</a>
+            <a href="learnrex.html">📚 LearnRex: AI E-Learning Teacher</a>
+          </div>
+        </div>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="team.html">Team</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+        <a href="login.html"><button class="login-btn">Log In</button></a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="products.html" onclick="setTimeout(toggleMenu,100)">Products</a>
+  <a href="hirerex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🏢 HireRex</a>
+  <a href="jobrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🎯 JobRex</a>
+  <a href="temprex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ ⏱️ TempRex</a>
+  <a href="learnrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 📚 LearnRex</a>
+  <a href="pricing.html" onclick="setTimeout(toggleMenu,100)">Pricing</a>
+  <a href="about.html" onclick="setTimeout(toggleMenu,100)">About</a>
+  <a href="team.html" onclick="setTimeout(toggleMenu,100)">Team</a>
+  <a href="careers.html" onclick="setTimeout(toggleMenu,100)">Careers</a>
+  <a href="contact.html" onclick="setTimeout(toggleMenu,100)">Contact</a>
+  <hr style="border-color:rgba(255,255,255,0.1);width:80%;margin:4px 0">
+  <div style="font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase">Account</div>
+  <a href="login.html" onclick="setTimeout(toggleMenu,100)">Log In</a>
+  <a href="login.html?mode=register" onclick="setTimeout(toggleMenu,100)">Register</a>
+  <button class="theme-toggle" onclick="toggleTheme()" style="margin-top:8px" id="theme-toggle-mobile">🌙</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">⏱️ TempRex: AI New Recruiter Screening</div>
+      <h1>Hire with confidence.<br><span>Screen with data.</span></h1>
+      <p class="hero-sub">The 6-month probation period is high-stakes for everyone. TempRex acts as the employer of record, monitors Temp performance with AI, delivers structured reports to the hiring company, and makes the transition to permanent hire automatic when the data confirms fit.</p>
+      <div class="hero-cta">
+        <button onclick="document.getElementById('csOverlay').classList.add('open')" class="btn btn-primary btn-lg">Coming Soon →</button>
+        <a href="hirerex.html" class="btn btn-ghost btn-lg">See HireRex First</a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge-item"><span>📋</span> AI Performance Monitoring</div>
+        <div class="hero-badge-item"><span>🤝</span> Employer of Record</div>
+        <div class="hero-badge-item"><span>🔄</span> Auto-reopen on Exit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="mockup-section">
+  <div class="container">
+    <div class="mockup-layout">
+      <!-- Fake TempRex Dashboard -->
+      <div class="tr-panel">
+        <div class="tr-topbar">
+          <div class="tr-dot tr-dot-r"></div>
+          <div class="tr-dot tr-dot-y"></div>
+          <div class="tr-dot tr-dot-g"></div>
+          <div class="tr-url">🔒 app.scoutrex.com/temprex</div>
+        </div>
+        <div class="tr-body">
+          <div class="tr-header">
+            <span>⏱️ TempRex Dashboard</span>
+            <span style="font-size:9px;font-weight:600;padding:3px 8px;background:rgba(13,148,136,0.12);border-radius:20px;color:#0D9488">Month 4 of 6</span>
+          </div>
+          <div class="tr-name">Lena Fischer — Software Engineer</div>
+          <div class="tr-sub">Temp at Allianz SE · Contract: ScoutRex GmbH</div>
+          <div class="tr-progress-bar-wrap">
+            <div class="tr-progress-fill" style="width:67%"></div>
+          </div>
+          <div class="tr-progress-label">67% of Probezeit complete</div>
+          <div class="tr-months">
+            <div class="tr-month done"><div class="tr-month-n">M1</div><div class="tr-month-l">✓</div></div>
+            <div class="tr-month done"><div class="tr-month-n">M2</div><div class="tr-month-l">✓</div></div>
+            <div class="tr-month done"><div class="tr-month-n">M3</div><div class="tr-month-l">✓</div></div>
+            <div class="tr-month active"><div class="tr-month-n">M4</div><div class="tr-month-l">Now</div></div>
+            <div class="tr-month"><div class="tr-month-n">M5</div><div class="tr-month-l"></div></div>
+            <div class="tr-month"><div class="tr-month-n">M6</div><div class="tr-month-l"></div></div>
+          </div>
+          <div class="tr-kpis">
+            <div class="tr-kpi"><div class="tr-kpi-n">94</div><div class="tr-kpi-l">AI Score</div></div>
+            <div class="tr-kpi"><div class="tr-kpi-n">3</div><div class="tr-kpi-l">Reports Sent</div></div>
+            <div class="tr-kpi"><div class="tr-kpi-n">✓ Fit</div><div class="tr-kpi-l">Status</div></div>
+          </div>
+          <div class="tr-report-row">
+            <div class="tr-report-dot" style="background:#0D9488"></div>
+            <div class="tr-report-text">Month 3 report delivered to Allianz HR</div>
+            <div class="tr-report-badge">Sent</div>
+          </div>
+          <div class="tr-report-row">
+            <div class="tr-report-dot" style="background:#14B8A6"></div>
+            <div class="tr-report-text">Skill gap detected: Advanced SQL — LearnRex course assigned</div>
+            <div class="tr-report-badge">In Progress</div>
+          </div>
+          <div class="tr-report-row">
+            <div class="tr-report-dot" style="background:#9CA3AF"></div>
+            <div class="tr-report-text">Month 4 report scheduled · 14 days remaining</div>
+            <div class="tr-report-badge">Upcoming</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mockup-text">
+        <div class="section-tag">Probezeit, managed by AI</div>
+        <h2 class="section-title">The full 6-month journey, in one view.</h2>
+        <p class="section-sub">TempRex tracks every month of the screening period. The hiring company gets structured reports. The Temp gets learning support via LearnRex. You get a clear decision at the end.</p>
+        <div class="mockup-steps">
+          <div class="mockup-step">
+            <div class="mockup-step-num">1</div>
+            <div class="mockup-step-body">
+              <h4>Hired via HireRex, contracted by ScoutRex</h4>
+              <p>When a candidate is confirmed through HireRex, they automatically enter TempRex under a ScoutRex contract. The host company gets a skilled Temp without direct hiring risk.</p>
+            </div>
+          </div>
+          <div class="mockup-step">
+            <div class="mockup-step-num">2</div>
+            <div class="mockup-step-body">
+              <h4>AI monitors performance month by month</h4>
+              <p>Structured check-ins, manager feedback, and AI-generated reports keep every stakeholder informed across all 6 months. No surprises at the end.</p>
+            </div>
+          </div>
+          <div class="mockup-step">
+            <div class="mockup-step-num">3</div>
+            <div class="mockup-step-body">
+              <h4>Month 6: confirm hire or reopen position</h4>
+              <p>If the company confirms fit, the Temp transitions to a direct employee. If not, the contract ends cleanly and HireRex automatically reopens the position to find the next candidate.</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:32px">
+          <button onclick="document.getElementById('csOverlay').classList.add('open')" class="btn btn-primary btn-lg">Get Started with TempRex →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section section">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag">What TempRex does</div>
+      <h2 class="section-title">Everything the probation period needs, automated.</h2>
+      <p class="section-sub">From day one to final decision, TempRex handles the paperwork, monitoring, reporting, and transition so your HR team doesn't have to.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-icon">🤝</div>
+        <h3>Employer of Record</h3>
+        <p>ScoutRex holds the Temp's contract during the probation period. The host company benefits from the Temp's work without the legal and administrative overhead of a direct hire during screening.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📊</div>
+        <h3>AI Performance Reports</h3>
+        <p>Monthly AI-generated performance reports are delivered automatically to the hiring company's HR team. Structured, objective, and based on real performance data, not manager gut feel.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📚</div>
+        <h3>LearnRex Integration</h3>
+        <p>When a skill gap is detected during the probation period, TempRex automatically assigns a targeted LearnRex course to help the Temp improve before the next evaluation month.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">🔄</div>
+        <h3>Auto-Reopen on Exit</h3>
+        <p>If a Temp leaves or is not confirmed at any point between month 1 and 6, HireRex automatically reopens the position and begins sourcing the next screened candidate. Zero manual work.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">📅</div>
+        <h3>AI Interview Calendar</h3>
+        <p>Milestone check-in meetings between the Temp, host company, and ScoutRex are scheduled automatically. AI coordinates availability and sends reminders to all parties.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">✅</div>
+        <h3>Clean Transition or Clean Exit</h3>
+        <p>When month 6 arrives, TempRex generates the final recommendation report. A confirmed hire triggers a smooth handover to the company's own contract. A declined hire triggers a new search.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <h2>TempRex is coming soon.</h2>
+    <p>Join the early access list and be the first to know when TempRex goes live. We'll keep you updated on launch timing and early pricing.</p>
+    <div class="cta-band-btns">
+      <button onclick="document.getElementById('csOverlay').classList.add('open')" class="btn btn-primary btn-lg">Get Early Access</button>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE to other products -->
+<section class="bridge-section section">
+  <div class="container">
+    <div class="bridge-inner">
+      <div class="bridge-icon">🎯</div>
+      <div class="bridge-body">
+        <h3>Start with HireRex. Move to TempRex automatically.</h3>
+        <p>Every candidate hired through HireRex flows into TempRex without any extra setup. The two products share data, scores, and history so nothing is lost in the transition.</p>
+        <a href="hirerex.html" class="btn-outline-indigo">Explore HireRex →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
+        </div>
+        <p>Building intelligent systems that make career transitions and talent discovery faster, fairer, and more human, powered by AI. Privacy by design, data never sold.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/scoutrexhq/" target="_blank" title="LinkedIn">in</a>
+          <a href="https://www.instagram.com/scoutrexhq/" target="_blank" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://x.com/scoutrexHQ" target="_blank" title="X">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Products</div>
+        <ul>
+          <li><a href="jobrex.html">JobRex: Candidates</a></li>
+          <li><a href="hirerex.html">HireRex: Companies</a></li>
+          <li><a href="temprex.html">TempRex: Screening</a></li>
+          <li><a href="learnrex.html">LearnRex: E-Learning</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="gdpr.html">GDPR Compliant</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Account</div>
+        <ul>
+          <li><a href="login.html">Log In</a></li>
+          <li><a href="login.html?mode=register">Register</a></li>
+          <li><a href="account.html">My ScoutRex</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">© 2026 ScoutRex Inc. All rights reserved.</div>
+      <div class="footer-bottom-right">
+        <a href="gdpr.html">GDPR</a>
+        <a href="gdpr.html">Privacy Policy</a>
+        <a href="contact.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const isDark=h.classList.toggle('dark');localStorage.setItem('sr_theme',isDark?'dark':'light');const btn=document.getElementById('theme-toggle');const btnM=document.getElementById('theme-toggle-mobile');const icon=isDark?'☀️':'🌙';if(btn)btn.textContent=icon;if(btnM)btnM.textContent=icon}
+(function(){const t=localStorage.getItem('sr_theme');const isDark=t==='dark';document.getElementById('theme-toggle').textContent=isDark?'☀️':'🌙';const m=document.getElementById('theme-toggle-mobile');if(m)m.textContent=isDark?'☀️':'🌙'})();
+function toggleMenu(){const m=document.getElementById('mobileMenu');m.classList.toggle('open');document.body.style.overflow=m.classList.contains('open')?'hidden':''}
+window.addEventListener('scroll',function(){const n=document.getElementById('navbar');n.classList.toggle('scrolled',window.scrollY>20)});
+function closeCS(e){if(e.target===document.getElementById('csOverlay'))document.getElementById('csOverlay').classList.remove('open')}
+
+// Animated canvas backgrounds (reused from main site)
+(function(){
+  const dc=document.getElementById('sr-bg-canvas');
+  if(!dc)return;
+  const ctx=dc.getContext('2d');
+  let stars=[];
+  function resize(){dc.width=window.innerWidth;dc.height=window.innerHeight;stars=Array.from({length:120},()=>({x:Math.random()*dc.width,y:Math.random()*dc.height,r:Math.random()*1.4+0.3,o:Math.random(),s:Math.random()*0.008+0.002}))}
+  function draw(){ctx.clearRect(0,0,dc.width,dc.height);stars.forEach(s=>{s.o+=s.s;if(s.o>1||s.o<0)s.s*=-1;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(13,148,136,${s.o*0.6})`;ctx.fill()});requestAnimationFrame(draw)}
+  window.addEventListener('resize',resize);resize();draw();
+})();
+(function(){
+  const dt=document.getElementById('sr-bg-topo');
+  if(!dt)return;
+  const ctx=dt.getContext('2d');
+  function resize(){dt.width=window.innerWidth;dt.height=window.innerHeight;draw()}
+  function draw(){ctx.clearRect(0,0,dt.width,dt.height);for(let i=0;i<8;i++){ctx.beginPath();ctx.ellipse(dt.width*0.5,dt.height*0.4,150+i*80,80+i*40,Math.PI/7,0,Math.PI*2);ctx.strokeStyle=`rgba(13,148,136,${0.06-i*0.006})`;ctx.lineWidth=1;ctx.stroke()}}
+  window.addEventListener('resize',resize);resize();
+})();
+</script>
+</body>
+</html>
