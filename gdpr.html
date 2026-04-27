@@ -351,7 +351,7 @@ html:not(.dark) .bridge-section::before {
   position: relative;
 }
 
-html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#E5E7EB!important;color:var(--indigo)}html.dark #navbar .nav-dd-menu{background:#1C1836!important;border-color:#2D2850!important}html:not(.dark) #navbar .nav-dd-menu a{color:var(--indigo)!important}html.dark #navbar .nav-dd-menu a{color:#C4BFDA!important}</style>
+html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#E5E7EB!important;color:var(--indigo)}html.dark #navbar .nav-dd-menu{background:#1C1836!important;border-color:#2D2850!important}html:not(.dark) #navbar .nav-dd-menu a{color:var(--indigo)!important}html.dark #navbar .nav-dd-menu a{color:#C4BFDA!important}.lang-toggle{background:transparent;border:2px solid rgba(255,255,255,0.35);padding:0 11px;height:38px;border-radius:50px;cursor:pointer;font-size:11px;font-weight:800;letter-spacing:1px;color:#fff;display:inline-flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;font-family:'Inter',sans-serif}.lang-toggle:hover{background:rgba(255,255,255,0.12);transform:scale(1.05)}#navbar.scrolled .lang-toggle{border-color:#E5E7EB;color:var(--indigo)}#navbar.scrolled .lang-toggle:hover{background:#F8F7FF}html:not(.dark) #navbar:not(.scrolled) .lang-toggle{border-color:rgba(30,18,86,0.3);color:var(--indigo)}html:not(.dark) #navbar:not(.scrolled) .lang-toggle:hover{background:rgba(249,115,22,0.07);border-color:var(--orange);color:var(--orange)}</style>
 <link rel="stylesheet" href="mobile.css?v=11"/>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
@@ -364,22 +364,23 @@ html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#
         <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
       </a>
       <div class="nav-links">
-        <div class="nav-dropdown"><a href="products.html">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="hirerex.html">🏢 HireRex: AI Recruiting &amp; HR Software</a><a href="jobrex.html">🎯 JobRex: AI Career Co-Pilot</a><a href="temprex.html">⏱️ TempRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a><a href="learnrex.html">📖 LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a></div></div>
-        <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="careers.html">Careers</a>
-        <a href="contact.html">Contact</a>
+        <div class="nav-dropdown"><a href="products.html" data-i18n="nav-products">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="hirerex.html" data-i18n="dd-hirerex">🏢 HireRex: AI Recruiting &amp; HR Software</a><a href="jobrex.html" data-i18n="dd-jobrex">🎯 JobRex: AI Career Co-Pilot</a><a href="temprex.html" data-i18n="dd-temprex">⏱️ TempRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a><a href="learnrex.html" data-i18n="dd-learnrex">📖 LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a></div></div>
+        <a href="pricing.html" data-i18n="nav-pricing">Pricing</a>
+        <a href="about.html" data-i18n="nav-about">About</a>
+        <a href="careers.html" data-i18n="nav-careers">Careers</a>
+        <a href="contact.html" data-i18n="nav-contact">Contact</a>
       </div>
       <div class="nav-cta">
+        <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Sprache / Language">EN</button>
         <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
-        <a href="login.html"><button class="login-btn">Log In</button></a>
+        <a href="login.html"><button class="login-btn" data-i18n="nav-login">Log In</button></a>
       </div>
       <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
   </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="products.html" onclick="setTimeout(toggleMenu,100)">Products</a>
+  <a href="products.html" onclick="setTimeout(toggleMenu,100)" data-i18n="mob-products">Products</a>
   <a href="hirerex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🏢 HireRex</a>
   <a href="jobrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🎯 JobRex</a>
   <a href="temprex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ ⏱️ TempRex</a>
@@ -390,10 +391,10 @@ html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#
   <a href="contact.html" onclick="setTimeout(toggleMenu,100)">Contact</a>
   <hr class="mobile-divider">
   <div class="mobile-section-label">Account</div>
-  <a href="login.html" onclick="setTimeout(toggleMenu,100)">Log In</a>
-  <a href="login.html?mode=register" onclick="setTimeout(toggleMenu,100)">Register</a>
-  <a href="account.html" onclick="setTimeout(toggleMenu,100)">My ScoutRex</a>
-  <a href="contact.html" onclick="setTimeout(toggleMenu,100)">Support</a>
+  <a href="login.html" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-login">Log In</a>
+  <a href="login.html?mode=register" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-register">Register</a>
+  <a href="account.html" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-mysr">My ScoutRex</a>
+  <a href="contact.html" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-support">Support</a>
   <button class="theme-toggle" onclick="toggleTheme()" style="margin-top:8px">🌙</button>
 </div>
 
@@ -666,7 +667,7 @@ html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#
         <div style="display:flex;align-items:center;gap:10px">
           <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
         </div>
-        <p>Building intelligent systems that make career transitions and talent discovery faster, fairer, and more human, powered by AI. Privacy by design, data never sold.</p>
+        <p><span data-i18n="ft-brand">Building intelligent systems that make career transitions and talent discovery faster, fairer, and more human, powered by AI.</span></p>
         <div class="footer-social">
           <a href="https://www.linkedin.com/company/scoutrexhq/" target="_blank" title="LinkedIn">in</a>
           <a href="https://www.instagram.com/scoutrexhq/" target="_blank" title="Instagram">
@@ -678,26 +679,26 @@ html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#
         </div>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Products</div>
+        <div class="footer-col-title" data-i18n="ft-products">Products</div>
         <ul>
-          <li><a href="jobrex.html">JobRex: Candidates</a></li>
-          <li><a href="hirerex.html">HireRex: Companies</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="jobrex.html" data-i18n="ft-jr-cand">JobRex: Candidates</a></li>
+          <li><a href="hirerex.html" data-i18n="ft-hr-comp">HireRex: Companies</a></li>
+          <li><a href="pricing.html" data-i18n="nav-pricing">Pricing</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Company</div>
+        <div class="footer-col-title" data-i18n="ft-company">Company</div>
         <ul>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html" data-i18n="nav-about">About</a></li>
           <li>
 </li>
-          <li><a href="careers.html">Careers</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="gdpr.html">GDPR Compliant</a></li>
+          <li><a href="careers.html" data-i18n="nav-careers">Careers</a></li>
+          <li><a href="contact.html" data-i18n="nav-contact">Contact</a></li>
+          <li><a href="gdpr.html" data-i18n="ft-gdpr">GDPR Compliant</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Account</div>
+        <div class="footer-col-title" data-i18n="ft-account">Account</div>
         <ul>
           <li><a href="login.html">Log In</a></li>
           <li><a href="login.html?mode=register">Register</a></li>
@@ -707,9 +708,9 @@ html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-bottom-left">© 2026 ScoutRex Inc. All rights reserved.</div>
+      <div class="footer-bottom-left" data-i18n="ft-rights">ScoutRex AI Technologies UG. All rights reserved.</div>
       <div class="footer-bottom-right">
-        <a href="gdpr.html">GDPR</a>
+        <a href="gdpr.html" data-i18n="ft-gdpr-link">GDPR</a>
         <a href="gdpr.html">Privacy Policy</a>
         <a href="contact.html">Terms of Service</a>
         <a href="#" onclick="document.getElementById('cookie-banner')?.classList.add('show');return false">Cookie Preferences</a>
@@ -844,6 +845,68 @@ function toggleMenu(){const m=document.getElementById("mobileMenu");const o=m.cl
 
   new MutationObserver(start).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
   start();
+})();
+</script>
+<script>
+/* ── Language Toggle ── */
+const SR_TRANS = {
+  en: {
+    'nav-products':'Products <span class="nav-dd-arrow">▾</span>',
+    'nav-pricing':'Pricing','nav-about':'About','nav-careers':'Careers','nav-contact':'Contact','nav-login':'Log In',
+    'mob-products':'Products','mob-pricing':'Pricing','mob-about':'About','mob-careers':'Careers','mob-contact':'Contact','mob-login':'Log In',
+    'dd-hirerex':'🏢 HireRex: AI Recruiting &amp; HR Software',
+    'dd-jobrex':'🎯 JobRex: AI Career Co-Pilot',
+    'dd-temprex':'⏱️ TempRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
+    'dd-learnrex':'📖 LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
+    'ft-products':'PRODUCTS','ft-company':'COMPANY','ft-account':'ACCOUNT',
+    'ft-jr-cand':'JobRex: Candidates','ft-hr-comp':'HireRex: Companies',
+    'ft-pricing':'Pricing','ft-about':'About','ft-careers':'Careers','ft-contact':'Contact',
+    'ft-gdpr':'GDPR Compliant','ft-login':'Log In','ft-register':'Register',
+    'ft-mysr':'My ScoutRex','ft-support':'Support',
+    'ft-brand':'Building intelligent systems that make career transitions and talent discovery faster, fairer, and more human, powered by AI.',
+    'ft-rights':'ScoutRex AI Technologies UG. All rights reserved.',
+    'ft-privacy':'Privacy','ft-terms':'Terms','ft-gdpr-link':'GDPR',
+  },
+  de: {
+    'nav-products':'Produkte <span class="nav-dd-arrow">▾</span>',
+    'nav-pricing':'Preise','nav-about':'Über uns','nav-careers':'Karriere','nav-contact':'Kontakt','nav-login':'Anmelden',
+    'mob-products':'Produkte','mob-pricing':'Preise','mob-about':'Über uns','mob-careers':'Karriere','mob-contact':'Kontakt','mob-login':'Anmelden',
+    'dd-hirerex':'🏢 HireRex: KI-Recruiting &amp; HR-Software',
+    'dd-jobrex':'🎯 JobRex: KI-Karriere-Copilot',
+    'dd-temprex':'⏱️ TempRex: KI-Einarbeitungsanalyse <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
+    'dd-learnrex':'📖 LearnRex: KI-E-Learning-Lehrer <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
+    'ft-products':'PRODUKTE','ft-company':'UNTERNEHMEN','ft-account':'KONTO',
+    'ft-jr-cand':'JobRex: Kandidaten','ft-hr-comp':'HireRex: Unternehmen',
+    'ft-pricing':'Preise','ft-about':'Über uns','ft-careers':'Karriere','ft-contact':'Kontakt',
+    'ft-gdpr':'DSGVO-konform','ft-login':'Anmelden','ft-register':'Registrieren',
+    'ft-mysr':'Mein ScoutRex','ft-support':'Support',
+    'ft-brand':'Wir entwickeln intelligente Systeme, die Karrierewechsel und Talentsuche schneller, fairer und menschlicher machen, durch KI.',
+    'ft-rights':'ScoutRex AI Technologies UG. Alle Rechte vorbehalten.',
+    'ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
+  }
+};
+function srApplyLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(SR_TRANS[lang]&&SR_TRANS[lang][key]!==undefined) el.innerHTML=SR_TRANS[lang][key];
+  });
+  localStorage.setItem('sr_lang',lang);
+  document.documentElement.lang=lang;
+  ['lang-btn','lang-btn-mobile'].forEach(function(id){
+    var b=document.getElementById(id);
+    if(b) b.textContent=lang==='en'?'DE':'EN';
+  });
+}
+function toggleLang(){
+  srApplyLang((localStorage.getItem('sr_lang')||'en')==='en'?'de':'en');
+}
+(function(){
+  var lang=localStorage.getItem('sr_lang')||'en';
+  ['lang-btn','lang-btn-mobile'].forEach(function(id){
+    var b=document.getElementById(id);
+    if(b) b.textContent=lang==='en'?'DE':'EN';
+  });
+  if(lang==='de') srApplyLang('de');
 })();
 </script>
 </body>
