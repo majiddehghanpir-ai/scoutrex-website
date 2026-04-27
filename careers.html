@@ -569,7 +569,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
 <section class="hero">
   <div class="container">
     <div class="hero-content">
-      <h1>Help us reshape the future of work</h1>
+      <h1 data-i18n="pg-hero-title">Help us reshape the future of work</h1>
       <p class="section-sub" data-i18n="pg-hero-sub">We're a small, mission-driven team building AI systems that actually change people's lives. If you care about doing meaningful work in a thoughtful, ambitious environment, we'd love to hear from you.</p>
       <div class="hero-cta">
       </div>
@@ -589,22 +589,22 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <div class="culture-icon" style="background:linear-gradient(135deg,rgba(30,18,86,0.08),rgba(30,18,86,0.03))">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1256" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </div>
-        <h3>Remote-first</h3>
-        <p>Work from wherever you do your best thinking. We're distributed across Europe and beyond.</p>
+        <h3 data-i18n="pg-c1-t">Remote-first</h3>
+        <p data-i18n="pg-c1-d">Work from wherever you do your best thinking. We're distributed across Europe and beyond.</p>
       </div>
       <div class="culture-card">
         <div class="culture-icon" style="background:linear-gradient(135deg,rgba(249,115,22,0.1),rgba(249,115,22,0.04))">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <h3>High ownership</h3>
-        <p>Everyone here owns meaningful parts of the product. No endless layers of approval, no bureaucracy.</p>
+        <h3 data-i18n="pg-c2-t">High ownership</h3>
+        <p data-i18n="pg-c2-d">Everyone here owns meaningful parts of the product. No endless layers of approval, no bureaucracy.</p>
       </div>
       <div class="culture-card">
         <div class="culture-icon" style="background:linear-gradient(135deg,rgba(30,18,86,0.08),rgba(30,18,86,0.03))">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1256" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         </div>
-        <h3>Deep work culture</h3>
-        <p>We protect focused time. Async-first communication, thoughtful meetings, and space to actually think.</p>
+        <h3 data-i18n="pg-c3-t">Deep work culture</h3>
+        <p data-i18n="pg-c3-d">We protect focused time. Async-first communication, thoughtful meetings, and space to actually think.</p>
       </div>
     </div>
   </div>
@@ -625,8 +625,8 @@ html:not(.dark) .pricing-dark-section .section-sub {
 
     <div id="jobs-empty" style="display:none;text-align:center;padding:56px 32px;border:2px dashed var(--gray-200);border-radius:24px;max-width:640px;margin:0 auto">
       <div style="font-size:2.5rem;margin-bottom:20px">📭</div>
-      <h3 style="font-family:'Lora',serif;font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:12px">No open positions right now</h3>
-      <p style="color:var(--gray-600);line-height:1.7;margin-bottom:28px">We're not actively hiring at the moment, but we're always happy to hear from exceptional people. If you think you'd be a great fit, reach out. We keep good CVs on file.</p>
+      <h3 style="font-family:'Lora',serif;font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:12px" data-i18n="pg-nojobs-t">No open positions right now</h3>
+      <p style="color:var(--gray-600);line-height:1.7;margin-bottom:28px" data-i18n="pg-nojobs-d">We're not actively hiring at the moment, but we're always happy to hear from exceptional people. If you think you'd be a great fit, reach out. We keep good CVs on file.</p>
     </div>
 
     <div id="jobs-grid" style="display:none;display:none;max-width:860px;margin:0 auto"></div>
@@ -1047,6 +1047,15 @@ const SR_TRANS = {
     'pg-life-sub':'We move fast, think deeply, and hold ourselves to a high standard, not because we have to, but because we care about the work.',
     'pg-jobs-tag':'Open Positions',
     'pg-jobs-title':'Join the team',
+    'pg-hero-title':'Help us reshape the future of work',
+    'pg-c1-t':'Remote-first',
+    'pg-c1-d':"Work from wherever you do your best thinking. We're distributed across Europe and beyond.",
+    'pg-c2-t':'High ownership',
+    'pg-c2-d':'Everyone here owns meaningful parts of the product. No endless layers of approval, no bureaucracy.',
+    'pg-c3-t':'Deep work culture',
+    'pg-c3-d':'We protect focused time. Async-first communication, thoughtful meetings, and space to actually think.',
+    'pg-nojobs-t':'No open positions right now',
+    'pg-nojobs-d':"We're not actively hiring at the moment, but we're always happy to hear from exceptional people. If you think you'd be a great fit, reach out. We keep good CVs on file.",
     'ft-privacy':'Privacy','ft-terms':'Terms','ft-gdpr-link':'GDPR',
   },
   de: {
@@ -1070,6 +1079,15 @@ const SR_TRANS = {
     'pg-life-sub':'Wir bewegen uns schnell, denken tief nach und halten uns an hohe Standards, nicht weil wir müssen, sondern weil uns die Arbeit wichtig ist.',
     'pg-jobs-tag':'Offene Stellen',
     'pg-jobs-title':'Werden Sie Teil des Teams',
+    'pg-hero-title':'Helfen Sie uns, die Zukunft der Arbeit zu gestalten',
+    'pg-c1-t':'Remote-first',
+    'pg-c1-d':'Arbeiten Sie von dort, wo Sie am besten denken. Wir sind über Europa und darüber hinaus verteilt.',
+    'pg-c2-t':'Hohe Eigenverantwortung',
+    'pg-c2-d':'Jeder hier besitzt bedeutende Teile des Produkts. Keine endlosen Genehmigungsschichten, keine Bürokratie.',
+    'pg-c3-t':'Deep-Work-Kultur',
+    'pg-c3-d':'Wir schützen fokussierte Zeit. Async-first-Kommunikation, durchdachte Meetings und Raum zum echten Nachdenken.',
+    'pg-nojobs-t':'Derzeit keine offenen Stellen',
+    'pg-nojobs-d':'Wir stellen gerade nicht aktiv ein, freuen uns aber immer über außergewöhnliche Menschen. Wenn Sie denken, dass Sie gut passen würden, melden Sie sich. Wir behalten gute Lebensläufe bei uns.',
     'ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
   }
 };
