@@ -560,8 +560,8 @@ html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#
       <div class="footer-col">
         <div class="footer-col-title" data-i18n="ft-account">Account</div>
         <ul>
-          <li><a href="login.html">Log In</a></li>
-          <li><a href="login.html?mode=register">Register</a></li>
+          <li><a href="login.html" data-i18n="ft-login">Log In</a></li>
+          <li><a href="login.html?mode=register" data-i18n="ft-register">Register</a></li>
           <li><a href="account.html" data-i18n="ft-mysr">My ScoutRex</a></li>
           <li><a href="contact.html" data-i18n="ft-support">Support</a></li>
         </ul>
@@ -571,8 +571,8 @@ html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#
       <div class="footer-bottom-left" data-i18n="ft-rights">ScoutRex AI Technologies UG. All rights reserved.</div>
       <div class="footer-bottom-right">
         <a href="gdpr.html" data-i18n="ft-gdpr-link">GDPR</a>
-        <a href="gdpr.html">Privacy Policy</a>
-        <a href="contact.html">Terms of Service</a>
+        <a href="gdpr.html" data-i18n="ft-privacy">Privacy Policy</a>
+        <a href="contact.html" data-i18n="ft-terms">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -625,7 +625,7 @@ const SR_TRANS = {
     'pg-hero-sub':'Failed a skill test? LearnRex recommends the exact course to close that gap. Upskilling for a role? Build the skills companies actually need. In Probezeit? Your company can assign training directly. Finish a course, pass the quiz, earn a certificate.',
     'pg-feat-tag':'What LearnRex offers',
     'pg-feat-title':'Three ways LearnRex works for you.',
-    'ft-privacy':'Privacy','ft-terms':'Terms','ft-gdpr-link':'GDPR',
+    'ft-cookie':'Cookie Preferences','ft-privacy':'Privacy Policy','ft-terms':'Terms of Service','ft-gdpr-link':'GDPR',
   },
   de: {
     'nav-products':'Produkte <span class="nav-dd-arrow">▾</span>',
@@ -646,7 +646,7 @@ const SR_TRANS = {
     'pg-hero-sub':'Einen Fähigkeitstest nicht bestanden? LearnRex empfiehlt genau den Kurs, der die Lücke schließt. Upskilling für eine Rolle? Bauen Sie die Fähigkeiten auf, die Unternehmen wirklich brauchen. In der Probezeit? Ihr Unternehmen kann direkt Schulungen zuweisen. Kurs abschließen, Quiz bestehen, Zertifikat verdienen.',
     'pg-feat-tag':'Was LearnRex bietet',
     'pg-feat-title':'Drei Wege, wie LearnRex für Sie funktioniert.',
-    'ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
+    'ft-cookie':'Cookie-Einstellungen','ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
   }
 };
 function srApplyLang(lang){

@@ -1007,10 +1007,10 @@ html:not(.dark) .compare-section .section-tag { color: rgba(255,255,255,0.7) !im
       <div class="footer-col">
         <div class="footer-col-title" data-i18n="ft-account">Account</div>
         <ul>
-          <li><a href="login.html">Log In</a></li>
-          <li><a href="login.html?mode=register">Register</a></li>
-          <li><a href="account.html">My ScoutRex</a></li>
-          <li><a href="contact.html">Support</a></li>
+          <li><a href="login.html" data-i18n="ft-login">Log In</a></li>
+          <li><a href="login.html?mode=register" data-i18n="ft-register">Register</a></li>
+          <li><a href="account.html" data-i18n="ft-mysr">My ScoutRex</a></li>
+          <li><a href="contact.html" data-i18n="ft-support">Support</a></li>
         </ul>
       </div>
     </div>
@@ -1018,8 +1018,8 @@ html:not(.dark) .compare-section .section-tag { color: rgba(255,255,255,0.7) !im
       <div class="footer-bottom-left" data-i18n="ft-rights">ScoutRex AI Technologies UG. All rights reserved.</div>
       <div class="footer-bottom-right">
         <a href="gdpr.html" data-i18n="ft-gdpr-link">GDPR</a>
-        <a href="gdpr.html">Privacy Policy</a>
-        <a href="contact.html">Terms of Service</a>
+        <a href="gdpr.html" data-i18n="ft-privacy">Privacy Policy</a>
+        <a href="contact.html" data-i18n="ft-terms">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -1343,7 +1343,7 @@ const SR_TRANS = {
     'pg-together-tag':'How it works together',
     'pg-together-title':'From application to offer, in one pipeline',
     'pg-together-sub':'Candidates apply on JobRex. HireRex screens them with AI skill tests before a single interview is booked. Hiring teams see ranked, scored candidates, not raw CVs. Everyone moves faster.',
-    'ft-privacy':'Privacy','ft-terms':'Terms','ft-gdpr-link':'GDPR',
+    'ft-cookie':'Cookie Preferences','ft-privacy':'Privacy Policy','ft-terms':'Terms of Service','ft-gdpr-link':'GDPR',
   },
   de: {
     'nav-products':'Produkte <span class="nav-dd-arrow">▾</span>',
@@ -1370,7 +1370,7 @@ const SR_TRANS = {
     'pg-together-tag':'Wie es zusammenarbeitet',
     'pg-together-title':'Von der Bewerbung bis zum Angebot, in einer Pipeline',
     'pg-together-sub':'Kandidaten bewerben sich auf JobRex. HireRex screent sie mit KI-Skill-Tests, bevor ein einziges Interview gebucht wird. Einstellungsteams sehen gerankte, bewertete Kandidaten, keine rohen Lebensläufe. Alle bewegen sich schneller.',
-    'ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
+    'ft-cookie':'Cookie-Einstellungen','ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
   }
 };
 function srApplyLang(lang){

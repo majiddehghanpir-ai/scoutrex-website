@@ -1055,10 +1055,10 @@ html:not(.dark) .pricing-dark-section .section-sub {
       <div class="footer-col">
         <div class="footer-col-title" data-i18n="ft-account">Account</div>
         <ul>
-          <li><a href="login.html">Log In</a></li>
-          <li><a href="login.html?mode=register">Register</a></li>
-          <li><a href="account.html">My ScoutRex</a></li>
-          <li><a href="contact.html">Support</a></li>
+          <li><a href="login.html" data-i18n="ft-login">Log In</a></li>
+          <li><a href="login.html?mode=register" data-i18n="ft-register">Register</a></li>
+          <li><a href="account.html" data-i18n="ft-mysr">My ScoutRex</a></li>
+          <li><a href="contact.html" data-i18n="ft-support">Support</a></li>
         </ul>
       </div>
     </div>
@@ -1066,9 +1066,9 @@ html:not(.dark) .pricing-dark-section .section-sub {
       <div class="footer-bottom-left" data-i18n="ft-rights">ScoutRex AI Technologies UG. All rights reserved.</div>
       <div class="footer-bottom-right">
         <a href="gdpr.html" data-i18n="ft-gdpr-link">GDPR</a>
-        <a href="gdpr.html">Privacy Policy</a>
-        <a href="contact.html">Terms of Service</a>
-        <a href="#" onclick="document.getElementById('cookie-banner').classList.add('show');return false">Cookie Preferences</a>
+        <a href="gdpr.html" data-i18n="ft-privacy">Privacy Policy</a>
+        <a href="contact.html" data-i18n="ft-terms">Terms of Service</a>
+        <a href="#" data-i18n="ft-cookie" onclick="document.getElementById('cookie-banner').classList.add('show');return false">Cookie Preferences</a>
       </div>
     </div>
   </div>
@@ -1418,7 +1418,7 @@ const SR_TRANS = {
     'pg-skill3':'Growth Trajectory',
     'pg-skill4':'Salary Alignment',
     'pg-skill5':'Location Match',
-    'ft-privacy':'Privacy','ft-terms':'Terms','ft-gdpr-link':'GDPR',
+    'ft-cookie':'Cookie Preferences','ft-privacy':'Privacy Policy','ft-terms':'Terms of Service','ft-gdpr-link':'GDPR',
     'pg-hero-badge':'AI-Powered Hiring Platform',
     'pg-hero-title':'One AI engine for<br><span style="color:var(--orange);">the complete talent lifecycle.</span>',
     'pg-hero-desc':'ScoutRex is an AI talent platform that covers every stage of the hiring lifecycle. We screen and rank candidates, match job seekers to roles that fit who they actually are, manage the probation period as employer of record, and close every skill gap through targeted learning, all connected by one AI engine.',
@@ -1486,7 +1486,7 @@ const SR_TRANS = {
     'pg-skill3':'Wachstumspotenzial',
     'pg-skill4':'Gehaltsrahmen',
     'pg-skill5':'Standort',
-    'ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
+    'ft-cookie':'Cookie-Einstellungen','ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
     'pg-hero-badge':'KI-gestützte Einstellungsplattform',
     'pg-hero-title':'Eine KI-Engine für<br><span style="color:var(--orange);">den gesamten Talent-Lebenszyklus.</span>',
     'pg-hero-desc':'ScoutRex ist eine KI-Talentplattform, die jede Phase des Einstellungsprozesses abdeckt. Wir bewerten und ranken Kandidaten, matchen Jobsuchende mit passenden Stellen, übernehmen als Arbeitgeber of Record die Probezeit und schließen Qualifikationslücken durch gezieltes Lernen, alles verbunden durch eine KI-Engine.',

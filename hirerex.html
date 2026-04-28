@@ -1109,10 +1109,10 @@ html:not(.dark) .pricing-dark-section .section-sub {
       <div class="footer-col">
         <div class="footer-col-title" data-i18n="ft-account">Account</div>
         <ul>
-          <li><a href="login.html">Log In</a></li>
-          <li><a href="login.html?mode=register">Register</a></li>
-          <li><a href="account.html">My ScoutRex</a></li>
-          <li><a href="contact.html">Support</a></li>
+          <li><a href="login.html" data-i18n="ft-login">Log In</a></li>
+          <li><a href="login.html?mode=register" data-i18n="ft-register">Register</a></li>
+          <li><a href="account.html" data-i18n="ft-mysr">My ScoutRex</a></li>
+          <li><a href="contact.html" data-i18n="ft-support">Support</a></li>
         </ul>
       </div>
     </div>
@@ -1120,8 +1120,8 @@ html:not(.dark) .pricing-dark-section .section-sub {
       <div class="footer-bottom-left" data-i18n="ft-rights">ScoutRex AI Technologies UG. All rights reserved.</div>
       <div class="footer-bottom-right">
         <a href="gdpr.html" data-i18n="ft-gdpr-link">GDPR</a>
-        <a href="gdpr.html">Privacy Policy</a>
-        <a href="contact.html">Terms of Service</a>
+        <a href="gdpr.html" data-i18n="ft-privacy">Privacy Policy</a>
+        <a href="contact.html" data-i18n="ft-terms">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -1355,7 +1355,7 @@ const SR_TRANS = {
     'pg-f7-d':'Every candidate gets an AI-explained score with a detailed breakdown. Hiring decisions are fast, fair, and fully defensible. All data is exportable to XLSX or CSV for your own reporting workflow.',
     'pg-f8-t':'Analytics & Pipeline Intelligence',
     'pg-f8-d':'Pipeline analytics, time-to-hire, assessment quality scores, team performance dashboards, and AI feedback loops, giving you the data to continuously improve how your team hires.',
-    'ft-privacy':'Privacy','ft-terms':'Terms','ft-gdpr-link':'GDPR',
+    'ft-cookie':'Cookie Preferences','ft-privacy':'Privacy Policy','ft-terms':'Terms of Service','ft-gdpr-link':'GDPR',
   },
   de: {
     'nav-products':'Produkte <span class="nav-dd-arrow">▾</span>',
@@ -1406,7 +1406,7 @@ const SR_TRANS = {
     'pg-f7-d':'Jeder Kandidat erhält einen KI-erklärten Score mit detaillierter Aufschlüsselung. Einstellungsentscheidungen sind schnell, fair und vollständig nachvollziehbar.',
     'pg-f8-t':'Analytics & Pipeline-Intelligenz',
     'pg-f8-d':'Pipeline-Analytics, Time-to-Hire, Assessment-Qualitäts-Scores und Team-Performance-Dashboards, die Ihnen die Daten geben, um Ihren Einstellungsprozess kontinuierlich zu verbessern.',
-    'ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
+    'ft-cookie':'Cookie-Einstellungen','ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
   }
 };
 function srApplyLang(lang){
