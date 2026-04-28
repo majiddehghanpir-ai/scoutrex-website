@@ -230,7 +230,7 @@ html.dark #sr-bg-canvas{display:block}
 html:not(.dark) #sr-bg-topo{display:block}
 html.dark body{background:transparent!important}
 html:not(.dark) body{background:transparent!important}
-/* Dark: hero transparent — constellation shows through */
+/* Dark: hero transparent, constellation shows through */
 html.dark #hero,html.dark .hero{background:transparent!important}
 html.dark .hero-orb,html.dark .hero-grid{display:none}
 /* Dark: main sections transparent */
@@ -257,7 +257,7 @@ html:not(.dark) .cta-band{background:rgba(237,233,254,0.88)!important;backdrop-f
 html:not(.dark) #stats{background:rgba(237,233,254,0.72)!important}
 
 
-/* ═══ SECTION SEPARATION — Glass Panels + Orange Accent ═══ */
+/* ═══ SECTION SEPARATION, Glass Panels + Orange Accent ═══ */
 
 /* ── DARK MODE ── */
 /* All main content sections: frosted glass panel */
@@ -453,6 +453,53 @@ html.dark .form-hint { color: #6B6485; }
 html.dark .btn-outline { color: #A09BBF; border-color: #2D2850; }
 html.dark .btn-outline:hover { color: #F1F0F9; border-color: #3D3560; }
 html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.25); }
+
+/* ── Topbar: match main site header in light mode ── */
+html:not(.dark) .topbar {
+  background: rgba(255,255,255,0.97) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 2px 20px rgba(249,115,22,0.08);
+  border-bottom: 1px solid rgba(30,18,86,0.08);
+}
+html:not(.dark) .topbar-logo > span { color: var(--indigo) !important; }
+html:not(.dark) .topbar-home { color: var(--gray-600) !important; }
+html:not(.dark) .topbar-logout { color: var(--indigo) !important; border-color: rgba(30,18,86,0.2) !important; }
+html:not(.dark) .topbar-logout:hover { background: rgba(30,18,86,0.06) !important; color: var(--indigo) !important; }
+html:not(.dark) .topbar-theme { border-color: rgba(249,115,22,0.4) !important; color: var(--indigo) !important; }
+html:not(.dark) .topbar-theme:hover { background: rgba(249,115,22,0.07) !important; }
+/* Topbar dark mode: dark navy like main site scrolled */
+html.dark .topbar {
+  background: rgba(13,11,31,0.97) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(249,115,22,0.08);
+}
+
+/* ── Account Type box: dark mode fix ── */
+html.dark #acct-type-box {
+  border-color: #5D4ED6 !important;
+  background: rgba(93,78,214,0.1) !important;
+}
+html.dark .acct-type-name { color: #C4BFFF !important; }
+html.dark .acct-type-sub { color: #A09BBF !important; }
+
+/* ── btn-save: visible in dark mode ── */
+html.dark .btn-save {
+  background: #4A35C4 !important;
+}
+html.dark .btn-save:hover {
+  background: #5A45D4 !important;
+  transform: translateY(-1px);
+}
+
+/* ── Compare Plans Pro box: dark mode ── */
+html.dark #compare-pro-box {
+  border-color: #5D4ED6 !important;
+  background: rgba(93,78,214,0.1) !important;
+}
+html.dark #compare-pro-title { color: #C4BFFF !important; }
 </style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
@@ -466,6 +513,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
   <div class="topbar-right">
     <a href="index.html" class="topbar-home">← Back to site</a>
     <button id="topbar-theme" class="topbar-theme" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <button id="acct-lang-btn" class="topbar-theme" onclick="toggleLang()" title="Sprache / Language" style="display:flex;align-items:center;justify-content:center;"><img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;"></button>
     <div class="topbar-avatar" id="acct-avatar-sm">?</div>
     <button class="topbar-logout" onclick="acctLogout()">Log Out</button>
   </div>
@@ -475,42 +523,41 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-section">
-      <div class="sidebar-section-label">Overview</div>
+      <div class="sidebar-section-label" data-i18n="ac-sec-overview">Overview</div>
       <button class="nav-item active" onclick="showPanel('overview')">
         <span class="nav-item-icon">🏠</span> Dashboard
       </button>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-section-label">My Account</div>
+      <div class="sidebar-section-label" data-i18n="ac-sec-account">My Account</div>
       <button class="nav-item" onclick="showPanel('profile')">
-        <span class="nav-item-icon">👤</span> Profile
+        <span class="nav-item-icon">👤</span><span data-i18n="ac-nav-profile"> Profile</span>
       </button>
       <button class="nav-item" onclick="showPanel('settings')">
-        <span class="nav-item-icon">⚙️</span> Settings
+        <span class="nav-item-icon">⚙️</span><span data-i18n="ac-nav-settings"> Settings</span>
       </button>
       <button class="nav-item" onclick="showPanel('privacy')">
-        <span class="nav-item-icon">🔒</span> Privacy
+        <span class="nav-item-icon">🔒</span><span data-i18n="ac-nav-privacy"> Privacy</span>
       </button>
       <button class="nav-item" onclick="showPanel('notifications')">
-        <span class="nav-item-icon">🔔</span> Notifications
-        <span class="nav-item-badge">3</span>
+        <span class="nav-item-icon">🔔</span><span data-i18n="ac-nav-notifications"> Notifications</span>
       </button>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-section-label">Billing</div>
+      <div class="sidebar-section-label" data-i18n="ac-sec-billing">Billing</div>
       <button class="nav-item" onclick="showPanel('subscription')">
-        <span class="nav-item-icon">⭐</span> Subscription
+        <span class="nav-item-icon">⭐</span><span data-i18n="ac-nav-subscription"> Subscription</span>
       </button>
       <button class="nav-item" onclick="showPanel('billing')">
-        <span class="nav-item-icon">💳</span> Billing & Invoices
+        <span class="nav-item-icon">💳</span><span data-i18n="ac-nav-billing"> Billing & Invoices</span>
       </button>
       <button class="nav-item" onclick="showPanel('products')">
-        <span class="nav-item-icon">📦</span> My Products
+        <span class="nav-item-icon">📦</span><span data-i18n="ac-nav-products"> My Products</span>
       </button>
     </div>
     <div class="sidebar-section" style="margin-top:auto;padding-top:16px">
       <button class="nav-item" onclick="window.location.href='contact.html'">
-        <span class="nav-item-icon">💬</span> Help & Support
+        <span class="nav-item-icon">💬</span><span data-i18n="ac-nav-help"> Help & Support</span>
       </button>
     </div>
   </aside>
@@ -520,29 +567,24 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
 
     <!-- ──────────── OVERVIEW ──────────── -->
     <div id="panel-overview" class="page-panel active">
-      <div class="panel-header">
-        <h1 class="panel-title" id="acct-greeting">Welcome back 👋</h1>
-        <p class="panel-sub">Here's a summary of your ScoutRex account.</p>
-      </div>
-
-      <div class="grid-4" style="margin-bottom:24px">
+<div class="grid-4" style="margin-bottom:24px">
         <div class="stat-card">
-          <div class="stat-card-label">AI Match Score</div>
-          <div class="stat-card-val" id="stat-match-score">—</div>
+          <div class="stat-card-label" data-i18n="ac-stat-match">AI Match Score</div>
+          <div class="stat-card-val" id="stat-match-score">, </div>
           <div class="stat-card-sub" id="stat-match-score-sub">Complete profile to get score</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-label">New Matches</div>
+          <div class="stat-card-label" data-i18n="ac-stat-matches">New Matches</div>
           <div class="stat-card-val" id="stat-new-matches">0</div>
           <div class="stat-card-sub" id="stat-new-matches-sub">No new matches yet</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-label">Applications</div>
+          <div class="stat-card-label" data-i18n="ac-stat-apps">Applications</div>
           <div class="stat-card-val" id="stat-applications">0</div>
           <div class="stat-card-sub" id="stat-applications-sub">No applications yet</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-label">Profile Views</div>
+          <div class="stat-card-label" data-i18n="ac-stat-views">Profile Views</div>
           <div class="stat-card-val" id="stat-profile-views">0</div>
           <div class="stat-card-sub" id="stat-profile-views-sub">This month</div>
         </div>
@@ -550,13 +592,13 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
 
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Recent Activity
+          <div class="card-title" data-i18n="ac-card-activity">Recent Activity
             <a href="#" style="font-size:13px;font-weight:600;color:var(--indigo)">See all</a>
           </div>
           <div class="activity-list" id="acct-activity-list">
             <div style="padding:24px 0;text-align:center;color:var(--gray-400);font-size:14px">
               <div style="font-size:28px;margin-bottom:8px">🎯</div>
-              No activity yet — complete your profile to get matched.
+              No activity yet, complete your profile to get matched.
             </div>
           </div>
         </div>
@@ -571,14 +613,14 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
               <span class="plan-badge" id="overview-plan-badge">● Active</span>
             </div>
             <button class="btn-plan" onclick="showPanel('subscription')">Manage Plan →</button>
-            <div class="plan-renews" id="overview-plan-renews">No billing — free tier</div>
+            <div class="plan-renews" id="overview-plan-renews">No billing, free tier</div>
           </div>
           <div class="card">
-            <div class="card-title">Quick Actions</div>
+            <div class="card-title" data-i18n="ac-card-quick">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('profile')"><span class="nav-item-icon">✏️</span> Edit Profile</button>
-              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('privacy')"><span class="nav-item-icon">🔒</span> Privacy Settings</button>
-              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('billing')"><span class="nav-item-icon">💳</span> View Invoices</button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('profile')"><span class="nav-item-icon">✏️</span><span data-i18n="ac-nav-profile"> Edit Profile</span></button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('privacy')"><span class="nav-item-icon">🔒</span><span data-i18n="ac-nav-privacy"> Privacy</span> Settings</button>
+              <button class="nav-item" style="width:100%;border:1px solid var(--gray-200);border-radius:10px" onclick="showPanel('billing')"><span class="nav-item-icon">💳</span><span data-i18n="ac-nav-billing"> View Invoices</span></button>
             </div>
           </div>
         </div>
@@ -587,11 +629,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
 
     <!-- ──────────── PROFILE ──────────── -->
     <div id="panel-profile" class="page-panel">
-      <div class="panel-header">
-        <h1 class="panel-title">Profile</h1>
-        <p class="panel-sub">Your public-facing information and career details.</p>
-      </div>
-      <div class="card">
+<div class="card">
         <div class="avatar-section">
           <div class="avatar-big" id="acct-avatar-lg">?</div>
           <div class="avatar-info">
@@ -605,20 +643,20 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
 
         <div class="form-section">
-          <div class="form-section-title">Personal Information</div>
+          <div class="form-section-title" data-i18n="ac-form-personal">Personal Information</div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">First name</label>
+              <label class="form-label" data-i18n="ac-label-firstname">First name</label>
               <input type="text" class="form-input" id="acct-first-name" value=""/>
             </div>
             <div class="form-group">
-              <label class="form-label">Last name</label>
+              <label class="form-label" data-i18n="ac-label-lastname">Last name</label>
               <input type="text" class="form-input" id="acct-last-name" value=""/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Email address</label>
+              <label class="form-label" data-i18n="ac-label-email">Email address</label>
               <input type="email" class="form-input" id="acct-email" value=""/>
             </div>
             <div class="form-group">
@@ -632,7 +670,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
               <input type="text" class="form-input" placeholder="City, Country"/>
             </div>
             <div class="form-group">
-              <label class="form-label">Timezone</label>
+              <label class="form-label" data-i18n="ac-label-timezone">Timezone</label>
               <select class="form-select">
                 <option>UTC+1: Central European Time</option>
                 <option>UTC+0: GMT</option>
@@ -643,14 +681,14 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
 
         <div class="form-section">
-          <div class="form-section-title">Career Details</div>
+          <div class="form-section-title" data-i18n="ac-form-career">Career Details</div>
           <div class="form-group">
-            <label class="form-label">Current role / Title</label>
+            <label class="form-label" data-i18n="ac-label-title">Current role / Title</label>
             <input type="text" class="form-input" id="acct-title" value=""/>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Industry</label>
+              <label class="form-label" data-i18n="ac-label-industry">Industry</label>
               <select class="form-select">
                 <option selected>Artificial Intelligence</option>
                 <option>Software Engineering</option>
@@ -659,7 +697,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Experience level</label>
+              <label class="form-label" data-i18n="ac-label-experience">Experience level</label>
               <select class="form-select">
                 <option>Entry Level</option>
                 <option>Mid Level</option>
@@ -670,7 +708,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Bio / Summary</label>
+            <label class="form-label" data-i18n="ac-label-bio">Bio / Summary</label>
             <textarea class="form-textarea" id="acct-bio" placeholder="Tell us about yourself..."></textarea>
           </div>
           <div class="form-group">
@@ -680,35 +718,30 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
 
         <div class="btn-row">
-          <button class="btn-save" onclick="showSave(this)">Save Changes</button>
-          <button class="btn-outline">Discard</button>
+          <button class="btn-save" data-i18n="ac-btn-save" onclick="showSave(this)">Save Changes</button>
+          <button class="btn-outline" data-i18n="ac-btn-discard">Discard</button>
         </div>
       </div>
     </div>
 
     <!-- ──────────── SETTINGS ──────────── -->
     <div id="panel-settings" class="page-panel">
-      <div class="panel-header">
-        <h1 class="panel-title">Settings</h1>
-        <p class="panel-sub">Manage your account preferences and security.</p>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Account Type</div>
-        <div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;border:2px solid var(--indigo);background:rgba(30,18,86,0.04);max-width:320px">
+<div class="card">
+        <div class="card-title" data-i18n="ac-card-acct-type">Account Type</div>
+        <div id="acct-type-box" style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;border:2px solid var(--indigo-light);background:rgba(30,18,86,0.04);max-width:320px">
           <div style="font-size:24px">🎯</div>
           <div>
-            <div style="font-weight:700;font-size:14px;color:var(--indigo)">Job Seeker (JobRex)</div>
-            <div style="font-size:12px;color:var(--gray-500);margin-top:3px">Currently active</div>
+            <div class="acct-type-name" style="font-weight:700;font-size:14px;" data-i18n="ac-acct-type-label">Job Seeker (JobRex)</div>
+            <div class="acct-type-sub" style="font-size:12px;color:var(--gray-500);margin-top:3px" data-i18n="ac-acct-type-sub">Currently active</div>
           </div>
         </div>
-        <p style="margin-top:10px;font-size:12px;color:var(--gray-400)">Account type cannot be changed. Contact support if you need assistance.</p>
+        <p style="margin-top:10px;font-size:12px;color:var(--gray-400)" data-i18n="ac-acct-type-note">Account type cannot be changed. Contact support if you need assistance.</p>
       </div>
 
       <div class="card">
-        <div class="card-title">Security</div>
+        <div class="card-title" data-i18n="ac-card-security">Security</div>
         <div class="form-section" style="margin-bottom:0">
-          <div class="form-section-title">Change Password</div>
+          <div class="form-section-title" data-i18n="ac-form-change-pw">Change Password</div>
           <div class="form-group">
             <label class="form-label">Current password</label>
             <input type="password" class="form-input" placeholder="Enter current password"/>
@@ -723,10 +756,10 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
               <input type="password" class="form-input" placeholder="Repeat new password"/>
             </div>
           </div>
-          <button class="btn-save" onclick="showSave(this)">Update Password</button>
+          <button class="btn-save" data-i18n="ac-btn-update-pw" onclick="showSave(this)">Update Password</button>
         </div>
         <hr style="border:none;border-top:1px solid var(--gray-100);margin:24px 0"/>
-        <div class="form-section-title">Two-Factor Authentication</div>
+        <div class="form-section-title" data-i18n="ac-form-2fa">Two-Factor Authentication</div>
         <div id="tfa-settings">
           <div id="tfa-loading" style="font-size:13px;color:var(--gray-500);margin-top:12px">Loading 2FA settings...</div>
 
@@ -779,7 +812,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
       </div>
 
       <div class="card">
-        <div class="card-title">Connected Accounts</div>
+        <div class="card-title" data-i18n="ac-card-connected">Connected Accounts</div>
         <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--gray-100)">
           <div style="display:flex;align-items:center;gap:12px">
             <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
@@ -797,23 +830,19 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
       </div>
 
       <div class="card">
-        <div class="card-title" style="color:var(--red)">Danger Zone</div>
+        <div class="card-title" style="color:var(--red)" data-i18n="ac-card-danger">Danger Zone</div>
         <div class="danger-zone">
-          <h4>Delete Account</h4>
+          <h4 data-i18n="ac-danger-title">Delete Account</h4>
           <p>Permanently delete your ScoutRex account and all associated data. This action cannot be undone.</p>
-          <button class="btn-danger">Delete My Account</button>
+          <button class="btn-danger" data-i18n="ac-btn-delete">Delete My Account</button>
         </div>
       </div>
     </div>
 
     <!-- ──────────── PRIVACY ──────────── -->
     <div id="panel-privacy" class="page-panel">
-      <div class="panel-header">
-        <h1 class="panel-title">Privacy</h1>
-        <p class="panel-sub">Control your data, visibility, and how ScoutRex uses your information.</p>
-      </div>
-      <div class="card">
-        <div class="card-title">Profile Visibility</div>
+<div class="card">
+        <div class="card-title" data-i18n="ac-card-vis">Profile Visibility</div>
         <div class="toggle-row">
           <div class="toggle-info"><h4>Public profile</h4><p>Allow recruiters and companies to find your profile via search.</p></div>
           <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
@@ -828,7 +857,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Data Usage</div>
+        <div class="card-title" data-i18n="ac-card-data">Data Usage</div>
         <div class="toggle-row">
           <div class="toggle-info"><h4>AI model improvement</h4><p>Allow ScoutRex to use anonymised data to improve matching accuracy.</p></div>
           <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
@@ -843,7 +872,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Your Data Rights</div>
+        <div class="card-title" data-i18n="ac-card-rights">Your Data Rights</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--gray-50);border-radius:10px;border:1px solid var(--gray-100)">
             <div><div style="font-size:14px;font-weight:600">Download my data</div><div style="font-size:12px;color:var(--gray-400)">Get a copy of all data ScoutRex holds about you.</div></div>
@@ -859,12 +888,8 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
 
     <!-- ──────────── NOTIFICATIONS ──────────── -->
     <div id="panel-notifications" class="page-panel">
-      <div class="panel-header">
-        <h1 class="panel-title">Notifications</h1>
-        <p class="panel-sub">Choose what you hear about and how.</p>
-      </div>
-      <div class="card">
-        <div class="card-title">Email Notifications</div>
+<div class="card">
+        <div class="card-title" data-i18n="ac-notif-email">Email Notifications</div>
         <div class="toggle-row"><div class="toggle-info"><h4>New AI matches</h4><p>Get notified when new high-quality matches are found for you.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
         <div class="toggle-row"><div class="toggle-info"><h4>Application status updates</h4><p>Hear when your application status changes.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
         <div class="toggle-row"><div class="toggle-info"><h4>Profile views</h4><p>Know when a recruiter or company views your profile.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
@@ -872,26 +897,22 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         <div class="toggle-row"><div class="toggle-info"><h4>Weekly digest</h4><p>A weekly summary of your matches, views, and activity.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
       </div>
       <div class="card">
-        <div class="card-title">Push Notifications</div>
+        <div class="card-title" data-i18n="ac-notif-push">Push Notifications</div>
         <div class="toggle-row"><div class="toggle-info"><h4>Urgent alerts</h4><p>Time-sensitive matches or application deadlines.</p></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
         <div class="toggle-row"><div class="toggle-info"><h4>All notifications</h4><p>Receive all platform notifications as push alerts.</p></div><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
       </div>
-      <div class="btn-row"><button class="btn-save" onclick="showSave(this)">Save Preferences</button></div>
+      <div class="btn-row"><button class="btn-save" data-i18n="ac-btn-save-pref" onclick="showSave(this)">Save Preferences</button></div>
     </div>
 
     <!-- ──────────── SUBSCRIPTION ──────────── -->
     <div id="panel-subscription" class="page-panel">
-      <div class="panel-header">
-        <h1 class="panel-title">Subscription</h1>
-        <p class="panel-sub">Manage your active plan and explore upgrades.</p>
-      </div>
-      <div class="plan-card" style="margin-bottom:24px">
+<div class="plan-card" style="margin-bottom:24px">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
           <div>
             <div class="plan-name" id="sub-plan-name">Free Plan</div>
             <div class="plan-desc" id="sub-plan-desc">5 matches/month · Basic profile · Email support</div>
             <div style="font-size:1.6rem;font-weight:800;color:#fff;margin:12px 0 4px" id="sub-plan-price">€0<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span></div>
-            <div class="plan-renews" id="sub-plan-renews">No billing — free tier</div>
+            <div class="plan-renews" id="sub-plan-renews">No billing, free tier</div>
           </div>
           <span class="plan-badge" id="sub-plan-badge">● Active</span>
         </div>
@@ -900,7 +921,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Compare Plans</div>
+        <div class="card-title" data-i18n="ac-card-compare">Compare Plans</div>
         <div class="grid-3">
           <div style="padding:20px;border-radius:14px;border:1.5px solid var(--gray-200);text-align:center">
             <div style="font-family:'Lora',serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Free</div>
@@ -908,9 +929,9 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
             <div style="font-size:13px;color:var(--gray-500);line-height:1.7">5 matches/month<br>Basic profile<br>Email support</div>
             <button class="btn-save" style="width:100%;margin-top:16px;font-size:13px;padding:10px" id="plan-cta-free">Active ✓</button>
           </div>
-          <div style="padding:20px;border-radius:14px;border:2px solid var(--indigo);background:rgba(30,18,86,0.03);text-align:center;position:relative">
+          <div id="compare-pro-box" style="padding:20px;border-radius:14px;border:2px solid var(--indigo-light);background:rgba(30,18,86,0.03);text-align:center;position:relative">
             <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:50px">Most Popular</div>
-            <div style="font-family:'Lora',serif;font-weight:800;font-size:1.1rem;margin-bottom:6px;color:var(--indigo)">Pro</div>
+            <div id="compare-pro-title" style="font-family:'Lora',serif;font-weight:800;font-size:1.1rem;margin-bottom:6px;">Pro</div>
             <div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:12px">€19<span style="font-size:13px;font-weight:500;color:var(--gray-400)">/mo</span></div>
             <div style="font-size:13px;color:var(--gray-500);line-height:1.7">Unlimited matches<br>Advanced profile<br>Priority support<br>Full analytics</div>
             <a href="contact.html"><button class="btn-outline" style="width:100%;margin-top:16px;font-size:13px;padding:10px" id="plan-cta-pro">Upgrade →</button></a>
@@ -927,20 +948,16 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
 
     <!-- ──────────── BILLING ──────────── -->
     <div id="panel-billing" class="page-panel">
-      <div class="panel-header">
-        <h1 class="panel-title">Billing & Invoices</h1>
-        <p class="panel-sub">Manage your payment method and download invoices.</p>
-      </div>
-      <div class="card" id="billing-payment-card">
-        <div class="card-title">Payment Method</div>
+<div class="card" id="billing-payment-card">
+        <div class="card-title" data-i18n="ac-card-payment">Payment Method</div>
         <div style="padding:20px 0;text-align:center;color:var(--gray-400);font-size:14px">
           <div style="font-size:28px;margin-bottom:8px">💳</div>
-          No payment method on file — you're on the free plan.
+          No payment method on file, you're on the free plan.
         </div>
         <a href="contact.html"><button class="btn-save" style="font-size:13px;padding:9px 20px">Upgrade to add payment</button></a>
       </div>
       <div class="card">
-        <div class="card-title">Billing History</div>
+        <div class="card-title" data-i18n="ac-card-billing-hist">Billing History</div>
         <div id="billing-history-empty" style="padding:20px 0;text-align:center;color:var(--gray-400);font-size:14px">
           <div style="font-size:28px;margin-bottom:8px">🧾</div>
           No billing history yet.
@@ -951,7 +968,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </table>
       </div>
       <div class="card">
-        <div class="card-title">Billing Address</div>
+        <div class="card-title" data-i18n="ac-card-billing-addr">Billing Address</div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" id="acct-billing-name" value=""/></div>
           <div class="form-group"><label class="form-label">Country</label><select class="form-select"><option selected>Germany</option><option>United Kingdom</option><option>United States</option></select></div>
@@ -962,18 +979,14 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
           <div class="form-group"><label class="form-label">Postal code</label><input type="text" class="form-input" placeholder="ZIP/Postcode"/></div>
         </div>
         <div class="form-group"><label class="form-label">VAT number <span>(optional)</span></label><input type="text" class="form-input" placeholder="DE000000000"/></div>
-        <div class="btn-row"><button class="btn-save" onclick="showSave(this)">Save Address</button></div>
+        <div class="btn-row"><button class="btn-save" data-i18n="ac-btn-save-addr" onclick="showSave(this)">Save Address</button></div>
       </div>
     </div>
 
     <!-- ──────────── PRODUCTS ──────────── -->
     <div id="panel-products" class="page-panel">
-      <div class="panel-header">
-        <h1 class="panel-title">My Products</h1>
-        <p class="panel-sub">The ScoutRex products and services active on your account.</p>
-      </div>
-      <div class="card">
-        <div class="card-title">Active Products</div>
+<div class="card">
+        <div class="card-title" data-i18n="ac-card-active-prod">Active Products</div>
         <div class="product-item">
           <div class="product-item-icon jr">🎯</div>
           <div class="product-item-info">
@@ -987,7 +1000,7 @@ html.dark .danger-zone { background: rgba(220,38,38,0.06); border-color: rgba(22
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Explore More</div>
+        <div class="card-title" data-i18n="ac-card-explore">Explore More</div>
         <div class="product-item" style="border:1.5px dashed var(--gray-200);background:transparent">
           <div class="product-item-icon hr">🏢</div>
           <div class="product-item-info">
@@ -1037,7 +1050,7 @@ function showSave(btn){
 const ACCT_API = 'https://scoutrex-app-production.up.railway.app';
 
 function acctLogout() {
-  // Full manual logout — clears lock profile too (clean login screen)
+  // Full manual logout, clears lock profile too (clean login screen)
   if (window.srxLogout) { window.srxLogout('login.html'); return; }
   localStorage.removeItem('sr_token');
   localStorage.removeItem('sr_user');
@@ -1131,7 +1144,7 @@ async function acctLoadProfile() {
     const planBadge  = '● ' + (planData.status === 'active' ? 'Active' : planData.status || 'Active');
     const planRenews = isPaid
       ? (planData.expires_at ? 'Renews ' + planData.expires_at : 'Active subscription')
-      : 'No billing — free tier';
+      : 'No billing, free tier';
     const planDesc   = isPaid
       ? 'Unlimited AI matches · Priority support · Advanced analytics'
       : '5 matches/month · Basic profile · Email support';
@@ -1153,7 +1166,7 @@ async function acctLoadProfile() {
       el('sub-plan-price').innerHTML = planPrice + '<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.6)">/month</span>';
     }
 
-    // Compare plans — highlight active tier
+    // Compare plans, highlight active tier
     const freeBtn = el('plan-cta-free');
     const proBtn  = el('plan-cta-pro');
     if (isPaid) {
@@ -1335,7 +1348,7 @@ window.addEventListener('load', updateThemeIcon);
 </script>
 <script src="cookie-consent.js"></script>
 <script>
-/* ScoutRex — Dark03 Constellation + Light05 Topographic */
+/* ScoutRex, Dark03 Constellation + Light05 Topographic */
 (function(){
   var dC=document.getElementById('sr-bg-canvas'),dX=dC.getContext('2d');
   var dPts=[],dW=0,dH=0,dGo=false;
@@ -1414,5 +1427,155 @@ window.addEventListener('load', updateThemeIcon);
 })();
 </script>
 <script src="/session.js"></script>
+
+<script>
+var SR_TRANS = {
+  en: {
+    'ac-sec-overview':'Overview',
+    'ac-sec-account':'My Account',
+    'ac-sec-billing':'Billing',
+    'ac-nav-dashboard':' Dashboard',
+    'ac-nav-profile':' Profile',
+    'ac-nav-settings':' Settings',
+    'ac-nav-privacy':' Privacy',
+    'ac-nav-notifications':' Notifications',
+    'ac-nav-subscription':' Subscription',
+    'ac-nav-billing':' Billing & Invoices',
+    'ac-nav-products':' My Products',
+    'ac-nav-help':' Help & Support',
+    'ac-card-acct-type':'Account Type',
+    'ac-acct-type-label':'Job Seeker (JobRex)',
+    'ac-acct-type-sub':'Currently active',
+    'ac-acct-type-note':'Account type cannot be changed. Contact support if you need assistance.',
+    'ac-card-security':'Security',
+    'ac-form-change-pw':'Change Password',
+    'ac-label-current-pw':'Current password',
+    'ac-label-new-pw':'New password',
+    'ac-label-confirm-pw':'Confirm new password',
+    'ac-btn-update-pw':'Update Password',
+    'ac-form-2fa':'Two-Factor Authentication',
+    'ac-card-connected':'Connected Accounts',
+    'ac-card-danger':'Danger Zone',
+    'ac-danger-title':'Delete Account',
+    'ac-btn-delete':'Delete My Account',
+    'ac-card-vis':'Profile Visibility',
+    'ac-card-data':'Data Usage',
+    'ac-card-rights':'Your Data Rights',
+    'ac-card-compare':'Compare Plans',
+    'ac-card-activity':'Recent Activity',
+    'ac-card-quick':'Quick Actions',
+    'ac-label-firstname':'First name',
+    'ac-label-lastname':'Last name',
+    'ac-label-email':'Email address',
+    'ac-label-timezone':'Timezone',
+    'ac-form-personal':'Personal Information',
+    'ac-form-career':'Career Details',
+    'ac-label-title':'Current role / Title',
+    'ac-label-industry':'Industry',
+    'ac-label-experience':'Experience level',
+    'ac-label-bio':'Bio / Summary',
+    'ac-btn-save':'Save Changes',
+    'ac-btn-discard':'Discard',
+    'ac-btn-save-pref':'Save Preferences',
+    'ac-btn-save-addr':'Save Address',
+    'ac-card-payment':'Payment Method',
+    'ac-card-billing-hist':'Billing History',
+    'ac-card-billing-addr':'Billing Address',
+    'ac-card-active-prod':'Active Products',
+    'ac-card-explore':'Explore More',
+    'ac-stat-match':'AI Match Score',
+    'ac-stat-matches':'New Matches',
+    'ac-stat-apps':'Applications',
+    'ac-stat-views':'Profile Views',
+    'ac-notif-email':'Email Notifications',
+    'ac-notif-push':'Push Notifications'
+  },
+  de: {
+    'ac-sec-overview':'Übersicht',
+    'ac-sec-account':'Mein Konto',
+    'ac-sec-billing':'Abrechnung',
+    'ac-nav-dashboard':' Dashboard',
+    'ac-nav-profile':' Profil',
+    'ac-nav-settings':' Einstellungen',
+    'ac-nav-privacy':' Datenschutz',
+    'ac-nav-notifications':' Benachrichtigungen',
+    'ac-nav-subscription':' Abonnement',
+    'ac-nav-billing':' Abrechnung & Rechnungen',
+    'ac-nav-products':' Meine Produkte',
+    'ac-nav-help':' Hilfe & Support',
+    'ac-card-acct-type':'Kontotyp',
+    'ac-acct-type-label':'Jobsuchende (JobRex)',
+    'ac-acct-type-sub':'Aktuell aktiv',
+    'ac-acct-type-note':'Kontotyp kann nicht geändert werden. Kontaktieren Sie den Support für Hilfe.',
+    'ac-card-security':'Sicherheit',
+    'ac-form-change-pw':'Passwort ändern',
+    'ac-label-current-pw':'Aktuelles Passwort',
+    'ac-label-new-pw':'Neues Passwort',
+    'ac-label-confirm-pw':'Neues Passwort bestätigen',
+    'ac-btn-update-pw':'Passwort aktualisieren',
+    'ac-form-2fa':'Zwei-Faktor-Authentifizierung',
+    'ac-card-connected':'Verbundene Konten',
+    'ac-card-danger':'Gefahrenzone',
+    'ac-danger-title':'Konto löschen',
+    'ac-btn-delete':'Mein Konto löschen',
+    'ac-card-vis':'Profilsichtbarkeit',
+    'ac-card-data':'Datennutzung',
+    'ac-card-rights':'Ihre Datenrechte',
+    'ac-card-compare':'Pläne vergleichen',
+    'ac-card-activity':'Letzte Aktivitäten',
+    'ac-card-quick':'Schnellzugriff',
+    'ac-label-firstname':'Vorname',
+    'ac-label-lastname':'Nachname',
+    'ac-label-email':'E-Mail-Adresse',
+    'ac-label-timezone':'Zeitzone',
+    'ac-form-personal':'Persönliche Informationen',
+    'ac-form-career':'Karrieredetails',
+    'ac-label-title':'Aktuelle Stelle / Titel',
+    'ac-label-industry':'Branche',
+    'ac-label-experience':'Erfahrungslevel',
+    'ac-label-bio':'Bio / Zusammenfassung',
+    'ac-btn-save':'Änderungen speichern',
+    'ac-btn-discard':'Verwerfen',
+    'ac-btn-save-pref':'Einstellungen speichern',
+    'ac-btn-save-addr':'Adresse speichern',
+    'ac-card-payment':'Zahlungsmethode',
+    'ac-card-billing-hist':'Abrechnungsverlauf',
+    'ac-card-billing-addr':'Rechnungsadresse',
+    'ac-card-active-prod':'Aktive Produkte',
+    'ac-card-explore':'Mehr entdecken',
+    'ac-stat-match':'KI-Match-Score',
+    'ac-stat-matches':'Neue Matches',
+    'ac-stat-apps':'Bewerbungen',
+    'ac-stat-views':'Profilaufrufe',
+    'ac-notif-email':'E-Mail-Benachrichtigungen',
+    'ac-notif-push':'Push-Benachrichtigungen'
+  }
+};
+
+function srApplyLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(SR_TRANS[lang]&&SR_TRANS[lang][key]!==undefined) el.innerHTML=SR_TRANS[lang][key];
+  });
+  localStorage.setItem('sr_lang',lang);
+  document.documentElement.lang=lang;
+  var btn=document.getElementById('acct-lang-btn');
+  if(btn) btn.innerHTML=lang==='en'
+    ?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;display:block;border-radius:2px;">'
+    :'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;">';
+}
+function toggleLang(){
+  srApplyLang((localStorage.getItem('sr_lang')||'de')==='en'?'de':'en');
+}
+(function(){
+  var lang=localStorage.getItem('sr_lang')||'de';
+  var btn=document.getElementById('acct-lang-btn');
+  if(btn) btn.innerHTML=lang==='en'
+    ?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;display:block;border-radius:2px;">'
+    :'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;">';
+  if(lang==='de') srApplyLang('de');
+})();
+</script>
+
 </body>
 </html>
