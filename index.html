@@ -1543,7 +1543,7 @@ function srApplyLang(lang){
   document.documentElement.lang=lang;
   ['lang-btn','lang-btn-mobile'].forEach(function(id){
     var b=document.getElementById(id);
-    if(b) b.textContent=lang==='en'?'DE':'EN';
+    if(b) b.textContent=lang==='en'?'🇩🇪':'🇬🇧';
   });
 }
 function toggleLang(){
@@ -1553,7 +1553,7 @@ function toggleLang(){
   var lang=localStorage.getItem('sr_lang')||'en';
   ['lang-btn','lang-btn-mobile'].forEach(function(id){
     var b=document.getElementById(id);
-    if(b) b.textContent=lang==='en'?'DE':'EN';
+    if(b) b.textContent=lang==='en'?'🇩🇪':'🇬🇧';
   });
   if(lang==='de') srApplyLang('de');
 })();
