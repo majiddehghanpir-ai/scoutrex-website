@@ -653,6 +653,14 @@ html:not(.dark) .pricing-dark-section .section-title {
 html:not(.dark) .pricing-dark-section .section-sub {
   color: var(--gray-600) !important;
 }
+
+/* Mobile toggle button alignment fix */
+.mobile-menu div > #theme-toggle-mobile,
+.mobile-menu div > #lang-btn-mobile {
+  margin: 0 !important;
+  align-self: flex-start !important;
+  vertical-align: top !important;
+}
 </style>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
@@ -703,7 +711,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
   <a href="login.html?mode=register" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-register">Register</a>
   <a href="account.html" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-mysr">My ScoutRex</a>
   <a href="contact.html" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-support">Support</a>
-  <div style="display:flex;flex-direction:row;gap:12px;align-items:center;margin-top:8px;"><button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" id="theme-toggle-mobile" style="width:38px;height:38px;border-radius:50%;padding:0;margin:0;display:flex;align-items:center;justify-content:center;box-sizing:border-box;flex-shrink:0;line-height:1;">🌙</button><button class="lang-toggle" id="lang-btn-mobile" onclick="toggleLang()" title="Sprache / Language" style="width:38px;height:38px;border-radius:50%;padding:0;margin:0;display:flex;align-items:center;justify-content:center;box-sizing:border-box;flex-shrink:0;line-height:1;"><img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;margin:0;"></button></div></div>
+  <div style="display:flex;flex-direction:row;gap:12px;align-items:flex-start;margin-top:8px;padding-top:4px;"><button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" id="theme-toggle-mobile" style="width:38px;height:38px;border-radius:50%;padding:0;margin:0;display:flex;align-items:center;justify-content:center;box-sizing:border-box;flex-shrink:0;line-height:1;">🌙</button><button class="lang-toggle" id="lang-btn-mobile" onclick="toggleLang()" title="Sprache / Language" style="width:38px;height:38px;border-radius:50%;padding:0;margin:0;display:flex;align-items:center;justify-content:center;box-sizing:border-box;flex-shrink:0;line-height:1;"><img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;margin:0;"></button></div></div>
 </div>
 
 <!-- HERO -->
