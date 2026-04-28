@@ -7,7 +7,7 @@
 <meta content="ScoutRex builds two AI-powered platforms, JobRex for job seekers and HireRex for hiring teams." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lora:wght@600;700&display=swap" rel="stylesheet"/>
-<script>try{if(localStorage.getItem('sr_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<script>try{if(localStorage.getItem('sr_theme')!=='light')document.documentElement.classList.add('dark')}catch(e){}</script>
 <style>
 :root{
   --indigo:#1E1256;--indigo-mid:#2D1B8E;--indigo-light:#3D2CAE;
@@ -1386,10 +1386,10 @@ function srApplyLang(lang){
   });
 }
 function toggleLang(){
-  srApplyLang((localStorage.getItem('sr_lang')||'en')==='en'?'de':'en');
+  srApplyLang((localStorage.getItem('sr_lang')||'de')==='en'?'de':'en');
 }
 (function(){
-  var lang=localStorage.getItem('sr_lang')||'en';
+  var lang=localStorage.getItem('sr_lang')||'de';
   ['lang-btn','lang-btn-mobile'].forEach(function(id){
     var b=document.getElementById(id);
     if(b) b.innerHTML=lang==='en'?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;vertical-align:middle;border-radius:2px">':'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;vertical-align:middle;border-radius:2px">';
