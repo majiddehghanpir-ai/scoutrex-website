@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Log In | ScoutRex</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet"/>
-<script>try{if(localStorage.getItem('sr_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<script>try{if(localStorage.getItem('sr_theme')!=='light')document.documentElement.classList.add('dark')}catch(e){}</script>
 <style>
 :root{--indigo:#1E1256;--indigo-mid:#2D1B8E;--indigo-light:#3D2CAE;--orange:#F97316;--orange-dark:#EA6C0A;--white:#FFFFFF;--off-white:#F7F7F7;--gray-100:#F3F4F6;--gray-200:#E5E7EB;--gray-400:#9CA3AF;--gray-600:#4B5563;--text:#0F0A2E;--radius:12px;--shadow:0 4px 24px rgba(30,18,86,0.10);--shadow-lg:0 12px 48px rgba(30,18,86,0.15)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -102,6 +102,9 @@ html.dark .verify-back a:hover{color:var(--orange)}
 /* THEME TOGGLE, anchored inside the right panel, always visible */
 .page-theme-toggle{position:absolute;top:16px;right:16px;z-index:10;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;background:rgba(30,18,86,0.07);border:1.5px solid rgba(30,18,86,0.16);color:var(--indigo)}
 .page-theme-toggle:hover{background:rgba(30,18,86,0.13);transform:scale(1.08)}
+.page-lang-toggle{position:absolute;top:16px;right:62px;z-index:10;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;background:rgba(30,18,86,0.07);border:1.5px solid rgba(30,18,86,0.16);color:var(--indigo);padding:0}
+.page-lang-toggle:hover{background:rgba(30,18,86,0.13);transform:scale(1.08)}
+html.dark .page-lang-toggle{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:#F1F0F9}
 
 /* DARK MODE */
 html.dark .login-right{background:#1C1836}
@@ -335,20 +338,20 @@ html:not(.dark) .login-left::before   { opacity: 0 !important; }
         <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
         <span>Scout<span class="rex">Rex</span></span>
       </a>
-      <h2 class="left-tagline">Your AI hiring<br>intelligence<br><em>platform</em></h2>
-      <p class="left-sub">Whether you're finding your next career move or building your next team, welcome back.</p>
+      <h2 class="left-tagline"><span data-i18n="lg-tagline">Your AI hiring<br>intelligence<br><em>platform</em></span></h2>
+      <p class="left-sub"><span data-i18n="lg-sub">Whether you're finding your next career move or building your next team, welcome back.</span></p>
       <div class="left-features">
         <div class="left-feat">
           <div class="left-feat-icon">🎯</div>
-          <div class="left-feat-text"><strong>JobRex for Candidates</strong>AI-matched roles, career insights, and a smart profile that works for you around the clock.</div>
+          <div class="left-feat-text"><strong data-i18n="lg-feat1-t">JobRex for Candidates</strong><span data-i18n="lg-feat1-d">AI-matched roles, career insights, and a smart profile that works for you around the clock.</span></div>
         </div>
         <div class="left-feat">
           <div class="left-feat-icon">🏢</div>
-          <div class="left-feat-text"><strong>HireRex for Companies</strong>Smart sourcing, AI screening, and talent intelligence to hire faster and smarter.</div>
+          <div class="left-feat-text"><strong data-i18n="lg-feat2-t">HireRex for Companies</strong><span data-i18n="lg-feat2-d">Smart sourcing, AI screening, and talent intelligence to hire faster and smarter.</span></div>
         </div>
         <div class="left-feat">
           <div class="left-feat-icon">🔒</div>
-          <div class="left-feat-text"><strong>Privacy by design</strong>Your data is yours. Control exactly what's shared and with whom.</div>
+          <div class="left-feat-text"><strong data-i18n="lg-feat3-t">Privacy by design</strong><span data-i18n="lg-feat3-d">Your data is yours. Control exactly what's shared and with whom.</span></div>
         </div>
       </div>
     </div>
@@ -358,120 +361,121 @@ html:not(.dark) .login-left::before   { opacity: 0 !important; }
   <!-- RIGHT PANEL -->
   <div class="login-right">
     <button id="page-theme-toggle" class="page-theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <button id="lang-btn" class="page-lang-toggle" onclick="toggleLang()" title="Sprache / Language"><img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;"></button>
     <div class="login-form-wrap">
       <div class="form-header">
-        <h1 id="form-title">Welcome back</h1>
-        <p id="form-subtitle">New to ScoutRex? <a href="login.html?mode=register">Create an account</a></p>
+        <h1 id="form-title" data-i18n="lg-title-login">Welcome back</h1>
+        <p id="form-subtitle"><span data-i18n="lg-subtitle-login">New to ScoutRex?</span> <a href="login.html?mode=register" data-i18n="lg-create-account">Create an account</a></p>
       </div>
 
       <!-- Type Toggle -->
       <div class="type-toggle" id="type-toggle-wrap">
-        <button class="type-btn active" id="btn-candidate" onclick="setType('candidate')">🎯 Job Seeker</button>
-        <button class="type-btn" id="btn-company" onclick="setType('company')">🏢 Company</button>
+        <button class="type-btn active" id="btn-candidate" onclick="setType('candidate')"><span data-i18n="lg-type-candidate">🎯 Job Seeker</span></button>
+        <button class="type-btn" id="btn-company" onclick="setType('company')"><span data-i18n="lg-type-company">🏢 Company</span></button>
       </div>
 
-      <div id="error-msg" class="form-error">Invalid email or password. Please try again.</div>
+      <div id="error-msg" class="form-error"><span data-i18n="lg-error-login">Invalid email or password. Please try again.</span></div>
 
       <!-- Login Form -->
       <div id="login-form">
         <div class="form-group">
-          <label class="form-label">Email address</label>
+          <label class="form-label" data-i18n="lg-email">Email address</label>
           <input type="email" class="form-input" placeholder="you@example.com"/>
         </div>
         <div class="form-group">
-          <label class="form-label">Password</label>
+          <label class="form-label" data-i18n="lg-password">Password</label>
           <input type="password" class="form-input" placeholder="Enter your password"/>
         </div>
-        <div class="form-forgot"><a href="#">Forgot password?</a></div>
-        <button class="btn-submit" onclick="handleLogin()">Log In</button>
+        <div class="form-forgot"><a href="#" data-i18n="lg-forgot">Forgot password?</a></div>
+        <button class="btn-submit" onclick="handleLogin()"><span data-i18n="lg-btn-login">Log In</span></button>
         <div class="form-divider">or</div>
         <button class="oauth-btn" onclick="handleGoogleLogin()">
           <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-          Continue with Google
+          <span data-i18n="lg-google-login">Continue with Google</span>
         </button>
         <button class="oauth-btn" style="margin-top:10px" onclick="handleLinkedInLogin()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          Continue with LinkedIn
+          <span data-i18n="lg-linkedin-login">Continue with LinkedIn</span>
         </button>
-        <div class="form-footer">Don't have an account? <a href="login.html?mode=register">Sign up free</a></div>
+        <div class="form-footer"><span data-i18n="lg-no-account">Don't have an account?</span> <a href="login.html?mode=register" data-i18n="lg-signup-free">Sign up free</a></div>
       </div>
 
       <!-- Register Form (hidden by default) -->
       <div id="register-form" style="display:none">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">First name</label>
+            <label class="form-label" data-i18n="lg-firstname">First name</label>
             <input type="text" id="reg-first-name" class="form-input" placeholder="Jane"/>
           </div>
           <div class="form-group">
-            <label class="form-label">Last name</label>
+            <label class="form-label" data-i18n="lg-lastname">Last name</label>
             <input type="text" id="reg-last-name" class="form-input" placeholder="Smith"/>
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Email address</label>
+          <label class="form-label" data-i18n="lg-email">Email address</label>
           <input type="email" id="reg-email" class="form-input" placeholder="you@example.com"/>
         </div>
         <div id="company-name-field" class="form-group" style="display:none">
-          <label class="form-label">Company name</label>
+          <label class="form-label" data-i18n="lg-company">Company name</label>
           <input type="text" id="reg-company" class="form-input" placeholder="Acme Corp"/>
         </div>
         <div class="form-group">
-          <label class="form-label">Password</label>
+          <label class="form-label" data-i18n="lg-password">Password</label>
           <input type="password" id="reg-password" class="form-input" placeholder="Min. 8 characters"/>
         </div>
-        <button class="btn-submit" style="background:var(--orange);box-shadow:0 4px 16px rgba(249,115,22,0.3)" onclick="handleRegister()">Create Account →</button>
+        <button class="btn-submit" style="background:var(--orange);box-shadow:0 4px 16px rgba(249,115,22,0.3)" onclick="handleRegister()"><span data-i18n="lg-btn-register">Create Account →</span></button>
         <div class="form-divider">or</div>
         <button class="oauth-btn" onclick="handleGoogleLogin()">
           <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-          Sign up with Google
+          <span data-i18n="lg-google-register">Sign up with Google</span>
         </button>
         <button class="oauth-btn" style="margin-top:10px" onclick="handleLinkedInLogin()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          Sign up with LinkedIn
+          <span data-i18n="lg-linkedin-register">Sign up with LinkedIn</span>
         </button>
-        <div class="form-footer">Already have an account? <a href="login.html">Log in</a></div>
-        <div class="form-footer" style="margin-top:12px;font-size:12px;color:var(--gray-400)">By creating an account you agree to our <a href="#">Terms</a> and <a href="gdpr.html">GDPR</a>
-        <a href="gdpr.html">Privacy Policy</a>.</div>
-        <div class="form-footer" style="margin-top:16px;font-size:12px;color:var(--gray-400)">Are you a company? <a href="contact.html">Contact us</a> to get started with HireRex.</div>
+        <div class="form-footer"><span data-i18n="lg-have-account">Already have an account?</span> <a href="login.html" data-i18n="lg-login-link">Log in</a></div>
+        <div class="form-footer" style="margin-top:12px;font-size:12px;color:var(--gray-400)"><span data-i18n="lg-terms">By creating an account you agree to our</span> <a href="#" data-i18n="lg-terms-link">Terms</a> <span data-i18n="lg-and">and</span> <a href="gdpr.html">GDPR</a>
+        <a href="gdpr.html" data-i18n="lg-privacy">Privacy Policy</a>.</div>
+        <div class="form-footer" style="margin-top:16px;font-size:12px;color:var(--gray-400)"><span data-i18n="lg-company-cta">Are you a company?</span> <a href="contact.html" data-i18n="lg-contact-us">Contact us</a> <span data-i18n="lg-company-cta2">to get started with HireRex.</span></div>
       </div>
 
       <!-- Verify Email Form (hidden by default) -->
       <div id="verify-form" style="display:none">
         <div class="verify-icon">✉️</div>
-        <h2 class="verify-title">Check your email</h2>
-        <p class="verify-sub">We sent a 6-digit verification code to<br><strong id="verify-email-display"></strong></p>
+        <h2 class="verify-title"><span data-i18n="lg-verify-title">Check your email</span></h2>
+        <p class="verify-sub"><span data-i18n="lg-verify-sub">We sent a 6-digit verification code to</span><br><strong id="verify-email-display"></strong></p>
         <div id="verify-error" class="form-error"></div>
         <div class="form-group">
-          <label class="form-label" style="text-align:center">Verification code</label>
+          <label class="form-label" style="text-align:center" data-i18n="lg-verify-label">Verification code</label>
           <input type="text" id="verify-code" class="verify-code-input" placeholder="000000" maxlength="6" inputmode="numeric" autocomplete="one-time-code"/>
         </div>
         <div class="verify-actions">
-          <button class="btn-submit" id="verify-btn" onclick="handleVerify()" disabled>Verify Email</button>
+          <button class="btn-submit" id="verify-btn" onclick="handleVerify()" disabled><span data-i18n="lg-btn-verify">Verify Email</span></button>
         </div>
         <div class="verify-resend">
-          Didn't receive the code? <a id="resend-link" onclick="handleResendCode()">Resend code</a>
+          <span data-i18n="lg-resend-pre">Didn't receive the code?</span> <a id="resend-link" onclick="handleResendCode()" data-i18n="lg-resend-link">Resend code</a>
         </div>
         <div class="verify-back">
-          <a href="login.html">← Back to sign in</a>
+          <a href="login.html"><span data-i18n="lg-back">← Back to sign in</span></a>
         </div>
       </div>
 
       <!-- 2FA Challenge Form (hidden by default) -->
       <div id="tfa-form" style="display:none">
         <div class="verify-icon">🔐</div>
-        <h2 class="verify-title">Two-Factor Authentication</h2>
+        <h2 class="verify-title"><span data-i18n="lg-2fa-title">Two-Factor Authentication</span></h2>
         <p class="verify-sub" id="tfa-subtitle">Enter the 6-digit code to continue</p>
         <div id="tfa-error" class="form-error"></div>
         <div class="form-group">
-          <label class="form-label" style="text-align:center" id="tfa-code-label">Verification Code</label>
+          <label class="form-label" style="text-align:center" id="tfa-code-label" data-i18n="lg-verify-label">Verification Code</label>
           <input type="text" id="tfa-code" class="verify-code-input" placeholder="000000" maxlength="6" inputmode="numeric"/>
         </div>
         <div class="verify-actions">
-          <button class="btn-submit" id="tfa-btn" onclick="handleTFAVerify()" disabled>Verify →</button>
+          <button class="btn-submit" id="tfa-btn" onclick="handleTFAVerify()" disabled><span data-i18n="lg-btn-verify-arrow">Verify →</span></button>
         </div>
         <div class="verify-back">
-          <a href="login.html">← Back to sign in</a>
+          <a href="login.html"><span data-i18n="lg-back">← Back to sign in</span></a>
         </div>
       </div>
 
@@ -515,7 +519,7 @@ let currentMode = 'login';
         <label class="form-label">Password</label>
         <input type="password" class="form-input" id="lock-password" placeholder="Re-enter your password" autofocus/>
       </div>
-      <div class="form-forgot"><a href="#">Forgot password?</a></div>
+      <div class="form-forgot"><a href="#" data-i18n="lg-forgot">Forgot password?</a></div>
       <button class="btn-submit" id="lock-submit" onclick="handleUnlock()">Unlock</button>
 
       <div style="margin-top:20px;text-align:center;font-size:13px;color:var(--gray-600);">
@@ -1082,6 +1086,131 @@ window.addEventListener('load', updateThemeIcon);
 
   new MutationObserver(start).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
   start();
+})();
+</script>
+
+<script>
+var SR_TRANS = {
+  en: {
+    'lg-tagline':'Your AI hiring<br>intelligence<br><em>platform</em>',
+    'lg-sub':'Whether you're finding your next career move or building your next team, welcome back.',
+    'lg-feat1-t':'JobRex for Candidates',
+    'lg-feat1-d':'AI-matched roles, career insights, and a smart profile that works for you around the clock.',
+    'lg-feat2-t':'HireRex for Companies',
+    'lg-feat2-d':'Smart sourcing, AI screening, and talent intelligence to hire faster and smarter.',
+    'lg-feat3-t':'Privacy by design',
+    'lg-feat3-d':'Your data is yours. Control exactly what's shared and with whom.',
+    'lg-title-login':'Welcome back',
+    'lg-subtitle-login':'New to ScoutRex?',
+    'lg-create-account':'Create an account',
+    'lg-type-candidate':'🎯 Job Seeker',
+    'lg-type-company':'🏢 Company',
+    'lg-error-login':'Invalid email or password. Please try again.',
+    'lg-email':'Email address',
+    'lg-password':'Password',
+    'lg-forgot':'Forgot password?',
+    'lg-btn-login':'Log In',
+    'lg-google-login':'Continue with Google',
+    'lg-linkedin-login':'Continue with LinkedIn',
+    'lg-no-account':'Don't have an account?',
+    'lg-signup-free':'Sign up free',
+    'lg-firstname':'First name',
+    'lg-lastname':'Last name',
+    'lg-company':'Company name',
+    'lg-btn-register':'Create Account →',
+    'lg-google-register':'Sign up with Google',
+    'lg-linkedin-register':'Sign up with LinkedIn',
+    'lg-have-account':'Already have an account?',
+    'lg-login-link':'Log in',
+    'lg-terms':'By creating an account you agree to our',
+    'lg-terms-link':'Terms',
+    'lg-and':'and',
+    'lg-privacy':'Privacy Policy',
+    'lg-company-cta':'Are you a company?',
+    'lg-contact-us':'Contact us',
+    'lg-company-cta2':'to get started with HireRex.',
+    'lg-verify-title':'Check your email',
+    'lg-verify-sub':'We sent a 6-digit verification code to',
+    'lg-verify-label':'Verification code',
+    'lg-btn-verify':'Verify Email',
+    'lg-resend-pre':'Didn't receive the code?',
+    'lg-resend-link':'Resend code',
+    'lg-back':'← Back to sign in',
+    'lg-2fa-title':'Two-Factor Authentication',
+    'lg-btn-verify-arrow':'Verify →'
+  },
+  de: {
+    'lg-tagline':'Ihre KI-gestützte<br>Recruiting-<em>Plattform</em>',
+    'lg-sub':'Ob Sie Ihren nächsten Karriereschritt suchen oder Ihr Team aufbauen — willkommen zurück.',
+    'lg-feat1-t':'JobRex für Kandidaten',
+    'lg-feat1-d':'KI-gematchte Stellen, Karriere-Insights und ein smartes Profil, das rund um die Uhr für Sie arbeitet.',
+    'lg-feat2-t':'HireRex für Unternehmen',
+    'lg-feat2-d':'Intelligentes Sourcing, KI-Screening und Talent-Intelligence für schnelleres und smarteres Hiring.',
+    'lg-feat3-t':'Datenschutz by Design',
+    'lg-feat3-d':'Ihre Daten gehören Ihnen. Sie entscheiden, was geteilt wird und mit wem.',
+    'lg-title-login':'Willkommen zurück',
+    'lg-subtitle-login':'Neu bei ScoutRex?',
+    'lg-create-account':'Konto erstellen',
+    'lg-type-candidate':'🎯 Jobsuchende',
+    'lg-type-company':'🏢 Unternehmen',
+    'lg-error-login':'Ungültige E-Mail oder Passwort. Bitte erneut versuchen.',
+    'lg-email':'E-Mail-Adresse',
+    'lg-password':'Passwort',
+    'lg-forgot':'Passwort vergessen?',
+    'lg-btn-login':'Anmelden',
+    'lg-google-login':'Weiter mit Google',
+    'lg-linkedin-login':'Weiter mit LinkedIn',
+    'lg-no-account':'Noch kein Konto?',
+    'lg-signup-free':'Kostenlos registrieren',
+    'lg-firstname':'Vorname',
+    'lg-lastname':'Nachname',
+    'lg-company':'Unternehmen',
+    'lg-btn-register':'Konto erstellen →',
+    'lg-google-register':'Mit Google registrieren',
+    'lg-linkedin-register':'Mit LinkedIn registrieren',
+    'lg-have-account':'Bereits ein Konto?',
+    'lg-login-link':'Anmelden',
+    'lg-terms':'Mit der Kontoerstellung stimmen Sie unseren',
+    'lg-terms-link':'Nutzungsbedingungen',
+    'lg-and':'und der',
+    'lg-privacy':'Datenschutzerklärung',
+    'lg-company-cta':'Sie sind ein Unternehmen?',
+    'lg-contact-us':'Kontaktieren Sie uns',
+    'lg-company-cta2':'um mit HireRex zu starten.',
+    'lg-verify-title':'E-Mail prüfen',
+    'lg-verify-sub':'Wir haben einen 6-stelligen Code gesendet an',
+    'lg-verify-label':'Verifizierungscode',
+    'lg-btn-verify':'E-Mail verifizieren',
+    'lg-resend-pre':'Keinen Code erhalten?',
+    'lg-resend-link':'Code erneut senden',
+    'lg-back':'← Zurück zur Anmeldung',
+    'lg-2fa-title':'Zwei-Faktor-Authentifizierung',
+    'lg-btn-verify-arrow':'Verifizieren →'
+  }
+};
+
+function srApplyLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(SR_TRANS[lang]&&SR_TRANS[lang][key]!==undefined) el.innerHTML=SR_TRANS[lang][key];
+  });
+  localStorage.setItem('sr_lang',lang);
+  document.documentElement.lang=lang;
+  var btn=document.getElementById('lang-btn');
+  if(btn) btn.innerHTML=lang==='en'
+    ?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;display:block;border-radius:2px;">'
+    :'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;">';
+}
+function toggleLang(){
+  srApplyLang((localStorage.getItem('sr_lang')||'de')==='en'?'de':'en');
+}
+(function(){
+  var lang=localStorage.getItem('sr_lang')||'de';
+  var btn=document.getElementById('lang-btn');
+  if(btn) btn.innerHTML=lang==='en'
+    ?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;display:block;border-radius:2px;">'
+    :'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;">';
+  if(lang==='de') srApplyLang('de');
 })();
 </script>
 </body>
