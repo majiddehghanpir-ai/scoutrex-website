@@ -679,7 +679,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <a href="contact.html" data-i18n="nav-contact">Contact</a>
       </div>
       <div class="nav-cta">
-        <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Sprache / Language">🇬🇧</button>
+        <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Sprache / Language"><img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;vertical-align:middle;border-radius:2px"></button>
         <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
         <a href="login.html"><button class="login-btn" data-i18n="nav-login">Log In</button></a>
       </div>
@@ -704,7 +704,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
   <a href="account.html" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-mysr">My ScoutRex</a>
   <a href="contact.html" onclick="setTimeout(toggleMenu,100)" data-i18n="ft-support">Support</a>
   <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-mobile">🌙</button>
-<button class="lang-toggle" id="lang-btn-mobile" onclick="toggleLang()" title="Sprache / Language">🇬🇧</button></div>
+<button class="lang-toggle" id="lang-btn-mobile" onclick="toggleLang()" title="Sprache / Language"><img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;vertical-align:middle;border-radius:2px"></button></div>
 </div>
 
 <!-- HERO -->
@@ -1480,7 +1480,7 @@ function srApplyLang(lang){
   document.documentElement.lang=lang;
   ['lang-btn','lang-btn-mobile'].forEach(function(id){
     var b=document.getElementById(id);
-    if(b) b.textContent=lang==='en'?'🇩🇪':'🇬🇧';
+    if(b) b.innerHTML=lang==='en'?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;vertical-align:middle;border-radius:2px">':'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;vertical-align:middle;border-radius:2px">';
   });
 }
 function toggleLang(){
@@ -1490,7 +1490,7 @@ function toggleLang(){
   var lang=localStorage.getItem('sr_lang')||'en';
   ['lang-btn','lang-btn-mobile'].forEach(function(id){
     var b=document.getElementById(id);
-    if(b) b.textContent=lang==='en'?'🇩🇪':'🇬🇧';
+    if(b) b.innerHTML=lang==='en'?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;vertical-align:middle;border-radius:2px">':'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;vertical-align:middle;border-radius:2px">';
   });
   if(lang==='de') srApplyLang('de');
 })();
