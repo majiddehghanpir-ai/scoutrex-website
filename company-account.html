@@ -212,7 +212,7 @@ html.dark #sr-bg-canvas{display:block}
 html:not(.dark) #sr-bg-topo{display:block}
 html.dark body{background:transparent!important}
 html:not(.dark) body{background:transparent!important}
-/* Dark: hero transparent — constellation shows through */
+/* Dark: hero transparent, constellation shows through */
 html.dark #hero,html.dark .hero{background:transparent!important}
 html.dark .hero-orb,html.dark .hero-grid{display:none}
 /* Dark: main sections transparent */
@@ -239,7 +239,7 @@ html:not(.dark) .cta-band{background:rgba(237,233,254,0.88)!important;backdrop-f
 html:not(.dark) #stats{background:rgba(237,233,254,0.72)!important}
 
 
-/* ═══ SECTION SEPARATION — Glass Panels + Orange Accent ═══ */
+/* ═══ SECTION SEPARATION, Glass Panels + Orange Accent ═══ */
 
 /* ── DARK MODE ── */
 /* All main content sections: frosted glass panel */
@@ -395,10 +395,11 @@ html:not(.dark) .bridge-section::before {
     <span>Scout<span class="rex">Rex</span></span>
   </a>
   <div class="topbar-right">
-    <a href="index.html" class="topbar-home">← Back to site</a>
+    <a href="index.html" class="topbar-home" data-i18n="ca-back">← Back to site</a>
     <button id="topbar-theme" class="topbar-theme" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <button id="ca-lang-btn" class="topbar-theme" onclick="toggleLang()" title="Sprache / Language" style="display:flex;align-items:center;justify-content:center;"><img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;"></button>
     <div class="topbar-avatar" id="ca-avatar-sm">?</div>
-    <button class="topbar-logout" onclick="caLogout()">Log Out</button>
+    <button class="topbar-logout" data-i18n="ca-logout" onclick="caLogout()">Log Out</button>
   </div>
 </div>
 
@@ -406,29 +407,29 @@ html:not(.dark) .bridge-section::before {
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-section">
-      <div class="sidebar-section-label">Overview</div>
+      <div class="sidebar-section-label" data-i18n="ca-sec-overview">Overview</div>
       <button class="nav-item active" onclick="showPanel('overview')">
-        <span class="nav-item-icon">🏠</span> Dashboard
+        <span class="nav-item-icon">🏠</span> <span data-i18n="ca-nav-dashboard">Dashboard</span>
       </button>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-section-label">My Account</div>
+      <div class="sidebar-section-label" data-i18n="ca-sec-myaccount">My Account</div>
       <button class="nav-item" onclick="showPanel('profile')">
-        <span class="nav-item-icon">👤</span> My Profile
+        <span class="nav-item-icon">👤</span> <span data-i18n="ca-nav-profile">My Profile</span>
       </button>
       <button class="nav-item" onclick="showPanel('settings')">
-        <span class="nav-item-icon">⚙️</span> Settings
+        <span class="nav-item-icon">⚙️</span> <span data-i18n="ca-nav-settings">Settings</span>
       </button>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-section-label">HireRex App</div>
+      <div class="sidebar-section-label" data-i18n="ca-sec-hirerex">HireRex App</div>
       <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="nav-item" style="text-decoration:none">
-        <span class="nav-item-icon">🚀</span> Open HireRex <span style="margin-left:auto;font-size:10px;opacity:0.5">↗</span>
+        <span class="nav-item-icon">🚀</span> <span data-i18n="ca-nav-open-hr">Open HireRex</span> <span style="margin-left:auto;font-size:10px;opacity:0.5">↗</span>
       </a>
     </div>
     <div style="margin-top:auto;padding-top:24px">
       <button class="nav-item" onclick="caLogout()" style="color:var(--red)">
-        <span class="nav-item-icon" style="font-size:14px">🚪</span> Log Out
+        <span class="nav-item-icon" style="font-size:14px">🚪</span> <span data-i18n="ca-logout">Log Out</span>
       </button>
     </div>
   </aside>
@@ -441,91 +442,91 @@ html:not(.dark) .bridge-section::before {
 
       <!-- Welcome banner -->
       <div class="welcome-banner">
-        <div class="welcome-greeting">Welcome back</div>
+        <div class="welcome-greeting" data-i18n="ca-welcome-back">Welcome back</div>
         <div class="welcome-name" id="ca-greeting">Loading…</div>
         <div id="ca-role-badge" class="welcome-badge">⚡ Team Member</div>
         <div class="welcome-actions">
-          <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="btn-app btn-app-primary">🚀 Open HireRex App</a>
-          <a href="https://hirerex.scoutrex.com/pipeline" target="_blank" rel="noopener" class="btn-app">📋 View Pipeline</a>
-          <a href="https://hirerex.scoutrex.com/jobs" target="_blank" rel="noopener" class="btn-app">💼 Job Positions</a>
+          <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="btn-app btn-app-primary" data-i18n="ca-btn-open-hr">🚀 Open HireRex App</a>
+          <a href="https://hirerex.scoutrex.com/pipeline" target="_blank" rel="noopener" class="btn-app" data-i18n="ca-btn-pipeline">📋 View Pipeline</a>
+          <a href="https://hirerex.scoutrex.com/jobs" target="_blank" rel="noopener" class="btn-app" data-i18n="ca-btn-jobs">💼 Job Positions</a>
         </div>
       </div>
 
       <!-- Stats row -->
       <div class="grid-3" style="margin-bottom:24px">
         <div class="stat-card">
-          <div class="stat-card-label">Active Job Positions</div>
-          <div class="stat-card-val" id="ca-stat-jobs">—</div>
-          <div class="stat-card-sub">Open roles at your company</div>
+          <div class="stat-card-label" data-i18n="ca-stat-jobs-lbl">Active Job Positions</div>
+          <div class="stat-card-val" id="ca-stat-jobs">, </div>
+          <div class="stat-card-sub" data-i18n="ca-stat-jobs-sub">Open roles at your company</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-label">Your Role</div>
-          <div class="stat-card-val" style="font-size:1.1rem;margin-top:6px" id="ca-stat-role">—</div>
-          <div class="stat-card-sub">In the HireRex team</div>
+          <div class="stat-card-label" data-i18n="ca-stat-role-lbl">Your Role</div>
+          <div class="stat-card-val" style="font-size:1.1rem;margin-top:6px" id="ca-stat-role">, </div>
+          <div class="stat-card-sub" data-i18n="ca-stat-role-sub">In the HireRex team</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-label">Company</div>
-          <div class="stat-card-val" style="font-size:1.1rem;margin-top:6px" id="ca-stat-company">—</div>
-          <div class="stat-card-sub">Your organisation</div>
+          <div class="stat-card-label" data-i18n="ca-stat-co-lbl">Company</div>
+          <div class="stat-card-val" style="font-size:1.1rem;margin-top:6px" id="ca-stat-company">, </div>
+          <div class="stat-card-sub" data-i18n="ca-stat-co-sub">Your organisation</div>
         </div>
       </div>
 
       <!-- Company card + App links -->
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Your Company</div>
+          <div class="card-title" data-i18n="ca-card-company">Your Company</div>
           <div class="company-header">
             <div class="company-logo-box" id="ca-company-logo">🏢</div>
             <div>
-              <div class="company-name-val" id="ca-company-name">—</div>
-              <div class="company-role-val" id="ca-company-role-line">—</div>
+              <div class="company-name-val" id="ca-company-name">, </div>
+              <div class="company-role-val" id="ca-company-role-line">, </div>
             </div>
           </div>
           <div class="info-row">
-            <span class="info-row-label">Account email</span>
-            <span class="info-row-val" id="ca-info-email">—</span>
+            <span class="info-row-label" data-i18n="ca-lbl-acct-email">Account email</span>
+            <span class="info-row-val" id="ca-info-email">, </span>
           </div>
           <div class="info-row">
-            <span class="info-row-label">Account type</span>
-            <span class="info-row-val">Company Member</span>
+            <span class="info-row-label" data-i18n="ca-lbl-acct-type">Account type</span>
+            <span class="info-row-val" data-i18n="ca-val-co-member">Company Member</span>
           </div>
           <div class="info-row">
-            <span class="info-row-label">Platform access</span>
+            <span class="info-row-label" data-i18n="ca-lbl-platform">Platform access</span>
             <span class="info-row-val">HireRex</span>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-title">Quick Access</div>
+          <div class="card-title" data-i18n="ca-card-quick">Quick Access</div>
           <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="app-link-card">
             <div class="app-link-icon orange">🚀</div>
             <div class="app-link-info">
-              <h4>HireRex Dashboard</h4>
-              <p>Your main hiring workspace</p>
+              <h4 data-i18n="ca-link-hr-h4">HireRex Dashboard</h4>
+              <p data-i18n="ca-link-hr-p">Your main hiring workspace</p>
             </div>
             <div class="app-link-arrow">↗</div>
           </a>
           <a href="https://hirerex.scoutrex.com/pipeline" target="_blank" rel="noopener" class="app-link-card">
             <div class="app-link-icon orange">📋</div>
             <div class="app-link-info">
-              <h4>Candidate Pipeline</h4>
-              <p>Review and manage applicants</p>
+              <h4 data-i18n="ca-link-pipe-h4">Candidate Pipeline</h4>
+              <p data-i18n="ca-link-pipe-p">Review and manage applicants</p>
             </div>
             <div class="app-link-arrow">↗</div>
           </a>
           <a href="https://hirerex.scoutrex.com/jobs" target="_blank" rel="noopener" class="app-link-card">
             <div class="app-link-icon indigo">💼</div>
             <div class="app-link-info">
-              <h4>Job Positions</h4>
-              <p>Manage open roles and tests</p>
+              <h4 data-i18n="ca-link-jobs-h4">Job Positions</h4>
+              <p data-i18n="ca-link-jobs-p">Manage open roles and tests</p>
             </div>
             <div class="app-link-arrow">↗</div>
           </a>
           <a href="contact.html" class="app-link-card">
             <div class="app-link-icon indigo">💬</div>
             <div class="app-link-info">
-              <h4>Contact Support</h4>
-              <p>Get help from the ScoutRex team</p>
+              <h4 data-i18n="ca-link-support-h4">Contact Support</h4>
+              <p data-i18n="ca-link-support-p">Get help from the ScoutRex team</p>
             </div>
             <div class="app-link-arrow">→</div>
           </a>
@@ -537,57 +538,57 @@ html:not(.dark) .bridge-section::before {
     <!-- ═══════════════════ PROFILE ═══════════════════ -->
     <div id="panel-profile" class="page-panel">
       <div class="panel-header">
-        <div class="panel-title">My Profile</div>
-        <div class="panel-sub">Update your personal information visible to your team.</div>
+        <div class="panel-title" data-i18n="ca-profile-title">My Profile</div>
+        <div class="panel-sub" data-i18n="ca-profile-sub">Update your personal information visible to your team.</div>
       </div>
 
       <div class="card">
         <div class="avatar-section">
           <div class="avatar-big" id="ca-avatar-lg">?</div>
           <div class="avatar-info">
-            <h4 id="ca-profile-fullname">—</h4>
-            <p id="ca-profile-role-line">—</p>
+            <h4 id="ca-profile-fullname">, </h4>
+            <p id="ca-profile-role-line">, </p>
           </div>
         </div>
 
         <div class="form-section">
-          <div class="form-section-title">Personal Information</div>
+          <div class="form-section-title" data-i18n="ca-sec-personal">Personal Information</div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">First Name</label>
-              <input class="form-input" id="ca-first-name" type="text" placeholder="First name"/>
+              <label class="form-label" data-i18n="ca-lbl-firstname">First Name</label>
+              <input class="form-input" id="ca-first-name" type="text" data-i18n-ph="ca-ph-firstname" placeholder="First name"/>
             </div>
             <div class="form-group">
-              <label class="form-label">Last Name <span>optional</span></label>
-              <input class="form-input" id="ca-last-name" type="text" placeholder="Last name"/>
+              <label class="form-label" data-i18n="ca-lbl-lastname">Last Name <span>optional</span></label>
+              <input class="form-input" id="ca-last-name" type="text" data-i18n-ph="ca-ph-lastname" placeholder="Last name"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Email <span>managed by your company</span></label>
+            <label class="form-label" data-i18n="ca-lbl-email-mgd">Email <span>managed by your company</span></label>
             <input class="form-input" id="ca-email" type="email" disabled placeholder="your@email.com"/>
           </div>
           <div class="form-group">
-            <label class="form-label">Phone <span>optional</span></label>
+            <label class="form-label" data-i18n="ca-lbl-phone">Phone <span>optional</span></label>
             <input class="form-input" id="ca-phone" type="tel" placeholder="+49 170 …"/>
           </div>
         </div>
 
         <div class="form-section">
-          <div class="form-section-title">Professional Details</div>
+          <div class="form-section-title" data-i18n="ca-sec-professional">Professional Details</div>
           <div class="form-group">
-            <label class="form-label">LinkedIn URL <span>optional</span></label>
+            <label class="form-label" data-i18n="ca-lbl-linkedin">LinkedIn URL <span>optional</span></label>
             <input class="form-input" id="ca-linkedin" type="url" placeholder="https://linkedin.com/in/…"/>
           </div>
           <div class="form-group">
-            <label class="form-label">Bio <span>optional</span></label>
-            <textarea class="form-textarea" id="ca-bio" placeholder="A short bio visible to candidates you interact with…"></textarea>
-            <div class="form-hint">Shown to candidates when you send messages or schedule interviews.</div>
+            <label class="form-label" data-i18n="ca-lbl-bio">Bio <span>optional</span></label>
+            <textarea class="form-textarea" id="ca-bio" data-i18n-ph="ca-ph-bio" placeholder="A short bio visible to candidates you interact with…"></textarea>
+            <div class="form-hint" data-i18n="ca-bio-hint">Shown to candidates when you send messages or schedule interviews.</div>
           </div>
         </div>
 
         <div class="btn-row">
-          <button class="btn-save" onclick="caUpdateProfile()">Save Changes</button>
-          <button class="btn-outline" onclick="caDiscardProfile()">Discard</button>
+          <button class="btn-save" data-i18n="ca-btn-save" onclick="caUpdateProfile()">Save Changes</button>
+          <button class="btn-outline" data-i18n="ca-btn-discard" onclick="caDiscardProfile()">Discard</button>
         </div>
       </div>
     </div><!-- /panel-profile -->
@@ -596,58 +597,58 @@ html:not(.dark) .bridge-section::before {
     <!-- ═══════════════════ SETTINGS ═══════════════════ -->
     <div id="panel-settings" class="page-panel">
       <div class="panel-header">
-        <div class="panel-title">Settings</div>
-        <div class="panel-sub">Manage your preferences and account security.</div>
+        <div class="panel-title" data-i18n="ca-settings-title">Settings</div>
+        <div class="panel-sub" data-i18n="ca-settings-sub">Manage your preferences and account security.</div>
       </div>
 
       <div class="card">
-        <div class="card-title">Account Details</div>
+        <div class="card-title" data-i18n="ca-card-acct">Account Details</div>
         <div class="info-row">
-          <span class="info-row-label">Account type</span>
-          <span class="info-row-val">Company Member (HireRex)</span>
+          <span class="info-row-label" data-i18n="ca-lbl-acct-type">Account type</span>
+          <span class="info-row-val" data-i18n="ca-val-co-member-hr">Company Member (HireRex)</span>
         </div>
         <div class="info-row">
-          <span class="info-row-label">Email</span>
-          <span class="info-row-val" id="ca-settings-email">—</span>
+          <span class="info-row-label" data-i18n="ca-lbl-email-plain">Email</span>
+          <span class="info-row-val" id="ca-settings-email">, </span>
         </div>
         <div class="info-row">
-          <span class="info-row-label">Role within team</span>
-          <span class="info-row-val" id="ca-settings-role">—</span>
+          <span class="info-row-label" data-i18n="ca-lbl-role-team">Role within team</span>
+          <span class="info-row-val" id="ca-settings-role">, </span>
         </div>
         <div class="info-row">
-          <span class="info-row-label">Company</span>
-          <span class="info-row-val" id="ca-settings-company">—</span>
+          <span class="info-row-label" data-i18n="ca-lbl-company">Company</span>
+          <span class="info-row-val" id="ca-settings-company">, </span>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Appearance</div>
+        <div class="card-title" data-i18n="ca-card-appearance">Appearance</div>
         <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
           <div>
-            <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px">Dark Mode</div>
-            <div style="font-size:13px;color:var(--gray-500)">Toggle between light and dark interface</div>
+            <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px" data-i18n="ca-dark-title">Dark Mode</div>
+            <div style="font-size:13px;color:var(--gray-500)" data-i18n="ca-dark-desc">Toggle between light and dark interface</div>
           </div>
-          <button id="settings-theme-btn" onclick="toggleTheme()" style="padding:9px 18px;border-radius:50px;border:1.5px solid var(--gray-200);background:transparent;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:var(--gray-600)">🌙 Toggle</button>
+          <button id="settings-theme-btn" onclick="toggleTheme()" style="padding:9px 18px;border-radius:50px;border:1.5px solid var(--gray-200);background:transparent;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:var(--gray-600)" data-i18n="ca-dark-btn">🌙 Toggle</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Access Management</div>
-        <p style="font-size:14px;color:var(--gray-600);line-height:1.7;margin-bottom:16px">
+        <div class="card-title" data-i18n="ca-card-access">Access Management</div>
+        <p style="font-size:14px;color:var(--gray-600);line-height:1.7;margin-bottom:16px" data-i18n="ca-access-desc">
           Your account was created by your company's HR team. To update your email or change your company assignment, please contact your HR Manager or reach out to ScoutRex support.
         </p>
         <div class="btn-row">
-          <a href="contact.html" class="btn-outline" style="display:inline-flex;align-items:center;gap:6px">Contact Support →</a>
-          <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="btn-save" style="display:inline-flex;align-items:center;gap:6px">Open HireRex App ↗</a>
+          <a href="contact.html" class="btn-outline" data-i18n="ca-btn-contact" style="display:inline-flex;align-items:center;gap:6px">Contact Support →</a>
+          <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="btn-save" data-i18n="ca-btn-hr-app" style="display:inline-flex;align-items:center;gap:6px">Open HireRex App ↗</a>
         </div>
       </div>
 
       <div class="card" style="margin-top:20px">
-        <div class="card-title" style="color:var(--red)">Danger Zone</div>
+        <div class="card-title" data-i18n="ca-card-danger" style="color:var(--red)">Danger Zone</div>
         <div class="danger-zone">
-          <h4>Log out of all devices</h4>
-          <p>This will clear your session on this device. You will need to log back in to access your account.</p>
-          <button class="btn-danger" onclick="caLogout()">Log Out Now</button>
+          <h4 data-i18n="ca-danger-h4">Log out of all devices</h4>
+          <p data-i18n="ca-danger-p">This will clear your session on this device. You will need to log back in to access your account.</p>
+          <button class="btn-danger" data-i18n="ca-logout-now" onclick="caLogout()">Log Out Now</button>
         </div>
       </div>
     </div><!-- /panel-settings -->
@@ -655,16 +656,180 @@ html:not(.dark) .bridge-section::before {
   </main>
 </div><!-- /layout -->
 
-<div class="save-toast" id="saveToast">✓ Changes saved</div>
+<div class="save-toast" id="saveToast" data-i18n="ca-toast">✓ Changes saved</div>
 
 <script src="cookie-consent.js"></script>
 <script>
+function t(key){
+  var lang=localStorage.getItem('sr_lang')||'de';
+  return(SR_TRANS[lang]&&SR_TRANS[lang][key]!==undefined)?SR_TRANS[lang][key]:(SR_TRANS['en']&&SR_TRANS['en'][key]!==undefined?SR_TRANS['en'][key]:key);
+}
+var SR_TRANS={
+en:{
+  'ca-back':'← Back to site',
+  'ca-logout':'Log Out',
+  'ca-sec-overview':'Overview',
+  'ca-nav-dashboard':'Dashboard',
+  'ca-sec-myaccount':'My Account',
+  'ca-nav-profile':'My Profile',
+  'ca-nav-settings':'Settings',
+  'ca-sec-hirerex':'HireRex App',
+  'ca-nav-open-hr':'Open HireRex',
+  'ca-welcome-back':'Welcome back',
+  'ca-btn-open-hr':'🚀 Open HireRex App',
+  'ca-btn-pipeline':'📋 View Pipeline',
+  'ca-btn-jobs':'💼 Job Positions',
+  'ca-stat-jobs-lbl':'Active Job Positions',
+  'ca-stat-jobs-sub':'Open roles at your company',
+  'ca-stat-role-lbl':'Your Role',
+  'ca-stat-role-sub':'In the HireRex team',
+  'ca-stat-co-lbl':'Company',
+  'ca-stat-co-sub':'Your organisation',
+  'ca-card-company':'Your Company',
+  'ca-lbl-acct-email':'Account email',
+  'ca-lbl-acct-type':'Account type',
+  'ca-val-co-member':'Company Member',
+  'ca-lbl-platform':'Platform access',
+  'ca-card-quick':'Quick Access',
+  'ca-link-hr-h4':'HireRex Dashboard',
+  'ca-link-hr-p':'Your main hiring workspace',
+  'ca-link-pipe-h4':'Candidate Pipeline',
+  'ca-link-pipe-p':'Review and manage applicants',
+  'ca-link-jobs-h4':'Job Positions',
+  'ca-link-jobs-p':'Manage open roles and tests',
+  'ca-link-support-h4':'Contact Support',
+  'ca-link-support-p':'Get help from the ScoutRex team',
+  'ca-profile-title':'My Profile',
+  'ca-profile-sub':'Update your personal information visible to your team.',
+  'ca-sec-personal':'Personal Information',
+  'ca-lbl-firstname':'First Name',
+  'ca-lbl-lastname':'Last Name <span>optional</span>',
+  'ca-lbl-email-mgd':'Email <span>managed by your company</span>',
+  'ca-lbl-phone':'Phone <span>optional</span>',
+  'ca-sec-professional':'Professional Details',
+  'ca-lbl-linkedin':'LinkedIn URL <span>optional</span>',
+  'ca-lbl-bio':'Bio <span>optional</span>',
+  'ca-bio-hint':'Shown to candidates when you send messages or schedule interviews.',
+  'ca-ph-firstname':'First name',
+  'ca-ph-lastname':'Last name',
+  'ca-ph-bio':'A short bio visible to candidates you interact with…',
+  'ca-btn-save':'Save Changes',
+  'ca-btn-discard':'Discard',
+  'ca-settings-title':'Settings',
+  'ca-settings-sub':'Manage your preferences and account security.',
+  'ca-card-acct':'Account Details',
+  'ca-val-co-member-hr':'Company Member (HireRex)',
+  'ca-lbl-email-plain':'Email',
+  'ca-lbl-role-team':'Role within team',
+  'ca-lbl-company':'Company',
+  'ca-card-appearance':'Appearance',
+  'ca-dark-title':'Dark Mode',
+  'ca-dark-desc':'Toggle between light and dark interface',
+  'ca-dark-btn':'🌙 Toggle',
+  'ca-card-access':'Access Management',
+  'ca-access-desc':'Your account was created by your company\'s HR team. To update your email or change your company assignment, please contact your HR Manager or reach out to ScoutRex support.',
+  'ca-btn-contact':'Contact Support →',
+  'ca-btn-hr-app':'Open HireRex App ↗',
+  'ca-card-danger':'Danger Zone',
+  'ca-danger-h4':'Log out of all devices',
+  'ca-danger-p':'This will clear your session on this device. You will need to log back in to access your account.',
+  'ca-logout-now':'Log Out Now',
+  'ca-toast':'✓ Changes saved',
+  'ca-role-hr':'⭐ HR Manager',
+  'ca-role-recruiter':'⚡ Recruiter',
+  'ca-role-hr-short':'HR Manager',
+  'ca-role-recruiter-short':'Recruiter',
+  'ca-at':' at ',
+  'ca-alert-req':'First name is required.',
+  'ca-alert-save-err':'Could not save changes. Please try again.',
+  'ca-alert-conn-err':'Connection error. Please try again.'
+},
+de:{
+  'ca-back':'← Zurück zur Website',
+  'ca-logout':'Abmelden',
+  'ca-sec-overview':'Übersicht',
+  'ca-nav-dashboard':'Dashboard',
+  'ca-sec-myaccount':'Mein Konto',
+  'ca-nav-profile':'Mein Profil',
+  'ca-nav-settings':'Einstellungen',
+  'ca-sec-hirerex':'HireRex App',
+  'ca-nav-open-hr':'HireRex öffnen',
+  'ca-welcome-back':'Willkommen zurück',
+  'ca-btn-open-hr':'🚀 HireRex App öffnen',
+  'ca-btn-pipeline':'📋 Pipeline ansehen',
+  'ca-btn-jobs':'💼 Stellenanzeigen',
+  'ca-stat-jobs-lbl':'Aktive Stellenanzeigen',
+  'ca-stat-jobs-sub':'Offene Stellen in Ihrem Unternehmen',
+  'ca-stat-role-lbl':'Ihre Rolle',
+  'ca-stat-role-sub':'Im HireRex-Team',
+  'ca-stat-co-lbl':'Unternehmen',
+  'ca-stat-co-sub':'Ihr Unternehmen',
+  'ca-card-company':'Ihr Unternehmen',
+  'ca-lbl-acct-email':'Konto-E-Mail',
+  'ca-lbl-acct-type':'Kontotyp',
+  'ca-val-co-member':'Unternehmensmitglied',
+  'ca-lbl-platform':'Plattformzugang',
+  'ca-card-quick':'Schnellzugriff',
+  'ca-link-hr-h4':'HireRex Dashboard',
+  'ca-link-hr-p':'Ihr Hauptarbeitsbereich für Recruiting',
+  'ca-link-pipe-h4':'Bewerberpipeline',
+  'ca-link-pipe-p':'Bewerber prüfen und verwalten',
+  'ca-link-jobs-h4':'Stellenanzeigen',
+  'ca-link-jobs-p':'Offene Stellen und Tests verwalten',
+  'ca-link-support-h4':'Support kontaktieren',
+  'ca-link-support-p':'Hilfe vom ScoutRex-Team erhalten',
+  'ca-profile-title':'Mein Profil',
+  'ca-profile-sub':'Aktualisieren Sie Ihre persönlichen Daten, die Ihrem Team angezeigt werden.',
+  'ca-sec-personal':'Persönliche Informationen',
+  'ca-lbl-firstname':'Vorname',
+  'ca-lbl-lastname':'Nachname <span>optional</span>',
+  'ca-lbl-email-mgd':'E-Mail <span>von Ihrem Unternehmen verwaltet</span>',
+  'ca-lbl-phone':'Telefon <span>optional</span>',
+  'ca-sec-professional':'Berufliche Details',
+  'ca-lbl-linkedin':'LinkedIn URL <span>optional</span>',
+  'ca-lbl-bio':'Kurzbiografie <span>optional</span>',
+  'ca-bio-hint':'Wird Bewerbern angezeigt, wenn Sie Nachrichten senden oder Interviews planen.',
+  'ca-ph-firstname':'Vorname',
+  'ca-ph-lastname':'Nachname',
+  'ca-ph-bio':'Eine kurze Biografie, die für Bewerber sichtbar ist…',
+  'ca-btn-save':'Änderungen speichern',
+  'ca-btn-discard':'Verwerfen',
+  'ca-settings-title':'Einstellungen',
+  'ca-settings-sub':'Verwalten Sie Ihre Präferenzen und Kontosicherheit.',
+  'ca-card-acct':'Kontodetails',
+  'ca-val-co-member-hr':'Unternehmensmitglied (HireRex)',
+  'ca-lbl-email-plain':'E-Mail',
+  'ca-lbl-role-team':'Rolle im Team',
+  'ca-lbl-company':'Unternehmen',
+  'ca-card-appearance':'Erscheinungsbild',
+  'ca-dark-title':'Dunkelmodus',
+  'ca-dark-desc':'Zwischen hellem und dunklem Design wechseln',
+  'ca-dark-btn':'🌙 Wechseln',
+  'ca-card-access':'Zugriffsverwaltung',
+  'ca-access-desc':'Ihr Konto wurde vom HR-Team Ihres Unternehmens erstellt. Um Ihre E-Mail zu aktualisieren oder Ihre Unternehmenszuordnung zu ändern, kontaktieren Sie bitte Ihren HR-Manager oder den ScoutRex-Support.',
+  'ca-btn-contact':'Support kontaktieren →',
+  'ca-btn-hr-app':'HireRex App öffnen ↗',
+  'ca-card-danger':'Gefahrenbereich',
+  'ca-danger-h4':'Von allen Geräten abmelden',
+  'ca-danger-p':'Dadurch wird Ihre Sitzung auf diesem Gerät beendet. Sie müssen sich erneut anmelden, um auf Ihr Konto zuzugreifen.',
+  'ca-logout-now':'Jetzt abmelden',
+  'ca-toast':'✓ Änderungen gespeichert',
+  'ca-role-hr':'⭐ HR-Manager',
+  'ca-role-recruiter':'⚡ Recruiter',
+  'ca-role-hr-short':'HR-Manager',
+  'ca-role-recruiter-short':'Recruiter',
+  'ca-at':' bei ',
+  'ca-alert-req':'Vorname ist erforderlich.',
+  'ca-alert-save-err':'Änderungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+  'ca-alert-conn-err':'Verbindungsfehler. Bitte versuchen Sie es erneut.'
+}
+};
 const CA_API = 'https://scoutrex-app-production.up.railway.app';
 let _caProfile = null; // cached profile for discard
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 function caLogout() {
-  // Full manual logout — clears lock profile too (clean login screen)
+  // Full manual logout, clears lock profile too (clean login screen)
   if (window.srxLogout) { window.srxLogout('login.html'); return; }
   localStorage.removeItem('sr_token');
   localStorage.removeItem('sr_user');
@@ -746,10 +911,10 @@ async function caLoadProfile() {
     // ── Role badge ──
     const isHR = u.recruiter_role === 'hr_manager';
     const roleBadge = document.getElementById('ca-role-badge');
-    if (roleBadge) roleBadge.textContent = isHR ? '⭐ HR Manager' : '⚡ Recruiter';
+    if (roleBadge) roleBadge.textContent = t(isHR ? 'ca-role-hr' : 'ca-role-recruiter');
 
     // ── Company (from cached login data or from profile) ──
-    let companyName = '—';
+    let companyName = ', ';
     try {
       const cached = JSON.parse(localStorage.getItem('sr_user') || '{}');
       if (cached.company && cached.company.name) companyName = cached.company.name;
@@ -764,21 +929,21 @@ async function caLoadProfile() {
     } catch(e) {}
 
     // ── Populate all fields ──
-    const roleLabel = isHR ? 'HR Manager' : 'Recruiter';
+    const roleLabel = t(isHR ? 'ca-role-hr-short' : 'ca-role-recruiter-short');
     const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
     const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
 
     setEl('ca-company-name', companyName);
     setEl('ca-stat-company', companyName);
-    setEl('ca-company-role-line', roleLabel + ' at ' + companyName);
+    setEl('ca-company-role-line', roleLabel + t('ca-at') + companyName);
     setEl('ca-stat-role', roleLabel);
     // Persist email for lock screen profile
     if (u.email) localStorage.setItem('srx_session_email', u.email);
 
-    setEl('ca-info-email', u.email || '—');
-    setEl('ca-profile-fullname', u.name || '—');
-    setEl('ca-profile-role-line', roleLabel + (companyName !== '—' ? ' · ' + companyName : ''));
-    setEl('ca-settings-email', u.email || '—');
+    setEl('ca-info-email', u.email || ', ');
+    setEl('ca-profile-fullname', u.name || ', ');
+    setEl('ca-profile-role-line', roleLabel + (companyName !== ', ' ? ' · ' + companyName : ''));
+    setEl('ca-settings-email', u.email || ', ');
     setEl('ca-settings-role', roleLabel);
     setEl('ca-settings-company', companyName);
 
@@ -797,7 +962,7 @@ async function caLoadProfile() {
         const jobs = await jobsRes.json();
         const active = Array.isArray(jobs) ? jobs.filter(j => j.is_active && j.position_status !== 'closed').length : 0;
         setEl('ca-stat-jobs', active || '0');
-      } catch(e) { setEl('ca-stat-jobs', '—'); }
+      } catch(e) { setEl('ca-stat-jobs', ', '); }
     }
 
   } catch(err) {
@@ -817,7 +982,7 @@ async function caUpdateProfile() {
   const linkedin = document.getElementById('ca-linkedin')?.value || '';
   const bio      = document.getElementById('ca-bio')?.value      || '';
 
-  if (!firstName) { alert('First name is required.'); return; }
+  if (!firstName) { alert(t('ca-alert-req')); return; }
 
   try {
     const res = await fetch(CA_API + '/api/profile', {
@@ -848,10 +1013,10 @@ async function caUpdateProfile() {
       document.getElementById('ca-greeting').textContent = name.split(' ')[0] + ' 👋';
       document.getElementById('ca-profile-fullname').textContent = name;
     } else {
-      alert('Could not save changes. Please try again.');
+      alert(t('ca-alert-save-err'));
     }
   } catch(err) {
-    alert('Connection error. Please try again.');
+    alert(t('ca-alert-conn-err'));
   }
 }
 
@@ -888,7 +1053,7 @@ window.addEventListener('load', updateThemeIcon);
 caLoadProfile();
 </script>
 <script>
-/* ScoutRex — Dark03 Constellation + Light05 Topographic */
+/* ScoutRex, Dark03 Constellation + Light05 Topographic */
 (function(){
   var dC=document.getElementById('sr-bg-canvas'),dX=dC.getContext('2d');
   var dPts=[],dW=0,dH=0,dGo=false;
@@ -967,5 +1132,31 @@ caLoadProfile();
 })();
 </script>
 <script src="/session.js"></script>
+
+<script>
+function srApplyLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(SR_TRANS[lang]&&SR_TRANS[lang][key]!==undefined) el.innerHTML=SR_TRANS[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var key=el.getAttribute('data-i18n-ph');
+    if(SR_TRANS[lang]&&SR_TRANS[lang][key]!==undefined) el.placeholder=SR_TRANS[lang][key];
+  });
+  localStorage.setItem('sr_lang',lang);
+  var btn=document.getElementById('ca-lang-btn');
+  if(btn) btn.innerHTML=lang==='de'
+    ?'<img src="https://flagcdn.com/20x15/de.png" alt="DE" style="width:20px;height:15px;display:block;border-radius:2px;">'
+    :'<img src="https://flagcdn.com/20x15/gb.png" alt="EN" style="width:20px;height:15px;display:block;border-radius:2px;">';
+  document.documentElement.lang=lang==='de'?'de':'en';
+}
+function toggleLang(){
+  srApplyLang((localStorage.getItem('sr_lang')||'de')==='en'?'de':'en');
+}
+(function(){
+  srApplyLang(localStorage.getItem('sr_lang')||'de');
+})();
+</script>
+
 </body>
 </html>

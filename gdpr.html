@@ -351,7 +351,15 @@ html:not(.dark) .bridge-section::before {
   position: relative;
 }
 
-html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#E5E7EB!important;color:var(--indigo)}html.dark #navbar .nav-dd-menu{background:#1C1836!important;border-color:#2D2850!important}html:not(.dark) #navbar .nav-dd-menu a{color:var(--indigo)!important}html.dark #navbar .nav-dd-menu a{color:#C4BFDA!important}.lang-toggle{background:transparent;border:2px solid rgba(255,255,255,0.35);padding:0 11px;height:38px;border-radius:50px;cursor:pointer;font-size:11px;font-weight:800;letter-spacing:1px;color:#fff;display:inline-flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;font-family:'Inter',sans-serif}.lang-toggle:hover{background:rgba(255,255,255,0.12);transform:scale(1.05)}#navbar.scrolled .lang-toggle{border-color:#E5E7EB;color:var(--indigo)}#navbar.scrolled .lang-toggle:hover{background:#F8F7FF}html:not(.dark) #navbar:not(.scrolled) .lang-toggle{border-color:rgba(30,18,86,0.3);color:var(--indigo)}html:not(.dark) #navbar:not(.scrolled) .lang-toggle:hover{background:rgba(249,115,22,0.07);border-color:var(--orange);color:var(--orange)}</style>
+html:not(.dark) #navbar .nav-dd-menu{background:#ffffff!important;border-color:#E5E7EB!important;color:var(--indigo)}html.dark #navbar .nav-dd-menu{background:#1C1836!important;border-color:#2D2850!important}html:not(.dark) #navbar .nav-dd-menu a{color:var(--indigo)!important}html.dark #navbar .nav-dd-menu a{color:#C4BFDA!important}.lang-toggle{background:transparent;border:2px solid rgba(255,255,255,0.35);padding:0 11px;height:38px;border-radius:50px;cursor:pointer;font-size:11px;font-weight:800;letter-spacing:1px;color:#fff;display:inline-flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;font-family:'Inter',sans-serif}.lang-toggle:hover{background:rgba(255,255,255,0.12);transform:scale(1.05)}#navbar.scrolled .lang-toggle{border-color:#E5E7EB;color:var(--indigo)}#navbar.scrolled .lang-toggle:hover{background:#F8F7FF}html:not(.dark) #navbar:not(.scrolled) .lang-toggle{border-color:rgba(30,18,86,0.3);color:var(--indigo)}html:not(.dark) #navbar:not(.scrolled) .lang-toggle:hover{background:rgba(249,115,22,0.07);border-color:var(--orange);color:var(--orange)}
+/* Mobile toggle button alignment fix */
+.mobile-menu div > #theme-toggle-mobile,
+.mobile-menu div > #lang-btn-mobile {
+  margin: 0 !important;
+  align-self: flex-start !important;
+  vertical-align: top !important;
+}
+</style>
 <link rel="stylesheet" href="mobile.css?v=11"/>
 </head>
 <body><canvas id="sr-bg-canvas"></canvas><canvas id="sr-bg-topo"></canvas>
@@ -909,5 +917,6 @@ function toggleLang(){
   if(lang==='de') srApplyLang('de');
 })();
 </script>
+<script src="nav-session.js"></script>
 </body>
 </html>
