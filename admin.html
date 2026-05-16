@@ -627,28 +627,28 @@ body.locked .topbar,body.locked .layout,body.locked .modal-overlay{display:none}
             <div class="activity-item">
               <div class="activity-dot orange"></div>
               <div>
-                <div class="activity-text"><strong>Lena Fischer</strong> — Partnership inquiry</div>
+                <div class="activity-text"><strong>Lena Fischer</strong>, Partnership inquiry</div>
                 <div class="activity-time">12 minutes ago · Unread</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-dot orange"></div>
               <div>
-                <div class="activity-text"><strong>James Okafor</strong> — Pricing question</div>
+                <div class="activity-text"><strong>James Okafor</strong>, Pricing question</div>
                 <div class="activity-time">1 hour ago · Unread</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-dot green"></div>
               <div>
-                <div class="activity-text"><strong>Mia Schulz</strong> — Demo request</div>
+                <div class="activity-text"><strong>Mia Schulz</strong>, Demo request</div>
                 <div class="activity-time">Yesterday · Replied</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-dot green"></div>
               <div>
-                <div class="activity-text"><strong>Ravi Patel</strong> — Enterprise plan inquiry</div>
+                <div class="activity-text"><strong>Ravi Patel</strong>, Enterprise plan inquiry</div>
                 <div class="activity-time">2 days ago · Replied</div>
               </div>
             </div>
@@ -1032,7 +1032,7 @@ function toggleAdminSidebar(){
 }
 
 /* ──────────────────────────────────
-   AUTH GATE — blocks page until admin login
+   AUTH GATE, blocks page until admin login
 ────────────────────────────────── */
 const AUTH_API = 'https://scoutrex-app-production.up.railway.app';
 let _adminToken = null;
@@ -1067,7 +1067,7 @@ async function adminLogin(e) {
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || 'Invalid credentials');
     if (data.role !== 'admin') {
-      throw new Error('Access denied — admin accounts only.');
+      throw new Error('Access denied, admin accounts only.');
     }
     _adminToken = data.token;
     _adminUser  = { id: data.id, name: data.name, role: data.role };
@@ -1209,7 +1209,7 @@ function executePendingDelete() {
    COMPANY MODAL
 ────────────────────────────────── */
 /* ──────────────────────────────────
-   COMPANIES  — live data from Railway API
+   COMPANIES , live data from Railway API
 ────────────────────────────────── */
 let _allCompanies   = [];
 let _editingCompanyId = null;
@@ -1262,7 +1262,7 @@ function renderCompaniesList() {
   const rows = _allCompanies.map((c, i) => {
     const initials = c.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
     const grad     = AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length];
-    const date     = c.created_at ? new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const date     = c.created_at ? new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : ', ';
     const count    = c.recruiter_count || 0;
     return `<tr>
       <td><div class="user-cell">
@@ -1270,7 +1270,7 @@ function renderCompaniesList() {
         <div><div class="user-name">${escHtml(c.name)}</div>
              <div class="user-email">${count} recruiter${count!==1?'s':''}</div></div>
       </div></td>
-      <td style="color:var(--gray-600)">${c.primary_color ? `<span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${escHtml(c.primary_color)};vertical-align:middle;margin-right:6px"></span>${escHtml(c.primary_color)}` : '—'}</td>
+      <td style="color:var(--gray-600)">${c.primary_color ? `<span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${escHtml(c.primary_color)};vertical-align:middle;margin-right:6px"></span>${escHtml(c.primary_color)}` : ', '}</td>
       <td style="color:var(--gray-500);font-size:12px">${date}</td>
       <td><div class="table-actions">
         <button class="icon-btn" title="Edit" onclick="openEditCompanyById(${c.id})">✏️</button>
@@ -1294,7 +1294,7 @@ function openEditCompanyById(id) {
   const c = _allCompanies.find(x => x.id === id);
   if (!c) return;
   _editingCompanyId = id;
-  openModal('Edit Company — ' + c.name, companyForm(c));
+  openModal('Edit Company, ' + c.name, companyForm(c));
 }
 function companyForm(c) {
   return `
@@ -1359,7 +1359,7 @@ function deleteCompany(id, name) {
 }
 
 /* ──────────────────────────────────
-   CANDIDATES  — live data from Railway API
+   CANDIDATES , live data from Railway API
 ────────────────────────────────── */
 let _allCandidates = [];
 
@@ -1402,11 +1402,11 @@ function renderCandidatesList() {
   const rows = _allCandidates.map((c, i) => {
     const initials = (c.name||c.email).split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
     const grad     = AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length];
-    const date     = c.created_at ? new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const date     = c.created_at ? new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : ', ';
     return `<tr>
       <td><div class="user-cell">
         <div class="user-avatar" style="background:${grad}">${initials}</div>
-        <div><div class="user-name">${escHtml(c.name||'—')}</div>
+        <div><div class="user-name">${escHtml(c.name||', ')}</div>
              <div class="user-email">${escHtml(c.email)}</div></div>
       </div></td>
       <td style="color:var(--gray-500);font-size:12px">${date}</td>
@@ -1491,7 +1491,7 @@ function deleteCandidate(id, name) {
 }
 
 /* ──────────────────────────────────
-   PRICING PLANS  — live data from Worker API
+   PRICING PLANS , live data from Worker API
 ────────────────────────────────── */
 let _allPlans = [];
 let _editingPlanId = null;
@@ -1526,7 +1526,7 @@ function renderPlansList() {
     container.innerHTML = `<div class="card" style="text-align:center;padding:56px 24px;color:var(--gray-400)">
       <div style="font-size:48px;margin-bottom:16px">💳</div>
       <div style="font-size:16px;font-weight:600;color:var(--gray-600);margin-bottom:6px">No pricing plans yet</div>
-      <div style="font-size:13.5px;max-width:380px;margin:0 auto 24px">Add plans for HireRex and JobRex — they will appear on the pricing page.</div>
+      <div style="font-size:13.5px;max-width:380px;margin:0 auto 24px">Add plans for HireRex and JobRex, they will appear on the pricing page.</div>
       <button class="btn btn-orange" onclick="openAddPlan()">+ Add Your First Plan</button>
     </div>`;
     return;
@@ -1574,7 +1574,7 @@ function openEditPlanById(id) {
   const p = _allPlans.find(x => x.id === id);
   if (!p) return;
   _editingPlanId = id;
-  openModal('Edit Plan — ' + p.name, planForm(p));
+  openModal('Edit Plan, ' + p.name, planForm(p));
 }
 function planForm(p) {
   const name     = escHtml(p.name     || '');
@@ -1705,7 +1705,7 @@ function deletePlan(id, name) {
 }
 
 /* ──────────────────────────────────
-   JOB LISTINGS  — live data from Worker API
+   JOB LISTINGS , live data from Worker API
 ────────────────────────────────── */
 let _allJobs = [];
 let _editingJobId = null;
@@ -1753,9 +1753,9 @@ function renderJobsList() {
     return `<tr>
       <td><div style="font-weight:600;font-size:13px">${escHtml(j.title)}</div>
           <div style="font-size:11px;color:var(--gray-400)">${meta}</div></td>
-      <td><span style="font-size:12px;color:var(--gray-500)">${escHtml(j.department||'—')}</span></td>
+      <td><span style="font-size:12px;color:var(--gray-500)">${escHtml(j.department||', ')}</span></td>
       <td>${badge}</td>
-      <td><span style="font-size:11px;color:var(--gray-400)">${j.deadline||'—'}</span></td>
+      <td><span style="font-size:11px;color:var(--gray-400)">${j.deadline||', '}</span></td>
       <td>
         <button class="icon-btn" onclick="openEditJobById(${j.id})" title="Edit">✏️</button>
         <button class="icon-btn danger" onclick="deleteJob(${j.id},'${escHtml(j.title)}')" title="Delete">🗑</button>
@@ -1778,7 +1778,7 @@ function openEditJobById(id) {
   const j = _allJobs.find(x => x.id === id);
   if (!j) return;
   _editingJobId = id;
-  openModal('Edit Job Listing — ' + j.title, jobForm(j), true);
+  openModal('Edit Job Listing, ' + j.title, jobForm(j), true);
 }
 function jobForm(j) {
   const v      = (x) => escHtml(x||'');
@@ -1828,8 +1828,8 @@ function jobForm(j) {
     <div class="form-group">
       <label class="form-label">Status</label>
       <select id="jf-status" class="form-select">
-        <option value="active"  ${active ?'selected':''}>Active — visible on website</option>
-        <option value="closed"  ${!active?'selected':''}>Closed — hidden</option>
+        <option value="active"  ${active ?'selected':''}>Active, visible on website</option>
+        <option value="closed"  ${!active?'selected':''}>Closed, hidden</option>
       </select>
     </div>
     <div id="jf-saving-msg" style="display:none;font-size:13px;color:var(--gray-500);margin-bottom:8px">Saving…</div>
@@ -1889,7 +1889,7 @@ function deleteJob(id, title) {
 }
 
 /* ──────────────────────────────────
-   TEAM MEMBERS  — live data from Worker API
+   TEAM MEMBERS , live data from Worker API
 ────────────────────────────────── */
 let _teamMembers = [];
 
@@ -2083,7 +2083,7 @@ async function deleteTeamMember(id, name) {
 }
 
 /* ──────────────────────────────────
-   MESSAGES  — live data from Worker API
+   MESSAGES , live data from Worker API
 ────────────────────────────────── */
 const WORKER_BASE = '/api';
 let _allMessages   = [];
@@ -2122,7 +2122,7 @@ async function loadMessages() {
     const res = await fetch(`${WORKER_BASE}/messages`, {
       headers: { 'Authorization': `Bearer ${key}` }
     });
-    if (res.status === 401) throw new Error('Invalid API key — check Settings and try again.');
+    if (res.status === 401) throw new Error('Invalid API key, check Settings and try again.');
     if (!res.ok) throw new Error(`Server returned ${res.status}`);
     const data = await res.json();
     _allMessages = data.messages || [];
@@ -2283,7 +2283,7 @@ async function sendReply(id, email) {
       document.body.appendChild(fb);
       setTimeout(() => fb.remove(), 4000);
     } else {
-      alert('Reply saved. (Email sending not configured — check RESEND_API_KEY.)');
+      alert('Reply saved. (Email sending not configured, check RESEND_API_KEY.)');
     }
   } catch(e) { alert('Could not send reply: ' + e.message); }
 }
