@@ -974,6 +974,37 @@ html:not(.dark) .compare-section .section-tag { color: rgba(255,255,255,0.7) !im
   </div>
 </section>
 
+<style>
+.science-section{padding:90px 0;background:var(--off-white,#F8F7FF)}
+html.dark .science-section{background:#15122b}
+.science-head{text-align:center;max-width:700px;margin:0 auto 48px;padding:0 20px}
+.science-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--orange,#F97316);background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);padding:5px 14px;border-radius:50px;margin-bottom:16px}
+.science-head h2{font-family:'Lora',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--text,#1E1256);margin-bottom:14px;line-height:1.2}
+html.dark .science-head h2{color:#F1F0F9}
+.science-head p{font-size:1.05rem;color:var(--gray-600,#4B5563);line-height:1.6}
+html.dark .science-head p{color:#A09BBF}
+.science-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1020px;margin:0 auto;padding:0 20px}
+@media(max-width:820px){.science-grid{grid-template-columns:1fr}}
+.science-card{background:#fff;border:1px solid var(--gray-200,#E5E7EB);border-radius:18px;padding:30px 26px;box-shadow:var(--shadow,0 2px 12px rgba(30,18,86,.06))}
+html.dark .science-card{background:#1C1836;border-color:#2D2850}
+.science-ico{font-size:30px;color:var(--orange,#F97316);margin-bottom:18px;line-height:1}
+.science-card h3{font-family:'Lora',serif;font-size:1.15rem;font-weight:800;color:var(--text,#1E1256);margin-bottom:10px}
+html.dark .science-card h3{color:#F1F0F9}
+.science-card p{font-size:14.5px;color:var(--gray-600,#4B5563);line-height:1.65}
+html.dark .science-card p{color:#A09BBF}
+</style>
+<section id="science" class="science-section">
+  <div class="science-head">
+    <span class="science-tag" data-i18n="pg-sci-tag">The Science</span>
+    <h2 data-i18n="pg-sci-title">Grounded in assessment science, not black-box scoring</h2>
+    <p data-i18n="pg-sci-sub">ScoutRex is built on established methods for job-related aptitude, designed to validate scoring against real-world outcomes rather than keywords.</p>
+  </div>
+  <div class="science-grid">
+    <div class="science-card"><div class="science-ico"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /> <path d="M6.453 15h11.094" /> <path d="M8.5 2h7" /></svg></div><h3 data-i18n="pg-sci-1t">DIN 33430-aligned assessment</h3><p data-i18n="pg-sci-1d">Assessments are designed around DIN 33430, the German standard for job-related aptitude diagnostics: objectivity, reliability, validity and fairness by design.</p></div>
+    <div class="science-card"><div class="science-ico"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /></svg></div><h3 data-i18n="pg-sci-2t">Causal, outcome-driven intelligence</h3><p data-i18n="pg-sci-2d">A causal-inference layer is built to connect pre-hire signals with post-hire performance, so the engine learns which signals actually predict success.</p></div>
+    <div class="science-card"><div class="science-ico"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m16 6 4 14" /> <path d="M12 6v14" /> <path d="M8 8v12" /> <path d="M4 4v16" /></svg></div><h3 data-i18n="pg-sci-3t">Backed by university research</h3><p data-i18n="pg-sci-3d">Methodology is developed in close connection with the Institute of Labour Economics at Leibniz University Hannover, with academic mentorship from Prof. Dr. Patrick Puhani.</p></div>
+  </div>
+</section>
 <footer>
   <div class="container">
     <div class="footer-top">
@@ -1326,6 +1357,15 @@ window.addEventListener('load', updateThemeIcons);
 /* ── Language Toggle ── */
 const SR_TRANS = {
   en: {
+    'pg-sci-tag':'The Science',
+    'pg-sci-title':'Grounded in assessment science, not black-box scoring',
+    'pg-sci-sub':'ScoutRex is built on established methods for job-related aptitude, designed to validate scoring against real-world outcomes rather than keywords.',
+    'pg-sci-1t':'DIN 33430-aligned assessment',
+    'pg-sci-1d':'Assessments are designed around DIN 33430, the German standard for job-related aptitude diagnostics: objectivity, reliability, validity and fairness by design.',
+    'pg-sci-2t':'Causal, outcome-driven intelligence',
+    'pg-sci-2d':'A causal-inference layer is built to connect pre-hire signals with post-hire performance, so the engine learns which signals actually predict success.',
+    'pg-sci-3t':'Backed by university research',
+    'pg-sci-3d':'Methodology is developed in close connection with the Institute of Labour Economics at Leibniz University Hannover, with academic mentorship from Prof. Dr. Patrick Puhani.',
     'nav-products':'Products <span class="nav-dd-arrow">▾</span>',
     'nav-pricing':'Pricing','nav-about':'About','nav-careers':'Careers','nav-contact':'Contact','nav-login':'Log In',
     'mob-products':'Products','mob-pricing':'Pricing','mob-about':'About','mob-careers':'Careers','mob-contact':'Contact','mob-login':'Log In',
@@ -1356,6 +1396,15 @@ const SR_TRANS = {
     'ft-cookie':'Cookie Preferences','ft-privacy':'Privacy Policy','ft-terms':'Terms of Service','ft-gdpr-link':'GDPR',
   },
   de: {
+    'pg-sci-tag':'Die Wissenschaft',
+    'pg-sci-title':'Fundiert in Eignungswissenschaft, kein Blackbox-Scoring',
+    'pg-sci-sub':'ScoutRex basiert auf etablierten Methoden der berufsbezogenen Eignungsdiagnostik und ist darauf ausgelegt, Bewertungen an realen Ergebnissen zu validieren, statt an Schlüsselwörtern.',
+    'pg-sci-1t':'An DIN 33430 ausgerichtete Bewertung',
+    'pg-sci-1d':'Die Assessments orientieren sich an DIN 33430, der deutschen Norm für berufsbezogene Eignungsdiagnostik: Objektivität, Zuverlässigkeit, Validität und Fairness von Grund auf.',
+    'pg-sci-2t':'Kausale, ergebnisorientierte Intelligenz',
+    'pg-sci-2d':'Eine Ebene zur kausalen Inferenz verbindet Signale vor der Einstellung mit der Leistung danach, sodass die Engine lernt, welche Signale Erfolg tatsächlich vorhersagen.',
+    'pg-sci-3t':'Gestützt auf Universitätsforschung',
+    'pg-sci-3d':'Die Methodik wird in enger Verbindung mit dem Institut für Arbeitsökonomik der Leibniz Universität Hannover entwickelt, mit wissenschaftlicher Betreuung durch Prof. Dr. Patrick Puhani.',
     'nav-products':'Produkte <span class="nav-dd-arrow">▾</span>',
     'nav-pricing':'Preise','nav-about':'Über uns','nav-careers':'Karriere','nav-contact':'Kontakt','nav-login':'Anmelden',
     'mob-products':'Produkte','mob-pricing':'Preise','mob-about':'Über uns','mob-careers':'Karriere','mob-contact':'Kontakt','mob-login':'Anmelden',
