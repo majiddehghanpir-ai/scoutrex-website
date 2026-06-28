@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script>try{if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion:reduce)').matches){document.documentElement.classList.add('sr-js');}}catch(e){}</script>
 <title>ScoutRex | AI Recruiting Software & Job Matching Platform</title>
 <meta name="description" content="ScoutRex offers HireRex, AI recruiting software for hiring teams, and JobRex, an AI job search platform for candidates. Find top talent faster or land your next role smarter."/>
 <meta name="keywords" content="AI recruiting software, AI hiring platform, AI job search, AI talent intelligence, AI candidate screening, HR software, hiring platform, job matching platform, AI applicant tracking, recruitment software, job search app"/>
@@ -126,6 +127,12 @@ ul{list-style:none}
 .hi-dot-r{background:#FF5F57}.hi-dot-y{background:#FEBC2E}.hi-dot-g{background:#28C840}
 .hi-url{flex:1;margin-left:8px;background:rgba(255,255,255,0.06);border-radius:6px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,0.4);font-family:monospace}
 .hero-interface-body{padding:24px}
+.hero-play-btn{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(249,115,22,0.92);color:#fff;box-shadow:0 8px 28px rgba(249,115,22,0.5);transition:transform .2s ease,background .2s ease;z-index:3}
+.hero-play-btn svg{width:26px;height:26px;margin-left:3px}
+.hero-play-btn:hover{transform:scale(1.08);background:var(--orange)}
+.hero-play-btn.hidden{display:none}
+.hero-video-wrap video{cursor:pointer}
+@media (prefers-reduced-motion:reduce){.hero-play-btn{transition:none}}
 .hi-score-card{background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);border-radius:14px;padding:18px;margin-bottom:14px}
 .hi-score-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .hi-score-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.6px}
@@ -205,6 +212,53 @@ ul{list-style:none}
 .ai-bar-track{flex:1;height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden}
 .ai-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--orange),#FB923C)}
 .ai-bar-pct{font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);width:36px;text-align:right;flex-shrink:0}
+/* ── Scroll animations (#3 bars, #4 steps). Only active when html.sr-js (set in head guard: IO supported + motion allowed). No-JS / reduced-motion → final state shown, no animation. ── */
+.ai-bars .ai-bar-fill{width:var(--w,0)}
+html.sr-js .ai-bars .ai-bar-fill{width:0;transition:width 1.3s cubic-bezier(.22,1,.36,1)}
+.ai-steps{position:relative}
+.ai-steps-line{position:absolute;left:41px;top:34px;bottom:34px;width:2px;background:linear-gradient(180deg,var(--orange),rgba(249,115,22,.25));transform-origin:top center;border-radius:2px;z-index:2}
+.ai-step{position:relative;z-index:1}
+.ai-step-num{position:relative;z-index:3}
+html.sr-js .ai-steps-line{transform:scaleY(0);transition:transform 1.3s ease}
+.ai-steps-line.in{transform:scaleY(1)}
+html.sr-js .ai-step{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.ai-step.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.sr-js .ai-bars .ai-bar-fill,html.sr-js .ai-step,html.sr-js .ai-steps-line{transition:none}}
+/* ── Product proof (#5): interim animated HireRex mockup ── */
+.proof-window{max-width:940px;margin:52px auto 0;background:#0E0A24;border:1px solid rgba(255,255,255,0.1);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(10,8,30,0.45)}
+.proof-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.08)}
+.proof-dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.proof-url{margin-left:10px;font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proof-live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:1px;color:#34D399;text-transform:uppercase;flex-shrink:0}
+.proof-live-dot{width:7px;height:7px;border-radius:50%;background:#34D399;animation:proofPulse 2s infinite}
+@keyframes proofPulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,0.5)}70%{box-shadow:0 0 0 7px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+.proof-body{display:grid;grid-template-columns:188px 1fr}
+.proof-side{padding:16px 12px;border-right:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;gap:3px;background:rgba(255,255,255,0.02)}
+.proof-side-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;font-size:13px;color:rgba(255,255,255,0.55);font-weight:600;white-space:nowrap}
+.proof-side-item .sr-ico{font-size:16px;color:rgba(255,255,255,0.45)}
+.proof-side-item.active{background:rgba(249,115,22,0.14);color:#fff}
+.proof-side-item.active .sr-ico{color:var(--orange)}
+.proof-main{padding:20px 22px;min-width:0}
+.proof-main-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.proof-job{font-family:'Lora',serif;font-size:1.05rem;font-weight:700;color:#fff}
+.proof-meta{font-size:12px;color:rgba(255,255,255,0.45);margin-top:2px}
+.proof-chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--orange-light);background:rgba(249,115,22,0.14);border:1px solid rgba(249,115,22,0.25);padding:5px 11px;border-radius:50px;flex-shrink:0}
+.proof-chip .sr-ico{font-size:13px}
+.proof-rows{display:flex;flex-direction:column;gap:9px}
+.proof-row{display:grid;grid-template-columns:34px 1fr 120px 44px;align-items:center;gap:14px;padding:11px 12px;border-radius:11px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.06)}
+.proof-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.proof-id{min-width:0}
+.proof-name{font-size:13.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proof-role{font-size:11.5px;color:rgba(255,255,255,0.45);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proof-track{height:7px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
+.proof-fill{height:100%;border-radius:4px;width:var(--w,0);background:linear-gradient(90deg,var(--orange),#FB923C)}
+.proof-score{font-size:14px;font-weight:800;color:#fff;text-align:right}
+.proof-note{text-align:center;font-size:12px;color:var(--gray-500);margin:18px auto 0;max-width:580px}
+html.sr-js .proof-fill{width:0;transition:width 1.1s cubic-bezier(.22,1,.36,1)}
+html.sr-js .proof-row{opacity:0;transform:translateY(14px) scale(.99);transition:opacity .5s ease,transform .5s ease}
+.proof-row.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.sr-js .proof-fill,html.sr-js .proof-row{transition:none}}
+@media(max-width:640px){.proof-body{grid-template-columns:1fr}.proof-side{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,0.07)}.proof-row{grid-template-columns:30px 1fr 72px 40px;gap:10px}}
 .ai-section-tag{background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.25);color:#FB923C}
 .ai-section-title{color:#fff}
 .ai-section-sub{color:rgba(255,255,255,0.6)}html:not(.dark) #ai-section{background:#F8F7FF}html:not(.dark) #ai-section::before{opacity:0}html:not(.dark) .ai-section-title{color:var(--text)}html:not(.dark) .ai-section-sub{color:var(--gray-600)}html:not(.dark) .ai-step{border-color:rgba(30,18,86,0.1);background:#fff;box-shadow:0 2px 12px rgba(30,18,86,0.06)}html:not(.dark) .ai-step:hover{background:#fff;border-color:rgba(249,115,22,0.3);box-shadow:0 4px 20px rgba(249,115,22,0.1)}html:not(.dark) .ai-step-content h4{color:var(--text)}html:not(.dark) .ai-step-content p{color:var(--gray-600)}html:not(.dark) .ai-card{background:#fff;border-color:rgba(30,18,86,0.1);box-shadow:0 4px 24px rgba(30,18,86,0.08)}html:not(.dark) .ai-card-title{color:var(--gray-400)}html:not(.dark) .ai-bar-label{color:var(--gray-800)}html:not(.dark) .ai-bar-track{background:rgba(30,18,86,0.08)}html:not(.dark) .ai-bar-pct{color:var(--gray-600)}
@@ -742,7 +796,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
       </a>
       <div class="nav-links">
-        <div class="nav-dropdown"><a href="products.html" data-i18n="nav-products">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="hirerex.html" data-i18n="dd-hirerex">🏢 HireRex: AI Recruiting &amp; HR Software</a><a href="jobrex.html" data-i18n="dd-jobrex">🎯 JobRex: AI Career Co-Pilot</a><a href="temprex.html" data-i18n="dd-temprex">⏱️ TempRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a><a href="learnrex.html" data-i18n="dd-learnrex">📖 LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a></div></div>
+        <div class="nav-dropdown"><a href="products.html" data-i18n="nav-products">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="hirerex.html" data-i18n="dd-hirerex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg> HireRex: AI Recruiting &amp; HR Software</a><a href="jobrex.html" data-i18n="dd-jobrex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> JobRex: AI Career Co-Pilot</a><a href="temprex.html" data-i18n="dd-temprex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> TalentRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a><a href="learnrex.html" data-i18n="dd-learnrex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a></div></div>
         <a href="pricing.html" data-i18n="nav-pricing">Pricing</a>
         <a href="about.html" data-i18n="nav-about">About</a>
         <a href="careers.html" data-i18n="nav-careers">Careers</a>
@@ -764,7 +818,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
   <a href="products.html" onclick="setTimeout(toggleMenu,100)" data-i18n="mob-products">Products</a>
   <a href="hirerex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🏢 HireRex</a>
   <a href="jobrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🎯 JobRex</a>
-  <a href="temprex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ ⏱️ TempRex</a>
+  <a href="temprex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🌟 TalentRex</a>
   <a href="learnrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 📖 LearnRex</a>
   <a href="pricing.html" onclick="setTimeout(toggleMenu,100)" data-i18n="mob-pricing">Pricing</a>
   <a href="about.html" onclick="setTimeout(toggleMenu,100)" data-i18n="mob-about">About</a>
@@ -809,7 +863,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
 
         <!-- Body copy -->
         <div style="font-size:0.97rem;line-height:1.75;color:rgba(255,255,255,0.75);margin-bottom:32px;display:flex;flex-direction:column;gap:12px;">
-          <p data-i18n="pg-hero-desc">ScoutRex is developing a shared Talent Intelligence Engine for companies and job seekers. HireRex helps hiring teams screen and rank candidates with AI-supported assessments. JobRex gives job seekers a guided profile, matching, and application workflow. TempRex and LearnRex are planned modules for probation support and targeted learning.</p>
+          <p data-i18n="pg-hero-desc">ScoutRex is developing a shared Talent Intelligence Engine for companies and job seekers. HireRex helps hiring teams screen and rank candidates with AI-supported assessments. JobRex gives job seekers a guided profile, matching, and application workflow. TalentRex and LearnRex are planned modules for probation support and targeted learning.</p>
         </div>
 
         <!-- CTAs removed -->
@@ -826,11 +880,16 @@ html:not(.dark) .pricing-dark-section .section-sub {
             <span style="width:11px;height:11px;border-radius:50%;background:#28C840;display:inline-block;"></span>
             <span style="margin-left:10px;font-size:12px;color:rgba(255,255,255,0.45);font-weight:500;">ScoutRex: Platform Overview</span>
           </div>
-          <!-- Video -->
-          <video controls preload="metadata"
-            style="width:100%;display:block;background:#000;max-height:340px;object-fit:contain;">
-            <source src="ScoutRex.mp4" type="video/mp4">
-          </video>
+          <!-- Video: poster + preload=none so the .mp4 never blocks LCP; loads on click -->
+          <div class="hero-video-wrap" style="position:relative;">
+            <video id="heroVideo" controls preload="none" playsinline poster="hero-poster.jpg"
+              style="width:100%;display:block;background:#000;max-height:340px;object-fit:contain;">
+              <source src="ScoutRex.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="hero-play-btn" aria-label="Play ScoutRex intro" onclick="srPlayHero(this)">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -856,22 +915,22 @@ html:not(.dark) .pricing-dark-section .section-sub {
     </div>
     <div class="pillars-grid">
       <div class="pillar p1">
-        <div class="pillar-icon">🎯</div>
+        <div class="pillar-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg></div>
         <div class="pillar-title" data-i18n="pg-p1-title">Skill Validation, Not Resume Scanning</div>
         <p class="pillar-desc" data-i18n="pg-p1-desc">Every candidate is assessed on job-specific tests generated by AI. What they can actually do, not what they wrote on their CV, determines who advances.</p>
       </div>
       <div class="pillar p2">
-        <div class="pillar-icon">⚡</div>
+        <div class="pillar-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></svg></div>
         <div class="pillar-title" data-i18n="pg-p2-title">Automated. Fair. Instant.</div>
         <p class="pillar-desc" data-i18n="pg-p2-desc">HireRex can score candidates in minutes, not days. Recruiters still make the final call, but they start from structured evidence instead of CV polish alone.</p>
       </div>
       <div class="pillar p3">
-        <div class="pillar-icon">🔗</div>
+        <div class="pillar-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg></div>
         <div class="pillar-title" data-i18n="pg-p3-title">A New Layer in Your Hiring Stack</div>
         <p class="pillar-desc" data-i18n="pg-p3-desc">HireRex doesn't replace your ATS. It sits between your ATS shortlist and your interview room, as the intelligence layer that changes everything downstream.</p>
       </div>
       <div class="pillar p4">
-        <div class="pillar-icon" style="background:rgba(99,102,241,0.1)">🗂️</div>
+        <div class="pillar-icon" style="background:rgba(99,102,241,0.1)"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 5a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2.5a1.5 1.5 0 0 1 1.2.6l.6.8a1.5 1.5 0 0 0 1.2.6z" /> <path d="M3 8.268a2 2 0 0 0-1 1.738V19a2 2 0 0 0 2 2h11a2 2 0 0 0 1.732-1" /></svg></div>
         <div class="pillar-title" data-i18n="pg-p4-title">Built-in CRM. No Extra Tools.</div>
         <p class="pillar-desc" data-i18n="pg-p4-desc">Recruiter notes, outreach campaigns, in-app messaging, interview scheduling, document collection, and team collaboration. All inside HireRex. One platform covers the full hiring lifecycle.</p>
       </div>
@@ -885,11 +944,11 @@ html:not(.dark) .pricing-dark-section .section-sub {
     <div class="text-center">
       <span class="section-tag" data-i18n="pg-plat-tag">Two Products in Testing, Two Modules Planned</span>
       <h2 class="section-title" data-i18n="pg-plat-title">Start with verified hiring. Grow into a full talent system.</h2>
-      <p class="section-sub" data-i18n="pg-plat-sub">HireRex is the company-side platform. JobRex is the job-seeker and public-employment support platform. TempRex and LearnRex extend the same engine later into probation insights and skill development.</p>
+      <p class="section-sub" data-i18n="pg-plat-sub">HireRex is the company-side platform. JobRex is the job-seeker and public-employment support platform. TalentRex and LearnRex extend the same engine later into probation insights and skill development.</p>
     </div>
     <div class="platforms-grid">
       <a href="hirerex.html" class="platform-card hr">
-        <span class="pc-icon">🏢</span>
+        <span class="pc-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg></span>
         <div class="pc-name hr">HireRex</div>
         <div class="pc-for hr" data-i18n="pg-hr-for">For Hiring Teams</div>
         <p class="pc-desc" data-i18n="pg-hr-desc">Automated skill screening for hiring teams. Replace broken resume filtering with job-specific AI assessments, instant scoring, and structured candidate reports.</p>
@@ -897,7 +956,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <div class="pc-deco hr"></div>
       </a>
       <a href="jobrex.html" class="platform-card jr">
-        <span class="pc-icon">🎯</span>
+        <span class="pc-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg></span>
         <div class="pc-name jr">JobRex</div>
         <div class="pc-for jr" data-i18n="pg-jr-for">For Job Seekers</div>
         <p class="pc-desc" data-i18n="pg-jr-desc">AI job matching for candidates who are more than their CV. Build a living career profile and get matched to roles where you'll genuinely succeed, not just roles that contain your keywords.</p>
@@ -905,17 +964,17 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <div class="pc-deco jr"></div>
       </a>
       <a href="temprex.html" class="platform-card tr">
-        <div class="pc-badge" data-i18n="pg-badge-cs">🚧 Coming Soon</div>
-        <span class="pc-icon">⏱️</span>
-        <div class="pc-name tr">TempRex</div>
+        <div class="pc-badge" data-i18n="pg-badge-cs"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="6" width="20" height="8" rx="1" /> <path d="M17 14v7" /> <path d="M7 14v7" /> <path d="M17 3v3" /> <path d="M7 3v3" /> <path d="M10 14 2.3 6.3" /> <path d="m14 6 7.7 7.7" /> <path d="m8 6 8 8" /></svg> Coming Soon</div>
+        <span class="pc-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg></span>
+        <div class="pc-name tr">TalentRex</div>
         <div class="pc-for tr" data-i18n="pg-tr-for">For Probation Management</div>
         <p class="pc-desc" data-i18n="pg-tr-desc">Planned probation-support module for structured check-ins, performance signals, milestone reports, and hire-or-reopen recommendations after a candidate starts. Legal and operational models are still under development.</p>
         <span class="pc-link tr" data-i18n="pg-cs-link">Coming Soon →</span>
         <div class="pc-deco tr"></div>
       </a>
       <a href="learnrex.html" class="platform-card lr">
-        <div class="pc-badge" data-i18n="pg-badge-cs">🚧 Coming Soon</div>
-        <span class="pc-icon">📖</span>
+        <div class="pc-badge" data-i18n="pg-badge-cs"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="6" width="20" height="8" rx="1" /> <path d="M17 14v7" /> <path d="M7 14v7" /> <path d="M17 3v3" /> <path d="M7 3v3" /> <path d="M10 14 2.3 6.3" /> <path d="m14 6 7.7 7.7" /> <path d="m8 6 8 8" /></svg> Coming Soon</div>
+        <span class="pc-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg></span>
         <div class="pc-name lr">LearnRex</div>
         <div class="pc-for lr" data-i18n="pg-lr-for">For Skill Development</div>
         <p class="pc-desc" data-i18n="pg-lr-desc">Planned learning module that turns assessment results into targeted practice paths. The goal is to help job seekers close skill gaps and help employers support onboarding with measurable learning progress.</p>
@@ -936,6 +995,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
     </div>
     <div class="ai-grid">
       <div class="ai-steps">
+        <div class="ai-steps-line" aria-hidden="true"></div>
         <div class="ai-step">
           <div class="ai-step-num">01</div>
           <div class="ai-step-content">
@@ -978,33 +1038,105 @@ html:not(.dark) .pricing-dark-section .section-sub {
           <div class="ai-bars">
             <div class="ai-bar-row">
               <div class="ai-bar-label" data-i18n="pg-skill1">Technical Skills</div>
-              <div class="ai-bar-track"><div class="ai-bar-fill" style="width:92%"></div></div>
-              <div class="ai-bar-pct">92%</div>
+              <div class="ai-bar-track"><div class="ai-bar-fill" data-target="92" style="--w:92%"></div></div>
+              <div class="ai-bar-pct" data-target="92">92%</div>
             </div>
             <div class="ai-bar-row">
               <div class="ai-bar-label" data-i18n="pg-skill2">Culture Fit</div>
-              <div class="ai-bar-track"><div class="ai-bar-fill" style="width:85%"></div></div>
-              <div class="ai-bar-pct">85%</div>
+              <div class="ai-bar-track"><div class="ai-bar-fill" data-target="85" style="--w:85%"></div></div>
+              <div class="ai-bar-pct" data-target="85">85%</div>
             </div>
             <div class="ai-bar-row">
               <div class="ai-bar-label" data-i18n="pg-skill3">Growth Trajectory</div>
-              <div class="ai-bar-track"><div class="ai-bar-fill" style="width:78%"></div></div>
-              <div class="ai-bar-pct">78%</div>
+              <div class="ai-bar-track"><div class="ai-bar-fill" data-target="78" style="--w:78%"></div></div>
+              <div class="ai-bar-pct" data-target="78">78%</div>
             </div>
             <div class="ai-bar-row">
               <div class="ai-bar-label" data-i18n="pg-skill4">Salary Alignment</div>
-              <div class="ai-bar-track"><div class="ai-bar-fill" style="width:95%"></div></div>
-              <div class="ai-bar-pct">95%</div>
+              <div class="ai-bar-track"><div class="ai-bar-fill" data-target="95" style="--w:95%"></div></div>
+              <div class="ai-bar-pct" data-target="95">95%</div>
             </div>
             <div class="ai-bar-row">
               <div class="ai-bar-label" data-i18n="pg-skill5">Location Match</div>
-              <div class="ai-bar-track"><div class="ai-bar-fill" style="width:100%"></div></div>
-              <div class="ai-bar-pct">100%</div>
+              <div class="ai-bar-track"><div class="ai-bar-fill" data-target="100" style="--w:100%"></div></div>
+              <div class="ai-bar-pct" data-target="100">100%</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+
+<!-- PRODUCT PROOF (#5): interim animated HireRex mockup; swap for real screenshots later -->
+<section id="proof" class="section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-tag" data-i18n="pg-proof-tag">A Look Inside</span>
+      <h2 class="section-title" data-i18n="pg-proof-title">Candidates stream in. HireRex scores them live.</h2>
+      <p class="section-sub" data-i18n="pg-proof-sub">An illustrative preview of the HireRex candidate view. Real product screenshots are on the way.</p>
+    </div>
+    <div class="proof-window" role="img" aria-label="Illustrative preview of the HireRex candidate ranking interface">
+      <div class="proof-bar">
+        <span class="proof-dot" style="background:#FF5F57"></span>
+        <span class="proof-dot" style="background:#FFBD2E"></span>
+        <span class="proof-dot" style="background:#28C840"></span>
+        <span class="proof-url">app.hirerex.com / candidates</span>
+        <span class="proof-live"><span class="proof-live-dot"></span> Live scoring</span>
+      </div>
+      <div class="proof-body">
+        <aside class="proof-side">
+          <div class="proof-side-item active"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg><span>Candidates</span></div>
+          <div class="proof-side-item"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></svg><span>Job Positions</span></div>
+          <div class="proof-side-item"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /> <path d="M6.453 15h11.094" /> <path d="M8.5 2h7" /></svg><span>Test Cases</span></div>
+          <div class="proof-side-item"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></svg><span>Calendar</span></div>
+          <div class="proof-side-item"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg><span>Analytics</span></div>
+        </aside>
+        <main class="proof-main">
+          <div class="proof-main-head">
+            <div>
+              <div class="proof-job">Senior Frontend Engineer</div>
+              <div class="proof-meta">128 applicants &middot; ranked by match</div>
+            </div>
+            <div class="proof-chip"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg>AI scoring</div>
+          </div>
+          <div class="proof-rows" id="proofRows">
+          <div class="proof-row" style="--i:0">
+            <div class="proof-av" style="background:linear-gradient(135deg,#F97316,#FB923C)">AK</div>
+            <div class="proof-id"><div class="proof-name">Amara K.</div><div class="proof-role">React · TypeScript · 6y</div></div>
+            <div class="proof-track"><div class="proof-fill" data-target="96" style="--w:96%"></div></div>
+            <div class="proof-score" data-target="96">96</div>
+          </div>
+          <div class="proof-row" style="--i:1">
+            <div class="proof-av" style="background:linear-gradient(135deg,#7C3AED,#A855F7)">DR</div>
+            <div class="proof-id"><div class="proof-name">Diego R.</div><div class="proof-role">Frontend · Design Systems · 5y</div></div>
+            <div class="proof-track"><div class="proof-fill" data-target="92" style="--w:92%"></div></div>
+            <div class="proof-score" data-target="92">92</div>
+          </div>
+          <div class="proof-row" style="--i:2">
+            <div class="proof-av" style="background:linear-gradient(135deg,#2563EB,#3B82F6)">ML</div>
+            <div class="proof-id"><div class="proof-name">Mei L.</div><div class="proof-role">Vue · Accessibility · 7y</div></div>
+            <div class="proof-track"><div class="proof-fill" data-target="88" style="--w:88%"></div></div>
+            <div class="proof-score" data-target="88">88</div>
+          </div>
+          <div class="proof-row" style="--i:3">
+            <div class="proof-av" style="background:linear-gradient(135deg,#0D9488,#14B8A6)">JB</div>
+            <div class="proof-id"><div class="proof-name">Jonas B.</div><div class="proof-role">React · Node · 4y</div></div>
+            <div class="proof-track"><div class="proof-fill" data-target="81" style="--w:81%"></div></div>
+            <div class="proof-score" data-target="81">81</div>
+          </div>
+          <div class="proof-row" style="--i:4">
+            <div class="proof-av" style="background:linear-gradient(135deg,#DB2777,#F472B6)">SA</div>
+            <div class="proof-id"><div class="proof-name">Sara A.</div><div class="proof-role">JavaScript · CSS · 3y</div></div>
+            <div class="proof-track"><div class="proof-fill" data-target="76" style="--w:76%"></div></div>
+            <div class="proof-score" data-target="76">76</div>
+          </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <p class="proof-note" data-i18n="pg-proof-note">Interim mockup, not a live screenshot. Built to be swapped for the real HireRex UI once captures are ready.</p>
   </div>
 </section>
 
@@ -1405,13 +1537,17 @@ window.addEventListener('load',()=>{
 /* ── Language Toggle ── */
 const SR_TRANS = {
   en: {
+    'pg-proof-tag':'A Look Inside',
+    'pg-proof-title':'Candidates stream in. HireRex scores them live.',
+    'pg-proof-sub':'An illustrative preview of the HireRex candidate view. Real product screenshots are on the way.',
+    'pg-proof-note':'Interim mockup, not a live screenshot. Built to be swapped for the real HireRex UI once captures are ready.',
     'nav-products':'Products <span class="nav-dd-arrow">▾</span>',
     'nav-pricing':'Pricing','nav-about':'About','nav-careers':'Careers','nav-contact':'Contact','nav-login':'Log In',
     'mob-products':'Products','mob-pricing':'Pricing','mob-about':'About','mob-careers':'Careers','mob-contact':'Contact','mob-login':'Log In',
-    'dd-hirerex':'🏢 HireRex: AI Recruiting &amp; HR Software',
-    'dd-jobrex':'🎯 JobRex: AI Career Co-Pilot',
-    'dd-temprex':'⏱️ TempRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
-    'dd-learnrex':'📖 LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
+    'dd-hirerex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg> HireRex: AI Recruiting &amp; HR Software',
+    'dd-jobrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> JobRex: AI Career Co-Pilot',
+    'dd-temprex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> TalentRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
+    'dd-learnrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
     'ft-products':'PRODUCTS','ft-company':'COMPANY','ft-account':'ACCOUNT',
     'ft-jr-cand':'JobRex: Candidates','ft-hr-comp':'HireRex: Companies',
     'ft-pricing':'Pricing','ft-about':'About','ft-careers':'Careers','ft-contact':'Contact',
@@ -1428,7 +1564,7 @@ const SR_TRANS = {
     'ft-cookie':'Cookie Preferences','ft-privacy':'Privacy Policy','ft-terms':'Terms of Service','ft-gdpr-link':'GDPR',
     'pg-hero-badge':'AI Talent Intelligence in Testing',
     'pg-hero-title':'One AI engine for<br><span style="color:var(--orange);">verified hiring and job matching.</span>',
-    'pg-hero-desc':'ScoutRex is developing a shared Talent Intelligence Engine for companies and job seekers. HireRex helps hiring teams screen and rank candidates with AI-supported assessments. JobRex gives job seekers a guided profile, matching, and application workflow. TempRex and LearnRex are planned modules for probation support and targeted learning.',
+    'pg-hero-desc':'ScoutRex is developing a shared Talent Intelligence Engine for companies and job seekers. HireRex helps hiring teams screen and rank candidates with AI-supported assessments. JobRex gives job seekers a guided profile, matching, and application workflow. TalentRex and LearnRex are planned modules for probation support and targeted learning.',
     'pg-val-tag':"Why It's Different",
     'pg-val-title':'We measure what candidates can do. Not what they claim.',
     'pg-val-sub':'Resumes are no longer a signal. AI-generated CVs flood every ATS. HireRex is the intelligence layer between your shortlist and your interview room.',
@@ -1442,7 +1578,7 @@ const SR_TRANS = {
     'pg-p4-desc':'Recruiter notes, outreach campaigns, in-app messaging, interview scheduling, document collection, and team collaboration. All inside HireRex, with the recruiter staying in control of final decisions.',
     'pg-plat-tag':'Two Products in Testing, Two Modules Planned',
     'pg-plat-title':'Start with verified hiring. Grow into a full talent system.',
-    'pg-plat-sub':'HireRex is the company-side platform. JobRex is the job-seeker and public-employment support platform. TempRex and LearnRex extend the same engine later into probation insights and skill development.',
+    'pg-plat-sub':'HireRex is the company-side platform. JobRex is the job-seeker and public-employment support platform. TalentRex and LearnRex extend the same engine later into probation insights and skill development.',
     'pg-hr-for':'For Hiring Teams',
     'pg-hr-desc':'Automated skill screening for hiring teams. Replace broken resume filtering with job-specific AI assessments, instant scoring, and structured candidate reports.',
     'pg-hr-link':'Learn more →',
@@ -1451,7 +1587,7 @@ const SR_TRANS = {
     'pg-jr-link':'Learn more →',
     'pg-tr-for':'For Probation Management',
     'pg-tr-desc':'Planned probation-support module for structured check-ins, performance signals, milestone reports, and hire-or-reopen recommendations after a candidate starts. Legal and operational models are still under development.',
-    'pg-badge-cs':'🚧 Coming Soon','pg-cs-link':'Coming Soon →',
+    'pg-badge-cs':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="6" width="20" height="8" rx="1" /> <path d="M17 14v7" /> <path d="M7 14v7" /> <path d="M17 3v3" /> <path d="M7 3v3" /> <path d="M10 14 2.3 6.3" /> <path d="m14 6 7.7 7.7" /> <path d="m8 6 8 8" /></svg> Coming Soon','pg-cs-link':'Coming Soon →',
     'pg-lr-for':'For Skill Development',
     'pg-lr-desc':'Planned learning module that turns assessment results into targeted practice paths. The goal is to help job seekers close skill gaps and help employers support onboarding with measurable learning progress.',
     'pg-cs-link2':'Coming Soon →',
@@ -1473,13 +1609,17 @@ const SR_TRANS = {
     'pg-cta-sub':'Screening, scheduling, documents, CRM, outreach, and analytics. Everything your hiring team needs, inside one platform. Stop patching tools together and start hiring smarter.'
   },
   de: {
+    'pg-proof-tag':'Ein Blick hinein',
+    'pg-proof-title':'Kandidaten treffen ein. HireRex bewertet sie live.',
+    'pg-proof-sub':'Eine illustrative Vorschau der HireRex-Kandidatenansicht. Echte Produkt-Screenshots folgen in Kürze.',
+    'pg-proof-note':'Vorläufiges Mockup, kein Live-Screenshot. Wird durch die echte HireRex-Oberfläche ersetzt, sobald Aufnahmen vorliegen.',
     'nav-products':'Produkte <span class="nav-dd-arrow">▾</span>',
     'nav-pricing':'Preise','nav-about':'Über uns','nav-careers':'Karriere','nav-contact':'Kontakt','nav-login':'Anmelden',
     'mob-products':'Produkte','mob-pricing':'Preise','mob-about':'Über uns','mob-careers':'Karriere','mob-contact':'Kontakt','mob-login':'Anmelden',
-    'dd-hirerex':'🏢 HireRex: KI-Recruiting &amp; HR-Software',
-    'dd-jobrex':'🎯 JobRex: KI-Karriere-Copilot',
-    'dd-temprex':'⏱️ TempRex: KI-Einarbeitungsanalyse <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
-    'dd-learnrex':'📖 LearnRex: KI-E-Learning-Lehrer <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
+    'dd-hirerex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg> HireRex: KI-Recruiting &amp; HR-Software',
+    'dd-jobrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> JobRex: KI-Karriere-Copilot',
+    'dd-temprex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> TalentRex: KI-Einarbeitungsanalyse <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
+    'dd-learnrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> LearnRex: KI-E-Learning-Lehrer <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
     'ft-products':'PRODUKTE','ft-company':'UNTERNEHMEN','ft-account':'KONTO',
     'ft-jr-cand':'JobRex: Kandidaten','ft-hr-comp':'HireRex: Unternehmen',
     'ft-pricing':'Preise','ft-about':'Über uns','ft-careers':'Karriere','ft-contact':'Kontakt',
@@ -1496,7 +1636,7 @@ const SR_TRANS = {
     'ft-cookie':'Cookie-Einstellungen','ft-privacy':'Datenschutz','ft-terms':'Nutzungsbedingungen','ft-gdpr-link':'DSGVO',
     'pg-hero-badge':'KI-Talent Intelligence in der Testphase',
     'pg-hero-title':'Eine KI-Engine für<br><span style="color:var(--orange);">validiertes Recruiting und Job-Matching.</span>',
-    'pg-hero-desc':'ScoutRex entwickelt eine gemeinsame Talent-Intelligence-Engine für Unternehmen und Jobsuchende. HireRex hilft Einstellungsteams, Kandidaten mit KI-unterstützten Assessments zu screenen und zu ranken. JobRex bietet Jobsuchenden ein geführtes Profil, Matching und Bewerbungsworkflow. TempRex und LearnRex sind geplante Module für Probezeit-Unterstützung und gezieltes Lernen.',
+    'pg-hero-desc':'ScoutRex entwickelt eine gemeinsame Talent-Intelligence-Engine für Unternehmen und Jobsuchende. HireRex hilft Einstellungsteams, Kandidaten mit KI-unterstützten Assessments zu screenen und zu ranken. JobRex bietet Jobsuchenden ein geführtes Profil, Matching und Bewerbungsworkflow. TalentRex und LearnRex sind geplante Module für Probezeit-Unterstützung und gezieltes Lernen.',
     'pg-val-tag':'Was uns unterscheidet',
     'pg-val-title':'Wir messen, was Kandidaten können. Nicht was sie behaupten.',
     'pg-val-sub':'Lebensläufe sind kein verlässliches Signal mehr. KI-generierte CVs überschwemmen jedes ATS. HireRex ist die Intelligenzschicht zwischen Ihrer Vorauswahl und Ihrem Interviewraum.',
@@ -1510,7 +1650,7 @@ const SR_TRANS = {
     'pg-p4-desc':'Notizen, Outreach-Kampagnen, In-App-Messaging, Interviewplanung, Dokumentensammlung und Teamzusammenarbeit. Alles in HireRex, während Recruiter die finalen Entscheidungen kontrollieren.',
     'pg-plat-tag':'Zwei Produkte in der Testphase, zwei Module geplant',
     'pg-plat-title':'Mit validiertem Recruiting starten. Zu einem vollständigen Talentsystem wachsen.',
-    'pg-plat-sub':'HireRex ist die Plattform für Unternehmen. JobRex ist die Plattform für Jobsuchende und öffentliche Arbeitsmarktunterstützung. TempRex und LearnRex erweitern dieselbe Engine später um Probezeit-Insights und Kompetenzentwicklung.',
+    'pg-plat-sub':'HireRex ist die Plattform für Unternehmen. JobRex ist die Plattform für Jobsuchende und öffentliche Arbeitsmarktunterstützung. TalentRex und LearnRex erweitern dieselbe Engine später um Probezeit-Insights und Kompetenzentwicklung.',
     'pg-hr-for':'Für Einstellungsteams',
     'pg-hr-desc':'Automatisiertes Kompetenz-Screening für Einstellungsteams. Ersetzen Sie defektes Lebenslauf-Filtern durch stellenspezifische KI-Assessments, sofortige Bewertung und strukturierte Kandidatenberichte.',
     'pg-hr-link':'Mehr erfahren →',
@@ -1519,7 +1659,7 @@ const SR_TRANS = {
     'pg-jr-link':'Mehr erfahren →',
     'pg-tr-for':'Für Probezeitmanagement',
     'pg-tr-desc':'Geplantes Modul zur Probezeit-Unterstützung mit strukturierten Check-ins, Leistungssignalen, Meilensteinberichten und Empfehlungen zum Bestätigen oder erneuten Öffnen einer Stelle. Rechtliche und operative Modelle sind noch in Entwicklung.',
-    'pg-badge-cs':'🚧 Demnächst','pg-cs-link':'Demnächst →',
+    'pg-badge-cs':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="6" width="20" height="8" rx="1" /> <path d="M17 14v7" /> <path d="M7 14v7" /> <path d="M17 3v3" /> <path d="M7 3v3" /> <path d="M10 14 2.3 6.3" /> <path d="m14 6 7.7 7.7" /> <path d="m8 6 8 8" /></svg> Demnächst','pg-cs-link':'Demnächst →',
     'pg-lr-for':'Für Kompetenzentwicklung',
     'pg-lr-desc':'Geplantes Lernmodul, das Assessment-Ergebnisse in gezielte Übungspfade übersetzt. Ziel ist es, Jobsuchenden beim Schließen von Kompetenzlücken zu helfen und Unternehmen beim Onboarding mit messbarem Lernfortschritt zu unterstützen.',
     'pg-cs-link2':'Demnächst →',
@@ -1566,6 +1706,6 @@ function toggleLang(){
 })();
 </script>
 <script src="nav-session.js"></script>
+<script src="scoutrex-anim.js" defer></script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

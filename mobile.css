@@ -846,3 +846,26 @@ html.dark .nav-dd-menu a:hover {
     gap: 8px !important;
   }
 }
+
+/* ==========================================================
+   Inline SVG icon system (Lucide) -- replaces emoji icons.
+   Sizes to the container's font-size (1em), inherits brand
+   colour via --sr-ico, lifts on card hover. Added 2026-06.
+   ========================================================== */
+.sr-ico{width:1em;height:1em;display:inline-block;vertical-align:-0.14em;flex:0 0 auto;
+  color:var(--sr-ico,var(--orange,#F97316));stroke:currentColor;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),color .2s ease}
+.sr-ico *{vector-effect:non-scaling-stroke}
+@media (prefers-reduced-motion:reduce){.sr-ico{transition:none}}
+/* hover: lift the icon when its card/container is hovered */
+.pillar:hover .sr-ico,.platform-card:hover .sr-ico,.feature-card:hover .sr-ico,
+.bridge-card:hover .sr-ico,.product-card:hover .sr-ico,.pricing-card:hover .sr-ico,
+.lr-course:hover .sr-ico,.lr-cert:hover .sr-ico,.crm-item:hover .sr-ico{
+  transform:translateY(-2px) scale(1.12)}
+/* per-context brand accents (everything else = brand orange) */
+.pillar.p3{--sr-ico:#0D9488}
+.pillar.p4{--sr-ico:#6366F1}
+.platform-card.jr{--sr-ico:#7C3AED}
+.platform-card.tr{--sr-ico:#0D9488}
+.platform-card.lr{--sr-ico:#2563EB}
+.pc-badge .sr-ico,.cs-badge .sr-ico{color:inherit}

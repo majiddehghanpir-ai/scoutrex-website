@@ -170,6 +170,10 @@ html.dark .value-card p{color:#A09BBF}
 .team-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%}
 .team-name{font-family:'Lora',serif;font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:6px}
 .team-role{font-size:0.8rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:0.5px;line-height:1.5;margin-bottom:20px}
+.team-bio{font-size:0.85rem;color:var(--gray-600);line-height:1.65;margin:0 auto 22px;max-width:300px}
+.team-avatar{position:relative}
+.team-avatar img{position:absolute;inset:0}
+.team-ini{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:1.75rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#1E1256,#4F46E5);border-radius:50%}
 .team-divider{width:40px;height:2px;background:var(--gray-200);margin:0 auto 20px;border-radius:2px}
 .team-links{display:flex;flex-direction:column;align-items:center;gap:10px}
 .team-linkedin-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;border-radius:50px;background:#0077B5;color:#fff;font-size:13px;font-weight:600;transition:all 0.2s}
@@ -180,8 +184,44 @@ html.dark .value-card p{color:#A09BBF}
 .join-cta{background:var(--off-white);border-radius:24px;padding:56px 48px;text-align:center;margin-top:80px;max-width:960px;margin-left:auto;margin-right:auto}
 .join-cta h3{font-family:'Lora',serif;font-size:1.75rem;font-weight:800;color:var(--text);margin-bottom:12px}
 .join-cta p{font-size:1rem;color:var(--gray-600);max-width:500px;margin:0 auto 28px;line-height:1.7}
+.team-depth{max-width:960px;margin:64px auto 0}
+.team-subhead{text-align:center;margin-bottom:26px}
+.team-subhead h3{font-family:'Lora',serif;font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:8px}
+.team-subhead p{font-size:0.97rem;color:var(--gray-600);max-width:580px;margin:0 auto;line-height:1.6}
+.comp-scroll{overflow-x:auto;border-radius:16px;border:1px solid var(--gray-200);box-shadow:var(--shadow)}
+.comp-matrix{width:100%;border-collapse:collapse;background:#fff;min-width:580px}
+.comp-matrix th,.comp-matrix td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--gray-200);font-size:14px;vertical-align:middle}
+.comp-matrix thead th{font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray-500,#6B7280);font-weight:700;background:var(--off-white)}
+.comp-matrix tbody tr:last-child td{border-bottom:none}
+.comp-matrix td.comp-area{font-weight:600;color:var(--text)}
+.comp-cov{font-size:12.5px;color:var(--gray-500,#6B7280)}
+.comp-stars{display:inline-flex;gap:2px}
+.comp-stars svg{width:15px;height:15px}
+.comp-stars svg.star-on{stroke:var(--orange);fill:var(--orange)}
+.comp-stars svg.star-off{stroke:var(--gray-300,#D1D5DB);fill:none}
+.advisory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:20px}
+.adv-card{background:#fff;border:1px solid var(--gray-200);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.adv-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:9px}
+.adv-area{font-family:'Lora',serif;font-weight:800;font-size:1rem;color:var(--text);line-height:1.3}
+.adv-fn{font-size:13.5px;color:var(--gray-600);line-height:1.6;margin:0}
+.adv-status{font-size:10px;font-weight:800;letter-spacing:0.4px;text-transform:uppercase;padding:4px 9px;border-radius:50px;white-space:nowrap;flex-shrink:0}
+.adv-status.ok{background:rgba(5,150,105,0.12);color:#059669}
+.adv-status.prog{background:rgba(249,115,22,0.12);color:var(--orange-dark)}
+html.dark .team-subhead h3{color:#F1F0F9}
+html.dark .team-subhead p{color:#A09BBF}
+html.dark .comp-scroll{border-color:#2D2850}
+html.dark .comp-matrix{background:#1C1836}
+html.dark .comp-matrix th,html.dark .comp-matrix td{border-bottom-color:#2D2850}
+html.dark .comp-matrix thead th{background:#15122b;color:#8983a8}
+html.dark .comp-matrix td.comp-area{color:#F1F0F9}
+html.dark .comp-cov{color:#8983a8}
+html.dark .comp-stars svg.star-off{stroke:#3a3556}
+html.dark .adv-card{background:#1C1836;border-color:#2D2850}
+html.dark .adv-area{color:#F1F0F9}
+html.dark .adv-fn{color:#A09BBF}
 html.dark .team-card{background:#1C1836;border-color:#2D2850}
 html.dark .team-name{color:#F1F0F9}
+html.dark .team-bio{color:#A09BBF}
 html.dark .team-divider{background:#2D2850}
 html.dark .team-email-link{color:#6B6485}
 html.dark .team-email-link:hover{color:var(--orange)}
@@ -557,7 +597,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
         <img src="ScoutRexLogo-transparent.png" alt="ScoutRex" style="height:72px;width:auto">
       </a>
       <div class="nav-links">
-        <div class="nav-dropdown"><a href="products.html" data-i18n="nav-products">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="hirerex.html" data-i18n="dd-hirerex">🏢 HireRex: AI Recruiting &amp; HR Software</a><a href="jobrex.html" data-i18n="dd-jobrex">🎯 JobRex: AI Career Co-Pilot</a><a href="temprex.html" data-i18n="dd-temprex">⏱️ TempRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a><a href="learnrex.html" data-i18n="dd-learnrex">📖 LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a></div></div>
+        <div class="nav-dropdown"><a href="products.html" data-i18n="nav-products">Products <span class="nav-dd-arrow">▾</span></a><div class="nav-dd-menu"><a href="hirerex.html" data-i18n="dd-hirerex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg> HireRex: AI Recruiting &amp; HR Software</a><a href="jobrex.html" data-i18n="dd-jobrex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> JobRex: AI Career Co-Pilot</a><a href="temprex.html" data-i18n="dd-temprex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> TalentRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a><a href="learnrex.html" data-i18n="dd-learnrex"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span></a></div></div>
         <a href="pricing.html" data-i18n="nav-pricing">Pricing</a>
         <a href="about.html" class="active" data-i18n="nav-about">About</a>
         <a href="careers.html" data-i18n="nav-careers">Careers</a>
@@ -577,7 +617,7 @@ html:not(.dark) .pricing-dark-section .section-sub {
   <a href="products.html" onclick="setTimeout(toggleMenu,100)" data-i18n="mob-products">Products</a>
   <a href="hirerex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🏢 HireRex</a>
   <a href="jobrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🎯 JobRex</a>
-  <a href="temprex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ ⏱️ TempRex</a>
+  <a href="temprex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 🌟 TalentRex</a>
   <a href="learnrex.html" onclick="setTimeout(toggleMenu,100)" class="mobile-sub-link">↳ 📖 LearnRex</a>
   <a href="pricing.html" onclick="setTimeout(toggleMenu,100)" data-i18n="mob-pricing">Pricing</a>
   <a href="about.html" onclick="setTimeout(toggleMenu,100)" data-i18n="mob-about">About</a>
@@ -609,23 +649,23 @@ html:not(.dark) .pricing-dark-section .section-sub {
     <div class="text-center">
       <div class="section-tag" data-i18n="pg-mission-tag">Our Mission</div>
       <h2 class="section-title" data-i18n="pg-mission-title">Making talent discovery faster, fairer, more human</h2>
-      <p class="section-sub" data-i18n="pg-mission-sub">Every year, millions of qualified people get filtered out by algorithms that don't understand them. Every year, companies miss their best hires because the tools only look at the surface. We're here to change that.</p>
+      <p class="section-sub" data-i18n="pg-mission-sub">Generative AI broke CV screening: optimised resumes now pass any ATS regardless of real skill. ScoutRex replaces unverifiable filtering with evidence, measured skills and signals that link who you hire to how they actually perform.</p>
     </div>
     <div class="mission-cards">
       <div class="mission-card">
-        <div style="font-size:2.5rem">🎯</div>
+        <div style="font-size:2.5rem;color:var(--orange);line-height:1"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg></div>
         <h3 data-i18n="pg-mc1-t">The problem we're solving</h3>
-        <p data-i18n="pg-mc1-d">Traditional hiring tools optimize for speed and scale, not for quality or fairness. We're building systems that actually understand what makes someone right for a role.</p>
+        <p data-i18n="pg-mc1-d">AI-written CVs flood every ATS, so resume filtering no longer reflects real ability. Recruiters drown in ‘qualified’ applicants while genuine skill stays invisible.</p>
       </div>
       <div class="mission-card">
-        <div style="font-size:2.5rem">🧠</div>
+        <div style="font-size:2.5rem;color:var(--orange);line-height:1"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 18V5" /> <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4" /> <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5" /> <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77" /> <path d="M18 18a4 4 0 0 0 2-7.464" /> <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517" /> <path d="M6 18a4 4 0 0 1-2-7.464" /> <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77" /></svg></div>
         <h3 data-i18n="pg-mc2-t">How we're different</h3>
-        <p data-i18n="pg-mc2-d">Our AI evaluates context, trajectory, culture fit, and intent, not just keywords. That's how we generate matches that hold up in the real world.</p>
+        <p data-i18n="pg-mc2-d">A multi-agent AI system screens, assesses and communicates end to end, coupled to a causal layer that links pre-hire signals to post-hire performance. Assessment follows DIN 33430 principles for job-related aptitude.</p>
       </div>
       <div class="mission-card">
-        <div style="font-size:2.5rem">🌍</div>
+        <div style="font-size:2.5rem;color:var(--orange);line-height:1"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /></svg></div>
         <h3 data-i18n="pg-mc3-t">What we're building</h3>
-        <p data-i18n="pg-mc3-d">An end-to-end AI hiring and HR system, starting with HireRex as our main product for hiring teams and JobRex as the candidate-side experience. Over time, ScoutRex is designed to expand into connected HR modules such as probation management, learning, onboarding, and talent development.</p>
+        <p data-i18n="pg-mc3-d">An end-to-end talent intelligence infrastructure: JobRex for candidates who want to be found for the right roles, and HireRex for hiring teams who screen faster without lowering the bar. One AI layer, no resume black holes.</p>
       </div>
     </div>
   </div>
@@ -678,36 +718,54 @@ html:not(.dark) .pricing-dark-section .section-sub {
     <div class="team-intro">
       <div class="section-tag" data-i18n="pg-people-tag">The People</div>
       <h2 data-i18n="pg-team-title">The Minds Behind ScoutRex</h2>
-      <p data-i18n="pg-team-sub">Three founders with deep roots in AI, engineering, and marketing, united by a single mission.</p>
+      <p data-i18n="pg-team-sub">Two co-founders combining applied AI engineering with labour-market economics, supported by an academic mentor and advisory board.</p>
     </div>
     <div class="team-grid" id="team-grid"></div>
     <script>
     (function(){
       const LI_SVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
       const FALLBACK = [
-        { name:'Majid Dehghanpir', role:'CEO & Co-Founder\nHead of AI Research', photo:'majid.jpg', linkedin:'https://www.linkedin.com/in/majid-dehghanpir/', email:'majid.dehghanpir@scoutrex.com' },
-        { name:'Hamed Markazi',    role:'CTO & Co-Founder\nHead of Product',      photo:'hamed.jpg', linkedin:'https://www.linkedin.com/in/hamed-markazi-62214410/', email:'hamed.markazi@scoutrex.com' },
-        { name:'Shadi Moghaddam', role:'Marketing',                                photo:'Shadi.jpg', linkedin:'https://www.linkedin.com/in/shadi-moghaddam-1a9325258/', email:'shadi.moghaddam@scoutrex.com' },
-        { name:'Mayte Medrano',   role:'Team Member',                              photo:'mayt.jpeg' },
+        { name:'Majid Dehghanpir', role:'Co-Founder · Technology & AI', photo:'majid.jpg', linkedin:'https://www.linkedin.com/in/majid-dehghanpir/', email:'majid.dehghanpir@scoutrex.com', bio:"Architect and builder of the ScoutRex platform. 10+ years across full-stack development, applied AI, cloud operations and enterprise data governance, including L'Oréal and TELUS Digital. Leads the multi-agent architecture, model deployment, DevOps and GDPR / EU AI Act data governance." },
+        { name:'Dr. Hamed Markazi Moghadam', role:'Co-Founder · Science & Product', photo:'hamed.jpg', linkedin:'https://www.linkedin.com/in/hamed-markazi-62214410/', email:'hamed.markazi@scoutrex.com', bio:"Economist and applied researcher with 10+ years in empirical labour economics and causal inference. Research Associate at the Institute of Labour Economics, Leibniz University Hannover. Leads product strategy, causal modelling, DIN 33430 psychometric validation and academic partnerships." },
+        { name:'Prof. Dr. Patrick Puhani', role:'Academic Mentor', initials:'PP', photo:'', linkedin:'', email:'', bio:"Director of the Institute of Labour Economics at Leibniz University Hannover. Provides scientific mentorship across the platform's talent-intelligence and causal-analysis work, and co-authors research with Hamed." },
       ];
       function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
       function renderTeam(members){
         const grid=document.getElementById('team-grid');
         if(!members||!members.length)return;
         grid.innerHTML=members.map(m=>{
+          const ini=esc(m.initials|| m.name.split(' ').map(w=>w[0]).join('').slice(0,2));
           const roleHtml=esc(m.role).replace(/\n/g,'<br>');
-          const photoHtml=m.photo
-            ?`<div class="team-avatar"><img src="${esc(m.photo)}" alt="${esc(m.name)}" onerror="this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#1E1256,#4F46E5);border-radius:50%\\'>${esc(m.name).split(' ').map(w=>w[0]).join('').slice(0,2)}</div>'"></div>`
-            :`<div class="team-avatar"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#1E1256,#4F46E5);border-radius:50%">${esc(m.name).split(' ').map(w=>w[0]).join('').slice(0,2)}</div></div>`;
-          const liLink=m.linkedin?`<a href="${esc(m.linkedin)}" target="_blank" class="team-linkedin-btn">${LI_SVG} LinkedIn</a>`:'';
+          const img=m.photo?`<img src="${esc(m.photo)}" alt="${esc(m.name)}" onerror="this.style.display='none'">`:'';
+          const bioHtml=m.bio?`<p class="team-bio">${esc(m.bio)}</p>`:'';
+          const liLink=m.linkedin?`<a href="${esc(m.linkedin)}" target="_blank" rel="noopener" class="team-linkedin-btn">${LI_SVG} LinkedIn</a>`:'';
           const emailLink=m.email?`<a href="mailto:${esc(m.email)}" class="team-email-link">${esc(m.email)}</a>`:'';
-          return `<div class="team-card">${photoHtml}<div class="team-name">${esc(m.name)}</div><div class="team-role">${roleHtml}</div><div class="team-divider"></div><div class="team-links">${liLink}${emailLink}</div></div>`;
+          const links=(liLink||emailLink)?`<div class="team-divider"></div><div class="team-links">${liLink}${emailLink}</div>`:'';
+          return `<div class="team-card"><div class="team-avatar"><div class="team-ini">${ini}</div>${img}</div><div class="team-name">${esc(m.name)}</div><div class="team-role">${roleHtml}</div>${bioHtml}${links}</div>`;
         }).join('');
       }
       renderTeam(FALLBACK);
       fetch('/api/team').then(r=>r.ok?r.json():null).then(d=>{if(d&&d.team&&d.team.length)renderTeam(d.team);}).catch(()=>{});
     })();
     </script>
+    
+    <div class="team-depth">
+      <div class="team-subhead">
+        <h3 data-i18n="pg-comp-title">Complementary strengths</h3>
+        <p data-i18n="pg-comp-sub">Two founders covering AI engineering and labour-market science, with external advisors closing the remaining gaps.</p>
+      </div>
+      <svg aria-hidden="true" width="0" height="0" style="position:absolute" focusable="false"><symbol id="cm-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol></svg><div class="comp-scroll">
+        <table class="comp-matrix">
+          <thead><tr><th>Competency</th><th>Majid</th><th>Hamed</th><th>Coverage</th></tr></thead>
+          <tbody><tr><td class="comp-area">AI Development &amp; ML Engineering</td><td><span class="comp-stars" role="img" aria-label="5 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="4 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Core — Majid</td></tr><tr><td class="comp-area">Full-Stack Software Development</td><td><span class="comp-stars" role="img" aria-label="5 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="2 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Majid leads</td></tr><tr><td class="comp-area">Data Privacy &amp; GDPR (HR data)</td><td><span class="comp-stars" role="img" aria-label="3 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="4 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">External DPO planned</td></tr><tr><td class="comp-area">Labour Market Economics &amp; HR Theory</td><td><span class="comp-stars" role="img" aria-label="2 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="5 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Core — Hamed</td></tr><tr><td class="comp-area">Personnel Economics &amp; Aptitude Assessment</td><td><span class="comp-stars" role="img" aria-label="2 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="5 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Hamed; DIN 33430 advisor</td></tr><tr><td class="comp-area">Applied Econometrics &amp; Data Analysis</td><td><span class="comp-stars" role="img" aria-label="3 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="5 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Hamed leads</td></tr><tr><td class="comp-area">Business Development &amp; Germany Market</td><td><span class="comp-stars" role="img" aria-label="3 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="2 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Senior hire, Year 2</td></tr><tr><td class="comp-area">Marketing &amp; Communications</td><td><span class="comp-stars" role="img" aria-label="3 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="3 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Shared; agency from Q2</td></tr><tr><td class="comp-area">Sales &amp; Key Account Management</td><td><span class="comp-stars" role="img" aria-label="2 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="2 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Commission-based advisor</td></tr><tr><td class="comp-area">Financial Planning &amp; Controlling</td><td><span class="comp-stars" role="img" aria-label="3 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="4 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">Hamed; tax advisor</td></tr><tr><td class="comp-area">Legal &amp; Compliance (Employment Law)</td><td><span class="comp-stars" role="img" aria-label="2 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td><span class="comp-stars" role="img" aria-label="3 out of 5"><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-on" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg><svg class="star-off" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#cm-star"/></svg></span></td><td class="comp-cov">External counsel</td></tr></tbody>
+        </table>
+      </div>
+      <div class="team-subhead" style="margin-top:56px">
+        <h3 data-i18n="pg-adv-title">Scientific &amp; entrepreneurial advisory board</h3>
+        <p data-i18n="pg-adv-sub">An advisory board is being formed to reinforce the areas the founding team does not fully cover.</p>
+      </div>
+      <div class="advisory-grid"><div class="adv-card"><div class="adv-top"><div class="adv-area">Aptitude Assessment / DIN 33430</div><span class="adv-status prog">In preparation</span></div><p class="adv-fn">Algorithm review, compliance check, and scientific legitimacy of the assessment logic.</p></div><div class="adv-card"><div class="adv-top"><div class="adv-area">Employment Law &amp; Compliance</div><span class="adv-status prog">Contacted</span></div><p class="adv-fn">GDPR advice, AGG compliance, and legal validation of the product concept.</p></div><div class="adv-card"><div class="adv-top"><div class="adv-area">Prof. Patrick Puhani — LUH</div><span class="adv-status ok">Confirmed</span></div><p class="adv-fn">Scientific mentor; research cooperation and access to the LUH data and network.</p></div><div class="adv-card"><div class="adv-top"><div class="adv-area">HR Practitioner / CHRO Network</div><span class="adv-status prog">In progress</span></div><p class="adv-fn">Market feedback, pilot companies, and product validation from the user side.</p></div><div class="adv-card"><div class="adv-top"><div class="adv-area">Startup Ecosystem / Investor</div><span class="adv-status prog">Early talks</span></div><p class="adv-fn">Strategic sparring, access to seed capital, and exit options.</p></div></div>
+    </div>
     <div class="join-cta">
       <h3 data-i18n="pg-join-title">Want to Join Us?</h3>
       <p data-i18n="pg-join-sub">We're always looking for talented people who share our passion for transforming hiring with AI.</p>
@@ -874,7 +932,7 @@ window.addEventListener('load', updateThemeIcons);
     {re:/contact|reach|email|support|help|talk to|speak to|get in touch/i,
      ans:"Happy to connect you with the team! 📬\n\n→ <a href='contact.html'>Contact page</a>\n→ <a href='mailto:hello@scoutrex.com'>hello@scoutrex.com</a>\n\nWe usually respond within 1–2 business days."},
     {re:/team|founder|who made|who built|who are|people behind|majid|hamed|shadi/i,
-     ans:"ScoutRex was founded by <b>Majid</b>, <b>Hamed</b>, and <b>Shadi</b>, a team with deep roots in AI, engineering, and marketing. 👥\n\n<a href='about.html'>About &amp; Team →</a>"},
+     ans:"ScoutRex was founded by <b>Majid</b> and <b>Hamed</b>, two co-founders combining applied AI engineering with labour-market economics, with academic mentorship from <b>Prof. Patrick Puhani</b> at Leibniz University Hannover. 👥\n\n<a href='about.html'>About &amp; Team →</a>"},
     {re:/mission|story|about|founded|why|vision|values/i,
      ans:"Our mission is to make talent discovery faster, fairer, and more human, powered by AI. 🌍\n\nWe rethought hiring from scratch instead of just automating the old way.\n\n<a href='about.html'>Read our story →</a>"},
     {re:/product|platform|what do you offer|feature|capabilit/i,
@@ -1068,13 +1126,17 @@ window.addEventListener('load', updateThemeIcons);
 /* ── Language Toggle ── */
 const SR_TRANS = {
   en: {
+    'pg-comp-title':'Complementary strengths',
+    'pg-comp-sub':'Two founders covering AI engineering and labour-market science, with external advisors closing the remaining gaps.',
+    'pg-adv-title':'Scientific & entrepreneurial advisory board',
+    'pg-adv-sub':'An advisory board is being formed to reinforce the areas the founding team does not fully cover.',
     'nav-products':'Products <span class="nav-dd-arrow">▾</span>',
     'nav-pricing':'Pricing','nav-about':'About','nav-careers':'Careers','nav-contact':'Contact','nav-login':'Log In',
     'mob-products':'Products','mob-pricing':'Pricing','mob-about':'About','mob-careers':'Careers','mob-contact':'Contact','mob-login':'Log In',
-    'dd-hirerex':'🏢 HireRex: AI Recruiting &amp; HR Software',
-    'dd-jobrex':'🎯 JobRex: AI Career Co-Pilot',
-    'dd-temprex':'⏱️ TempRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
-    'dd-learnrex':'📖 LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
+    'dd-hirerex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg> HireRex: AI Recruiting &amp; HR Software',
+    'dd-jobrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> JobRex: AI Career Co-Pilot',
+    'dd-temprex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> TalentRex: AI New Hire Performance Intelligence <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
+    'dd-learnrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> LearnRex: AI E-Learning Teacher <span style="font-size:11px;opacity:0.6;font-weight:500">(Coming Soon)</span>',
     'ft-products':'PRODUCTS','ft-company':'COMPANY','ft-account':'ACCOUNT',
     'ft-jr-cand':'JobRex: Candidates','ft-hr-comp':'HireRex: Companies',
     'ft-pricing':'Pricing','ft-about':'About','ft-careers':'Careers','ft-contact':'Contact',
@@ -1085,7 +1147,7 @@ const SR_TRANS = {
     'pg-hero-sub':"ScoutRex was founded on a simple belief: the hiring system is broken, and the best fix isn't automating the old way. It's rethinking everything from scratch.",
     'pg-mission-tag':'Our Mission',
     'pg-mission-title':'Making talent discovery faster, fairer, more human',
-    'pg-mission-sub':"Every year, millions of qualified people get filtered out by algorithms that don't understand them. Every year, companies miss their best hires because the tools only look at the surface. We're here to change that.",
+    'pg-mission-sub':'Generative AI broke CV screening: optimised resumes now pass any ATS regardless of real skill. ScoutRex replaces unverifiable filtering with evidence, measured skills and signals that link who you hire to how they actually perform.',
     'pg-values-tag':'Our Values',
     'pg-values-title':'Principles we build by',
     'pg-journey-tag':'Our Journey',
@@ -1093,11 +1155,11 @@ const SR_TRANS = {
     'pg-people-tag':'The People',
     'pg-hero-title':"We're building AI that understands people",
     'pg-mc1-t':"The problem we're solving",
-    'pg-mc1-d':"Traditional hiring tools optimize for speed and scale, not for quality or fairness. We're building systems that actually understand what makes someone right for a role.",
+    'pg-mc1-d':'AI-written CVs flood every ATS, so resume filtering no longer reflects real ability. Recruiters drown in ‘qualified’ applicants while genuine skill stays invisible.',
     'pg-mc2-t':"How we're different",
-    'pg-mc2-d':"Our AI evaluates context, trajectory, culture fit, and intent, not just keywords. That's how we generate matches that hold up in the real world.",
+    'pg-mc2-d':'A multi-agent AI system screens, assesses and communicates end to end, coupled to a causal layer that links pre-hire signals to post-hire performance. Assessment follows DIN 33430 principles for job-related aptitude.',
     'pg-mc3-t':"What we're actually building",
-    'pg-mc3-d':'Two connected products: JobRex for candidates who want to be found for the right roles, and HireRex for hiring teams who need to screen faster without lowering the bar. One AI layer. No resume black holes.',
+    'pg-mc3-d':'An end-to-end talent intelligence infrastructure: JobRex for candidates who want to be found for the right roles, and HireRex for hiring teams who screen faster without lowering the bar. One AI layer, no resume black holes.',
     'pg-v1-t':'Fairness by design',
     'pg-v1-d':'We build bias-detection into every layer of our AI, not as a feature, but as a foundation.',
     'pg-v2-t':'Transparency over black boxes',
@@ -1109,20 +1171,24 @@ const SR_TRANS = {
     'pg-story1':'ScoutRex is currently in a funding and grant-readiness stage. HireRex and JobRex are in technical testing, with the core workflows being prepared for pilot validation with HR partners, job seekers, and employment-support organisations.',
     'pg-story2':'The company has not yet been formally registered and has no commercial customers or revenue yet. Our current focus is product validation, responsible AI design, and preparing the strongest possible foundation for funding.',
     'pg-team-title':'The Minds Behind ScoutRex',
-    'pg-team-sub':'Three founders with deep roots in AI, engineering, and marketing, united by a single mission.',
+    'pg-team-sub':'Two co-founders combining applied AI engineering with labour-market economics, supported by an academic mentor and advisory board.',
     'pg-join-title':'Want to Join Us?',
     'pg-join-sub':"We're always looking for talented people who share our passion for transforming hiring with AI.",
     'pg-join-btn':'See Open Positions →',
     'ft-cookie':'Cookie Preferences','ft-privacy':'Privacy Policy','ft-terms':'Terms of Service','ft-gdpr-link':'GDPR',
   },
   de: {
+    'pg-comp-title':'Sich ergänzende Stärken',
+    'pg-comp-sub':'Zwei Gründer decken KI-Engineering und Arbeitsmarktwissenschaft ab; externe Berater schließen die verbleibenden Lücken.',
+    'pg-adv-title':'Wissenschaftlicher und unternehmerischer Beirat',
+    'pg-adv-sub':'Ein Beirat wird aufgebaut, um die Bereiche zu stärken, die das Gründungsteam nicht vollständig abdeckt.',
     'nav-products':'Produkte <span class="nav-dd-arrow">▾</span>',
     'nav-pricing':'Preise','nav-about':'Über uns','nav-careers':'Karriere','nav-contact':'Kontakt','nav-login':'Anmelden',
     'mob-products':'Produkte','mob-pricing':'Preise','mob-about':'Über uns','mob-careers':'Karriere','mob-contact':'Kontakt','mob-login':'Anmelden',
-    'dd-hirerex':'🏢 HireRex: KI-Recruiting &amp; HR-Software',
-    'dd-jobrex':'🎯 JobRex: KI-Karriere-Copilot',
-    'dd-temprex':'⏱️ TempRex: KI-Einarbeitungsanalyse <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
-    'dd-learnrex':'📖 LearnRex: KI-E-Learning-Lehrer <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
+    'dd-hirerex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg> HireRex: KI-Recruiting &amp; HR-Software',
+    'dd-jobrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></svg> JobRex: KI-Karriere-Copilot',
+    'dd-temprex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg> TalentRex: KI-Einarbeitungsanalyse <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
+    'dd-learnrex':'<svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg> LearnRex: KI-E-Learning-Lehrer <span style="font-size:11px;opacity:0.6;font-weight:500">(Demnächst)</span>',
     'ft-products':'PRODUKTE','ft-company':'UNTERNEHMEN','ft-account':'KONTO',
     'ft-jr-cand':'JobRex: Kandidaten','ft-hr-comp':'HireRex: Unternehmen',
     'ft-pricing':'Preise','ft-about':'Über uns','ft-careers':'Karriere','ft-contact':'Kontakt',
@@ -1133,7 +1199,7 @@ const SR_TRANS = {
     'pg-hero-sub':'ScoutRex wurde auf einem einfachen Glauben gegründet: Das Einstellungssystem ist kaputt, und die beste Lösung ist nicht, den alten Weg zu automatisieren. Es geht darum, alles von Grund auf neu zu denken.',
     'pg-mission-tag':'Unsere Mission',
     'pg-mission-title':'Talentsuche schneller, fairer, menschlicher machen',
-    'pg-mission-sub':'Jedes Jahr werden Millionen qualifizierter Menschen von Algorithmen herausgefiltert, die sie nicht verstehen. Jedes Jahr verpassen Unternehmen ihre besten Einstellungen, weil die Tools nur an der Oberfläche schauen. Wir sind hier, das zu ändern.',
+    'pg-mission-sub':'Generative KI hat das Lebenslauf-Screening ausgehebelt: optimierte Lebensläufe passieren jedes ATS, unabhängig von echten Fähigkeiten. ScoutRex ersetzt nicht überprüfbare Filterung durch Evidenz, gemessene Fähigkeiten und Signale, die Einstellung und tatsächliche Leistung verbinden.',
     'pg-values-tag':'Unsere Werte',
     'pg-values-title':'Prinzipien, nach denen wir bauen',
     'pg-journey-tag':'Unsere Geschichte',
@@ -1141,11 +1207,11 @@ const SR_TRANS = {
     'pg-people-tag':'Die Menschen',
     'pg-hero-title':'Wir bauen KI, die Menschen versteht',
     'pg-mc1-t':'Das Problem, das wir lösen',
-    'pg-mc1-d':'Traditionelle Einstellungstools optimieren für Geschwindigkeit und Skalierung, nicht für Qualität oder Fairness. Wir bauen Systeme, die wirklich verstehen, was jemanden für eine Rolle geeignet macht.',
+    'pg-mc1-d':'KI-geschriebene Lebensläufe überfluten jedes ATS, sodass Lebenslauf-Filterung keine echten Fähigkeiten mehr abbildet. Recruiter ertrinken in ‘qualifizierten’ Bewerbern, während echte Kompetenz unsichtbar bleibt.',
     'pg-mc2-t':'Wie wir anders sind',
-    'pg-mc2-d':'Unsere KI bewertet Kontext, Trajektorie, kulturelle Passung und Absicht, nicht nur Schlüsselwörter. So erzeugen wir Matches, die in der realen Welt standhalten.',
+    'pg-mc2-d':'Ein Multi-Agenten-KI-System übernimmt Screening, Bewertung und Kommunikation durchgängig, gekoppelt an eine kausale Ebene, die Signale vor der Einstellung mit der Leistung danach verknüpft. Die Bewertung folgt den DIN-33430-Prinzipien zur beruflichen Eignung.',
     'pg-mc3-t':'Was wir tatsächlich bauen',
-    'pg-mc3-d':'Zwei verbundene Produkte: JobRex für Kandidaten, die für die richtigen Stellen gefunden werden wollen, und HireRex für Einstellungsteams, die schneller screenen müssen ohne die Messlatte zu senken.',
+    'pg-mc3-d':'Eine durchgängige Talent-Intelligence-Infrastruktur: JobRex für Kandidaten, die für die richtigen Stellen gefunden werden wollen, und HireRex für Teams, die schneller screenen, ohne die Messlatte zu senken. Eine KI-Ebene, keine Lebenslauf-Blackholes.',
     'pg-v1-t':'Fairness by Design',
     'pg-v1-d':'Wir bauen Bias-Erkennung in jede Schicht unserer KI ein, nicht als Feature, sondern als Fundament.',
     'pg-v2-t':'Transparenz statt Black Boxes',
@@ -1157,7 +1223,7 @@ const SR_TRANS = {
     'pg-story1':'ScoutRex befindet sich derzeit in der Förder- und Grant-Vorbereitungsphase. HireRex und JobRex sind in der technischen Testphase; die Kern-Workflows werden für Pilotvalidierungen mit HR-Partnern, Jobsuchenden und Organisationen der Arbeitsmarktunterstützung vorbereitet.',
     'pg-story2':'Das Unternehmen ist noch nicht formal registriert und hat noch keine kommerziellen Kunden oder Umsätze. Unser aktueller Fokus liegt auf Produktvalidierung, verantwortungsvollem KI-Design und einer möglichst starken Grundlage für Finanzierung.',
     'pg-team-title':'Die Köpfe hinter ScoutRex',
-    'pg-team-sub':'Drei Gründer mit tiefen Wurzeln in KI, Engineering und Marketing, vereint durch eine einzige Mission.',
+    'pg-team-sub':'Zwei Mitgründer, die angewandtes KI-Engineering mit Arbeitsmarktökonomie verbinden, unterstützt von einem wissenschaftlichen Mentor und einem Beirat.',
     'pg-join-title':'Möchten Sie uns beitreten?',
     'pg-join-sub':'Wir suchen immer nach talentierten Menschen, die unsere Leidenschaft für die Transformation des Einstellungswesens mit KI teilen.',
     'pg-join-btn':'Offene Stellen ansehen →',
