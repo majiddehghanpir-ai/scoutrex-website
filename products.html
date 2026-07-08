@@ -717,7 +717,7 @@ html:not(.dark) .compare-section .section-tag { color: rgba(255,255,255,0.7) !im
           <div class="pf-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg></div>
           <div class="pf-body"><h4>Pipeline Analytics</h4><p>See every candidate, every score, and every stage in real time. Structured scorecards and side-by-side comparisons make every hire a confident one.</p></div>
         </div>
-        <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="btn-outside btn-hirerex-cta">Get Started with HireRex →</a>
+        <button type="button" onclick="srDevNotice()" class="btn-outside btn-hirerex-cta">Under Development</button>
       </div>
       <div class="product-cell hirerex-cell" id="hirerex">
       <div class="text-center">
@@ -936,7 +936,7 @@ html:not(.dark) .compare-section .section-tag { color: rgba(255,255,255,0.7) !im
           <div class="pf-icon"><svg class="sr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></svg></div>
           <div class="pf-body"><h4>AI Interview Calendar & Scheduling</h4><p>AI helps coordinate availability, reminders, and interview slots while keeping important confirmations clear for users.</p></div>
         </div>
-        <a href="https://jobrex.scoutrex.com/" target="_blank" rel="noopener" class="btn-outside btn-jobrex-cta">Get Started with JobRex →</a>
+        <button type="button" onclick="srDevNotice()" class="btn-outside btn-jobrex-cta">Under Development</button>
       </div>
     </div><!-- /jobrex-row -->
 
@@ -1458,6 +1458,21 @@ function toggleLang(){
   });
   if(lang==='de') srApplyLang('de');
 })();
+</script>
+<!-- Under-development notice modal -->
+<div id="devNotice" onclick="if(event.target===this)closeDevNotice()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(4,8,16,0.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--white);color:var(--text);max-width:440px;width:100%;border-radius:20px;padding:32px 28px;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid var(--gray-200);text-align:center">
+    <div style="font-size:34px;margin-bottom:10px">🚧</div>
+    <h3 style="font-family:'Lora',serif;font-size:1.4rem;font-weight:800;margin:0 0 12px">Under Development</h3>
+    <p style="font-size:15px;color:var(--gray-600);line-height:1.6;margin:0 0 8px">This platform is a working prototype under active development and is not yet publicly available.</p>
+    <p style="font-size:15px;color:var(--gray-600);line-height:1.6;margin:0 0 22px">For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.</p>
+    <button type="button" onclick="closeDevNotice()" class="btn btn-primary">Got it</button>
+  </div>
+</div>
+<script>
+function srDevNotice(){var m=document.getElementById('devNotice');if(m){m.style.display='flex';document.body.style.overflow='hidden';}}
+function closeDevNotice(){var m=document.getElementById('devNotice');if(m){m.style.display='none';document.body.style.overflow='';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDevNotice();});
 </script>
 <script src="nav-session.js"></script>
 </body>

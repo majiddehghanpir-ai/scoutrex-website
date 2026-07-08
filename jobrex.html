@@ -719,7 +719,8 @@ html:not(.dark) .pricing-dark-section .section-sub {
           </div>
         </div>
         <div style="margin-top:32px">
-          <a href="https://jobrex.scoutrex.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg" data-i18n="pg-cta-btn">Get Started with JobRex →</a>
+          <button type="button" onclick="srDevNotice()" class="btn btn-primary btn-lg" data-i18n="pg-cta-btn">Under Development</button>
+          <p style="margin-top:14px;font-size:14px;color:var(--gray-600);line-height:1.6" data-i18n="pg-proto-note">JobRex is a working prototype under active development. For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.</p>
         </div>
       </div>
       <div class="sr-mockup-wrap">
@@ -1103,7 +1104,7 @@ document.querySelectorAll('.nav-dropdown').forEach(function(dd){
 (function(){
   var opened=false,greeted=false;
   var KB=[
-    {re:/jobrex|job seeker|find.*job|looking for work|career|candidate|how does it work/i,ans:"JobRex is your AI career co-pilot 🎯\n\nIt builds a living profile beyond your CV, skills, goals, working style, and matches you with roles that actually fit.\n\n<a href='https://jobrex.scoutrex.com/' target='_blank'>Get started on JobRex →</a>"},
+    {re:/jobrex|job seeker|find.*job|looking for work|career|candidate|how does it work/i,ans:"JobRex is your AI career co-pilot 🎯\n\nIt builds a living profile beyond your CV, skills, goals, working style, and matches you with roles that actually fit.\n\nJobRex is currently a prototype under development. <a href='contact.html'>Request access →</a>"},
     {re:/free|pric|cost|plan|subscription/i,ans:"JobRex is free to get started! 🚀\n\nCreate your profile and start getting matched at no cost. <a href='pricing.html'>See our pricing page</a> for details on premium features."},
     {re:/hirerex|hir(e|ing)|recruiter|find.*candidate|talent|HR/i,ans:"HireRex is our platform for hiring teams 🏢\n\n<a href='hirerex.html'>Explore HireRex →</a> or <a href='contact.html'>request a demo</a>"},
     {re:/contact|reach|email|support|help/i,ans:"Happy to help! 📬\n\n→ <a href='contact.html'>Contact page</a>\n→ <a href='mailto:hello@scoutrex.com'>hello@scoutrex.com</a>"},
@@ -1243,7 +1244,12 @@ const SR_TRANS = {
     'pg-ms2-d':'Browse AI-matched roles, filter by what matters to you, and apply with your full JobRex profile with no re-entering details every time.',
     'pg-ms3-t':'Take your assessment &amp; track your stage',
     'pg-ms3-d':'Complete skill assessments per role, schedule your interview from the calendar, and track every application status in real time, all from one dashboard.',
-    'pg-cta-btn':'Get Started with JobRex →',
+    'pg-cta-btn':'Under Development',
+    'pg-proto-note':'JobRex is a working prototype under active development. For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.',
+    'pg-dev-title':'Under Development',
+    'pg-dev-body':'JobRex is a working prototype under active development and is not yet publicly available.',
+    'pg-dev-contact':'For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.',
+    'pg-dev-close':'Got it',
     'pg-f1-t':'AI-Powered Profile &amp; CV Import',
     'pg-f1-d':'Import your CV and let AI extract your skills, experience, and profile automatically. Build a living career profile that goes beyond keywords, capturing your trajectory, working style, and real potential.',
     'pg-f2-t':'Intelligent Job Matching',
@@ -1314,7 +1320,12 @@ const SR_TRANS = {
     'pg-ms2-d':'Stöbern Sie durch KI-gematchte Stellen, filtern Sie nach dem, was Ihnen wichtig ist, und bewerben Sie sich mit Ihrem vollständigen JobRex-Profil – ohne Details jedes Mal neu eingeben zu müssen.',
     'pg-ms3-t':'Assessment absolvieren &amp; Status verfolgen',
     'pg-ms3-d':'Führen Sie rollenspezifische Skill-Assessments durch, planen Sie Ihr Interview über den Kalender und verfolgen Sie jeden Bewerbungsstatus in Echtzeit – alles in einem Dashboard.',
-    'pg-cta-btn':'Mit JobRex starten →',
+    'pg-cta-btn':'In Entwicklung',
+    'pg-proto-note':'JobRex ist ein funktionierender Prototyp in aktiver Entwicklung. Für Zugang zum Prototyp <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">kontaktieren Sie uns</a>.',
+    'pg-dev-title':'In Entwicklung',
+    'pg-dev-body':'JobRex ist ein funktionierender Prototyp in aktiver Entwicklung und noch nicht öffentlich verfügbar.',
+    'pg-dev-contact':'Für Zugang zum Prototyp <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">kontaktieren Sie uns</a>.',
+    'pg-dev-close':'Verstanden',
     'pg-f1-t':'KI-gestütztes Profil &amp; Lebenslauf-Import',
     'pg-f1-d':'Laden Sie Ihren Lebenslauf hoch und lassen Sie KI Ihre Fähigkeiten, Erfahrungen und Ihr Profil automatisch extrahieren. Erstellen Sie ein lebendiges Karriereprofil, das über Stichwörter hinausgeht und Ihren Werdegang, Arbeitsstil und Ihr echtes Potenzial erfasst.',
     'pg-f2-t':'Intelligentes Job-Matching',
@@ -1367,6 +1378,21 @@ function toggleLang(){
   });
   if(lang==='de') srApplyLang('de');
 })();
+</script>
+<!-- Under-development notice modal -->
+<div id="devNotice" onclick="if(event.target===this)closeDevNotice()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(4,8,16,0.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--white);color:var(--text);max-width:440px;width:100%;border-radius:20px;padding:32px 28px;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid var(--gray-200);text-align:center">
+    <div style="font-size:34px;margin-bottom:10px">🚧</div>
+    <h3 style="font-family:'Lora',serif;font-size:1.4rem;font-weight:800;margin:0 0 12px" data-i18n="pg-dev-title">Under Development</h3>
+    <p style="font-size:15px;color:var(--gray-600);line-height:1.6;margin:0 0 8px" data-i18n="pg-dev-body">JobRex is a working prototype under active development and is not yet publicly available.</p>
+    <p style="font-size:15px;color:var(--gray-600);line-height:1.6;margin:0 0 22px" data-i18n="pg-dev-contact">For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.</p>
+    <button type="button" onclick="closeDevNotice()" class="btn btn-primary" data-i18n="pg-dev-close">Got it</button>
+  </div>
+</div>
+<script>
+function srDevNotice(){var m=document.getElementById('devNotice');if(m){m.style.display='flex';document.body.style.overflow='hidden';}}
+function closeDevNotice(){var m=document.getElementById('devNotice');if(m){m.style.display='none';document.body.style.overflow='';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDevNotice();});
 </script>
 <script src="nav-session.js"></script>
 </body>

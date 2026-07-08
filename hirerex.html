@@ -901,7 +901,8 @@ html:not(.dark) .pricing-dark-section .section-sub {
           </div>
         </div>
         <div style="margin-top:32px">
-          <a href="https://hirerex.scoutrex.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg" data-i18n="pg-cta-btn">Get Started with HireRex →</a>
+          <button type="button" onclick="srDevNotice()" class="btn btn-primary btn-lg" data-i18n="pg-cta-btn">Under Development</button>
+          <p style="margin-top:14px;font-size:14px;color:var(--gray-600);line-height:1.6" data-i18n="pg-proto-note">HireRex is a working prototype under active development. For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.</p>
         </div>
       </div>
     </div>
@@ -1246,8 +1247,8 @@ document.querySelectorAll('.nav-dropdown').forEach(function(dd){
 (function(){
   var opened=false,greeted=false;
   var KB=[
-    {re:/hirerex|hir(e|ing)|recruiter|find.*candidate|talent|how does it work|demo/i,ans:"HireRex is AI talent intelligence for hiring teams 🏢\n\nSurface passive candidates, go from applicant pool to shortlist in hours, and give your team structured scorecards.\n\n<a href='https://hirerex.scoutrex.com/' target='_blank'>Get started on HireRex →</a> or <a href='contact.html'>request a demo</a>"},
-    {re:/jobrex|job seeker|find.*job|candidate/i,ans:"JobRex is for job seekers 🎯\n\n<a href='jobrex.html'>Explore JobRex →</a> or <a href='https://jobrex.scoutrex.com/' target='_blank'>get started</a>"},
+    {re:/hirerex|hir(e|ing)|recruiter|find.*candidate|talent|how does it work|demo/i,ans:"HireRex is AI talent intelligence for hiring teams 🏢\n\nSurface passive candidates, go from applicant pool to shortlist in hours, and give your team structured scorecards.\n\nHireRex is currently a prototype under development. <a href='contact.html'>Request access or a demo →</a>"},
+    {re:/jobrex|job seeker|find.*job|candidate/i,ans:"JobRex is for job seekers 🎯\n\n<a href='jobrex.html'>Explore JobRex →</a> (the platform is a prototype under development)"},
     {re:/pric|cost|plan|subscription|free/i,ans:"We're finalising pricing right now 💰\n\n<a href='pricing.html'>See the pricing page →</a> or <a href='contact.html'>get in touch</a> for details."},
     {re:/contact|reach|email|support|help/i,ans:"Happy to help! 📬\n\n→ <a href='contact.html'>Contact page</a>\n→ <a href='mailto:hello@scoutrex.com'>hello@scoutrex.com</a>"},
     {re:/privacy|data|gdpr|secure/i,ans:"Privacy is a first-class feature at ScoutRex 🔒\n\nCandidate data is never shared without consent. <a href='gdpr.html'>GDPR info →</a>"},
@@ -1402,7 +1403,12 @@ const SR_TRANS = {
     'pg-f7-d':'Every candidate gets an AI-explained score with a detailed breakdown. Hiring decisions are fast, fair, and fully defensible. All data is exportable to XLSX or CSV for your own reporting workflow.',
     'pg-f8-t':'Analytics & Pipeline Intelligence',
     'pg-f8-d':'Pipeline analytics, time-to-hire, assessment quality scores, team performance dashboards, and AI feedback loops, giving you the data to continuously improve how your team hires.',
-        'pg-cta-btn':'Get Started with HireRex →',
+        'pg-cta-btn':'Under Development',
+    'pg-proto-note':'HireRex is a working prototype under active development. For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.',
+    'pg-dev-title':'Under Development',
+    'pg-dev-body':'HireRex is a working prototype under active development and is not yet publicly available.',
+    'pg-dev-contact':'For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.',
+    'pg-dev-close':'Got it',
     'pg-crm-tag':'Candidate CRM',
     'pg-crm-title':'Your entire candidate relationship. One place.',
     'pg-crm-sub':'HireRex includes a built-in CRM so your team never loses context on a candidate, from first contact to final decision and beyond. No separate tool needed.',
@@ -1507,7 +1513,12 @@ const SR_TRANS = {
     'pg-f7-d':'Jeder Kandidat erhält einen KI-erklärten Score mit detaillierter Aufschlüsselung. Einstellungsentscheidungen sind schnell, fair und vollständig nachvollziehbar.',
     'pg-f8-t':'Analytics & Pipeline-Intelligenz',
     'pg-f8-d':'Pipeline-Analytics, Time-to-Hire, Assessment-Qualitäts-Scores und Team-Performance-Dashboards, die Ihnen die Daten geben, um Ihren Einstellungsprozess kontinuierlich zu verbessern.',
-        'pg-cta-btn':'Mit HireRex starten →',
+        'pg-cta-btn':'In Entwicklung',
+    'pg-proto-note':'HireRex ist ein funktionierender Prototyp in aktiver Entwicklung. Für Zugang zum Prototyp <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">kontaktieren Sie uns</a>.',
+    'pg-dev-title':'In Entwicklung',
+    'pg-dev-body':'HireRex ist ein funktionierender Prototyp in aktiver Entwicklung und noch nicht öffentlich verfügbar.',
+    'pg-dev-contact':'Für Zugang zum Prototyp <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">kontaktieren Sie uns</a>.',
+    'pg-dev-close':'Verstanden',
     'pg-crm-tag':'Kandidaten-CRM',
     'pg-crm-title':'Ihre gesamte Kandidatenbeziehung. An einem Ort.',
     'pg-crm-sub':'HireRex enthält ein integriertes CRM, damit Ihr Team den Überblick über jeden Kandidaten behält – vom ersten Kontakt bis zur Entscheidung und darüber hinaus. Kein separates Tool nötig.',
@@ -1578,6 +1589,21 @@ function toggleLang(){
   });
   if(lang==='de') srApplyLang('de');
 })();
+</script>
+<!-- Under-development notice modal -->
+<div id="devNotice" onclick="if(event.target===this)closeDevNotice()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(4,8,16,0.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--white);color:var(--text);max-width:440px;width:100%;border-radius:20px;padding:32px 28px;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid var(--gray-200);text-align:center">
+    <div style="font-size:34px;margin-bottom:10px">🚧</div>
+    <h3 style="font-family:'Lora',serif;font-size:1.4rem;font-weight:800;margin:0 0 12px" data-i18n="pg-dev-title">Under Development</h3>
+    <p style="font-size:15px;color:var(--gray-600);line-height:1.6;margin:0 0 8px" data-i18n="pg-dev-body">HireRex is a working prototype under active development and is not yet publicly available.</p>
+    <p style="font-size:15px;color:var(--gray-600);line-height:1.6;margin:0 0 22px" data-i18n="pg-dev-contact">For access to the prototype, please <a href="contact.html" style="color:var(--orange);text-decoration:underline;font-weight:600">contact us</a>.</p>
+    <button type="button" onclick="closeDevNotice()" class="btn btn-primary" data-i18n="pg-dev-close">Got it</button>
+  </div>
+</div>
+<script>
+function srDevNotice(){var m=document.getElementById('devNotice');if(m){m.style.display='flex';document.body.style.overflow='hidden';}}
+function closeDevNotice(){var m=document.getElementById('devNotice');if(m){m.style.display='none';document.body.style.overflow='';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDevNotice();});
 </script>
 <script src="nav-session.js"></script>
 </body>
